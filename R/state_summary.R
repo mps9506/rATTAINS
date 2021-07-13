@@ -6,9 +6,12 @@
 #' provided, the service will return the most recent cycle. If a reporting Cycle
 #' is provided, the service will return a summary for the requested cycle.
 #'
-#' @param organization_id character
-#' @param reporting_cycle character
-#' @param ... list of curl options passed to crul::HttpClient()
+#' @param organization_id (character) Organization identifier used by EPA.
+#'   required
+#' @param reporting_cycle (character) 4 digit reporting cycle year. Typically
+#'   even numbered years. Will return reporting data for all years prior to and
+#'   including the reporting cycle by reporting cycle. optional
+#' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return tibble
 #' @importFrom dplyr select

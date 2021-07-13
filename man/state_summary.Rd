@@ -7,11 +7,14 @@
 state_summary(organization_id, reporting_cycle = NULL, ...)
 }
 \arguments{
-\item{organization_id}{character}
+\item{organization_id}{(character) Organization identifier used by EPA.
+required}
 
-\item{reporting_cycle}{character}
+\item{reporting_cycle}{(character) 4 digit reporting cycle year. Typically
+even numbered years. Will return reporting data for all years prior to and
+including the reporting cycle by reporting cycle. optional}
 
-\item{...}{list of curl options passed to crul::HttpClient()}
+\item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
 tibble

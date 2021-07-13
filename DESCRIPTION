@@ -19,6 +19,7 @@ Imports:
     fauxpas,
     janitor,
     jsonlite,
+    magrittr,
     rlang,
     tibble,
     tidyr
