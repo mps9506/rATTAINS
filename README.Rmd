@@ -1,0 +1,34 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# rATTAINS
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Work in progress, probably don't use.
+
+
+```{r}
+library(rATTAINS)
+df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020")
+str(df)
+```
+
+```{r}
+df <- huc12_summary(huc = "020700100204")
+str(df)
+```
+
