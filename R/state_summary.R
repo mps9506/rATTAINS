@@ -11,11 +11,15 @@
 #' @param ... list of curl options passed to crul::HttpClient()
 #'
 #' @return tibble
+#' @importFrom dplyr select
+#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
+#' @importFrom rlang is_empty
 #' @importFrom tibble as_tibble
+#' @importFrom tidyr unnest_longer unnest_wider
 #' @export
 #'
-dl_state_summary <- function(organization_id,
+state_summary <- function(organization_id,
                              reporting_cycle = NULL,
                              ...) {
   ## this logic doesn't work for building url
@@ -25,7 +29,6 @@ dl_state_summary <- function(organization_id,
   if(!is.character(organization_id)) {
     stop("organization_id must be character")
   }
-
   args = list(organizationId = organization_id)
 
   # Check that reporting cycle is character or NULL
@@ -33,17 +36,39 @@ dl_state_summary <- function(organization_id,
     if(!is.null(reporting_cycle)) {
       stop("organization_id must be character or NULL")
     }
-
     args = list(organizationId = organization_id,
                 reportingCycle = reporting_cycle)
-  }
+    }
 
   path = "attains-public/api/usesStateSummary"
 
   content <- xGET(path, args, ...)
 
   ## parse the returned json
-  content <- jsonlite::fromJSON(content)
+  content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
+
+  ## grab any messages, I haven't gotten any messages so not sure this is needed
+  if (is_empty(content$messages)) {
+    messages <- NULL
+  } else {
+    messages <- content$messages
+    # add to dataframe attr I think...
+  }
+
+  ## return a flat tidy dataframe
+  content <- content$data %>%
+    as_tibble() %>%
+    unnest_wider(reportingCycles) %>%
+    unnest_longer(waterTypes) %>%
+    unnest_wider(waterTypes) %>%
+    unnest_longer(useAttainments) %>%
+    unnest_wider(useAttainments) %>%
+    select(organizationIdentifier, organizationName, organizationTypeText,
+           reportingCycle, waterTypeCode, unitsCode, useName,
+           parameters) %>%
+    unnest_longer(parameters) %>%
+    unnest_wider(parameters) %>%
+    clean_names()
 
   return(content)
 }
