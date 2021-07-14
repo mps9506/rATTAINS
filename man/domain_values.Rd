@@ -4,7 +4,7 @@
 \alias{domain_values}
 \title{Download Domain Values}
 \usage{
-domain_values(domain_name = NULL, context = NULL)
+domain_values(domain_name = NULL, context = NULL, ...)
 }
 \arguments{
 \item{domain_name}{(character)}

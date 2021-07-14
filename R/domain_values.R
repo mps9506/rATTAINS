@@ -6,7 +6,8 @@
 #' @return
 #' @export
 domain_values <- function(domain_name = NULL,
-                          context = NULL) {
+                          context = NULL,
+                          ...) {
 
   # Check that organization_id is character
   if(is.null(domain_name)) {
@@ -17,7 +18,7 @@ domain_values <- function(domain_name = NULL,
       stop("domain_name must be character")
     } else {
       if(is.null(context)) {
-        args = list(domain_name = domain_name)
+        args = list(domainName = domain_name)
       } else {
         if(!is.character(context)) {
           stop("context must be character")
@@ -29,12 +30,21 @@ domain_values <- function(domain_name = NULL,
     }
   }
 
+
   path = "attains-public/api/domains"
 
   content <- xGET(path, args, ...)
 
   ## parse the returned json
   content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
+
+  content <- content %>%
+    tibble::enframe() %>%
+    rename(id = name) %>%
+    unnest_wider(value) %>%
+    select(-id) %>%
+    janitor::clean_names()
+
 
   return(content)
 
