@@ -2,6 +2,7 @@
 #'
 #' @param domain_name (character)
 #' @param context (character)
+#' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return
 #' @export

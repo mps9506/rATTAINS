@@ -10,6 +10,8 @@ domain_values(domain_name = NULL, context = NULL, ...)
 \item{domain_name}{(character)}
 
 \item{context}{(character)}
+
+\item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
 

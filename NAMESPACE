@@ -2,6 +2,7 @@
 
 export("%>%")
 export(assessment_units)
+export(assessments)
 export(domain_values)
 export(errs)
 export(huc12_summary)

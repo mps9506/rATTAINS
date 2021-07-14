@@ -11,9 +11,11 @@
 #' @param last_change_earlier_than_date (character) yyyy-mm-dd
 #' @param status_indicator (character) "A" for active, "R" for retired. optional
 #' @param return_count_only (character) "Y" for yes, "N" for no. Defaults to "N". optional
+#' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return
 #' @export
+#' @importFrom dplyr select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
@@ -62,12 +64,15 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   content <- content$items %>%
     enframe() %>%
+    select(-name) %>%
     unnest_wider(value) %>%
     unnest_longer(assessmentUnits) %>%
     unnest_wider(assessmentUnits) %>%
     unnest_longer(waterTypes) %>%
     unnest_wider(waterTypes) %>%
     clean_names()
+
+  return(content)
 
 
 }

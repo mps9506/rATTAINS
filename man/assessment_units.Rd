@@ -41,6 +41,8 @@ assessment_units(
 \item{status_indicator}{(character) "A" for active, "R" for retired. optional}
 
 \item{return_count_only}{(character) "Y" for yes, "N" for no. Defaults to "N". optional}
+
+\item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
 
