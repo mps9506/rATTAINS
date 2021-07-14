@@ -10,6 +10,7 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return a list of tibbles
+#' @importFrom janitor cleanNames
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr unnest_wider unnest_longer
@@ -32,33 +33,40 @@ huc12_summary <- function(huc, ...) {
   ## tibble with summary by use
   ## tibble with summary by parameter
   huc_summary <- content[["items"]][[1]][1:14] %>%
-    as_tibble()
+    as_tibble() %>%
+    clean_names()
 
   au_summary <- content[["items"]][[1]][15] %>%
     as_tibble() %>%
-    unnest_wider(assessmentUnits)
+    unnest_wider(assessmentUnits) %>%
+    clean_names()
 
   ir_summary <- content[["items"]][[1]][16] %>%
     as_tibble() %>%
-    unnest_wider(summaryByIRCategory)
+    unnest_wider(summaryByIRCategory) %>%
+    clean_names()
 
   use_summary <- content[["items"]][[1]][18] %>%
     as_tibble() %>%
     unnest_wider(summaryByUse) %>%
     unnest_longer(useAttainmentSummary) %>%
-    unnest_wider(useAttainmentSummary)
+    unnest_wider(useAttainmentSummary) %>%
+    clean_names()
 
   param_summary <- content[["items"]][[1]][19] %>%
     as_tibble() %>%
-    unnest_wider(summaryByParameterImpairments)
+    unnest_wider(summaryByParameterImpairments) %>%
+    clean_names()
 
   res_plan_summary <- content[["items"]][[1]][20]  %>%
     as_tibble() %>%
-    unnest_wider(summaryRestorationPlans)
+    unnest_wider(summaryRestorationPlans) %>%
+    clean_names()
 
   vision_plan_summary <- content[["items"]][[1]][21]  %>%
     as_tibble() %>%
-    unnest_wider(summaryVisionRestorationPlans)
+    unnest_wider(summaryVisionRestorationPlans) %>%
+    clean_names()
 
   content <- list(huc_summary = huc_summary,
                   au_summary = au_summary,
