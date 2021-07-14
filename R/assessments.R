@@ -106,7 +106,8 @@ assessments_to_tibble <- function(content,
         unnest_longer(.data$documents) %>%
         unnest_wider(.data$documents) %>%
         unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes)
+        unnest_wider(.data$documentTypes) %>%
+        janitor::clean_names()
       return(content)
     } else {
       content$items %>%
@@ -117,7 +118,8 @@ assessments_to_tibble <- function(content,
         unnest_longer(.data$documents) %>%
         unnest_wider(.data$documents) %>%
         unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes) -> content_docs
+        unnest_wider(.data$documentTypes) %>%
+        janitor::clean_names() -> content_docs
 
       content$items %>%
         tibble::enframe() %>%
@@ -128,7 +130,8 @@ assessments_to_tibble <- function(content,
         unnest_wider(.data$assessments) %>%
         select(!c(.data$agencyCode, .data$parameters, .data$probableSources)) %>%
         unnest_longer(.data$useAttainments) %>%
-        unnest_wider(.data$useAttainments) -> content_use_assessment
+        unnest_wider(.data$useAttainments) %>%
+        janitor::clean_names() -> content_use_assessment
 
       content$items %>%
         tibble::enframe() %>%
@@ -145,7 +148,8 @@ assessments_to_tibble <- function(content,
         unnest_wider(.data$impairedWatersInformation) %>%
         unnest_longer(.data$associatedActions) %>%
         unnest_wider(.data$associatedActions) %>%
-        unnest_wider(.data$listingInformation) -> content_parameter_assessment
+        unnest_wider(.data$listingInformation) %>%
+        janitor::clean_names() -> content_parameter_assessment
 
       content$items %>%
         tibble::enframe() %>%
@@ -158,7 +162,8 @@ assessments_to_tibble <- function(content,
         unnest_longer(.data$probableSources) %>%
         unnest_wider(.data$probableSources) %>%
         unnest_longer(.data$associatedCauseNames) %>%
-        unnest_wider(.data$associatedCauseNames) -> content_causes_assessment
+        unnest_wider(.data$associatedCauseNames) %>%
+        janitor::clean_names() -> content_causes_assessment
 
       return(list(documents = content_docs,
                   use_assessment = content_use_assessment,

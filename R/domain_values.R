@@ -46,11 +46,11 @@ domain_values <- function(domain_name = NULL,
   content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
 
   content <- content %>%
-    tibble::enframe() %>%
+    enframe() %>%
     rename(id = .data$name) %>%
     unnest_wider(.data$value) %>%
     select(-.data$id) %>%
-    janitor::clean_names()
+    clean_names()
 
 
   return(content)
