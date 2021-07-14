@@ -19,12 +19,12 @@
 #' @param exclude_assessments (logical)
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return
+#' @return tibble
 #' @export
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
-#' @importFrom rlang is_empty
+#' @importFrom rlang is_empty .data
 #' @importFrom tibble enframe
 #' @importFrom tidyr unnest_longer unnest_wider
 #'
@@ -72,7 +72,7 @@ assessments <- function(assessment_unit_id = NULL,
                returnCountOnly = returnCountOnly,
                excludeAssessments = excludeAssessments)
 
-  args <- list.filter(args, !is.null(.))
+  args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
                      "state",
                      "organizationId")
@@ -101,66 +101,64 @@ assessments_to_tibble <- function(content,
     if(isTRUE(exclude_assessments)) {
       content <- content$items %>%
         tibble::enframe() %>%
-        select(!c(name)) %>%
-        unnest_wider(value) %>%
-        unnest_longer(documents) %>%
-        unnest_wider(documents) %>%
-        unnest_longer(documentTypes) %>%
-        unnest_wider(documentTypes)
+        select(!c(.data$name)) %>%
+        unnest_wider(.data$value) %>%
+        unnest_longer(.data$documents) %>%
+        unnest_wider(.data$documents) %>%
+        unnest_longer(.data$documentTypes) %>%
+        unnest_wider(.data$documentTypes)
       return(content)
     } else {
       content$items %>%
         tibble::enframe() %>%
-        select(!c(name)) %>%
-        unnest_wider(value) %>%
-        select(!c(assessments, delistedWaters)) %>%
-        unnest_longer(documents) %>%
-        unnest_wider(documents) %>%
-        unnest_longer(documentTypes) %>%
-        unnest_wider(documentTypes) -> content_docs
+        select(!c(.data$name)) %>%
+        unnest_wider(.data$value) %>%
+        select(!c(.data$assessments, .data$delistedWaters)) %>%
+        unnest_longer(.data$documents) %>%
+        unnest_wider(.data$documents) %>%
+        unnest_longer(.data$documentTypes) %>%
+        unnest_wider(.data$documentTypes) -> content_docs
 
       content$items %>%
         tibble::enframe() %>%
-        select(!c(name)) %>%
-        unnest_wider(value) %>%
-        select(!c(documents, delistedWaters)) %>%
-        unnest_longer(assessments) %>%
-        unnest_wider(assessments) %>%
-        select(!c(agencyCode, parameters, probableSources)) %>%
-        unnest_longer(useAttainments) %>%
-        unnest_wider(useAttainments) -> content_use_assessment
+        select(!c(.data$name)) %>%
+        unnest_wider(.data$value) %>%
+        select(!c(.data$documents, .data$delistedWaters)) %>%
+        unnest_longer(.data$assessments) %>%
+        unnest_wider(.data$assessments) %>%
+        select(!c(.data$agencyCode, .data$parameters, .data$probableSources)) %>%
+        unnest_longer(.data$useAttainments) %>%
+        unnest_wider(.data$useAttainments) -> content_use_assessment
 
       content$items %>%
         tibble::enframe() %>%
-        select(!c(name)) %>%
-        unnest_wider(value) %>%
-        select(!c(documents, delistedWaters)) %>%
-        unnest_longer(assessments) %>%
-        unnest_wider(assessments) %>%
-        select(!c(agencyCode, useAttainments, probableSources)) %>%
-        unnest_longer(parameters) %>%
-        unnest_wider(parameters) %>%
-        unnest_longer(associatedUses) %>%
-        unnest_wider(associatedUses) %>%
-        unnest_wider(impairedWatersInformation) %>%
-        unnest_longer(associatedActions) %>%
-        unnest_wider(associatedActions) %>%
-        unnest_wider(listingInformation) -> content_parameter_assessment
-
-
+        select(!c(.data$name)) %>%
+        unnest_wider(.data$value) %>%
+        select(!c(.data$documents, .data$delistedWaters)) %>%
+        unnest_longer(.data$assessments) %>%
+        unnest_wider(.data$assessments) %>%
+        select(!c(.data$agencyCode, .data$useAttainments, .data$probableSources)) %>%
+        unnest_longer(.data$parameters) %>%
+        unnest_wider(.data$parameters) %>%
+        unnest_longer(.data$associatedUses) %>%
+        unnest_wider(.data$associatedUses) %>%
+        unnest_wider(.data$impairedWatersInformation) %>%
+        unnest_longer(.data$associatedActions) %>%
+        unnest_wider(.data$associatedActions) %>%
+        unnest_wider(.data$listingInformation) -> content_parameter_assessment
 
       content$items %>%
         tibble::enframe() %>%
-        select(!c(name)) %>%
-        unnest_wider(value) %>%
-        select(!c(documents, delistedWaters)) %>%
-        unnest_longer(assessments) %>%
-        unnest_wider(assessments) %>%
-        select(!c(agencyCode, useAttainments, parameters)) %>%
-        unnest_longer(probableSources) %>%
-        unnest_wider(probableSources) %>%
-        unnest_longer(associatedCauseNames) %>%
-        unnest_wider(associatedCauseNames) -> content_causes_assessment
+        select(!c(.data$name)) %>%
+        unnest_wider(.data$value) %>%
+        select(!c(.data$documents, .data$delistedWaters)) %>%
+        unnest_longer(.data$assessments) %>%
+        unnest_wider(.data$assessments) %>%
+        select(!c(.data$agencyCode, .data$useAttainments, .data$parameters)) %>%
+        unnest_longer(.data$probableSources) %>%
+        unnest_wider(.data$probableSources) %>%
+        unnest_longer(.data$associatedCauseNames) %>%
+        unnest_wider(.data$associatedCauseNames) -> content_causes_assessment
 
       return(list(documents = content_docs,
                   use_assessment = content_use_assessment,

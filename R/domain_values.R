@@ -4,8 +4,14 @@
 #' @param context (character)
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return
+#' @return tibble
 #' @export
+#' @importFrom dplyr select rename
+#' @importFrom janitor clean_names
+#' @importFrom jsonlite fromJSON
+#' @importFrom rlang .data
+#' @importFrom tibble enframe
+#' @importFrom tidyr unnest_longer unnest_wider
 domain_values <- function(domain_name = NULL,
                           context = NULL,
                           ...) {
@@ -41,9 +47,9 @@ domain_values <- function(domain_name = NULL,
 
   content <- content %>%
     tibble::enframe() %>%
-    rename(id = name) %>%
-    unnest_wider(value) %>%
-    select(-id) %>%
+    rename(id = .data$name) %>%
+    unnest_wider(.data$value) %>%
+    select(-.data$id) %>%
     janitor::clean_names()
 
 

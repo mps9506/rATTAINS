@@ -45,7 +45,7 @@ assessment_units(
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-
+tibble
 }
 \description{
 Download Assessment Unit Summary

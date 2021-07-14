@@ -14,7 +14,7 @@ domain_values(domain_name = NULL, context = NULL, ...)
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-
+tibble
 }
 \description{
 Download Domain Values

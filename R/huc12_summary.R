@@ -12,6 +12,7 @@
 #' @return a list of tibbles
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
+#' @importFrom rlang .data
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr unnest_wider unnest_longer
 #' @export
@@ -38,34 +39,34 @@ huc12_summary <- function(huc, ...) {
 
   au_summary <- content[["items"]][[1]][15] %>%
     as_tibble() %>%
-    unnest_wider(assessmentUnits) %>%
+    unnest_wider(.data$assessmentUnits) %>%
     clean_names()
 
   ir_summary <- content[["items"]][[1]][16] %>%
     as_tibble() %>%
-    unnest_wider(summaryByIRCategory) %>%
+    unnest_wider(.data$summaryByIRCategory) %>%
     clean_names()
 
   use_summary <- content[["items"]][[1]][18] %>%
     as_tibble() %>%
-    unnest_wider(summaryByUse) %>%
-    unnest_longer(useAttainmentSummary) %>%
-    unnest_wider(useAttainmentSummary) %>%
+    unnest_wider(.data$summaryByUse) %>%
+    unnest_longer(.data$useAttainmentSummary) %>%
+    unnest_wider(.data$useAttainmentSummary) %>%
     clean_names()
 
   param_summary <- content[["items"]][[1]][19] %>%
     as_tibble() %>%
-    unnest_wider(summaryByParameterImpairments) %>%
+    unnest_wider(.data$summaryByParameterImpairments) %>%
     clean_names()
 
   res_plan_summary <- content[["items"]][[1]][20]  %>%
     as_tibble() %>%
-    unnest_wider(summaryRestorationPlans) %>%
+    unnest_wider(.data$summaryRestorationPlans) %>%
     clean_names()
 
   vision_plan_summary <- content[["items"]][[1]][21]  %>%
     as_tibble() %>%
-    unnest_wider(summaryVisionRestorationPlans) %>%
+    unnest_wider(.data$summaryVisionRestorationPlans) %>%
     clean_names()
 
   content <- list(huc_summary = huc_summary,

@@ -17,7 +17,7 @@
 #' @importFrom dplyr select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
-#' @importFrom rlang is_empty
+#' @importFrom rlang is_empty .data
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr unnest_longer unnest_wider
 #' @export
@@ -61,16 +61,16 @@ state_summary <- function(organization_id,
   ## return a flat tidy dataframe
   content <- content$data %>%
     as_tibble() %>%
-    unnest_wider(reportingCycles) %>%
-    unnest_longer(waterTypes) %>%
-    unnest_wider(waterTypes) %>%
-    unnest_longer(useAttainments) %>%
-    unnest_wider(useAttainments) %>%
-    select(organizationIdentifier, organizationName, organizationTypeText,
-           reportingCycle, waterTypeCode, unitsCode, useName,
-           parameters) %>%
-    unnest_longer(parameters) %>%
-    unnest_wider(parameters) %>%
+    unnest_wider(.data$reportingCycles) %>%
+    unnest_longer(.data$waterTypes) %>%
+    unnest_wider(.data$waterTypes) %>%
+    unnest_longer(.data$useAttainments) %>%
+    unnest_wider(.data$useAttainments) %>%
+    select(.data$organizationIdentifier, .data$organizationName, .data$organizationTypeText,
+           .data$reportingCycle, .data$waterTypeCode, .data$unitsCode, .data$useName,
+           .data$parameters) %>%
+    unnest_longer(.data$parameters) %>%
+    unnest_wider(.data$parameters) %>%
     clean_names()
 
   return(content)
