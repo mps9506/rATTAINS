@@ -10,7 +10,7 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return a list of tibbles
-#' @importFrom janitor cleanNames
+#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr unnest_wider unnest_longer
