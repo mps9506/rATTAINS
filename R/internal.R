@@ -7,7 +7,6 @@
 #' @param ... curl options passed to crul::HttpClient
 #'
 #' @return parsed JSON I think.
-#' @export
 #' @importFrom crul HttpClient
 #' @keywords internal
 #' @noRd
@@ -32,7 +31,6 @@ xGET <- function(path, args = list(), ...) {
 #' @param x http request
 #'
 #' @return error message or nothing
-#' @export
 #' @keywords internal
 #' @noRd
 #' @importFrom fauxpas find_error_class
