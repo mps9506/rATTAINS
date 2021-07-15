@@ -20,6 +20,7 @@ Imports:
     janitor,
     jsonlite,
     magrittr,
+    purrr,
     rlang,
     rlist,
     tibble,
