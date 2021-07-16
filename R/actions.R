@@ -24,7 +24,7 @@
 #'
 #' @return tibble
 #' @export
-#' @importFrom dplyr mutate
+#' @importFrom dplyr mutate select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom purrr map possibly
