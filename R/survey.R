@@ -8,6 +8,7 @@
 #' @return a tibble with multiple columns or a tibble with zero columns.
 #' @note Arguments that allow multiple values should be entered as a comma separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
 #' @export
+#' @importFrom checkmate assert_character
 #' @importFrom dplyr select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
@@ -19,6 +20,14 @@
 surveys <- function(organization_id = NULL,
                     survey_year = NULL,
                     ...) {
+
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(organization_id, survey_year),
+         .var.name = c("organization_id", "survey_year"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
 
   args <- list(organizationId = organization_id,
                surveyYear = survey_year)

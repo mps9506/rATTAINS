@@ -1,29 +1,36 @@
-df <- dl_state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2014")
+trash <- function(x = NULL,
+                  y = NULL,
+                  z = NULL) {
+  args <- as.list(environment())
+  aapply(assert_character,
+         ~x + y,
+         null.ok = c(TRUE, TRUE))
 
-tibble::as_tibble(df$data$reportingCycles$waterTypes)
-library(dplyr)
-library(ggplot2)
-library(purrr)
-df[["data"]][["reportingCycles"]]$waterTypes %>%
-  map_chr("waterTypeCode")
-
-
-df <- df[["data"]][["reportingCycles"]]
-
-
-df <- df %>%
-  tidyr::unnest(waterTypes)
-
-df <- df %>%
-  tidyr::unnest(useAttainments)
+  aapply(assert_logical,
+        ~z,
+        null.ok = c(TRUE))
+  return(args)
+}
 
 
-df <- df %>%
-  tidyr::unnest(parameters)
+aapply = function(fun, formula, ..., fixed = list()) {
+  fun = match.fun(fun)
+  terms = terms(formula)
+  vnames = attr(terms, "term.labels")
+  ee = attr(terms, ".Environment")
+
+  dots = list(...)
+  dots$.var.name = vnames
+  dots$x = unname(mget(vnames, envir = ee))
+  .mapply(fun, dots, MoreArgs = fixed)
+
+  invisible(NULL)
+}
 
 
-df %>%
-  dplyr::filter(reportingCycle == "2014") -> df
 
-df %>%
-  dplyr::filter(waterTypeCode == "STREAM") -> df
+trash(x = 1)
+
+
+
+surveys()
