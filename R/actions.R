@@ -24,14 +24,8 @@
 #'
 #' @return tibble
 #' @export
-#' @importFrom dplyr mutate select
-#' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
-#' @importFrom purrr map possibly
 #' @importFrom rlist list.filter
-#' @importFrom rlang is_empty .data
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest_longer unnest_wider
+#' @importFrom rlang is_empty
 actions <- function(action_id = NULL,
                     assessment_unit_id = NULL,
                     state_code = NULL,
@@ -85,9 +79,21 @@ actions <- function(action_id = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: action_id, assessment_unit_id, state_code, or organization_id")
   }
-  path = "attains-public/api/actions"
-  content <- xGET(path, args, ...)
-  content <- fromJSON(content, simplifyVector = FALSE)
+
+  ## setup file cache
+  actions_cache <- hoardr::hoard()
+  path <- "attains-public/api/actions"
+  file <- actions_key(path = path, arg_list = args)
+  actions_cache$cache_path_set(path = file)
+  actions_cache$mkdir()
+
+  ## need to setup logic to check if file exists, skip if it does and read file.
+
+  content <- xGET(path,
+                  args,
+                  file = file.path(actions_cache$cache_path_get(),
+                                               "actions.json"),
+                  ...)
   content <- actions_to_tibble(content,
                                count = returnCountOnly,
                                summarize = summarize)
@@ -96,87 +102,84 @@ actions <- function(action_id = NULL,
 }
 
 
+#' Convert Action JSON to Tibble
+#'
+#' @param content json
+#' @param count logical
+#' @param summarize character
+#' @keywords internal
+#' @export
+#' @import tidyjson
+#' @importFrom dplyr select rename
+#' @importFrom janitor clean_names
+#' @importFrom tibble as_tibble
+#' @importFrom rlang .data
 actions_to_tibble <- function(content,
                   count = FALSE,
                   summarize = FALSE) {
 
   if(isTRUE(count)) {
-    return(content$count)
+    return(content %>%
+             spread_all() %>%
+             select(.data$count) %>%
+             as_tibble() %>%
+             clean_names())
   } else {
-    if(isTRUE(summarize)) {
-      content$items %>%
-        tibble::enframe()  %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        unnest_longer(.data$actions) %>%
-        unnest_wider(.data$actions)  %>%
-        select(-c(.data$agencyCode)) %>%
-        unnest_longer(.data$documents) %>%
-        unnest_wider(.data$documents) %>%
-        unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes) %>%
-        unnest_wider(.data$TMDLReportDetails) %>%
-        unnest_longer(.data$associatedPollutants) %>%
-        unnest_wider(.data$associatedPollutants) %>%
-        select(-c(.data$auCount)) %>%
-        unnest_longer(.data$parameters) %>%
-        unnest_wider(.data$parameters) %>%
-        clean_names()-> content
+    if(summarize == "Y") {
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("actions") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index)) %>%
+        as_tibble() %>%
+        clean_names() -> content
       return(content)
+      } else{
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index)) %>%
+        enter_object("actions") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index)) %>%
+        enter_object("associatedWaters") %>%
+        enter_object("specificWaters") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index)) %>%
+        enter_object("associatedPollutants") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$document.id, .data$array.index)) %>%
+        as_tibble() %>%
+        clean_names() -> content_actions
 
-    } else{
-      content$items %>%
-        tibble::enframe()  %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        unnest_longer(.data$actions) %>%
-        unnest_wider(.data$actions)  %>%
-        select(-c(.data$associatedWaters, .data$agencyCode)) %>%
-        unnest_longer(.data$documents) %>%
-        unnest_wider(.data$documents) %>%
-        unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes) %>%
-        unnest_wider(.data$TMDLReportDetails) %>%
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("actions") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index)) %>%
+        dplyr::rename(agencyCode_1 = .data$agencyCode) %>%
+        enter_object("documents") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index)) %>%
+        enter_object("documentTypes") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index)) %>%
+        as_tibble() %>%
         clean_names()-> content_docs
-
-      content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        unnest_longer(.data$actions) %>%
-        unnest_wider(.data$actions) %>%
-        select(-c(.data$documents, .data$agencyCode)) %>%
-        unnest_wider(.data$associatedWaters) %>%
-        unnest_longer(.data$specificWaters) %>%
-        unnest_wider(.data$specificWaters) %>%
-        unnest_longer(.data$associatedPollutants) %>%
-        unnest_wider(.data$associatedPollutants) %>%
-        mutate(completionDate = as.Date(.data$completionDate)) %>%
-        unnest_longer(.data$loadAllocationDetails) %>%
-        unnest_wider(.data$loadAllocationDetails) %>%
-        mutate(permits = purrr::map(.data$permits,
-                                    ~{
-                                      tibble::enframe(.x) %>%
-                                        select(-c(.data$name)) %>%
-                                        unnest_wider(.data$value) %>%
-                                        q_unnest_l(.data$details) %>%
-                                        q_unnest_w(.data$details)
-                                    })) %>%
-        unnest_longer(.data$parameters) %>%
-        unnest_wider(.data$parameters) %>%
-        select(-c(.data$associatedPollutants)) %>%
-        mutate(sources = purrr::map(.data$sources,
-                                    ~{
-                                      q_unnest_l = purrr::possibly(.f = unnest_longer,
-                                                                   otherwise = NULL)
-                                      q_unnest_w = purrr::possibly(.f = unnest_wider,
-                                                                   otherwise = NULL)
-                                      tibble::enframe(.x) %>%
-                                        select(-c(.data$name)) %>%
-                                        unnest_wider(.data$value)
-                                    })) %>%
-        unnest_wider(.data$TMDLReportDetails) %>%
-        clean_names()-> content_actions
 
       return(list(documents = content_docs,
                   actions = content_actions))
@@ -184,4 +187,12 @@ actions_to_tibble <- function(content,
     }
   }
 
+}
+
+# returns the unique file path for the cached file
+actions_key <- function(path, arg_list) {
+  x <- paste0(arg_list, collapse = "_")
+  x <- file.path(path, x)
+  #x <- paste0(path, "/", x,"/actions.json")
+  return(x)
 }

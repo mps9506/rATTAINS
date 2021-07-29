@@ -4,23 +4,29 @@
 #' Internal function for making http requests.
 #' @param path character
 #' @param args query argument list
+#' @param file character file path to cache file
 #' @param ... curl options passed to crul::HttpClient
 #'
 #' @return parsed JSON I think.
 #' @importFrom crul HttpClient
 #' @keywords internal
 #' @noRd
-xGET <- function(path, args = list(), ...) {
+xGET <- function(path, args = list(), file, ...) {
   url <- "https://attains.epa.gov"
   cli <- crul::HttpClient$new(url,
                               opts = list(...))
   res <- cli$get(path = path,
+                 disk = file,
                  query = args)
 
   errs(res)
 
   content <- res$parse("UTF-8")
-  attr(content, 'url') <- res$url
+  # file.create(file)
+  #cat(content, file = file)
+
+  #attr(content, 'url') <- res$url
+
 
   return(content)
 }

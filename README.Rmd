@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 Work in progress, probably don't use.
 
+rATTAINS provides functions for downloading tidy data from the Environmental Protection Agency (EPA) ATTAINS webservice. ATTAINS is the online system used to track and report Clean Water Act assessments and Total Maximum Daily Loads (TMDLs) in US surface waters. rATTAINS provides access to public information made available through the EPA.
+
 Install from Github
 ```{r eval=FALSE}
 install.packages("remotes")
@@ -29,9 +31,25 @@ remotes::install_github("mps9506/rATTAINS")
 ```
 
 
-examples:
 
-```{r}
+## Functions and webservices
+
+There are eight user available functions that correspond with the first eight web services detailed by [EPA](https://www.epa.gov/sites/default/files/2020-10/documents/attains_how_to_access_web_services_2020-10-28.pdf). All arguments are case sensitive. 
+
+### State Summary
+
+`state_summary()` provides summary information for assessed uses for organizations and by integrated reporting cycle. The only required argument is the `organization_id`.
+
+`huc_12_summary()` provides summary information for a 12-digit HUC (watershed). The only required argument is the 12 digit HUC.
+
+`domain_values()` returns allowed values in ATTAINS. By default (no arguments) the function returns a list of allowed `domain_names`.
+
+`assessment_units()` returns a summary of information about assessment units. 
+
+
+# Examples:
+
+```{r eval=FALSE}
 library(rATTAINS)
 df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020")
 str(df)
@@ -39,7 +57,7 @@ str(df)
 
 
 
-```{r out.width="100%"}
+```{r eval=FALSE, out.width="100%"}
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
@@ -102,7 +120,7 @@ ggplot(plot_df, aes(x = reporting_cycle, y = count, group = use_name)) +
 ```
 
 
-```{r}
+```{r eval=FALSE}
 df <- huc12_summary(huc = "020700100204")
 str(df)
 ```
