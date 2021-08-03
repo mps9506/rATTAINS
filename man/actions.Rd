@@ -23,6 +23,7 @@ actions(
   last_change_later_than_date = NULL,
   last_change_earlier_than_date = NULL,
   return_count_only = FALSE,
+  tidy = TRUE,
   ...
 )
 }
@@ -62,6 +63,8 @@ actions(
 \item{last_change_earlier_than_date}{(character)}
 
 \item{return_count_only}{(logical)}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }

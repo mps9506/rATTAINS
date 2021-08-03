@@ -50,6 +50,16 @@ errs <- function(x) {
 
 
 
+# returns the unique file path for the cached file
+file_key <- function(path, arg_list) {
+  x <- paste0(arg_list, collapse = "_")
+  x <- file.path(path, x)
+  return(x)
+}
+
+
+
+
 #' Loop Assertion
 #'
 #' @param fun function

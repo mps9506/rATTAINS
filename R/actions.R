@@ -20,6 +20,7 @@
 #' @param last_change_later_than_date (character)
 #' @param last_change_earlier_than_date (character)
 #' @param return_count_only (logical)
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return tibble
@@ -44,6 +45,7 @@ actions <- function(action_id = NULL,
                     last_change_later_than_date = NULL,
                     last_change_earlier_than_date = NULL,
                     return_count_only = FALSE,
+                    tidy = TRUE,
                     ...) {
   returnCountOnly <- if(isTRUE(return_count_only)) {
     "Y"
@@ -83,22 +85,38 @@ actions <- function(action_id = NULL,
   ## setup file cache
   actions_cache <- hoardr::hoard()
   path <- "attains-public/api/actions"
-  file <- actions_key(path = path, arg_list = args)
+  file <- file_key(path = path, arg_list = args)
   actions_cache$cache_path_set(path = file)
   actions_cache$mkdir()
 
-  ## need to setup logic to check if file exists, skip if it does and read file.
+  ## check if current results have been cached
+  file_name <- file.path(actions_cache$cache_path_get(),
+                         "actions.json")
 
-  content <- xGET(path,
-                  args,
-                  file = file.path(actions_cache$cache_path_get(),
-                                               "actions.json"),
-                  ...)
-  content <- actions_to_tibble(content,
-                               count = returnCountOnly,
-                               summarize = summarize)
+  if(file.exists(file_name)) {
+    message(paste0("reading cached file from: ", file_name))
+    content <- readLines(file_name, warn = FALSE)
+  }
 
-  return(content)
+  ## download data
+  else {
+    content <- xGET(path,
+                    args,
+                    file = file_name,
+                    ...)
+  }
+
+  ## return raw JSON
+  if(!isTRUE(tidy)) return(content)
+
+  ## parse and tidy JSON
+  else {
+    content <- actions_to_tibble(content,
+                                 count = returnCountOnly,
+                                 summarize = summarize)
+
+    return(content)
+  }
 }
 
 
@@ -187,12 +205,4 @@ actions_to_tibble <- function(content,
     }
   }
 
-}
-
-# returns the unique file path for the cached file
-actions_key <- function(path, arg_list) {
-  x <- paste0(arg_list, collapse = "_")
-  x <- file.path(path, x)
-  #x <- paste0(path, "/", x,"/actions.json")
-  return(x)
 }
