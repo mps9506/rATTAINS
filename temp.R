@@ -1,14 +1,15 @@
 library(rATTAINS)
 ## errors
-x<- actions(state_code = "AL", summarize = TRUE)
+x<- assessment_units(state_code = "TX")
 
-
-#this works :eyeroll:
-x <- actions(organization_id = "TCEQMAIN")
+x<- assessment_units(state_code = "AL")
 
 
 library(tidyjson)
-
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(purrr)
 
 x %>%
   spread_all()
@@ -26,66 +27,72 @@ x %>%
 
 
 x %>%
-  json_schema() -> actions_schema
+  json_schema() -> schema
 
-## returns data for actions by assessment unit and pollutant
+## need locations and water types, but locations dropped in the TX example since empty
+## possible solution: https://github.com/colearendt/tidyjson/issues/117#issuecomment-650865347
+## https://stackoverflow.com/questions/56662340/how-to-deal-with-nested-empty-json-arrays-with-tidyjson-in-r
 x %>%
   enter_object(items) %>%
   gather_array() %>%
   spread_all() %>%
-  select(-array.index) %>%
-  enter_object(actions) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-array.index) %>%
-  enter_object(associatedWaters) %>%
-  enter_object(specificWaters) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-array.index) %>%
-  enter_object(associatedPollutants) %>%
+  select(-c(document.id,array.index)) %>%
+  enter_object(assessmentUnits) %>%
   gather_array() %>%
   spread_all(recursive = TRUE) %>%
-  select(-c(document.id, array.index)) %>%
-  as_tibble()-> temp
+  select(-array.index) %>%
+  ## this is slow as heck
+  ## but not sure how to consistently return empty lists
+  ## without errors.
+  mutate(
+    locations = purrr::map(..JSON, ~{
+      .x[["locations"]] %>% {
+        tibble(
+          locationTypeCode = map(., "locationTypeCode"),
+          locationText = map(., "locationText")
+          )} %>%
+        janitor::clean_names()
+      }),
+    waterTypes = purrr::map(..JSON, ~{
+      .x[["waterTypes"]] %>% {
+        tibble(
+          waterTypeCode = map(., "waterTypeCode"),
+          waterSizeNumber = map(., "waterSizeNumber"),
+          unitsCode = map(., "unitsCode"),
+          sizeEstimationMethod = map(., "SizeEstimationMethod"),
+          sizeSourceText = map(., "sizeSourceText"),
+          sizeSourceScaleText = map(., "sizeSourceScaleText")
+        )} %>%
+        janitor::clean_names()
+    })
+    ) -> temp2
 
-## returns information about documents associated with returned actions
-x %>%
-  enter_object(items) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-c(array.index, document.id)) %>%
-  enter_object(actions) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-c(array.index)) %>%
-  dplyr::rename(agencyCode_1 = agencyCode) %>%
-  enter_object(documents) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-c(array.index)) %>%
-  enter_object(documentTypes) %>%
-  gather_array() %>%
-  spread_all(recursive = TRUE) %>%
-  select(-c(array.index)) %>%
-  as_tibble()-> temp
-  # gather_keys() %>%
-  # select(key)
 
-## returns the count of unique actions
-x %>%
-  spread_all() %>%
-  select(count) %>%
-  as_tibble()
 
-## if summarise is true returns the count of assessment units for the action
-x %>%
-  enter_object(items) %>%
-  gather_array() %>%
-  spread_all() %>%
-  select(-c(array.index, document.id)) %>%
-  enter_object(actions) %>%
-  gather_array() %>%
-  spread_all(recursive = TRUE) %>%
-  select(-c(array.index)) %>%
-  as_tibble()-> temp
+
+
+jsonlite::fromJSON(x, simplifyVector = FALSE)$items %>%
+    enframe() %>%
+    select(-.data$name) %>%
+    unnest_wider(.data$value, simplify = FALSE) %>%
+    unnest_longer(.data$assessmentUnits, simplify = FALSE) %>%
+    unnest_wider(.data$assessmentUnits, simplify = FALSE) %>%
+    unnest_longer(.data$waterTypes) %>%
+    unnest_wider(.data$waterTypes)
+
+
+parsed_x <- jsonlite::fromJSON(x, simplifyVector = FALSE)$items
+
+## https://stackoverflow.com/questions/63786411/how-to-unnest-wider-with-loop-over-all-the-columns-containing-lists
+
+parsed_x %>%
+  enframe() %>%
+  select(-.data$name) %>%
+  unnest_wider(.data$value) %>%
+  unnest_longer(.data$assessmentUnits, simplify = FALSE) %>%
+  unnest_wider(.data$assessmentUnits, simplify = FALSE) %>%
+  purrr::keep(is.list) %>%
+  purrr::discard(~any(purrr::map_lgl(., is_empty))) %>%
+  names() -> names
+
+

@@ -11,17 +11,18 @@
 #' @param last_change_earlier_than_date (character) yyyy-mm-dd
 #' @param status_indicator (character) "A" for active, "R" for retired. optional
 #' @param return_count_only (character) "Y" for yes, "N" for no. Defaults to "N". optional
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return tibble
+#' @return When \code{tidy = TRUE} a tibble with many variables, some nested, is returned. When \code{tidy=FALSE} a raw JSON string is returned.
 #' @export
-#' @importFrom dplyr select
+#' @import tidyjson
+#' @importFrom dplyr mutate select
 #' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
+#' @importFrom purrr map
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest_longer unnest_wider
+#' @importFrom tibble tibble as_tibble
 #'
 assessment_units <- function(assessment_unit_identifer = NULL,
                              state_code = NULL,
@@ -34,9 +35,9 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                              last_change_earlier_than_date = NULL,
                              status_indicator = NULL,
                              return_count_only = NULL,
+                             tidy = TRUE,
                              ...) {
 
-  #args <- as.list(environment())
   args <- list(assessmentUnitIdentifier = assessment_unit_identifer,
                   stateCode = state_code,
                   organizationId = organization_id,
@@ -56,23 +57,59 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
   }
+
+  ## setup file cache
+  au_cache <- hoardr::hoard()
   path = "attains-public/api/assessmentUnits"
-  content <- xGET(path, args, ...)
+  file <- actions_key(path = path, arg_list = args)
+  au_cache$cache_path_set(path = file)
+  au_cache$mkdir()
 
-  ## parse the returned json
-  content <- fromJSON(content, simplifyVector = FALSE)
+  content <- xGET(path,
+                  args,
+                  file = file.path(au_cache$cache_path_get(),
+                                   "assessmentUnits.json"),
+                  ...)
+  if (!isTRUE(tidy)) return(content)
 
-  content <- content$items %>%
-    enframe() %>%
-    select(-.data$name) %>%
-    unnest_wider(.data$value) %>%
-    unnest_longer(.data$assessmentUnits) %>%
-    unnest_wider(.data$assessmentUnits) %>%
-    unnest_longer(.data$waterTypes) %>%
-    unnest_wider(.data$waterTypes) %>%
-    clean_names()
+  else {
+    content <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$document.id, .data$array.index)) %>%
+      enter_object("assessmentUnits") %>%
+      gather_array() %>%
+      spread_all(recursive = TRUE) %>%
+      select(-c(.data$array.index)) %>%
+      ## this is slow as heck
+      ## but not sure how else to consistently return empty lists
+      ## without errors.
+      mutate(
+        locations = map(.data$..JSON, ~{
+          .x[["locations"]] %>% {
+            tibble(
+              locationTypeCode = map(., "locationTypeCode"),
+              locationText = map(., "locationText")
+            )} %>%
+            clean_names()
+        }),
+        waterTypes = map(.data$..JSON, ~{
+          .x[["waterTypes"]] %>% {
+            tibble(
+              waterTypeCode = map(., "waterTypeCode"),
+              waterSizeNumber = map(., "waterSizeNumber"),
+              unitsCode = map(., "unitsCode"),
+              sizeEstimationMethod = map(., "SizeEstimationMethod"),
+              sizeSourceText = map(., "sizeSourceText"),
+              sizeSourceScaleText = map(., "sizeSourceScaleText")
+            )} %>%
+            clean_names()
+        })
+      ) %>%
+      as_tibble() %>%
+      clean_names()
 
-  return(content)
-
-
+    return(content)
+  }
 }

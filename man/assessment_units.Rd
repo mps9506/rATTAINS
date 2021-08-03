@@ -16,6 +16,7 @@ assessment_units(
   last_change_earlier_than_date = NULL,
   status_indicator = NULL,
   return_count_only = NULL,
+  tidy = TRUE,
   ...
 )
 }
@@ -42,10 +43,12 @@ assessment_units(
 
 \item{return_count_only}{(character) "Y" for yes, "N" for no. Defaults to "N". optional}
 
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble
+When \code{tidy = TRUE} a tibble with many variables, some nested, is returned. When \code{tidy=FALSE} a raw JSON string is returned.
 }
 \description{
 Download Assessment Unit Summary
