@@ -4,12 +4,14 @@
 \alias{surveys}
 \title{Download State Survey Results}
 \usage{
-surveys(organization_id = NULL, survey_year = NULL, ...)
+surveys(organization_id = NULL, survey_year = NULL, tidy = TRUE, ...)
 }
 \arguments{
 \item{organization_id}{(character) - Filters the list to only those “belonging to” one of the specified organizations. Multiple values may be specified. required}
 
 \item{survey_year}{(character) Filters the list to the year the survey was performed. optional.}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }

@@ -4,7 +4,7 @@
 \alias{plans}
 \title{Download Plans and Actions by HUC}
 \usage{
-plans(huc = NULL, organization_id = NULL, summarize = FALSE, ...)
+plans(huc = NULL, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
 }
 \arguments{
 \item{huc}{(character) 8-digit or higher HUC. required}
@@ -12,6 +12,8 @@ plans(huc = NULL, organization_id = NULL, summarize = FALSE, ...)
 \item{organization_id}{(character). optional}
 
 \item{summarize}{(logical)}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
