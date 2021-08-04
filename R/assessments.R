@@ -101,7 +101,10 @@ assessments <- function(assessment_unit_id = NULL,
 
   ## download data
   else{
-    content <- xGET(path, args, ...)
+    content <- xGET(path,
+                    args,
+                    file = file_name,
+                    ...)
     ## parse the returned json
     content <- fromJSON(content, simplifyVector = FALSE)
 
