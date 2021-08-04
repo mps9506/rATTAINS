@@ -4,12 +4,14 @@
 \alias{domain_values}
 \title{Download Domain Values}
 \usage{
-domain_values(domain_name = NULL, context = NULL, ...)
+domain_values(domain_name = NULL, context = NULL, tidy = TRUE, ...)
 }
 \arguments{
 \item{domain_name}{(character)}
 
 \item{context}{(character)}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }

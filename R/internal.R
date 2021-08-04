@@ -52,7 +52,11 @@ errs <- function(x) {
 
 # returns the unique file path for the cached file
 file_key <- function(path, arg_list) {
-  x <- paste0(arg_list, collapse = "_")
+  if(length(arg_list) >= 1) {
+    x <- paste0(arg_list, collapse = "_")
+  } else {
+    x <- ("_")
+  }
   x <- file.path(path, x)
   return(x)
 }
