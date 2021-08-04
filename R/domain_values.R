@@ -60,11 +60,11 @@ domain_values <- function(domain_name = NULL,
                     file = file_name,
                     ...)
     }
-    ## parse the returned json
-    content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
-    if(!isTRUE(tidy)) {
-      return(content)
+  if(!isTRUE(tidy)) {
+    return(content)
     } else {
+      ## parse the returned json
+      content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
       content <- content %>%
         enframe() %>%
         rename(id = .data$name) %>%
