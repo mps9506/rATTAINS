@@ -17,6 +17,7 @@
 #' @param last_change_earlier_than_date (character)
 #' @param return_count_only (logical)
 #' @param exclude_assessments (logical)
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return tibble
@@ -45,6 +46,7 @@ assessments <- function(assessment_unit_id = NULL,
                         last_change_earlier_than_date = NULL,
                         return_count_only = FALSE,
                         exclude_assessments = FALSE,
+                        tidy = TRUE,
                         ...) {
 
   returnCountOnly <- if(isTRUE(return_count_only)) {
@@ -80,16 +82,35 @@ assessments <- function(assessment_unit_id = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
   }
+
+  ##setup file cache
+  assessments_cache <- hoardr::hoard()
   path = "attains-public/api/assessments"
-  content <- xGET(path, args, ...)
-  ## parse the returned json
-  content <- fromJSON(content, simplifyVector = FALSE)
+  file <- file_key(path = path, arg_list = args)
+  asessments_cache$cache_path_set(path = file)
+  assessments_cache$mkdir()
 
-  content <- assessments_to_tibble(content,
-                                   count = return_count_only,
-                                   exclude_assessments = exclude_assessments)
+  ## check if current results have been cached
+  file_name <- file.path(assessments_cache$cache_path_get(),
+                         "assessments.json")
 
-  return(content)
+  if(file.exists(file_name)) {
+    message(paste0("reading cached file from: ", file_name))
+    content <- readLines(file_name, warn = FALSE)
+  }
+
+  ## download data
+  else{
+    content <- xGET(path, args, ...)
+    ## parse the returned json
+    content <- fromJSON(content, simplifyVector = FALSE)
+
+    content <- assessments_to_tibble(content,
+                                     count = return_count_only,
+                                     exclude_assessments = exclude_assessments)
+
+    return(content)
+  }
 }
 
 assessments_to_tibble <- function(content,

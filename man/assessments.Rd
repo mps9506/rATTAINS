@@ -22,6 +22,7 @@ assessments(
   last_change_earlier_than_date = NULL,
   return_count_only = FALSE,
   exclude_assessments = FALSE,
+  tidy = TRUE,
   ...
 )
 }
@@ -59,6 +60,8 @@ assessments(
 \item{return_count_only}{(logical)}
 
 \item{exclude_assessments}{(logical)}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
