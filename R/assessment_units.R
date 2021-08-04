@@ -60,7 +60,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   ## setup file cache
   au_cache <- hoardr::hoard()
-  path = "attains-public/api/assessmentUnits"
+  path <- "attains-public/api/assessmentUnits"
   file <- file_key(path = path, arg_list = args)
   au_cache$cache_path_set(path = file)
   au_cache$mkdir()

@@ -87,7 +87,7 @@ assessments <- function(assessment_unit_id = NULL,
   assessments_cache <- hoardr::hoard()
   path = "attains-public/api/assessments"
   file <- file_key(path = path, arg_list = args)
-  asessments_cache$cache_path_set(path = file)
+  assessments_cache$cache_path_set(path = file)
   assessments_cache$mkdir()
 
   ## check if current results have been cached
