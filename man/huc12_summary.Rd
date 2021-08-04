@@ -4,10 +4,12 @@
 \alias{huc12_summary}
 \title{Download HUC12 Summary}
 \usage{
-huc12_summary(huc, ...)
+huc12_summary(huc, tidy = TRUE, ...)
 }
 \arguments{
 \item{huc}{(character) 12-digit hydrologic unit code. required}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
