@@ -4,6 +4,8 @@
 # rATTAINS
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mps9506/rATTAINS/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/rATTAINS/actions)
 <!-- badges: end -->
 
 Work in progress, probably don’t use.
