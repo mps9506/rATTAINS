@@ -86,23 +86,24 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   }
 
   ## setup file cache
-  au_cache <- hoardr::hoard()
   path <- "attains-public/api/assessmentUnits"
-  file <- file_key(path = path, arg_list = args)
-  au_cache$cache_path_set(path = file)
+  cache_path <- fs::path("attains-public", "api", "assessmentUnits")
+  au_cache$cache_path_set(path = cache_path)
   au_cache$mkdir()
 
   ## check if current results have been cached
-  file_name <- file.path(au_cache$cache_path_get(),
-                         "assessmentUnits.json")
+  file_cache_name <- file_key(arg_list = args,
+                              name = "assessmentUnits.json")
+  file_path_name <- fs::path(au_cache$cache_path_get(),
+                             file_cache_name)
 
-  if(file.exists(file_name)) {
-    message(paste0("reading cached file from: ", file_name))
-    content <- readLines(file_name, warn = FALSE)
+  if(file.exists(file_path_name)) {
+    message(paste0("reading cached file from: ", file_path_name))
+    content <- readLines(file_path_name, warn = FALSE)
   } else {
     content <- xGET(path,
                     args,
-                    file = file_name,
+                    file = file_path_name,
                     ...)
   }
 
