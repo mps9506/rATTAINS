@@ -4,7 +4,7 @@
 \alias{plans}
 \title{Download Plans and Actions by HUC}
 \usage{
-plans(huc = NULL, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
+plans(huc, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
 }
 \arguments{
 \item{huc}{(character) 8-digit or higher HUC. required}

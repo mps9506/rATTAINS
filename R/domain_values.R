@@ -7,6 +7,7 @@
 #'
 #' @return tibble
 #' @export
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select rename
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
@@ -18,26 +19,33 @@ domain_values <- function(domain_name = NULL,
                           tidy = TRUE,
                           ...) {
 
-  # Check that organization_id is character
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(domain_name, context),
+         .var.name = c("domain_name", "context"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(tidy),
+         .var.name = c("tidy"),
+         MoreArgs = list(null.ok = FALSE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+
+  # Check that domain_name is specified if context is used
   if(is.null(domain_name)) {
     if(!is.null(context)) stop("If the context argument is used, the domain_name argument must also be used")
-    args = list()
-  } else {
-    if(!is.character(domain_name)){
-      stop("domain_name must be character")
-    } else {
-      if(is.null(context)) {
-        args = list(domainName = domain_name)
-      } else {
-        if(!is.character(context)) {
-          stop("context must be character")
-        } else {
-          args = list(domainName = domain_name,
-                      context = context)
-        }
-      }
-    }
   }
+
+  args <- list(domainName = domain_name,
+               context = context)
+  args <- list.filter(args, !is.null(.data))
 
   ##setup file cache
   dv_cache <- hoardr::hoard()

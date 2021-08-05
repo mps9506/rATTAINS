@@ -9,7 +9,7 @@
 #' @return a tibble with multiple columns or a tibble with zero columns.
 #' @note Arguments that allow multiple values should be entered as a comma separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
 #' @export
-#' @importFrom checkmate assert_character
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
@@ -23,6 +23,7 @@ surveys <- function(organization_id = NULL,
                     tidy = TRUE,
                     ...) {
 
+  ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
          x = list(organization_id, survey_year),
@@ -31,6 +32,16 @@ surveys <- function(organization_id = NULL,
                          add = coll))
   checkmate::reportAssertions(coll)
 
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(tidy),
+         .var.name = c("tidy"),
+         MoreArgs = list(null.ok = FALSE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check that required args are present
   args <- list(organizationId = organization_id,
                surveyYear = survey_year)
   args <- list.filter(args, !is.null(.data))
@@ -39,6 +50,7 @@ surveys <- function(organization_id = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: organization_id")
   }
+
   ## setup file cache
   surveys_cache <- hoardr::hoard()
   path = "attains-public/api/surveys"

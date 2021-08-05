@@ -25,6 +25,7 @@
 #'
 #' @return tibble
 #' @export
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty
 actions <- function(action_id = NULL,
@@ -47,6 +48,38 @@ actions <- function(action_id = NULL,
                     return_count_only = FALSE,
                     tidy = TRUE,
                     ...) {
+
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(action_id, assessment_unit_id, state_code,
+                  organization_id, parameter_name, pollutant_name,
+                  action_type_code, agency_code, pollutant_source_code,
+                  action_status_code, completion_date_later_than,
+                  completion_date_earlier_than, tmdl_date_later_than,
+                  tmdl_date_earlier_then, last_change_earlier_than_date,
+                  last_change_later_than_date),
+         .var.name = c("action_id","assessment_unit_id", "state_code",
+                       "organization_id", "parameter_name", "pollutant_name",
+                       "action_type_code", "agency_code", "pollutant_source_code",
+                       "action_status_code", "completion_date_later_than",
+                       "completion_date_earlier_than", "tmdl_date_later_than",
+                       "tmdl_date_earlier_then", "last_change_earlier_than_date",
+                       "last_change_later_than_date"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(summarize, tidy),
+         .var.name = c("summarize", "tidy"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## change logical aguments to "Y" or "N" for webservice
   returnCountOnly <- if(isTRUE(return_count_only)) {
     "Y"
   } else {"N"}
@@ -54,6 +87,7 @@ actions <- function(action_id = NULL,
     "Y"
   } else {"N"}
 
+  ## check required args are present
   args <- list(actionIdentifier = action_id,
                assessmentUnitIdentifier = assessment_unit_id,
                stateCode = state_code,

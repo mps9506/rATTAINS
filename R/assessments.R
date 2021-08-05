@@ -22,6 +22,7 @@
 #'
 #' @return tibble
 #' @export
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
@@ -48,6 +49,32 @@ assessments <- function(assessment_unit_id = NULL,
                         exclude_assessments = FALSE,
                         tidy = TRUE,
                         ...) {
+
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(assessment_unit_id, state_code, organization_id,
+                  reporting_cycle, use, use_support, parameter,
+                  parameter_status_name, probable_source, agency_code,
+                  ir_category, state_ir_category_code, multicategory_search,
+                  last_change_later_than_date, last_change_earlier_than_date),
+         .var.name = c("assessment_unit_id", "state_code", "organization_id",
+                       "reporting_cycle", "use", "use_support", "parameter",
+                       "parameter_status_name", "probable_source", "agency_code",
+                       "ir_category", "state_ir_category_code", "multicategory_search",
+                       "last_change_later_than_date", "last_change_earlier_than_date"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(return_count_only, exclude_assessments, tidy),
+         .var.name = c("return_count_only", "exclude_assessments", "tidy"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
 
   returnCountOnly <- if(isTRUE(return_count_only)) {
     "Y"

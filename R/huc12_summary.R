@@ -11,6 +11,7 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return a list of tibbles
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlang .data
@@ -19,7 +20,24 @@
 #' @export
 huc12_summary <- function(huc, tidy = TRUE, ...) {
 
-  ## still need to check that huc is a 12-digit character
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(huc),
+         .var.name = c("huc"),
+         MoreArgs = list(null.ok = FALSE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(tidy),
+         .var.name = c("tidy"),
+         MoreArgs = list(null.ok = FALSE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
   args <- list(huc = huc)
 
   ##setup file cache

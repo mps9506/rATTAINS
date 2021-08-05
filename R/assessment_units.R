@@ -17,6 +17,7 @@
 #' @return When \code{tidy = TRUE} a tibble with many variables, some nested, is returned. When \code{tidy=FALSE} a raw JSON string is returned.
 #' @export
 #' @import tidyjson
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr mutate select
 #' @importFrom janitor clean_names
 #' @importFrom purrr map
@@ -38,6 +39,32 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                              tidy = TRUE,
                              ...) {
 
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(assessment_unit_identifer, state_code, organization_id,
+                  epa_region, huc, county, assessment_unit_name,
+                  last_change_later_than_date, last_change_earlier_than_date,
+                  status_indicator, return_count_only),
+         .var.name = c("assessment_unit_identifer", "state_code",
+                       "organization_id", "epa_region", "huc, county",
+                       "assessment_unit_name", "last_change_later_than_date",
+                       "last_change_earlier_than_date", "status_indicator",
+                       "return_count_only"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(tidy),
+         .var.name = c("tidy"),
+         MoreArgs = list(null.ok = FALSE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check that required args are present
   args <- list(assessmentUnitIdentifier = assessment_unit_identifer,
                   stateCode = state_code,
                   organizationId = organization_id,
@@ -72,18 +99,16 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   if(file.exists(file_name)) {
     message(paste0("reading cached file from: ", file_name))
     content <- readLines(file_name, warn = FALSE)
-  }
-
-  else{
+  } else {
     content <- xGET(path,
                     args,
                     file = file_name,
                     ...)
   }
 
-  if (!isTRUE(tidy)) return(content)
-
-  else {
+  if (!isTRUE(tidy)) {
+    return(content)
+  } else {
     content <- content %>%
       enter_object("items") %>%
       gather_array() %>%

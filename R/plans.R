@@ -7,12 +7,31 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return tibble
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @export
-plans <- function(huc = NULL,
+plans <- function(huc,
                   organization_id = NULL,
                   summarize = FALSE,
                   tidy = TRUE,
                   ...) {
+
+  ## check that arguments are character
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_character,
+         x = list(huc, organization_id),
+         .var.name = c("huc", "organization_id"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(summarize, tidy),
+         .var.name = c("summarize", "tidy"),
+         MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
 
   summarize <- if(isTRUE(summarize)) {
     "Y"

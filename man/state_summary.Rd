@@ -4,7 +4,7 @@
 \alias{state_summary}
 \title{Download State Summaries}
 \usage{
-state_summary(organization_id, reporting_cycle = NULL, ...)
+state_summary(organization_id, reporting_cycle = NULL, tidy = TRUE, ...)
 }
 \arguments{
 \item{organization_id}{(character) Organization identifier used by EPA.
@@ -13,6 +13,8 @@ required}
 \item{reporting_cycle}{(character) 4 digit reporting cycle year. Typically
 even numbered years. Will return reporting data for all years prior to and
 including the reporting cycle by reporting cycle. optional}
+
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
