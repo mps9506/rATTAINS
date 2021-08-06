@@ -12,6 +12,7 @@
 #'
 #' @return a list of tibbles
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom fs path
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlang .data
@@ -41,22 +42,22 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   args <- list(huc = huc)
 
   ##setup file cache
-  huc12_cache <- hoardr::hoard()
   path = "attains-public/api/huc12summary"
-  file <- file_key(path = path, arg_list = args)
-  huc12_cache$cache_path_set(path = file)
   huc12_cache$mkdir()
 
   ## check if current results have been cached
-  file_name <- file.path(huc12_cache$cache_path_get(),
-                         "huc12.json")
-  if(file.exists(file_name)) {
-    message(paste0("reading cached file from: ", file_name))
-    content <- readLines(file_name, warn = FALSE)
+  file_cache_name <- file_key(arg_list = args,
+                              name = "huc12.json")
+  file_path_name <- fs::path(huc12_cache$cache_path_get(),
+                             file_cache_name)
+
+  if(file.exists(file_path_name)) {
+    message(paste0("reading cached file from: ", file_path_name))
+    content <- readLines(file_path_name, warn = FALSE)
   } else {## download data
     content <- xGET(path,
                     args,
-                    file = file_name,
+                    file = file_path_name,
                     ...)
   }
   if(!isTRUE(tidy)) {

@@ -19,6 +19,7 @@
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr mutate select
+#' @importFrom fs path
 #' @importFrom janitor clean_names
 #' @importFrom purrr map
 #' @importFrom rlist list.filter
@@ -87,8 +88,6 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   ## setup file cache
   path <- "attains-public/api/assessmentUnits"
-  cache_path <- fs::path("attains-public", "api", "assessmentUnits")
-  au_cache$cache_path_set(path = cache_path)
   au_cache$mkdir()
 
   ## check if current results have been cached

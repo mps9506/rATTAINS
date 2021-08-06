@@ -11,6 +11,7 @@
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
+#' @importFrom fs path
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
@@ -52,23 +53,22 @@ surveys <- function(organization_id = NULL,
   }
 
   ## setup file cache
-  surveys_cache <- hoardr::hoard()
   path = "attains-public/api/surveys"
-  file <- file_key(path = path, arg_list = args)
-  surveys_cache$cache_path_set(path = file)
   surveys_cache$mkdir()
 
   ## check if current results have been cached
-  file_name <- file.path(surveys_cache$cache_path_get(),
-                         "surveys.json")
+  file_cache_name <- file_key(arg_list = args,
+                              name = "surveys.json")
+  file_path_name <- fs::path(surveys_cache$cache_path_get(),
+                             file_cache_name)
 
-  if(file.exists(file_name)) {
-    message(paste0("reading cached file from: ", file_name))
-    content <- readLines(file_name, warn = FALSE)
+  if(file.exists(file_path_name)) {
+    message(paste0("reading cached file from: ", file_path_name))
+    content <- readLines(file_path_name, warn = FALSE)
   } else { ## download data
     content <- xGET(path,
                     args,
-                    file = file_name,
+                    file = file_path_name,
                     ...)
   }
   ## return raw JSON

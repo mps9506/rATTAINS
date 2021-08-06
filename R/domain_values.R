@@ -9,6 +9,7 @@
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select rename
+#' @importFrom fs path
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlang .data
@@ -48,24 +49,22 @@ domain_values <- function(domain_name = NULL,
   args <- list.filter(args, !is.null(.data))
 
   ##setup file cache
-  dv_cache <- hoardr::hoard()
   path = "attains-public/api/domains"
-  print(args)
-  file <- file_key(path = path, arg_list = args)
-  dv_cache$cache_path_set(path = file)
   dv_cache$mkdir()
 
   ## check if current results have been cached
-  file_name <- file.path(dv_cache$cache_path_get(),
-                         "domains.json")
+  file_cache_name <- file_key(arg_list = args,
+                              name = "domains.json")
+  file_path_name <- fs::path(dv_cache$cache_path_get(),
+                             file_cache_name)
 
-  if(file.exists(file_name)) {
-    message(paste0("reading cached file from: ", file_name))
-    content <- readLines(file_name, warn = FALSE)
+  if(file.exists(file_path_name)) {
+    message(paste0("reading cached file from: ", file_path_name))
+    content <- readLines(file_path_name, warn = FALSE)
   } else {## download data
     content <- xGET(path,
                     args,
-                    file = file_name,
+                    file = file_path_name,
                     ...)
     }
   if(!isTRUE(tidy)) {

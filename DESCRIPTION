@@ -18,6 +18,7 @@ Imports:
     crul,
     dplyr,
     fauxpas,
+    fs,
     hoardr,
     janitor,
     jsonlite,

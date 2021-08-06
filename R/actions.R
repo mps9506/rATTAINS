@@ -26,6 +26,7 @@
 #' @return tibble
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom fs path
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty
 actions <- function(action_id = NULL,
@@ -118,8 +119,6 @@ actions <- function(action_id = NULL,
 
   ## setup file cache
   path <- "attains-public/api/actions"
-  cache_path <- fs::path("attains-public", "api", "actions")
-  actions_cache$cache_path_set(path = cache_path)
   actions_cache$mkdir()
 
   ## check if current results have been cached

@@ -8,6 +8,7 @@
 #'
 #' @return tibble
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom fs path
 #' @export
 plans <- function(huc,
                   organization_id = NULL,
@@ -49,22 +50,22 @@ plans <- function(huc,
 
 
   ##setup file cache
-  plans_cache <- hoardr::hoard()
   path = "attains-public/api/plans"
-  file <- file_key(path = path, arg_list = args)
-  plans_cache$cache_path_set(path = file)
   plans_cache$mkdir()
 
   ## check if current results have been cached
-  file_name <- file.path(plans_cache$cache_path_get(),
-                         "plans.json")
-  if(file.exists(file_name)) {
-    message(paste0("reading cached file from: ", file_name))
-    content <- readLines(file_name, warn = FALSE)
+  file_cache_name <- file_key(arg_list = args,
+                              name = "plans.json")
+  file_path_name <- fs::path(plans_cache$cache_path_get(),
+                             file_cache_name)
+
+  if(file.exists(file_path_name)) {
+    message(paste0("reading cached file from: ", file_path_name))
+    content <- readLines(file_path_name, warn = FALSE)
   } else { ## download data
     content <- xGET(path,
                     args,
-                    file = file_name,
+                    file = file_path_name,
                     ...)
   }
   if(!isTRUE(tidy)) { ## return raw data
