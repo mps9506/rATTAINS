@@ -5,38 +5,37 @@
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return tibble
+#' @return tibble or character string
 #' @export
+#' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select rename
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
 #' @importFrom rlang .data
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest_longer unnest_wider
+#' @importFrom tibble as_tibble
 domain_values <- function(domain_name = NULL,
                           context = NULL,
                           tidy = TRUE,
                           ...) {
 
   ## check that arguments are character
-  coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
+  coll <- makeAssertCollection()
+  mapply(FUN = assert_character,
          x = list(domain_name, context),
          .var.name = c("domain_name", "context"),
          MoreArgs = list(null.ok = TRUE,
                          add = coll))
-  checkmate::reportAssertions(coll)
+  reportAssertions(coll)
 
   ## check logical
-  coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
+  coll <- makeAssertCollection()
+  mapply(FUN = assert_logical,
          x = list(tidy),
          .var.name = c("tidy"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
-  checkmate::reportAssertions(coll)
+  reportAssertions(coll)
 
 
   # Check that domain_name is specified if context is used
@@ -55,8 +54,8 @@ domain_values <- function(domain_name = NULL,
   ## check if current results have been cached
   file_cache_name <- file_key(arg_list = args,
                               name = "domains.json")
-  file_path_name <- fs::path(dv_cache$cache_path_get(),
-                             file_cache_name)
+  file_path_name <- path(dv_cache$cache_path_get(),
+                         file_cache_name)
 
   if(file.exists(file_path_name)) {
     message(paste0("reading cached file from: ", file_path_name))
@@ -71,13 +70,17 @@ domain_values <- function(domain_name = NULL,
     return(content)
     } else {
       ## parse the returned json
-      content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
       content <- content %>%
-        enframe() %>%
-        rename(id = .data$name) %>%
-        unnest_wider(.data$value) %>%
-        select(-.data$id) %>%
-        clean_names()
+        gather_array() %>%
+        spread_values(
+          domain = jstring("domain"),
+          name = jstring("name"),
+          code = jstring("code"),
+          context = jstring("context")
+        ) %>%
+        select(-c(.data$document.id, .data$array.index)) %>%
+        as_tibble() %>%
+        clean_names() -> content_domain
       return(content)
       }
 }
