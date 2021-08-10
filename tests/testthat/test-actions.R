@@ -4,6 +4,10 @@ test_that("actions webservice works", {
     x <- actions(action_id = "R8-ND-2018-03")
   })
   testthat::expect_s3_class(x$documents, "tbl_df")
+  testthat::expect_s3_class(x$actions, "tbl_df")
+
+  x <- actions(action_id = "R8-ND-2018-03", tidy = FALSE)
+  testthat::expect_type(x, "character")
 })
 
 test_that("actions webservice returns errors", {
