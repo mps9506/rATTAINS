@@ -11,13 +11,13 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return a list of tibbles
+#' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom dplyr select
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
 #' @importFrom rlang .data
 #' @importFrom tibble as_tibble
-#' @importFrom tidyr unnest_wider unnest_longer
 #' @export
 huc12_summary <- function(huc, tidy = TRUE, ...) {
 
@@ -63,47 +63,86 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   if(!isTRUE(tidy)) {
     return(content)
   } else {
-    ## parse the returned json
-    content <- fromJSON(content, simplifyVector = FALSE)
-    ## tibble of assessment unit ids
-    ## tibble of IR category summary
-    ## tibble with summary by use
-    ## tibble with summary by parameter
-    huc_summary <- content[["items"]][[1]][1:14] %>%
+    ## parse json
+    huc_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
       as_tibble() %>%
-      clean_names()
+      janitor::clean_names()
 
-    au_summary <- content[["items"]][[1]][15] %>%
+    au_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("assessmentUnits") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
       as_tibble() %>%
-      unnest_wider(.data$assessmentUnits) %>%
-      clean_names()
+      janitor::clean_names()
 
-    ir_summary <- content[["items"]][[1]][16] %>%
-      as_tibble() %>%
-      unnest_wider(.data$summaryByIRCategory) %>%
-      clean_names()
 
-    use_summary <- content[["items"]][[1]][18] %>%
+    ir_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("summaryByIRCategory") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
       as_tibble() %>%
-      unnest_wider(.data$summaryByUse) %>%
-      unnest_longer(.data$useAttainmentSummary) %>%
-      unnest_wider(.data$useAttainmentSummary) %>%
-      clean_names()
+      janitor::clean_names()
 
-    param_summary <- content[["items"]][[1]][19] %>%
+    use_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("summaryByUseGroup") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("useAttainmentSummary") %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
       as_tibble() %>%
-      unnest_wider(.data$summaryByParameterImpairments) %>%
-      clean_names()
+      janitor::clean_names()
 
-    res_plan_summary <- content[["items"]][[1]][20]  %>%
+    param_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("summaryByParameterImpairments")   %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
       as_tibble() %>%
-      unnest_wider(.data$summaryRestorationPlans) %>%
-      clean_names()
+      janitor::clean_names()
 
-    vision_plan_summary <- content[["items"]][[1]][21]  %>%
+    res_plan_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("summaryRestorationPlans")   %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
       as_tibble() %>%
-      unnest_wider(.data$summaryVisionRestorationPlans) %>%
-      clean_names()
+      janitor::clean_names()
+
+
+    vision_plan_summary <- content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      select(-c(.data$array.index, .data$document.id)) %>%
+      enter_object("summaryVisionRestorationPlans")   %>%
+      gather_array() %>%
+      spread_all() %>%
+      select(-c(.data$array.index)) %>%
+      as_tibble() %>%
+      janitor::clean_names()
 
     content <- list(huc_summary = huc_summary,
                     au_summary = au_summary,
