@@ -66,7 +66,7 @@ assessments(
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble
+tibble or list of tibbles
 }
 \description{
 Download Assessment Decisions

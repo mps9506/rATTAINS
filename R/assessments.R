@@ -20,16 +20,12 @@
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return tibble
+#' @return tibble or list of tibbles
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
-#' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest_longer unnest_wider
 #'
 assessments <- function(assessment_unit_id = NULL,
                         state_code = NULL,
@@ -132,9 +128,11 @@ assessments <- function(assessment_unit_id = NULL,
                     args,
                     file = file_path_name,
                     ...)
+  }
+  if (!isTRUE(tidy)) {
+    return(content)
+  } else{
     ## parse the returned json
-    content <- fromJSON(content, simplifyVector = FALSE)
-
     content <- assessments_to_tibble(content,
                                      count = return_count_only,
                                      exclude_assessments = exclude_assessments)
@@ -143,83 +141,140 @@ assessments <- function(assessment_unit_id = NULL,
   }
 }
 
+
+#'
+#' @param content raw JSON
+#' @param count logical
+#' @param exclude_assessments logical
+#'
+#' @noRd
+#' @import tidyjson
+#' @importFrom dplyr select rename filter mutate
+#' @importFrom janitor clean_names
+#' @importFrom purrr map map_chr
+#' @importFrom rlang .data
+#' @importFrom tibble as_tibble tibble
+#' @importFrom tidyr unnest
+
+
 assessments_to_tibble <- function(content,
                                   count = FALSE,
                                   exclude_assessments = FALSE) {
   if(isTRUE(count)) {
-    return(content$count)
+    content <- content %>%
+      gather_object() %>%
+      filter(.data$name == "count") %>%
+      spread_values(count = jnumber()) %>%
+      select(-c(.data$document.id, .data$name)) %>%
+      as_tibble()
+    return(content)
   } else {
     if(isTRUE(exclude_assessments)) {
-      content <- content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        unnest_longer(.data$documents) %>%
-        unnest_wider(.data$documents) %>%
-        unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes) %>%
-        janitor::clean_names()
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("documents") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index)) %>%
+        mutate(
+          documentTypes = map(.data$..JSON, ~{
+            .x[["documentTypes"]] %>% {
+              tibble(
+                assessmentTypeCode = map_chr(., "documentTypeCode")
+              )}
+          })) %>%
+        tibble::as_tibble() %>%
+        unnest(c(.data$documentTypes)) %>%
+        clean_names()
       return(content)
     } else {
-      content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        select(!c(.data$assessments, .data$delistedWaters)) %>%
-        unnest_longer(.data$documents) %>%
-        unnest_wider(.data$documents) %>%
-        unnest_longer(.data$documentTypes) %>%
-        unnest_wider(.data$documentTypes) %>%
-        janitor::clean_names() -> content_docs
+      ## return documents
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("documents") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index)) %>%
+        as_tibble() -> content_docs
 
-      content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        select(!c(.data$documents, .data$delistedWaters)) %>%
-        unnest_longer(.data$assessments) %>%
-        unnest_wider(.data$assessments) %>%
-        select(!c(.data$agencyCode, .data$parameters, .data$probableSources)) %>%
-        unnest_longer(.data$useAttainments) %>%
-        unnest_wider(.data$useAttainments) %>%
-        janitor::clean_names() -> content_use_assessment
+      ## return use assessment data
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("assessments") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index, .data$agencyCode)) %>%
+        mutate(
+          probableSources = map(.data$..JSON, ~{
+            .x[["probableSources"]] %>% {
+              tibble(
+                sourceName = map_chr(., "sourceName"),
+                sourceConfirmedIndicator = map_chr(., "sourceConfirmedIndicator"),
+                associatedCauseName = map(., ~{
+                  .x[["associatedCauseNames"]] %>% {
+                    tibble(
+                      causeName = map_chr(., "causeName")
+                    )}
+                })) %>%
+                unnest(c(.data$associatedCauseName), keep_empty = TRUE)
+            }})
+        ) %>%
+        enter_object("useAttainments") %>%
+        gather_array() %>%
+        spread_all()  %>%
+        select(-c(.data$array.index)) %>%
+        mutate(
+          assessmentTypes = map(.data$..JSON, ~{
+            .x[["assessmentMetadata"]][["assessmentTypes"]] %>% {
+              tibble(
+                assessmentTypeCode = map_chr(., "assessmentTypeCode"),
+                assessmentConfidenceCode = map_chr(., "assessmentConfidenceCode")
+              )}
+          })) %>%
+        tibble::as_tibble() %>%
+        unnest(c(.data$probableSources, .data$assessmentTypes), keep_empty = TRUE) %>%
+        janitor::clean_names()-> content_use_assessments
 
-      content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        select(!c(.data$documents, .data$delistedWaters)) %>%
-        unnest_longer(.data$assessments) %>%
-        unnest_wider(.data$assessments) %>%
-        select(!c(.data$agencyCode, .data$useAttainments, .data$probableSources)) %>%
-        unnest_longer(.data$parameters) %>%
-        unnest_wider(.data$parameters) %>%
-        unnest_longer(.data$associatedUses) %>%
-        unnest_wider(.data$associatedUses) %>%
-        unnest_wider(.data$impairedWatersInformation) %>%
-        unnest_longer(.data$associatedActions) %>%
-        unnest_wider(.data$associatedActions) %>%
-        unnest_wider(.data$listingInformation) %>%
-        janitor::clean_names() -> content_parameter_assessment
-
-      content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        select(!c(.data$documents, .data$delistedWaters)) %>%
-        unnest_longer(.data$assessments) %>%
-        unnest_wider(.data$assessments) %>%
-        select(!c(.data$agencyCode, .data$useAttainments, .data$parameters)) %>%
-        unnest_longer(.data$probableSources) %>%
-        unnest_wider(.data$probableSources) %>%
-        unnest_longer(.data$associatedCauseNames) %>%
-        unnest_wider(.data$associatedCauseNames) %>%
-        janitor::clean_names() -> content_causes_assessment
+      ## return parameter assessment data
+      content %>%
+        enter_object("items") %>%
+        gather_array() %>%
+        spread_all() %>%
+        select(-c(.data$array.index, .data$document.id)) %>%
+        enter_object("assessments") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index, .data$agencyCode)) %>%
+        enter_object("parameters") %>%
+        gather_array() %>%
+        spread_all(recursive = TRUE) %>%
+        select(-c(.data$array.index)) %>%
+        enter_object("associatedUses") %>%
+        gather_array() %>%
+        select(-c(.data$array.index)) %>%
+        spread_all(recursive = TRUE) %>%
+        mutate(seasons = map(.data$..JSON, ~{
+          .x[["seasons"]] %>% {
+            tibble(
+              seasonStartText = map_chr(., "seasonStartText"),
+              seasonEndText = map_chr(., "seasonEndText")
+            )
+          }
+        })) %>%
+        unnest(.data$seasons, keep_empty = TRUE) -> content_parameter_assessments
 
       return(list(documents = content_docs,
-                  use_assessment = content_use_assessment,
-                  parameter_assessment = content_parameter_assessment,
-                  cause_assessment = content_causes_assessment))
+                  use_assessment = content_use_assessments,
+                  parameter_assessment = content_parameter_assessments))
     }
   }
 }

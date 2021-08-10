@@ -160,7 +160,7 @@ actions <- function(action_id = NULL,
 #' @param count logical
 #' @param summarize character
 #' @keywords internal
-#' @export
+#' @noRd
 #' @import tidyjson
 #' @importFrom dplyr select rename
 #' @importFrom janitor clean_names
