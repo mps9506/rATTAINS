@@ -12,5 +12,5 @@ test_that("assessments works", {
 })
 
 test_that("assessment webservice returns errors", {
-  testthat::expect_error(assessments (organization_id = 10))
+  testthat::expect_error(assessments(organization_id = 10))
 })
