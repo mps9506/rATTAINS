@@ -58,7 +58,8 @@ file_key <- function(arg_list, name) {
     x <- ("_")
   }
   #x <- file.path(path, x)
-  x <- paste(x, name)
+  x <- paste0(x, name)
+  x <- gsub(" ", "_", x, fixed = TRUE)
   return(x)
 }
 

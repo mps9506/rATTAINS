@@ -10,7 +10,7 @@ library(janitor)
 
 x1 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
 x1 <- assessments(state_code = "OR", exclude_assessments = TRUE, tidy = FALSE)
-x1 <- assessments(state_code = "TX", exclude_assessments = TRUE, tidy = FALSE)
+x1 <- assessments(state_code = "TX", tidy = TRUE)
 
 
 
