@@ -71,7 +71,7 @@ plans <- function(huc,
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else { ## return parsed data
-    content <- plans_to_tibble(content = content)
+    content <- plans_to_tibble(content = content, summarize = summarize)
     return(content)
   }
 }
@@ -214,7 +214,7 @@ plans_to_tibble <- function(content, summarize) {
                 associated_permits = content_associated_permits))
   }
 
-  if(summarize==Y) {
+  if(summarize=="Y") {
     content %>%
       enter_object("items") %>%
       gather_array() %>%
