@@ -15,13 +15,14 @@
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return tibble
+#' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom dplyr select
+#' @importFrom dplyr select mutate
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
+#' @importFrom purrr map flatten_dbl flatten_chr
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble tibble
 #' @importFrom tidyr unnest_longer unnest_wider
 #' @export
 #'
@@ -72,22 +73,43 @@ state_summary <- function(organization_id,
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else {## return parsed data
-    ## parse the returned json
-    content <- jsonlite::fromJSON(content, simplifyVector = FALSE)
-
-    ## return a flat tidy dataframe
     content <- content$data %>%
+      enter_object("data") %>%
+      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
+                    organizationName = jstring("organizationName"),
+                    organizationTypeText = jstring("organizationTypeText")) %>%
+      select(-c(.data$document.id)) %>%
+      enter_object("reportingCycles") %>%
+      gather_array() %>%
+      spread_values(reportingCycle = jstring("reportingCycle"),
+                    combinedCycles = jstring("combinedCycles")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("waterTypes") %>%
+      gather_array() %>%
+      spread_values(waterTypeCode = jstring("waterTypeCode"),
+                    unitsCode = jstring("unitsCode")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("useAttainments") %>%
+      gather_array() %>%
+      spread_values(useName = jstring("useName"),
+                    fullySupporting = jstring("Fully Supporting"),
+                    fullySupportingCount = jstring("Fully Supporting-count"),
+                    notAssessed = jstring("Not Assessed"),
+                    notAssessedCount = jstring("Not Assessed-count")) %>%
+      select(-c(.data$array.index)) %>%
+      mutate(parameters = map(.data$..JSON, ~{
+        .x[["parameters"]] %>% {
+          tibble(parameterGroup = map(., "parameterGroup", .default = NA) %>% flatten_chr(),
+                 cause = map(., "Cause", .default = NA) %>% flatten_chr(),
+                 causeCount = map(., "Cause-count", .default = NA) %>% flatten_chr(),
+                 meetingCriteria = map(., "Meeting Criteria", .default = NA) %>% flatten_dbl(),
+                 meetingCriteriaCount = map(., "Meeting Criteria-count", .default = NA) %>% flatten_dbl(),
+                 insufficentInformation = map(., "Insufficient Information", .default = NA) %>% flatten_dbl(),
+                 insufficientInformationCount = map(., "Insufficient Information-count", .default = NA) %>% flatten_dbl()) %>%
+            clean_names()
+        }
+      })) %>%
       as_tibble() %>%
-      unnest_wider(.data$reportingCycles) %>%
-      unnest_longer(.data$waterTypes) %>%
-      unnest_wider(.data$waterTypes) %>%
-      unnest_longer(.data$useAttainments) %>%
-      unnest_wider(.data$useAttainments) %>%
-      select(.data$organizationIdentifier, .data$organizationName, .data$organizationTypeText,
-             .data$reportingCycle, .data$waterTypeCode, .data$unitsCode, .data$useName,
-             .data$parameters) %>%
-      unnest_longer(.data$parameters) %>%
-      unnest_wider(.data$parameters) %>%
       clean_names()
 
     return(content)
