@@ -18,7 +18,7 @@ plans(huc, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble
+returns a list of tibbles
 }
 \description{
 Download Plans and Actions by HUC
