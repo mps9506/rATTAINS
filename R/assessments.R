@@ -155,8 +155,6 @@ assessments <- function(assessment_unit_id = NULL,
 #' @importFrom rlang .data
 #' @importFrom tibble as_tibble tibble
 #' @importFrom tidyr unnest
-
-
 assessments_to_tibble <- function(content,
                                   count = FALSE,
                                   exclude_assessments = FALSE) {

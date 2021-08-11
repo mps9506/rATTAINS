@@ -1,0 +1,36 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://attains.epa.gov/attains-public/api/plans?huc=020700100103&summarize=N
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 200
+      date: Wed, 11 Aug 2021 20:20:49 GMT
+      server: Apache
+      strict-transport-security: max-age=31536000; includeSubDomains
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: yes
+      string: C:/Data-Analysis-Projects/rATTAINS/tests/files/020700100103_Nplans.json
+  recorded_at: 2021-08-11 20:20:52 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0
