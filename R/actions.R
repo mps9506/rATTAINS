@@ -66,7 +66,10 @@
 #'   tibbles including documents and actions identified by the query. If
 #'   \code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
 #'   parsed and returned as tibbles.
-#' @note See [domain_values] to search values that can be queried.
+#' @note See [domain_values] to search values that can be queried. Data
+#'   downloaded from the EPA webservice is automatically cached to reduce
+#'   uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching]
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection
 #'   reportAssertions
