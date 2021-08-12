@@ -26,7 +26,7 @@
 #' @importFrom tidyr unnest_longer unnest_wider
 #' @export
 #'
-state_summary <- function(organization_id,
+state_summary <- function(organization_id = NULL,
                           reporting_cycle = NULL,
                           tidy = TRUE,
                           ...) {
@@ -73,7 +73,7 @@ state_summary <- function(organization_id,
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else {## return parsed data
-    content <- content$data %>%
+    content <- content %>%
       enter_object("data") %>%
       spread_values(organizationIdentifier = jstring("organizationIdentifier"),
                     organizationName = jstring("organizationName"),
