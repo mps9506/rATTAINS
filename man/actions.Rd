@@ -28,49 +28,97 @@ actions(
 )
 }
 \arguments{
-\item{action_id}{(character) specifies what action to retrieve. multiple values allowed. optional}
+\item{action_id}{(character) Specifies what action to retrieve. multiple
+values allowed. optional}
 
-\item{assessment_unit_id}{(character)}
+\item{assessment_unit_id}{(character) Filters returned actions to those
+associated with the specified assessment unit identifier, plus any
+statewide actions. multiple values allowed. optional}
 
-\item{state_code}{(character)}
+\item{state_code}{(character) Filters returned actions to those "belonging"
+to the specified state. optional}
 
-\item{organization_id}{(character)}
+\item{organization_id}{(character) Filter returned actions to those
+"belonging" to specified organizations. multiple values allowed. optional}
 
-\item{summarize}{(logical)}
+\item{summarize}{(logical) If \code{TRUE} provides only a count of the
+assessment units for the action and summary of the pollutants and
+parameters covered by the action.}
 
-\item{parameter_name}{(character)}
+\item{parameter_name}{(character) Filters returned actions to those
+associated with the specified parameter. multiple values allowed. optional}
 
-\item{pollutant_name}{(character)}
+\item{pollutant_name}{(character) Filters returned actions to those
+associated with the specified pollutant. multiple values allowed. optional}
 
-\item{action_type_code}{(character)}
+\item{action_type_code}{(character) Filters returned actions to those
+associated with the specified action type code. multiple values allowed.
+optional}
 
-\item{agency_code}{(character)}
+\item{agency_code}{(character) Filters returned actions to those with the
+specified agency code. multiple values allowed. optional}
 
-\item{pollutant_source_code}{(character)}
+\item{pollutant_source_code}{(character) Filters returned actions to those
+matching the specified pollutant source code. multiple values allowed.
+optional}
 
-\item{action_status_code}{(character)}
+\item{action_status_code}{(character) Filters returned actions to those
+matching the specified action status code. multiple values allowed.
+optional}
 
-\item{completion_date_later_than}{(character)}
+\item{completion_date_later_than}{(character) Filters returned actions to
+those with a completion date later than the value specified. Must be a
+character formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{completion_date_earlier_than}{(character)}
+\item{completion_date_earlier_than}{(character) Filters returned actions to
+those with a completion date earlier than the value specified. Must be a
+character formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{tmdl_date_later_than}{(character)}
+\item{tmdl_date_later_than}{(character) Filters returned actions to those
+with a TMDL date later than the value specified. Must be a character
+formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{tmdl_date_earlier_then}{(character)}
+\item{tmdl_date_earlier_then}{(character) Filters returned actions to those
+with a TMDL date earlier than the value specified. Must be a character
+formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{last_change_later_than_date}{(character)}
+\item{last_change_later_than_date}{(character) Filters returned actions to
+those with a last change date later than the value specified. Can be used
+with \code{last_change_earlier_than_date} to return actions changed within
+a date range. Must be a character formatted as \code{"YYYY-MM-DD"}.
+optional}
 
-\item{last_change_earlier_than_date}{(character)}
+\item{last_change_earlier_than_date}{(character) Filters returned actions to
+those with a last change date earlier than the value specified. Can be used
+with \code{last_change_later_than_date} to return actions changed within a
+date range. Must be a character formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{return_count_only}{(logical)}
+\item{return_count_only}{(logical) If \code{TRUE} returns only the count of
+actions the match the query.}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble
+If \code{count = TRUE} returns a tibble that summarizes the count of
+actions returned by the query. If \code{count = FALSE} returns a list of
+tibbles including documents and actions identified by the query. If
+\code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
+parsed and returned as tibbles.
 }
 \description{
-Provides data about actions (TMDLs, 4B Actions, Alternative Actions, Protection Approach Actions) that have been finalized.
+Provides data about actions (TMDLs, 4B Actions, Alternative Actions,
+Protection Approach Actions) that have been finalized.
+}
+\details{
+One or more of the following arguments must be included:
+\code{action_id}, \code{assessment_unit_id}, \code{state_code} or
+\code{organization_id}. Multiple values are allowed for indicated arguments
+and should be included as a comma separated values in the string (eg.
+\code{organization_id="TCEQMAIN,DCOEE"}).
+}
+\note{
+See \link{domain_values} to search values that can be queried.
 }

@@ -1,31 +1,75 @@
 #' Download Actions Data
 #'
-#' Provides data about actions (TMDLs, 4B Actions, Alternative Actions, Protection Approach Actions) that have been finalized.
+#' Provides data about actions (TMDLs, 4B Actions, Alternative Actions,
+#' Protection Approach Actions) that have been finalized.
 #'
-#' @param action_id (character) specifies what action to retrieve. multiple values allowed. optional
-#' @param assessment_unit_id (character)
-#' @param state_code (character)
-#' @param organization_id (character)
-#' @param summarize (logical)
-#' @param parameter_name (character)
-#' @param pollutant_name (character)
-#' @param action_type_code (character)
-#' @param agency_code (character)
-#' @param pollutant_source_code (character)
-#' @param action_status_code (character)
-#' @param completion_date_later_than (character)
-#' @param completion_date_earlier_than (character)
-#' @param tmdl_date_later_than (character)
-#' @param tmdl_date_earlier_then (character)
-#' @param last_change_later_than_date (character)
-#' @param last_change_earlier_than_date (character)
-#' @param return_count_only (logical)
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param action_id (character) Specifies what action to retrieve. multiple
+#'   values allowed. optional
+#' @param assessment_unit_id (character) Filters returned actions to those
+#'   associated with the specified assessment unit identifier, plus any
+#'   statewide actions. multiple values allowed. optional
+#' @param state_code (character) Filters returned actions to those "belonging"
+#'   to the specified state. optional
+#' @param organization_id (character) Filter returned actions to those
+#'   "belonging" to specified organizations. multiple values allowed. optional
+#' @param summarize (logical) If \code{TRUE} provides only a count of the
+#'   assessment units for the action and summary of the pollutants and
+#'   parameters covered by the action.
+#' @param parameter_name (character) Filters returned actions to those
+#'   associated with the specified parameter. multiple values allowed. optional
+#' @param pollutant_name (character) Filters returned actions to those
+#'   associated with the specified pollutant. multiple values allowed. optional
+#' @param action_type_code (character) Filters returned actions to those
+#'   associated with the specified action type code. multiple values allowed.
+#'   optional
+#' @param agency_code (character) Filters returned actions to those with the
+#'   specified agency code. multiple values allowed. optional
+#' @param pollutant_source_code (character) Filters returned actions to those
+#'   matching the specified pollutant source code. multiple values allowed.
+#'   optional
+#' @param action_status_code (character) Filters returned actions to those
+#'   matching the specified action status code. multiple values allowed.
+#'   optional
+#' @param completion_date_later_than (character) Filters returned actions to
+#'   those with a completion date later than the value specified. Must be a
+#'   character formatted as \code{"YYYY-MM-DD"}. optional
+#' @param completion_date_earlier_than (character) Filters returned actions to
+#'   those with a completion date earlier than the value specified. Must be a
+#'   character formatted as \code{"YYYY-MM-DD"}. optional
+#' @param tmdl_date_later_than (character) Filters returned actions to those
+#'   with a TMDL date later than the value specified. Must be a character
+#'   formatted as \code{"YYYY-MM-DD"}. optional
+#' @param tmdl_date_earlier_then (character) Filters returned actions to those
+#'   with a TMDL date earlier than the value specified. Must be a character
+#'   formatted as \code{"YYYY-MM-DD"}. optional
+#' @param last_change_later_than_date (character) Filters returned actions to
+#'   those with a last change date later than the value specified. Can be used
+#'   with \code{last_change_earlier_than_date} to return actions changed within
+#'   a date range. Must be a character formatted as \code{"YYYY-MM-DD"}.
+#'   optional
+#' @param last_change_earlier_than_date (character) Filters returned actions to
+#'   those with a last change date earlier than the value specified. Can be used
+#'   with \code{last_change_later_than_date} to return actions changed within a
+#'   date range. Must be a character formatted as \code{"YYYY-MM-DD"}. optional
+#' @param return_count_only (logical) If \code{TRUE} returns only the count of
+#'   actions the match the query.
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
+#'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
-#'
-#' @return tibble
+#' @details One or more of the following arguments must be included:
+#'   \code{action_id}, \code{assessment_unit_id}, \code{state_code} or
+#'   \code{organization_id}. Multiple values are allowed for indicated arguments
+#'   and should be included as a comma separated values in the string (eg.
+#'   \code{organization_id="TCEQMAIN,DCOEE"}).
+#' @return If \code{count = TRUE} returns a tibble that summarizes the count of
+#'   actions returned by the query. If \code{count = FALSE} returns a list of
+#'   tibbles including documents and actions identified by the query. If
+#'   \code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
+#'   parsed and returned as tibbles.
+#' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection
+#'   reportAssertions
 #' @importFrom fs path
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty

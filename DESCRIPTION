@@ -21,7 +21,6 @@ Imports:
     fs,
     hoardr,
     janitor,
-    jsonlite,
     magrittr,
     purrr,
     rlang,
