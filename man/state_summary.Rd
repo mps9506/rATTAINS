@@ -4,7 +4,7 @@
 \alias{state_summary}
 \title{Download State Summaries}
 \usage{
-state_summary(organization_id, reporting_cycle = NULL, tidy = TRUE, ...)
+state_summary(organization_id = NULL, reporting_cycle = NULL, tidy = TRUE, ...)
 }
 \arguments{
 \item{organization_id}{(character) Organization identifier used by EPA.
