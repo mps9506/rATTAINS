@@ -16,7 +16,7 @@ surveys(organization_id = NULL, survey_year = NULL, tidy = TRUE, ...)
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-a tibble with multiple columns or a tibble with zero columns.
+a list of tibbles
 }
 \description{
 Downloads data about state statistical (probability) survey results.

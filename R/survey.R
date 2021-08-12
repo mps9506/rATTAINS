@@ -6,18 +6,17 @@
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return a tibble with multiple columns or a tibble with zero columns.
+#' @return a list of tibbles
 #' @note Arguments that allow multiple values should be entered as a comma separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
 #' @export
+#' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble enframe tibble
-#' @importFrom tidyr unnest_longer unnest_wider
+#' @importFrom tibble as_tibble
 
 surveys <- function(organization_id = NULL,
                     survey_year = NULL,
@@ -75,23 +74,72 @@ surveys <- function(organization_id = NULL,
   if(!isTRUE(tidy)) return(content)
   ## parse and tidy JSON
   else {
-    content <- fromJSON(content, simplifyVector = FALSE)
-    if(!rlang::is_empty(content$items)) {
-      content <- content$items %>%
-        tibble::enframe() %>%
-        select(!c(.data$name)) %>%
-        unnest_wider(.data$value) %>%
-        unnest_longer(.data$surveys) %>%
-        unnest_wider(.data$surveys) %>%
-        unnest_longer(.data$surveyWaterGroups) %>%
-        unnest_wider(.data$surveyWaterGroups) %>%
-        unnest_longer(.data$surveyWaterGroupUseParameters) %>%
-        unnest_wider(.data$surveyWaterGroupUseParameters) %>%
-        clean_names()
-      } else {
-      content <- tibble::tibble()
-      }
-    return(content)
+    content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
+                    organizationName = jstring("organizationName"),
+                    organizationTypeText = jstring("organizationTypeText")) %>%
+      select(-c(.data$document.id, .data$array.index)) %>%
+      enter_object("surveys") %>%
+      gather_array() %>%
+      spread_values(surveyStatusCode = jstring("surveyStatusCode"),
+                    year = jnumber("year"),
+                    surveyCommentText = jstring("surveyCommentText")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("surveyWaterGroups") %>%
+      gather_array() %>%
+      spread_values(waterTypeGroupCode = jstring("waterTypeGroupCode"),
+                    subPopulationCode = jstring("subPopulationCode"),
+                    unitCode = jstring("unitCode"),
+                    size = jnumber("size"),
+                    siteNumber = jstring("siteNumber"),
+                    surveyWaterGroupCommentText = jstring("surveyWaterGRoupCommentText")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("surveyWaterGroupUseParameters") %>%
+      gather_array() %>%
+      spread_values(stressor = jstring("stressor"),
+                    surveyUseCode = jstring("surveyUseCode"),
+                    surveyCategoryCode = jstring("surveyCategoryCode"),
+                    statistic = jstring("statistic"),
+                    metricValue = jnumber("metricValue"),
+                    confidenceLevel = jnumber("confidenceLevel"),
+                    commentText = jstring("commentText")) %>%
+      select(-c(.data$array.index)) %>%
+      as_tibble() %>%
+      clean_names() -> content_surveys
+
+    content %>%
+      enter_object("items") %>%
+      gather_array() %>%
+      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
+                    organizationName = jstring("organizationName"),
+                    organizationTypeText = jstring("organizationTypeText")) %>%
+      select(-c(.data$document.id, .data$array.index)) %>%
+      enter_object("surveys") %>%
+      gather_array() %>%
+      spread_values(surveyStatusCode = jstring("surveyStatusCode"),
+                    year = jnumber("year"),
+                    surveyCommentText = jstring("surveyCommentText")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("documents") %>%
+      gather_array() %>%
+      spread_values(agencyCode = jstring("agencyCode"),
+                    documentFileType = jstring("documentFileType"),
+                    documentFileName = jstring("documentFileName"),
+                    documentDescription = jstring("documentDescription"),
+                    documentComments = jstring("documentComments"),
+                    documentURL = jstring("documentURL")) %>%
+      select(-c(.data$array.index)) %>%
+      enter_object("documentTypes") %>%
+      gather_array() %>%
+      spread_all %>%
+      select(-c(.data$array.index)) %>%
+      as_tibble() %>%
+      clean_names() -> content_documents
+
+    return(list(documents = content_documents,
+                surveys = content_surveys))
     }
 }
 
