@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 200
-      date: Wed, 11 Aug 2021 20:20:49 GMT
+      date: Thu, 12 Aug 2021 15:21:35 GMT
       server: Apache
       strict-transport-security: max-age=31536000; includeSubDomains
       access-control-allow-headers: Content-Type
@@ -31,6 +31,6 @@ http_interactions:
     body:
       encoding: UTF-8
       file: yes
-      string: C:/Data-Analysis-Projects/rATTAINS/tests/files/020700100103_Nplans.json
-  recorded_at: 2021-08-11 20:20:52 GMT
+      string: ../files/020700100103_Nplans.json
+  recorded_at: 2021-08-12 15:21:38 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
