@@ -1,0 +1,159 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+## setup vcr not sure I am doing this right.
+library(vcr)
+invisible(vcr::vcr_configure(
+  dir = "../tests/fixtures",
+  write_disk_path = "../tests/files"
+))
+
+```
+
+```{r setup}
+library(rATTAINS)
+```
+
+# About
+
+The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System (ATTAINS) is the U.S. Environmental Protection Agency (EPA) database used to track information provided by states about water quality assessments conducted under the Clean Water Act. The assessments are conducted every two years to evaluate if the nation's water bodies meet water quality standards. States are required to take Actions (TMDLs or other efforts) on water bodies that do not meet standards. Public information in ATTAINS is made available through webservices and provided as JSON files. rATTAINS facilitates accessing this data with various functions that provide raw JSON or formatted "tidy" data for each of the ATTAINS webservice endpoints. More information about Clean Water Act assessment and reporting is available through the [EPA](https://www.epa.gov/waterdata/attains-program-information). For alternative methods of accessing the same data, see ["How's My Waterway" webpage](https://mywaterway.epa.gov/) for interactive data exploration or the [ArcGIS MapService](https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer) for spatial data.
+
+# Functions
+
+## Summary Services
+
+The EPA provides two summary service endpoint that provide summaries of assessed uses by the organization identifier or by hydrologic unit code (HUC). For example, to return a summary of assessed uses by the state of Tennessee the following function is used:
+```{r include=FALSE}
+vcr::insert_cassette("state_summary")
+```
+
+```{r state_summary, message=FALSE}
+x <- state_summary(organization_id = "TDECWR",
+                   reporting_cycle = "2016")
+x
+```
+
+The resulting tibble includes the water type, designated use, summary of the how much of the assessed uses meet criteria (by count, area, distance, etc.) or are not assessed. For each row, there is a variable called "parameters" combosed of a nested tibble that provides further information about the use assessment by parameters assessed:
+
+```{r state_params, message=FALSE}
+x[[13]][[3]]
+```
+
+```{r include=FALSE}
+vcr::eject_cassette("state_summary")
+```
+
+The HUC12 service operates similarly but provides data summarized by area, specifically HUC12 units. For example:
+
+```{r include=FALSE}
+vcr::insert_cassette("huc12_works")
+```
+
+```{r huc12, message=FALSE}
+x <- huc12_summary("020700100204")
+x
+```
+
+```{r include=FALSE}
+vcr::eject_cassette("huc12_works")
+```
+
+`huc12_summary()` returns a list of tibbles with different summaries of information. Using the above example, `x$huc_summary` provides a summary of HUC area, and the area and percentage of catchment assessed as good, unknown, or impaired. `x$assessment_unit_id` provides a tibble with the unique identifiers for the assessment units (or distinct sections of waterbodies) within the queried HUC12. `x$ir_summary` provides a simple summary of the area of the catchment classified under different Integrated Report Categories. `x$use_summary` provides a summary of use attainment with the HUC12. `x$param_summary` provides the same information for parameter groups. `x$res_plan_summary` and `x$vision_plan_summary` provides a summary of the amount of the watershed covered by particular types of restoration plans or vision plan, such as TMDLs. 
+
+## Domains
+
+Each function has a number of allowable arguments and associated values. In order to explore what values you might be interested in querying, the Domain Value service provides information about allowable options. This is mapped to the `domain_values()` function. When used without any arguments you get a full list of possible "domains." These are typically searchable parameters used in all the functions in rATTAINS. Note that the domain names returned by these service are not a one to one match with the argument names used in rATTAINS. It is typically fairly easy to figure out which ones match up to which arguments.
+
+For example if I want to find out the possible organization identifiers to query by:
+
+```{r include=FALSE}
+vcr::insert_cassette("single_domain")
+```
+
+```{r domain_values}
+x <- domain_values(domain_name = "OrgStateCode")
+x
+```
+
+```{r include=FALSE}
+vcr::eject_cassette("single_domain")
+```
+
+The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:
+
+```{r include=FALSE}
+vcr::insert_cassette("domains_works")
+```
+
+```{r domain_context}
+x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
+x
+
+```
+
+
+## Other Services
+
+ - `assessment_units()` : provides information about assessment units by the specified argument parameters. 
+ 
+ - `assessment()` provides information about assessment decisions by the specified argument parameters.
+ 
+ - `actions()` provides information about Actions (such as TMDLs, 4B Actions, or similar) that have been finalized by the specified argument parameters. 
+ 
+ - `plans()` is similiar to actions but provides information about finalized Actions and assessment units by HUC8. 
+ 
+ - `surveys()` provides information about organization conducted statistical surveys about water quality assessment results.
+ 
+## JSON Files
+
+By default, all the functions rATTAINS return one or more "tidy" dataframes. These dataframe are created by attempting to flatten the nested JSON data returned by the webservice. This does require some opinionated decisions on what constitutes flat data, and at what variable data should be flattened to. We recognize that the dataframe output might not meet user needs. There if you would prefer to parse the JSON data yourself, use the `tidy=FALSE` argument to return an unparsed JSON string. A number of R packages are available to parse and flatten JSON data to prepare it for analysis.
+
+## File Caching
+ 
+To reduce unneeded calls to the server, downloaded JSONs files are individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See `rATTAINS_caching` for additional info, but an example of accessing the file path and deleting files is shown below.
+
+```{r hoard, eval=FALSE}
+## This returns the file path where the files are cached
+dv_cache$cache_path_get()
+
+## get a list of cached files
+dv_cache$files()[[1]]
+
+## delete one file
+dv_cache$delete(dv_cache$files()[[1]])
+
+## delete all files in the directory
+dv_cache$delete_all()
+```
+ 
+```{r include=FALSE}
+vcr::eject_cassette("domains_works")
+```
+
+The caching objects for each function are as follows:
+
+ - `actions()`: `actions_cache`
+ - `assessments()`: `assessments_cache`
+ - `assessment_units()`: `au_cache`
+ - `domain_values()`: `dv_cache`
+ - `plans()`: `plans_cache`
+ - `state_summary()`: `state_cache`
+ - `surveys()`: `surveys_cache`
+ 
+# Notes
+
+The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA.  Please do not abuse the webservice using this package. 
+
+
+

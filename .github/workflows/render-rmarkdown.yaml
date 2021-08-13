@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - '**.Rmd'
+name: Render-rmd
 
 jobs:
   build:
@@ -18,8 +19,7 @@ jobs:
         uses: r-lib/actions/setup-r@v1
 
       - name: Install pandoc
-        run: |
-          brew install pandoc
+        uses: r-lib/actions/setup-pandoc@v1
 
       - name: Cache Renv packages
         uses: actions/cache@v2
@@ -30,7 +30,7 @@ jobs:
 
       - name: Install packages
         run: |
-          R -e 'install.packages(c("renv", "rmarkdown", "remotes"))'
+          R -e 'install.packages(c("renv", "rmarkdown", "remotes", "vcr"))'
           R -e 'remotes::install_github("mps9506/rATTAINS")'
           R -e 'renv::restore()'
 

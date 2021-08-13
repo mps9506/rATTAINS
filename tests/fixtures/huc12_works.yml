@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 200
-      date: Fri, 13 Aug 2021 13:47:16 GMT
+      date: Fri, 13 Aug 2021 20:37:56 GMT
       server: Apache
       strict-transport-security: max-age=31536000; includeSubDomains
       access-control-allow-headers: Content-Type
@@ -32,5 +32,5 @@ http_interactions:
       encoding: UTF-8
       file: yes
       string: ../files/020700100204huc12.json
-  recorded_at: 2021-08-13 13:47:18 GMT
+  recorded_at: 2021-08-13 20:37:59 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
