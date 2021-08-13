@@ -1,13 +1,33 @@
 #' Download Plans and Actions by HUC
-#'
-#' @param huc (character) 8-digit or higher HUC. required
-#' @param organization_id (character). optional
-#' @param summarize (logical)
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @description Returns information about plans or actions (TMDLs, 4B Actions,
+#'   Alternative Actions, Protective Approach Actions) that have been finalized.
+#'   This is similar to [actions] but returns data by HUC code and any
+#'   assessment units covered by a plan or action within the specified HUC.
+#' @param huc (character) Filters the returned actions by 8-digit or higher HUC.
+#'   required
+#' @param organization_id (character). Filters the returned actions by those
+#'   belonging to the specified organization. Multiple values can be used.
+#'   optional
+#' @param summarize (logical) If \code{TRUE} the count of assessment units is
+#'   returned rather than the assessment unit itdentifers for each action.
+#'   Defaults to \code{FALSE}.
+#' @param tidy (logical) \code{TRUE} (default) the function returns a list of
+#'   tibbles. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
-#'
-#' @return returns a list of tibbles
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @details \code{huc} is a required argument. Multiple values are allowed for
+#'   indicated arguments and should be included as a comma separated values in
+#'   the string (eg. \code{organization_id="TCEQMAIN,DCOEE"}).
+#' @return If \code{count = TRUE} returns a tibble that summarizes the count of
+#'   actions returned by the query. If \code{count = FALSE} returns a list of
+#'   tibbles including documents, use assessment data, and parameters assessment
+#'   data identified by the query. If \code{tidy = FALSE} the raw JSON string is
+#'   returned, else the JSON data is parsed and returned as a list of tibbles.
+#' @note See [domain_values] to search values that can be queried. Data
+#'   downloaded from the EPA webservice is automatically cached to reduce
+#'   uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching]
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection
+#'   reportAssertions
 #' @importFrom fs path
 #' @export
 plans <- function(huc,

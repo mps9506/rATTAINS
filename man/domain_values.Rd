@@ -7,17 +7,28 @@
 domain_values(domain_name = NULL, context = NULL, tidy = TRUE, ...)
 }
 \arguments{
-\item{domain_name}{(character)}
+\item{domain_name}{(character) Specified the domain name to obtain valid
+parameter values for. Defaults to \code{NULL} which will a tibble with all
+the domain names. To return the allowable parameter values for a given
+domain, the domain should be specified here. optional}
 
-\item{context}{(character)}
+\item{context}{(character) When specified, the service will return
+domain_name values  alongside the context. optional.}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble or character string
+If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
+data is parsed and returned as a tibble.
 }
 \description{
-Download Domain Values
+Provides information on allowed parameter values in ATTAINS.
+}
+\note{
+Data downloaded from the EPA webservice is automatically cached to
+reduce uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}
 }

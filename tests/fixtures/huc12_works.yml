@@ -1,0 +1,36 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://attains.epa.gov/attains-public/api/huc12summary?huc=020700100204
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 200
+      date: Fri, 13 Aug 2021 13:47:16 GMT
+      server: Apache
+      strict-transport-security: max-age=31536000; includeSubDomains
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: yes
+      string: ../files/020700100204huc12.json
+  recorded_at: 2021-08-13 13:47:18 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

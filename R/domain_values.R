@@ -1,11 +1,20 @@
 #' Download Domain Values
-#'
-#' @param domain_name (character)
-#' @param context (character)
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @description Provides information on allowed parameter values in ATTAINS.
+#' @param domain_name (character) Specified the domain name to obtain valid
+#'   parameter values for. Defaults to \code{NULL} which will a tibble with all
+#'   the domain names. To return the allowable parameter values for a given
+#'   domain, the domain should be specified here. optional
+#' @param context (character) When specified, the service will return
+#'   domain_name values  alongside the context. optional.
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
+#'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return tibble or character string
+#' @return If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
+#'   data is parsed and returned as a tibble.
+#' @note  Data downloaded from the EPA webservice is automatically cached to
+#'   reduce uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching]
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions

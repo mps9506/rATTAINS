@@ -7,19 +7,43 @@
 plans(huc, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
 }
 \arguments{
-\item{huc}{(character) 8-digit or higher HUC. required}
+\item{huc}{(character) Filters the returned actions by 8-digit or higher HUC.
+required}
 
-\item{organization_id}{(character). optional}
+\item{organization_id}{(character). Filters the returned actions by those
+belonging to the specified organization. Multiple values can be used.
+optional}
 
-\item{summarize}{(logical)}
+\item{summarize}{(logical) If \code{TRUE} the count of assessment units is
+returned rather than the assessment unit itdentifers for each action.
+Defaults to \code{FALSE}.}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a list of
+tibbles. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-returns a list of tibbles
+If \code{count = TRUE} returns a tibble that summarizes the count of
+actions returned by the query. If \code{count = FALSE} returns a list of
+tibbles including documents, use assessment data, and parameters assessment
+data identified by the query. If \code{tidy = FALSE} the raw JSON string is
+returned, else the JSON data is parsed and returned as a list of tibbles.
 }
 \description{
-Download Plans and Actions by HUC
+Returns information about plans or actions (TMDLs, 4B Actions,
+Alternative Actions, Protective Approach Actions) that have been finalized.
+This is similar to \link{actions} but returns data by HUC code and any
+assessment units covered by a plan or action within the specified HUC.
+}
+\details{
+\code{huc} is a required argument. Multiple values are allowed for
+indicated arguments and should be included as a comma separated values in
+the string (eg. \code{organization_id="TCEQMAIN,DCOEE"}).
+}
+\note{
+See \link{domain_values} to search values that can be queried. Data
+downloaded from the EPA webservice is automatically cached to reduce
+uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}
 }

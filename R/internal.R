@@ -63,29 +63,3 @@ file_key <- function(arg_list, name) {
   return(x)
 }
 
-
-
-
-#' Loop Assertion
-#'
-#' @param fun function
-#' @param formula formula
-#' @param ... additional args passed to function (assert_*)
-#' @param fixed additional args
-#'
-#' @return error if assertion is not met
-#' @keywords internal
-#' @noRd
-aapply = function(fun, formula, ..., fixed = list()) {
-  fun = match.fun(fun)
-  terms = terms(formula)
-  vnames = attr(terms, "term.labels")
-  ee = attr(terms, ".Environment")
-
-  dots = list(...)
-  dots$.var.name = vnames
-  dots$x = unname(mget(vnames, envir = ee))
-  .mapply(fun, dots, MoreArgs = fixed)
-
-  invisible(NULL)
-}

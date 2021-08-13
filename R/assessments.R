@@ -1,26 +1,41 @@
 #' Download Assessment Decisions
 #'
-#' @param assessment_unit_id (character)
-#' @param state_code (character)
-#' @param organization_id (character)
-#' @param reporting_cycle (character)
-#' @param use (character)
-#' @param use_support (character)
-#' @param parameter (character)
-#' @param parameter_status_name (character)
-#' @param probable_source (character)
-#' @param agency_code (character)
-#' @param ir_category (character)
-#' @param state_ir_category_code (character)
-#' @param multicategory_search (character)
-#' @param last_change_later_than_date (character)
-#' @param last_change_earlier_than_date (character)
-#' @param return_count_only (logical)
-#' @param exclude_assessments (logical)
+#' @param assessment_unit_id (character) Specify the specific assessment unit assessment data to return. Multiple values can be provided. optional
+#' @param state_code (character) Filters returned assessments to those from the specified state. optional
+#' @param organization_id (character) Filters the returned assessments to those belonging to the specified organization. optional
+#' @param reporting_cycle (character) Filters the returned assessments to those for the specified reporting cycle. The reporting cycle refers to the four-digit year that the reporting cycle ended. Defaults to the current cycle. optional
+#' @param use (character) Filters the returned assessments to those with the specified uses. Multiple values can be provided. optional
+#' @param use_support (character) Filters returned assessments to those fully supporting the specified uses or that are threatened. Multiple values can be provided. Allowable values include \code{"X"}= Not Assessed, \code{"I"}= Insufficient Information, \code{"F"}= Fully Supporting, \code{"N"}= Not Supporting, and \code{"T"}= Threatened. optional
+#' @param parameter (character) Filters the returned assessments to those with one or more of the specified parameters. Multiple values can be provided. optional
+#' @param parameter_status_name (character) Filters the returned assessments to those with one or more associated parameters meeting the provided value. Valid values are \code{"Meeting Criteria"}, \code{"Cause"}, \code{"Observed Effect"}. Multiple valuse can be provided. optional
+#' @param probable_source (character) Filters the returned assessments to those having the specified probable source. Multiple values can be provided. optional
+#' @param agency_code (character) Filters the returned assessments to those by the type of agency responsible for the assessment. Allowed values are \code{"E"}=EPA, \code{"S"}=State, \code{"T"}=Tribal. optional
+#' @param ir_category (character) Filters the returned assessments to those having the specified IR category. Multiple values can be provided. optional
+#' @param state_ir_category_code (character) Filters the returned assessments to include those having the provided codes.
+#' @param multicategory_search (character) Specifies whether to search at multiple levels.  If this parameter is set to “Y” then the query applies the EPA IR Category at the Assessment, UseAttainment, and Parameter levels; if the parameter is set to “N” it looks only at the Assessment level.
+#' @param last_change_later_than_date (character) Filters the returned assessments to only those last changed after the provided date. Must be a character
+#'   with format: \code{"yyyy-mm-dd"}. optional
+#' @param last_change_earlier_than_date (character) Filters the returned assessments to only those last changed before the provided date. Must be a character
+#'   with format: \code{"yyyy-mm-dd"}. optional
+#' @param return_count_only (logical) If \code{TRUE} returns only the count of
+#'   actions the match the query. defaults to \code{FALSE}
+#' @param exclude_assessments (logical) If \code{TRUE} returns only the documents associated with the Assessment cycle instead of the assessment data. Defaults is \code{FALSE}.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
-#'
-#' @return tibble or list of tibbles
+#' @details One or more of the following arguments must be included:
+#'   \code{action_id}, \code{assessment_unit_id}, \code{state_code} or
+#'   \code{organization_id}. Multiple values are allowed for indicated arguments
+#'   and should be included as a comma separated values in the string (eg.
+#'   \code{organization_id="TCEQMAIN,DCOEE"}).
+#' @return If \code{count = TRUE} returns a tibble that summarizes the count of
+#'   actions returned by the query. If \code{count = FALSE} returns a list of
+#'   tibbles including documents, use assessment data, and parameters assessment
+#'   data identified by the query. If \code{tidy = FALSE} the raw JSON string is
+#'   returned, else the JSON data is parsed and returned as tibbles.
+#' @note See [domain_values] to search values that can be queried. Data
+#'   downloaded from the EPA webservice is automatically cached to reduce
+#'   uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching].
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path

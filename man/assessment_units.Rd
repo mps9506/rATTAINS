@@ -21,35 +21,68 @@ assessment_units(
 )
 }
 \arguments{
-\item{assessment_unit_identifer}{(character) Filters the list of assessment units to one or more specific assessment units. Multiple values can be provided.}
+\item{assessment_unit_identifer}{(character) Filters returned assessment
+units to one or more specific assessment units. Multiple values can be
+provided. optional}
 
-\item{state_code}{(character) Filters the list of assessment units to only those having a state code matches one in the provided list of states. Multiple values can be provided.}
+\item{state_code}{(character) Filters returned assessment units to only
+those having a state code matches one in the provided list of states.
+Multiple values can be provided. optional}
 
-\item{organization_id}{(character) Filters the list of assessment units to only those having an organization ID that matches one in the provided list of IDs. Multiple values can be provided.}
+\item{organization_id}{(character) Filters returned assessment units to only
+those having a mathcing organization ID. Multiple values can be provided.
+optional}
 
-\item{epa_region}{(character) Filters the list of assessment units to only those having an EPA region that matches one in the provided list of regions. Multiple values can be provided.}
+\item{epa_region}{(character) Filters returned assessment units to only
+matching EPA regions. Multiple values can be provided. optional}
 
-\item{huc}{(character) Filters the list of assessment units to only those which have a location type of HUC and the location value matches one in the provided list of HUCs. Multiple values can be provided.}
+\item{huc}{(character) Filters returned assessment units to only those
+which have a location type of HUC and the location value matches the
+provided HUC. Multiple values can be provided. optional}
 
-\item{county}{(character) Filters the list of assessment units to only those which have a location type of county and the location value matches one in the provided list of counties. Multiple values can be provided.}
+\item{county}{(character) Filters returned assessment units to only those
+which have a location type of county and matches the provided county.
+Multiple values can be provided. optional}
 
-\item{assessment_unit_name}{(character) Filters the list of assessment units to only those having an assessment unit name matching the provided value.}
+\item{assessment_unit_name}{(character) Filters the returned assessment units
+to matching the provided value.}
 
-\item{last_change_later_than_date}{(character) yyyy-mm-dd}
+\item{last_change_later_than_date}{(character) Filters returned assessment
+units to those only changed after the provided date. Must be a character
+with format: \code{"yyyy-mm-dd"}. optional}
 
-\item{last_change_earlier_than_date}{(character) yyyy-mm-dd}
+\item{last_change_earlier_than_date}{(character) Filters returned assessment
+units to those only changed before the provided date. Must be a character
+with format: \code{"yyyy-mm-dd"}. optional}
 
-\item{status_indicator}{(character) "A" for active, "R" for retired. optional}
+\item{status_indicator}{(character) Filter the returned assessment units to
+those with specified status. "A" for active, "R" for retired. optional}
 
-\item{return_count_only}{(character) "Y" for yes, "N" for no. Defaults to "N". optional}
+\item{return_count_only}{(character) "Y" for yes, "N" for no. Defaults to
+"N". optional}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-When \code{tidy = TRUE} a tibble with many variables, some nested, is returned. When \code{tidy=FALSE} a raw JSON string is returned.
+When \code{tidy = TRUE} a tibble with many variables, some nested, is
+returned. When \code{tidy=FALSE} a raw JSON string is returned.
 }
 \description{
-Download Assessment Unit Summary
+Provides basic information about the requested assessment units.
+}
+\details{
+One or more of the following arguments must be included:
+\code{assessment_unit_identfier}, \code{state_code} or
+\code{organization_id}. Multiple values are allowed for indicated arguments
+and should be included as a comma separated values in the string (eg.
+\code{organization_id="TCEQMAIN,DCOEE"}).
+}
+\note{
+See \link{domain_values} to search values that can be queried. Data
+downloaded from the EPA webservice is automatically cached to reduce
+uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}
 }
