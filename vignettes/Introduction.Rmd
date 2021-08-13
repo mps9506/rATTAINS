@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
 ## setup vcr not sure I am doing this right.
 library(vcr)
 invisible(vcr::vcr_configure(
-  dir = "../tests/fixtures"
+  dir = "../tests/fixtures",
+  write_disk_path = "../tests/files"
 ))
 
 ```
