@@ -7,24 +7,33 @@
 state_summary(organization_id = NULL, reporting_cycle = NULL, tidy = TRUE, ...)
 }
 \arguments{
-\item{organization_id}{(character) Organization identifier used by EPA.
-required}
+\item{organization_id}{(character) Restricts results to the specified
+organization. required}
 
-\item{reporting_cycle}{(character) 4 digit reporting cycle year. Typically
-even numbered years. Will return reporting data for all years prior to and
-including the reporting cycle by reporting cycle. optional}
+\item{reporting_cycle}{(character) Filters the returned results to the
+specified 4 digit reporting cycle year. Typically even numbered years. Will
+return reporting data for all years prior to and including the reporting
+cycle by reporting cycle. optional}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-tibble
+If \code{tidy = FALSE} the raw JSON string is
+returned, else the JSON data is parsed and returned as a list of tibbles.
 }
 \description{
-Provides summary information for assess uses for an organization (State,
+Provides summary information for assessed uses for an organization (State,
 Territory or Tribe) and Integrated Reporting Cycle. The Organization ID for
 the state, territory or tribe is required. If a Reporting Cycle isn't
 provided, the service will return the most recent cycle. If a reporting Cycle
 is provided, the service will return a summary for the requested cycle.
+}
+\note{
+See \link{domain_values} to search values that can be queried. Data
+downloaded from the EPA webservice is automatically cached to reduce
+uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}.
 }

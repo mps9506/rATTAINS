@@ -7,14 +7,15 @@
 huc12_summary(huc, tidy = TRUE, ...)
 }
 \arguments{
-\item{huc}{(character) 12-digit hydrologic unit code. required}
+\item{huc}{(character) Specifies the 12-digit HUC to be summarized. required}
 
 \item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-a list of tibbles
+If \code{tidy = FALSE} the raw JSON string is
+returned, else the JSON data is parsed and returned as a list of tibbles that include a list of seven tibbles.
 }
 \description{
 Provides summary data for a 12-digit Hydrologic Unit Code (HUC12), based on
@@ -22,4 +23,10 @@ Assessment Units in the HUC12. Watershed boundaries may cross state
 boundaries, so the service may return assessment units from multiple
 organizations. Returns the assessment units in the HUC12, size and
 percentages of assessment units considered Good, Unknown, or Impaired.
+}
+\note{
+See \link{domain_values} to search values that can be queried. Data
+downloaded from the EPA webservice is automatically cached to reduce
+uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}
 }

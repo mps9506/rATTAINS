@@ -35,7 +35,7 @@
 #' @note See [domain_values] to search values that can be queried. Data
 #'   downloaded from the EPA webservice is automatically cached to reduce
 #'   uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#'   [rATTAINS_caching].
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path

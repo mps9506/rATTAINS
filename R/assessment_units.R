@@ -1,5 +1,5 @@
 #' Download Assessment Unit Summary
-#'
+#' @description Provides basic information about the requested assessment units.
 #' @param assessment_unit_identifer (character) Filters returned assessment
 #'   units to one or more specific assessment units. Multiple values can be
 #'   provided. optional

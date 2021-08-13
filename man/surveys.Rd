@@ -7,20 +7,32 @@
 surveys(organization_id = NULL, survey_year = NULL, tidy = TRUE, ...)
 }
 \arguments{
-\item{organization_id}{(character) - Filters the list to only those “belonging to” one of the specified organizations. Multiple values may be specified. required}
+\item{organization_id}{(character) Filters the list to only those “belonging
+to” one of the specified organizations. Multiple values may be specified.
+required}
 
-\item{survey_year}{(character) Filters the list to the year the survey was performed. optional.}
+\item{survey_year}{(character) Filters the list to the year the survey was
+performed. optional.}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-a list of tibbles
+If \code{tidy = FALSE} the raw JSON string is
+returned, else the JSON data is parsed and returned as a list of tibbles.
 }
 \description{
 Downloads data about state statistical (probability) survey results.
 }
+\details{
+Arguments that allow multiple values should be entered as a comma
+separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
+}
 \note{
-Arguments that allow multiple values should be entered as a comma separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
+See \link{domain_values} to search values that can be queried. Data
+downloaded from the EPA webservice is automatically cached to reduce
+uneccessary calls to the server. To managed cached files see
+\link{rATTAINS_caching}.
 }

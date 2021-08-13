@@ -1,6 +1,6 @@
 #' Download Actions Data
 #'
-#' Provides data about actions (TMDLs, 4B Actions, Alternative Actions,
+#' @description Provides data about actions (TMDLs, 4B Actions, Alternative Actions,
 #' Protection Approach Actions) that have been finalized.
 #'
 #' @param action_id (character) Specifies what action to retrieve. multiple

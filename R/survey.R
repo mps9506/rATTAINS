@@ -1,13 +1,22 @@
 #' Download State Survey Results
 #'
-#' Downloads data about state statistical (probability) survey results.
-#' @param organization_id (character) - Filters the list to only those “belonging to” one of the specified organizations. Multiple values may be specified. required
-#' @param survey_year (character) Filters the list to the year the survey was performed. optional.
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @description Downloads data about state statistical (probability) survey results.
+#' @param organization_id (character) Filters the list to only those “belonging
+#'   to” one of the specified organizations. Multiple values may be specified.
+#'   required
+#' @param survey_year (character) Filters the list to the year the survey was
+#'   performed. optional.
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
+#'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
-#'
-#' @return a list of tibbles
-#' @note Arguments that allow multiple values should be entered as a comma separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
+#' @return If \code{tidy = FALSE} the raw JSON string is
+#'   returned, else the JSON data is parsed and returned as a list of tibbles.
+#' @details Arguments that allow multiple values should be entered as a comma
+#'   separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
+#' @note See [domain_values] to search values that can be queried. Data
+#'   downloaded from the EPA webservice is automatically cached to reduce
+#'   uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching].
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions

@@ -71,7 +71,7 @@ When \code{tidy = TRUE} a tibble with many variables, some nested, is
 returned. When \code{tidy=FALSE} a raw JSON string is returned.
 }
 \description{
-Download Assessment Unit Summary
+Provides basic information about the requested assessment units.
 }
 \details{
 One or more of the following arguments must be included:

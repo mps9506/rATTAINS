@@ -1,20 +1,27 @@
 #' Download State Summaries
 #'
-#' Provides summary information for assess uses for an organization (State,
+#' @description  Provides summary information for assessed uses for an organization (State,
 #' Territory or Tribe) and Integrated Reporting Cycle. The Organization ID for
 #' the state, territory or tribe is required. If a Reporting Cycle isn't
 #' provided, the service will return the most recent cycle. If a reporting Cycle
 #' is provided, the service will return a summary for the requested cycle.
 #'
-#' @param organization_id (character) Organization identifier used by EPA.
-#'   required
-#' @param reporting_cycle (character) 4 digit reporting cycle year. Typically
-#'   even numbered years. Will return reporting data for all years prior to and
-#'   including the reporting cycle by reporting cycle. optional
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param organization_id (character) Restricts results to the specified
+#'   organization. required
+#' @param reporting_cycle (character) Filters the returned results to the
+#'   specified 4 digit reporting cycle year. Typically even numbered years. Will
+#'   return reporting data for all years prior to and including the reporting
+#'   cycle by reporting cycle. optional
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
+#'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return tibble
+#' @return If \code{tidy = FALSE} the raw JSON string is
+#'   returned, else the JSON data is parsed and returned as a list of tibbles.
+#' @note See [domain_values] to search values that can be queried. Data
+#'   downloaded from the EPA webservice is automatically cached to reduce
+#'   uneccessary calls to the server. To managed cached files see
+#'   [rATTAINS_caching].
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select mutate
