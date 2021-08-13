@@ -30,7 +30,7 @@ jobs:
 
       - name: Install packages
         run: |
-          R -e 'install.packages(c("renv", "rmarkdown", "remotes")'
+          R -e 'install.packages(c("renv", "rmarkdown", "remotes"))'
           R -e 'remotes::install_github("mps9506/rATTAINS")'
           R -e 'renv::restore()'
 
