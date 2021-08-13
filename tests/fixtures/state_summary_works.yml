@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 200
-      date: Thu, 12 Aug 2021 15:21:58 GMT
+      date: Fri, 13 Aug 2021 20:38:07 GMT
       server: Apache
       strict-transport-security: max-age=31536000; includeSubDomains
       access-control-allow-headers: Content-Type
@@ -32,5 +32,5 @@ http_interactions:
       encoding: UTF-8
       file: yes
       string: ../files/TDECWR_2016state_summary.json
-  recorded_at: 2021-08-12 15:21:59 GMT
+  recorded_at: 2021-08-13 20:38:08 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0

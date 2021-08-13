@@ -1,10 +1,14 @@
 test_that("domain_values works", {
   vcr::use_cassette("domains_works", {
-    x <- domain_values(domain_name="UseName",context="TDECWR")
+    x <- domain_values(domain_name="UseName",context="TCEQMAIN")
   })
   testthat::expect_s3_class(x, "tbl_df")
+})
 
-  x <- domain_values(domain_name="UseName",context="TDECWR",tidy=FALSE)
+test_that("domain_values single argument works", {
+  vcr::use_cassette("single_domain", {
+    x <- domain_values(domain_name="OrgStateCode",tidy=FALSE)
+  })
   testthat::expect_type(x, "character")
 })
 
