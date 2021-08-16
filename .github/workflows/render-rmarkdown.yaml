@@ -1,7 +1,13 @@
 on:
   push:
-    paths:
-      - '**.Rmd'
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
 name: Render-rmd
 
 jobs:
@@ -30,7 +36,7 @@ jobs:
 
       - name: Install packages
         run: |
-          R -e 'install.packages(c("renv", "rmarkdown", "remotes", "vcr"))'
+          R -e 'install.packages(c("ragg", "remotes", "renv", "rmarkdown", "vcr"))'
           R -e 'remotes::install_github("mps9506/rATTAINS")'
           R -e 'renv::restore()'
 
