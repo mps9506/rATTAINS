@@ -59,17 +59,22 @@ There are eight user available functions that correspond with the first eight we
 
 # Examples:
 
+Get a summary about assessed uses from the Texas Commission on Environmental Quality:
+
 ```{r}
 library(rATTAINS)
-df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020")
-str(df)
+state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
+  .[1,] %>% str()
 ```
 
+Get a summary about assessed uses, parameters and plans in a HUC12:
 
 ```{r}
-df <- huc12_summary(huc = "020700100204")
-str(df)
+huc12_summary(huc = "020700100204")
+
 ```
+
+Find statistical surveys completed by an organization:
 
 ```{r}
 df <- surveys(organization_id="SDDENR")
