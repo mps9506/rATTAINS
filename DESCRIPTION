@@ -1,5 +1,5 @@
 Package: rATTAINS
-Title: What the Package Does (One Line, Title Case)
+Title: Access EPA 'ATTAINS' Data
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Michael",
@@ -7,7 +7,11 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mpschramm@gmail.com",
            comment = c(ORCID = "0000-0003-1876-6592"))
-Description: What the package does (one paragraph).
+Description: An R interface to United States Environmental Protection Agency (EPA)  
+    Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System 
+    ('ATTAINS') data. 'ATTAINS' is the EPA database used to track information 
+    provided by states about water quality assessments conducted under federal 
+    Clean Water Act requirements.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -34,4 +38,5 @@ Suggests:
     knitr,
     rmarkdown
 Config/testthat/edition: 3
+BugReports: https://github.com/mps9506/rATTAINS/issues
 VignetteBuilder: knitr

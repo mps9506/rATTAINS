@@ -7,10 +7,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = FALSE,
+  message = TRUE
 )
 ## setup vcr not sure I am doing this right.
 library(vcr)
@@ -21,13 +23,21 @@ invisible(vcr::vcr_configure(
 
 ```
 
-```{r setup}
-library(rATTAINS)
-```
+
 
 # About
 
 The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System (ATTAINS) is the U.S. Environmental Protection Agency (EPA) database used to track information provided by states about water quality assessments conducted under the Clean Water Act. The assessments are conducted every two years to evaluate if the nation's water bodies meet water quality standards. States are required to take Actions (TMDLs or other efforts) on water bodies that do not meet standards. Public information in ATTAINS is made available through webservices and provided as JSON files. rATTAINS facilitates accessing this data with various functions that provide raw JSON or formatted "tidy" data for each of the ATTAINS webservice endpoints. More information about Clean Water Act assessment and reporting is available through the [EPA](https://www.epa.gov/waterdata/attains-program-information). For alternative methods of accessing the same data, see ["How's My Waterway" webpage](https://mywaterway.epa.gov/) for interactive data exploration or the [ArcGIS MapService](https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer) for spatial data.
+
+rATTAINS is currently on Github. It can be installed and loaded as follows:
+
+```{r}
+## Uncomment the next two lines to install
+##install.packages(remotes)
+##remotes::install_github("mps9506/rATTAINS")
+library(rATTAINS)
+```
+
 
 # Functions
 
@@ -107,7 +117,7 @@ x
 
  - `assessment_units()` : provides information about assessment units by the specified argument parameters. 
  
- - `assessment()` provides information about assessment decisions by the specified argument parameters.
+ - `assessments()` provides information about assessment decisions by the specified argument parameters.
  
  - `actions()` provides information about Actions (such as TMDLs, 4B Actions, or similar) that have been finalized by the specified argument parameters. 
  
@@ -123,15 +133,15 @@ By default, all the functions rATTAINS return one or more "tidy" dataframes. The
  
 To reduce unneeded calls to the server, downloaded JSONs files are individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See `rATTAINS_caching` for additional info, but an example of accessing the file path and deleting files is shown below.
 
-```{r hoard, eval=FALSE}
+```{r hoard}
 ## This returns the file path where the files are cached
 dv_cache$cache_path_get()
 
 ## get a list of cached files
-dv_cache$files()[[1]]
+dv_cache$list()
 
 ## delete one file
-dv_cache$delete(dv_cache$files()[[1]])
+#dv_cache$delete(dv_cache$list()[[1]])
 
 ## delete all files in the directory
 dv_cache$delete_all()
