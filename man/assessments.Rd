@@ -96,9 +96,11 @@ uneccessary calls to the server. To managed cached files see
 \dontrun{
 
 ## Return all assessment decisions with specified parameters
-assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+assessments(organization_id = "SDDENR",
+probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
 
 ## Returns the raw JSONs instead:
-assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
+assessments(organization_id = "SDDENR",
+probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
 }
 }
