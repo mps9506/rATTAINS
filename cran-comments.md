@@ -11,3 +11,7 @@
 0 errors | 0 warnings | 1 note
 
 * This is a new release.
+
+Other comments:
+
+* Examples are wrapped in \donttest{} since they rely on an internet connection and API that will rate limit when automatically test or run.
