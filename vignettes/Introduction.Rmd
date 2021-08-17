@@ -141,7 +141,7 @@ dv_cache$cache_path_get()
 dv_cache$list()
 
 ## delete one file
-dv_cache$delete(dv_cache$list()[[1]])
+#dv_cache$delete(dv_cache$list()[[1]])
 
 ## delete all files in the directory
 dv_cache$delete_all()
