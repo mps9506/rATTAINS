@@ -26,6 +26,16 @@
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
 #' @importFrom tibble as_tibble
+#' @examples
+#'
+#' \dontrun{
+#'
+#' ## return surveys by organization
+#' surveys(organization_id="SDDENR")
+#'
+#' ## return as a JSON string instead of a list of tibbles
+#' surveys(organization_id="SDDENR", tidy = FALSE)
+#' }
 
 surveys <- function(organization_id = NULL,
                     survey_year = NULL,

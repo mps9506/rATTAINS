@@ -86,3 +86,14 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}
 }
+\examples{
+
+\dontrun{
+
+## Retrieve data about a single assessment unit
+assessment_units(assessment_unit_identifer = "AL03150201-0107-200")
+
+## Retrieve data as a JSON instead
+assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+}
+}

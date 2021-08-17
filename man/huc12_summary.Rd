@@ -30,3 +30,13 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}
 }
+\examples{
+
+\dontrun{
+## Return a list of tibbles with summary data about a single huc12
+x <- huc12_summary(huc = "020700100204")
+
+## Return as a JSON string
+x <- huc12_summary(huc = "020700100204", tidy = TRUE)
+}
+}

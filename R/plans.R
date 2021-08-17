@@ -30,6 +30,16 @@
 #'   reportAssertions
 #' @importFrom fs path
 #' @export
+#' @examples
+#'
+#' \dontrun{
+#'
+#' ## Query plans by huc
+#' plans(huc ="020700100103")
+#'
+#' ## return a JSON string instead of list of tibbles
+#' plans(huc = "020700100103", tidy = FALSE)
+#' }
 plans <- function(huc,
                   organization_id = NULL,
                   summarize = FALSE,

@@ -125,3 +125,12 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}
 }
+\examples{
+\dontrun{
+
+## Look up an individual action
+actions(action_id = "R8-ND-2018-03")
+## Get the JSON instead
+actions(action_id = "R8-ND-2018-03", tidy = FALSE)
+}
+}

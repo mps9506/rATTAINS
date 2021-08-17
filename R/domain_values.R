@@ -23,6 +23,20 @@
 #' @importFrom janitor clean_names
 #' @importFrom rlang .data
 #' @importFrom tibble as_tibble
+#' @examples
+#'
+#'
+#' \dontrun{
+#'
+#' ## return a tibble with all domain names
+#' domain_values()
+#'
+#' ## return allowable parameter values for a given domain name and context
+#' domain_values(domain_name="UseName",context="TCEQMAIN")
+#'
+#' ## return the query as a JSON string instead
+#' domain_values(domain_name="UseName",context="TCEQMAIN", tidy= FALSE)
+#' }
 domain_values <- function(domain_name = NULL,
                           context = NULL,
                           tidy = TRUE,

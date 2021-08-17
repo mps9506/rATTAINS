@@ -36,3 +36,14 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}.
 }
+\examples{
+
+\dontrun{
+
+## return surveys by organization
+surveys(organization_id="SDDENR")
+
+## return as a JSON string instead of a list of tibbles
+surveys(organization_id="SDDENR", tidy = FALSE)
+}
+}

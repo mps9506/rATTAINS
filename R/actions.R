@@ -76,6 +76,15 @@
 #' @importFrom fs path
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty
+#' @examples
+#' \dontrun{
+#'
+#' ## Look up an individual action
+#' actions(action_id = "R8-ND-2018-03")
+
+#' ## Get the JSON instead
+#' actions(action_id = "R8-ND-2018-03", tidy = FALSE)
+#' }
 actions <- function(action_id = NULL,
                     assessment_unit_id = NULL,
                     state_code = NULL,
