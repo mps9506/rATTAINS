@@ -9,7 +9,7 @@
 #'   use `cache_delete` in a [lapply()] type call
 #'
 #'   Note that cached files will continue to be used until they are deleted. You
-#'   should occassionally delete all cached files.
+#'   should occasionally delete all cached files.
 #'
 #'
 #' @section Useful user functions:
@@ -33,7 +33,7 @@
 #' - `plans()`: `plans_cache`
 #' - `state_summary()`: `state_cache`
 #' - `surveys()`: `surveys_cache`
-#'
+#' @return \value{None}
 NULL
 
 #' @rdname rATTAINS_caching
