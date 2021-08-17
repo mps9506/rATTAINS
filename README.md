@@ -45,28 +45,28 @@ query and the tidying process used in rATTAINS might make poor
 assumptions in the data flattening process. If the function returns
 unexpected results, try parsing the raw JSON string.
 
--   `state_summary()` provides summary information for assessed uses for
+  - `state_summary()` provides summary information for assessed uses for
     organizations and by integrated reporting cycle.
 
--   `huc_2_summary()` provides summary information about impairments,
+  - `huc_2_summary()` provides summary information about impairments,
     actions, and documents for the specified 12-digit HUC (watershed).
 
--   `actions()` provides a summary of information for particular
+  - `actions()` provides a summary of information for particular
     finalized actions (TMDLs and related).
 
--   `assessments()` provides summary data about the specified assessment
+  - `assessments()` provides summary data about the specified assessment
     decisions by waterbody.
 
--   `plans()` returns a summary of the plans (TMDLs and related) within
+  - `plans()` returns a summary of the plans (TMDLs and related) within
     a specified HUC.
 
--   `domain_values()` returns allowed values in ATTAINS. By default (no
+  - `domain_values()` returns allowed values in ATTAINS. By default (no
     arguments) the function returns a list of allowed `domain_names`.
 
--   `assessment_units()` returns a summary of information about the
+  - `assessment_units()` returns a summary of information about the
     specified assessment units.
 
--   `surveys()` returns results from state statistical survey results in
+  - `surveys()` returns results from state statistical survey results in
     ATTAINS.
 
 # Examples:
@@ -78,8 +78,7 @@ Environmental Quality:
 library(rATTAINS)
 state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
   .[1,] %>% str()
-#> reading cached file from: C:/Users/MICHAE~1.SCH/AppData/Local/Cache/R/attains-public/api/usesStateSummary/TCEQMAIN_2020state_summary.json
-#> tibble [1 x 13] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 13] (S3: tbl_df/tbl/data.frame)
 #>  $ organization_identifier: chr "TCEQMAIN"
 #>  $ organization_name      : chr "Texas"
 #>  $ organization_type_text : chr "State"
@@ -93,7 +92,7 @@ state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
 #>  $ not_assessed           : chr "46.190000"
 #>  $ not_assessed_count     : chr "6"
 #>  $ parameters             :List of 1
-#>   ..$ : tibble [7 x 7] (S3: tbl_df/tbl/data.frame)
+#>   ..$ : tibble [7 × 7] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ parameter_group               : chr [1:7] "TOXIC INORGANICS" "ORGANIC ENRICHMENT/OXYGEN DEPLETION" "PESTICIDES" "TOXIC ORGANICS" ...
 #>   .. ..$ cause                         : chr [1:7] NA "616.850000" NA NA ...
 #>   .. ..$ cause_count                   : chr [1:7] NA "5" NA NA ...
@@ -107,22 +106,21 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
 
 ``` r
 huc12_summary(huc = "020700100204")
-#> reading cached file from: C:/Users/MICHAE~1.SCH/AppData/Local/Cache/R/attains-public/api/huc12summary/020700100204huc12.json
 #> $huc_summary
-#> # A tibble: 1 x 14
-#>   huc12        assessment_unit~ total_catchment~ total_huc_area_~ assessed_catchm~
+#> # A tibble: 1 × 14
+#>   huc12        assessment_unit… total_catchment… total_huc_area_… assessed_catchm…
 #>   <chr>                   <dbl>            <dbl>            <dbl>            <dbl>
 #> 1 020700100204               20             46.2             46.2             44.1
-#> # ... with 9 more variables: assessed_catchment_area_percent <dbl>,
+#> # … with 9 more variables: assessed_catchment_area_percent <dbl>,
 #> #   assessed_good_catchment_area_sq_mi <dbl>,
 #> #   assessed_good_catchment_area_percent <dbl>,
 #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
 #> #   assessed_unknown_catchment_area_percent <dbl>,
 #> #   contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_waters_catchment_area_percent <dbl>, ...
+#> #   contain_impaired_waters_catchment_area_percent <dbl>, …
 #> 
 #> $au_summary
-#> # A tibble: 20 x 1
+#> # A tibble: 20 × 1
 #>    assessment_unit_id                      
 #>    <chr>                                   
 #>  1 MD-ANATF-02140205                       
@@ -147,16 +145,16 @@ huc12_summary(huc = "020700100204")
 #> 20 DCAKL00L_00                             
 #> 
 #> $ir_summary
-#> # A tibble: 3 x 4
-#>   epa_ir_category_name catchment_size_sq_mi catchment_size_pe~ assessment_unit_~
+#> # A tibble: 3 × 4
+#>   epa_ir_category_name catchment_size_sq_mi catchment_size_pe… assessment_unit_…
 #>   <chr>                               <dbl>              <dbl>             <dbl>
 #> 1 1                                    1.77               3.83                 2
 #> 2 4A                                  25.3               54.8                 11
 #> 3 5                                   37.9               81.9                  7
 #> 
 #> $use_summary
-#> # A tibble: 6 x 5
-#>   use_group_name      use_attainment           catchment_size_~ catchment_size_~
+#> # A tibble: 6 × 5
+#>   use_group_name      use_attainment           catchment_size_… catchment_size_…
 #>   <chr>               <chr>                               <dbl>            <dbl>
 #> 1 ECOLOGICAL_USE      Not Supporting                      19.5             42.1 
 #> 2 FISHCONSUMPTION_USE Fully Supporting                     1.77             3.83
@@ -164,39 +162,39 @@ huc12_summary(huc = "020700100204")
 #> 4 FISHCONSUMPTION_USE Not Supporting                      22.8             49.3 
 #> 5 OTHER_USE           Fully Supporting                     1.91             4.13
 #> 6 RECREATION_USE      Not Supporting                      24.5             53.0 
-#> # ... with 1 more variable: assessment_unit_count <dbl>
+#> # … with 1 more variable: assessment_unit_count <dbl>
 #> 
 #> $param_summary
-#> # A tibble: 17 x 4
-#>    parameter_group_name    catchment_size_s~ catchment_size_p~ assessment_unit_~
+#> # A tibble: 17 × 4
+#>    parameter_group_name    catchment_size_s… catchment_size_p… assessment_unit_…
 #>    <chr>                               <dbl>             <dbl>             <dbl>
 #>  1 ALGAL GROWTH                        22.8              49.3                  2
 #>  2 CHLORINE                            10.7              23.2                  1
 #>  3 HABITAT ALTERATIONS                 25.3              54.7                  3
 #>  4 HYDROLOGIC ALTERATION               36.5              79.0                  6
-#>  5 METALS (OTHER THAN MER~             22.8              49.3                  9
+#>  5 METALS (OTHER THAN MER…             22.8              49.3                  9
 #>  6 NUTRIENTS                           42.4              91.7                  4
 #>  7 OIL AND GREASE                      22.8              49.3                  3
-#>  8 ORGANIC ENRICHMENT/OXY~             42.4              91.7                  8
+#>  8 ORGANIC ENRICHMENT/OXY…             42.4              91.7                  8
 #>  9 PATHOGENS                           44.1              95.4                 15
 #> 10 PESTICIDES                          26.4              57.1                 11
-#> 11 PH/ACIDITY/CAUSTIC CON~              1.72              3.71                 1
-#> 12 POLYCHLORINATED BIPHEN~             26.4              57.1                 12
-#> 13 SALINITY/TOTAL DISSOLV~             19.5              42.1                  1
+#> 11 PH/ACIDITY/CAUSTIC CON…              1.72              3.71                 1
+#> 12 POLYCHLORINATED BIPHEN…             26.4              57.1                 12
+#> 13 SALINITY/TOTAL DISSOLV…             19.5              42.1                  1
 #> 14 SEDIMENT                             3.88              8.39                 1
 #> 15 TOXIC ORGANICS                      22.8              49.3                  8
 #> 16 TRASH                               42.4              91.7                  4
 #> 17 TURBIDITY                           44.1              95.4                 15
 #> 
 #> $res_plan_summary
-#> # A tibble: 1 x 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit~
+#> # A tibble: 1 × 4
+#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
 #> 1 TMDL                              26.4                   57.1               15
 #> 
 #> $vision_plan_summary
-#> # A tibble: 1 x 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit~
+#> # A tibble: 1 × 4
+#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
 #> 1 TMDL                              26.4                   57.1               15
 ```
@@ -207,7 +205,7 @@ Find statistical surveys completed by an organization:
 df <- surveys(organization_id="SDDENR")
 str(df)
 #> List of 2
-#>  $ documents: tibble [0 x 12] (S3: tbl_df/tbl/data.frame)
+#>  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)
 #>   ..$ organization_identifier: chr(0) 
 #>   ..$ organization_name      : chr(0) 
 #>   ..$ organization_type_text : chr(0) 
@@ -220,7 +218,7 @@ str(df)
 #>   ..$ document_description   : chr(0) 
 #>   ..$ document_comments      : chr(0) 
 #>   ..$ document_url           : chr(0) 
-#>  $ surveys  : tibble [104 x 19] (S3: tbl_df/tbl/data.frame)
+#>  $ surveys  : tibble [104 × 19] (S3: tbl_df/tbl/data.frame)
 #>   ..$ organization_identifier        : chr [1:104] "SDDENR" "SDDENR" "SDDENR" "SDDENR" ...
 #>   ..$ organization_name              : chr [1:104] "South Dakota" "South Dakota" "South Dakota" "South Dakota" ...
 #>   ..$ organization_type_text         : chr [1:104] "State" "State" "State" "State" ...
@@ -254,15 +252,15 @@ in the `hoard::hoardr` class. For example:
 
 ``` r
 x <- surveys(organization_id="SDDENR")
-#> reading cached file from: C:/Users/MICHAE~1.SCH/AppData/Local/Cache/R/attains-public/api/surveys/SDDENRsurveys.json
+#> reading cached file from: ~/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json
 
 ## find the location of the file path
 surveys_cache$cache_path_get()
-#> [1] "C:\\Users\\MICHAE~1.SCH\\AppData\\Local/Cache/R/attains-public/api/surveys"
+#> [1] "~/Library/Caches/R/attains-public/api/surveys"
 
 ## return the file names/path
 surveys_cache$list()
-#> [1] "C:\\Users\\MICHAE~1.SCH\\AppData\\Local/Cache/R/attains-public/api/surveys/SDDENRsurveys.json"
+#> [1] "/Users/runner/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json"
 
 ## delete the files in the cached path
 surveys_cache$delete_all()
