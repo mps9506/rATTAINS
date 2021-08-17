@@ -56,10 +56,23 @@
 <li>
       <a href="../articles/Introduction.html">Introduction</a>
     </li>
+    <li>
+      <a href="../articles/articles/Example---Tracking-Impaired-Waters.html">Example - Tracking Impaired Waters</a>
+    </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/mps9506/rATTAINS/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -75,22 +88,26 @@
       <h1 data-toc-skip>Introduction</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/mps9506/rATTAINS/blob/master/vignettes/Introduction.Rmd"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="hidden name"><code>Introduction.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rATTAINS</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'hoardr':</span>
-<span class="co">#&gt;   method           from</span>
-<span class="co">#&gt;   print.cache_info httr</span></code></pre></div>
 <div id="about" class="section level1">
 <h1 class="hasAnchor">
 <a href="#about" class="anchor"></a>About</h1>
 <p>The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System (ATTAINS) is the U.S. Environmental Protection Agency (EPA) database used to track information provided by states about water quality assessments conducted under the Clean Water Act. The assessments are conducted every two years to evaluate if the nation’s water bodies meet water quality standards. States are required to take Actions (TMDLs or other efforts) on water bodies that do not meet standards. Public information in ATTAINS is made available through webservices and provided as JSON files. rATTAINS facilitates accessing this data with various functions that provide raw JSON or formatted “tidy” data for each of the ATTAINS webservice endpoints. More information about Clean Water Act assessment and reporting is available through the <a href="https://www.epa.gov/waterdata/attains-program-information">EPA</a>. For alternative methods of accessing the same data, see <a href="https://mywaterway.epa.gov/">“How’s My Waterway” webpage</a> for interactive data exploration or the <a href="https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer">ArcGIS MapService</a> for spatial data.</p>
+<p>rATTAINS is currently on Github. It can be installed and loaded as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Uncomment the next two lines to install</span>
+<span class="co">##install.packages(remotes)</span>
+<span class="co">##remotes::install_github("mps9506/rATTAINS")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rATTAINS</span><span class="op">)</span>
+<span class="co">#&gt; Registered S3 method overwritten by 'hoardr':</span>
+<span class="co">#&gt;   method           from</span>
+<span class="co">#&gt;   print.cache_info httr</span></code></pre></div>
 </div>
 <div id="functions" class="section level1">
 <h1 class="hasAnchor">
@@ -276,7 +293,7 @@
 <a href="#other-services" class="anchor"></a>Other Services</h2>
 <ul>
 <li><p><code><a href="../reference/assessment_units.html">assessment_units()</a></code> : provides information about assessment units by the specified argument parameters.</p></li>
-<li><p><code>assessment()</code> provides information about assessment decisions by the specified argument parameters.</p></li>
+<li><p><code><a href="../reference/assessments.html">assessments()</a></code> provides information about assessment decisions by the specified argument parameters.</p></li>
 <li><p><code><a href="../reference/actions.html">actions()</a></code> provides information about Actions (such as TMDLs, 4B Actions, or similar) that have been finalized by the specified argument parameters.</p></li>
 <li><p><code><a href="../reference/plans.html">plans()</a></code> is similiar to actions but provides information about finalized Actions and assessment units by HUC8.</p></li>
 <li><p><code><a href="../reference/surveys.html">surveys()</a></code> provides information about organization conducted statistical surveys about water quality assessment results.</p></li>
@@ -294,15 +311,18 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## This returns the file path where the files are cached</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/domains"</span>
 
 <span class="co">## get a list of cached files</span>
-<span class="va">dv_cache</span><span class="op">$</span><span class="fu">files</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">dv_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; character(0)</span>
 
 <span class="co">## delete one file</span>
-<span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete</span><span class="op">(</span><span class="va">dv_cache</span><span class="op">$</span><span class="fu">files</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#dv_cache$delete(dv_cache$list()[[1]])</span>
 
 <span class="co">## delete all files in the directory</span>
-<span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; no files found</span></code></pre></div>
 <p>The caching objects for each function are as follows:</p>
 <ul>
 <li>
