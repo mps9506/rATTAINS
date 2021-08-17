@@ -24,6 +24,15 @@
 #' @importFrom rlang .data
 #' @importFrom tibble as_tibble
 #' @export
+#' @examples
+#'
+#' \dontrun{
+#' ## Return a list of tibbles with summary data about a single huc12
+#' x <- huc12_summary(huc = "020700100204")
+#'
+#' ## Return as a JSON string
+#' x <- huc12_summary(huc = "020700100204", tidy = TRUE)
+#' }
 huc12_summary <- function(huc, tidy = TRUE, ...) {
 
   ## check that arguments are character

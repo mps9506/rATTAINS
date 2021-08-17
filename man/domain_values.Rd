@@ -32,3 +32,18 @@ Data downloaded from the EPA webservice is automatically cached to
 reduce uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}
 }
+\examples{
+
+
+\dontrun{
+
+## return a tibble with all domain names
+domain_values()
+
+## return allowable parameter values for a given domain name and context
+domain_values(domain_name="UseName",context="TCEQMAIN")
+
+## return the query as a JSON string instead
+domain_values(domain_name="UseName",context="TCEQMAIN", tidy= FALSE)
+}
+}

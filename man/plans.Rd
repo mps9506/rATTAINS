@@ -47,3 +47,14 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}
 }
+\examples{
+
+\dontrun{
+
+## Query plans by huc
+plans(huc ="020700100103")
+
+## return a JSON string instead of list of tibbles
+plans(huc = "020700100103", tidy = FALSE)
+}
+}

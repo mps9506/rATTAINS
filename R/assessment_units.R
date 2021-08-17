@@ -53,7 +53,16 @@
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
 #' @importFrom tibble tibble as_tibble
+#' @examples
 #'
+#' \dontrun{
+#'
+#' ## Retrieve data about a single assessment unit
+#' assessment_units(assessment_unit_identifer = "AL03150201-0107-200")
+#'
+#' ## Retrieve data as a JSON instead
+#' assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+#' }
 assessment_units <- function(assessment_unit_identifer = NULL,
                              state_code = NULL,
                              organization_id = NULL,

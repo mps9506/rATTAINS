@@ -32,6 +32,15 @@
 #' @importFrom tibble as_tibble tibble
 #' @importFrom tidyr unnest_longer unnest_wider
 #' @export
+#' @examples
+#'
+#' \dontrun{
+#' ## Get a list of tibbles summarizing assessed uses
+#' state_summary(organization_id = "TDECWR", reporting_cycle = "2016")
+#'
+#' ## Returns the query as a JSON string instead
+#' state_summary(organization_id = "TDECWR", reporting_cycle = "2016", tidy = FALSE)
+#' }
 #'
 state_summary <- function(organization_id = NULL,
                           reporting_cycle = NULL,

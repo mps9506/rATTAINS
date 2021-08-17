@@ -41,7 +41,16 @@
 #' @importFrom fs path
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
+#' @examples
 #'
+#' \dontrun{
+#'
+#' ## Return all assessment decisions with specified parameters
+#' assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+#'
+#' ## Returns the raw JSONs instead:
+#' assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
+#' }
 assessments <- function(assessment_unit_id = NULL,
                         state_code = NULL,
                         organization_id = NULL,

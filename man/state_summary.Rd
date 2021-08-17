@@ -37,3 +37,14 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}.
 }
+\examples{
+
+\dontrun{
+## Get a list of tibbles summarizing assessed uses
+state_summary(organization_id = "TDECWR", reporting_cycle = "2016")
+
+## Returns the query as a JSON string instead
+state_summary(organization_id = "TDECWR", reporting_cycle = "2016", tidy = FALSE)
+}
+
+}

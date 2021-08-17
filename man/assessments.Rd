@@ -91,3 +91,14 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 \link{rATTAINS_caching}.
 }
+\examples{
+
+\dontrun{
+
+## Return all assessment decisions with specified parameters
+assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+
+## Returns the raw JSONs instead:
+assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
+}
+}
