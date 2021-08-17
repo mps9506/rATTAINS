@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
-           role = c("aut", "cre"),
+           role = c("aut", "cre", "cph"),
            email = "mpschramm@gmail.com",
            comment = c(ORCID = "0000-0003-1876-6592"))
 Description: An R interface to United States Environmental Protection Agency (EPA)  
@@ -14,7 +14,6 @@ Description: An R interface to United States Environmental Protection Agency (EP
     Clean Water Act requirements.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
