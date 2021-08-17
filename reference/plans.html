@@ -193,6 +193,17 @@ downloaded from the EPA webservice is automatically cached to reduce
 uneccessary calls to the server. To managed cached files see
 <a href='rATTAINS_caching.html'>rATTAINS_caching</a></p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+
+<span class='co'>## Query plans by huc</span>
+<span class='fu'>plans</span><span class='op'>(</span>huc <span class='op'>=</span><span class='st'>"020700100103"</span><span class='op'>)</span>
+
+<span class='co'>## return a JSON string instead of list of tibbles</span>
+<span class='fu'>plans</span><span class='op'>(</span>huc <span class='op'>=</span> <span class='st'>"020700100103"</span>, tidy <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
