@@ -11,7 +11,7 @@ Description: An R interface to United States Environmental Protection Agency (EP
     Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System 
     ('ATTAINS') data. 'ATTAINS' is the EPA database used to track information 
     provided by states about water quality assessments conducted under federal 
-    Clean Water Act requirements.
+    Clean Water Act requirements. ATTAINS information and API information is available at <https://www.epa.gov/waterdata/attains>.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

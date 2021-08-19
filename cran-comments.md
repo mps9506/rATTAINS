@@ -14,4 +14,5 @@
 
 Other comments:
 
+* This is a resubmission that added a link to the the data source in the description field of the DESCRIPTION file as requested.
 * Examples are wrapped in \donttest{} since they rely on an internet connection and API that will rate limit when automatically test or run.
