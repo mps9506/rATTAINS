@@ -39,6 +39,7 @@ vcr::insert_cassette("state_summary")
 ```
 
 ```{r state_summary, message=FALSE}
+library(rATTAINS)
 x <- state_summary(organization_id = "TDECWR",
                    reporting_cycle = "2016")
 x
