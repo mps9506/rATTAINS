@@ -29,16 +29,6 @@ invisible(vcr::vcr_configure(
 
 The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System (ATTAINS) is the U.S. Environmental Protection Agency (EPA) database used to track information provided by states about water quality assessments conducted under the Clean Water Act. The assessments are conducted every two years to evaluate if the nation's water bodies meet water quality standards. States are required to take Actions (TMDLs or other efforts) on water bodies that do not meet standards. Public information in ATTAINS is made available through webservices and provided as JSON files. rATTAINS facilitates accessing this data with various functions that provide raw JSON or formatted "tidy" data for each of the ATTAINS webservice endpoints. More information about Clean Water Act assessment and reporting is available through the [EPA](https://www.epa.gov/waterdata/attains-program-information). For alternative methods of accessing the same data, see ["How's My Waterway" webpage](https://mywaterway.epa.gov/) for interactive data exploration or the [ArcGIS MapService](https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer) for spatial data.
 
-rATTAINS is currently on Github. It can be installed and loaded as follows:
-
-```{r}
-## Uncomment the next two lines to install
-##install.packages(remotes)
-##remotes::install_github("mps9506/rATTAINS")
-library(rATTAINS)
-```
-
-
 # Functions
 
 ## Summary Services
