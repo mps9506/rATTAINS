@@ -99,15 +99,6 @@
 <h1 class="hasAnchor">
 <a href="#about" class="anchor"></a>About</h1>
 <p>The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation System (ATTAINS) is the U.S. Environmental Protection Agency (EPA) database used to track information provided by states about water quality assessments conducted under the Clean Water Act. The assessments are conducted every two years to evaluate if the nation’s water bodies meet water quality standards. States are required to take Actions (TMDLs or other efforts) on water bodies that do not meet standards. Public information in ATTAINS is made available through webservices and provided as JSON files. rATTAINS facilitates accessing this data with various functions that provide raw JSON or formatted “tidy” data for each of the ATTAINS webservice endpoints. More information about Clean Water Act assessment and reporting is available through the <a href="https://www.epa.gov/waterdata/attains-program-information">EPA</a>. For alternative methods of accessing the same data, see <a href="https://mywaterway.epa.gov/">“How’s My Waterway” webpage</a> for interactive data exploration or the <a href="https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer">ArcGIS MapService</a> for spatial data.</p>
-<p>rATTAINS is currently on Github. It can be installed and loaded as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Uncomment the next two lines to install</span>
-<span class="co">##install.packages(remotes)</span>
-<span class="co">##remotes::install_github("mps9506/rATTAINS")</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rATTAINS</span><span class="op">)</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'hoardr':</span>
-<span class="co">#&gt;   method           from</span>
-<span class="co">#&gt;   print.cache_info httr</span></code></pre></div>
 </div>
 <div id="functions" class="section level1">
 <h1 class="hasAnchor">
@@ -116,8 +107,9 @@
 <h2 class="hasAnchor">
 <a href="#summary-services" class="anchor"></a>Summary Services</h2>
 <p>The EPA provides two summary service endpoint that provide summaries of assessed uses by the organization identifier or by hydrologic unit code (HUC). For example, to return a summary of assessed uses by the state of Tennessee the following function is used:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>,
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rATTAINS</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>,
                    reporting_cycle <span class="op">=</span> <span class="st">"2016"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; # A tibble: 22 × 13</span>
@@ -138,14 +130,14 @@
 <span class="co">#&gt; #   fully_supporting &lt;chr&gt;, fully_supporting_count &lt;chr&gt;, not_assessed &lt;chr&gt;,</span>
 <span class="co">#&gt; #   not_assessed_count &lt;chr&gt;, parameters &lt;list&gt;</span></code></pre></div>
 <p>The resulting tibble includes the water type, designated use, summary of the how much of the assessed uses meet criteria (by count, area, distance, etc.) or are not assessed. For each row, there is a variable called “parameters” combosed of a nested tibble that provides further information about the use assessment by parameters assessed:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
 <span class="co">#&gt; # A tibble: 0 × 7</span>
 <span class="co">#&gt; # … with 7 variables: parameter_group &lt;chr&gt;, cause &lt;chr&gt;, cause_count &lt;chr&gt;,</span>
 <span class="co">#&gt; #   meeting_criteria &lt;dbl&gt;, meeting_criteria_count &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   insufficent_information &lt;dbl&gt;, insufficient_information_count &lt;dbl&gt;</span></code></pre></div>
 <p>The HUC12 service operates similarly but provides data summarized by area, specifically HUC12 units. For example:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span><span class="st">"020700100204"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; $huc_summary</span>
@@ -246,7 +238,7 @@
 <a href="#domains" class="anchor"></a>Domains</h2>
 <p>Each function has a number of allowable arguments and associated values. In order to explore what values you might be interested in querying, the Domain Value service provides information about allowable options. This is mapped to the <code><a href="../reference/domain_values.html">domain_values()</a></code> function. When used without any arguments you get a full list of possible “domains.” These are typically searchable parameters used in all the functions in rATTAINS. Note that the domain names returned by these service are not a one to one match with the argument names used in rATTAINS. It is typically fairly easy to figure out which ones match up to which arguments.</p>
 <p>For example if I want to find out the possible organization identifiers to query by:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"OrgStateCode"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; # A tibble: 146 × 4</span>
@@ -264,7 +256,7 @@
 <span class="co">#&gt; 10 OrgStateCode NM    NM    PUEBLO_POJOAQUE</span>
 <span class="co">#&gt; # … with 136 more rows</span></code></pre></div>
 <p>The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; # A tibble: 17 × 4</span>
@@ -308,7 +300,7 @@
 <h2 class="hasAnchor">
 <a href="#file-caching" class="anchor"></a>File Caching</h2>
 <p>To reduce unneeded calls to the server, downloaded JSONs files are individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See <code>rATTAINS_caching</code> for additional info, but an example of accessing the file path and deleting files is shown below.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## This returns the file path where the files are cached</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/domains"</span>
