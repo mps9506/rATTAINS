@@ -12,6 +12,9 @@
 \alias{state_cache}
 \alias{surveys_cache}
 \title{rATTAINS caching}
+\value{
+\value{None}
+}
 \description{
 Manage data caches
 }
@@ -24,7 +27,7 @@ accept any names, but deletes all files. For deleting many specific files,
 use \code{cache_delete} in a \code{\link[=lapply]{lapply()}} type call
 
 Note that cached files will continue to be used until they are deleted. You
-should occassionally delete all cached files.
+should occasionally delete all cached files.
 }
 \section{Useful user functions}{
 
