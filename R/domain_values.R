@@ -72,23 +72,33 @@ domain_values <- function(domain_name = NULL,
 
   ##setup file cache
   path = "attains-public/api/domains"
-  dv_cache$mkdir()
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    dv_cache$mkdir()
 
-  ## check if current results have been cached
-  file_cache_name <- file_key(arg_list = args,
-                              name = "domains.json")
-  file_path_name <- path(dv_cache$cache_path_get(),
-                         file_cache_name)
+    ## check if current results have been cached
+    file_cache_name <- file_key(arg_list = args,
+                                name = "domains.json")
+    file_path_name <- path(dv_cache$cache_path_get(),
+                           file_cache_name)
 
-  if(file.exists(file_path_name)) {
-    message(paste0("reading cached file from: ", file_path_name))
-    content <- readLines(file_path_name, warn = FALSE)
-  } else {## download data
+    if(file.exists(file_path_name)) {
+      message(paste0("reading cached file from: ", file_path_name))
+      content <- readLines(file_path_name, warn = FALSE)
+    } else {
+      ## download data with caching
+      content <- xGET(path,
+                      args,
+                      file = file_path_name,
+                      ...)
+    }
+  } else {
+    ## download without caching
     content <- xGET(path,
                     args,
-                    file = file_path_name,
+                    file = NULL,
                     ...)
-    }
+  }
+
   if(!isTRUE(tidy)) {
     return(content)
     } else {

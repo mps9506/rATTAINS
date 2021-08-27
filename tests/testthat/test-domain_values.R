@@ -1,4 +1,5 @@
 test_that("domain_values works", {
+  dv_cache$delete_all()
   vcr::use_cassette("domains_works", {
     x <- domain_values(domain_name="UseName",context="TCEQMAIN")
   })

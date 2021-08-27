@@ -33,7 +33,7 @@
 #' - `plans()`: `plans_cache`
 #' - `state_summary()`: `state_cache`
 #' - `surveys()`: `surveys_cache`
-#' @return \value{None}
+#' @return None
 NULL
 
 #' @rdname rATTAINS_caching

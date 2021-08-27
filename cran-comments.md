@@ -8,11 +8,10 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 note
 
-* This is a new release.
+* This release addresses the CRAN check errors introduced on the initial release. Additional checks have been run on the rhub platforms that resulted in failed checks on the initial release.
 
 Other comments:
 
-* This is a resubmission that added a link to the the data source in the description field of the DESCRIPTION file as requested.
 * Examples are wrapped in \donttest{} since they rely on an internet connection and API that will rate limit when automatically test or run.

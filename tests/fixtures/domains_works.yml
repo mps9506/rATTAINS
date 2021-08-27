@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 200
-      date: Fri, 13 Aug 2021 20:37:56 GMT
+      date: Fri, 27 Aug 2021 17:36:11 GMT
       server: Apache
       strict-transport-security: max-age=31536000; includeSubDomains
       access-control-allow-headers: Content-Type
@@ -30,7 +30,24 @@ http_interactions:
       transfer-encoding: chunked
     body:
       encoding: UTF-8
-      file: yes
-      string: ../files/UseName_TCEQMAINdomains.json
-  recorded_at: 2021-08-13 20:37:56 GMT
+      file: no
+      string: '[{"domain":"UseName","name":"Recreation Use","code":"Recreation Use","context":"TCEQMAIN"},{"domain":"UseName","name":"Fish
+        Consumption Use","code":"Fish Consumption Use","context":"TCEQMAIN"},{"domain":"UseName","name":"INTERMEDIATE
+        AQUATIC LIFE","code":"INTERMEDIATE AQUATIC LIFE","context":"TCEQMAIN"},{"domain":"UseName","name":"OVERALL
+        USE SUPPORT","code":"OVERALL USE SUPPORT","context":"TCEQMAIN"},{"domain":"UseName","name":"Aquatic
+        Life Use","code":"Aquatic Life Use","context":"TCEQMAIN"},{"domain":"UseName","name":"Oyster
+        Waters Use","code":"Oyster Waters Use","context":"TCEQMAIN"},{"domain":"UseName","name":"FISH
+        CONSUMPTION","code":"FISH CONSUMPTION","context":"TCEQMAIN"},{"domain":"UseName","name":"OYSTER
+        AQUATIC LIFE","code":"OYSTER AQUATIC LIFE","context":"TCEQMAIN"},{"domain":"UseName","name":"NON-CONTACT
+        RECREATION","code":"NON-CONTACT RECREATION","context":"TCEQMAIN"},{"domain":"UseName","name":"CONTACT
+        RECREATION USE","code":"CONTACT RECREATION USE","context":"TCEQMAIN"},{"domain":"UseName","name":"DOMESTIC
+        WATER SUPPLY - PUBLIC WATER SUPPLY","code":"DOMESTIC WATER SUPPLY - PUBLIC
+        WATER SUPPLY","context":"TCEQMAIN"},{"domain":"UseName","name":"Public Water
+        Supply Use","code":"Public Water Supply Use","context":"TCEQMAIN"},{"domain":"UseName","name":"General
+        Use","code":"General Use","context":"TCEQMAIN"},{"domain":"UseName","name":"PRIMARY
+        RECREATION/SWIMMING","code":"PRIMARY RECREATION/SWIMMING","context":"TCEQMAIN"},{"domain":"UseName","name":"CONTACT
+        RECREATION","code":"CONTACT RECREATION","context":"TCEQMAIN"},{"domain":"UseName","name":"NONCONTACT
+        RECREATION USE","code":"NONCONTACT RECREATION USE","context":"TCEQMAIN"},{"domain":"UseName","name":"Recreational
+        Beaches","code":"Recreational Beaches","context":"TCEQMAIN"}]'
+  recorded_at: 2021-08-27 17:36:04 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
