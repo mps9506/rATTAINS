@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rATTAINS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -129,13 +129,23 @@
 <span class="co">#&gt; #   water_type_code &lt;chr&gt;, units_code &lt;chr&gt;, use_name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   fully_supporting &lt;chr&gt;, fully_supporting_count &lt;chr&gt;, not_assessed &lt;chr&gt;,</span>
 <span class="co">#&gt; #   not_assessed_count &lt;chr&gt;, parameters &lt;list&gt;</span></code></pre></div>
-<p>The resulting tibble includes the water type, designated use, summary of the how much of the assessed uses meet criteria (by count, area, distance, etc.) or are not assessed. For each row, there is a variable called “parameters” combosed of a nested tibble that provides further information about the use assessment by parameters assessed:</p>
+<p>The resulting tibble includes the water type, designated use, summary of the how much of the assessed uses meet criteria (by count, area, distance, etc.) or are not assessed. For each row, there is a variable called “parameters” composed of a nested tibble that provides further information about the use assessment by parameters assessed:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span><span class="op">[[</span><span class="fl">13</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
-<span class="co">#&gt; # A tibble: 0 × 7</span>
-<span class="co">#&gt; # … with 7 variables: parameter_group &lt;chr&gt;, cause &lt;chr&gt;, cause_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   meeting_criteria &lt;dbl&gt;, meeting_criteria_count &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   insufficent_information &lt;dbl&gt;, insufficient_information_count &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span class="va">x</span><span class="op">$</span><span class="va">parameters</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="co">#&gt; # A tibble: 9 × 7</span>
+<span class="co">#&gt;   parameter_group          cause  cause_count meeting_criteria meeting_criteria…</span>
+<span class="co">#&gt;   &lt;chr&gt;                    &lt;chr&gt;  &lt;chr&gt;                  &lt;dbl&gt;             &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 NUTRIENTS                1289.… 5                         NA                NA</span>
+<span class="co">#&gt; 2 METALS (OTHER THAN MERC… 2254   4                         NA                NA</span>
+<span class="co">#&gt; 3 FLOW ALTERATION(S)       494    1                         NA                NA</span>
+<span class="co">#&gt; 4 TEMPERATURE              20459  1                         NA                NA</span>
+<span class="co">#&gt; 5 AMMONIA                  56.10… 1                         NA                NA</span>
+<span class="co">#&gt; 6 PH/ACIDITY/CAUSTIC COND… 56.10… 1                         NA                NA</span>
+<span class="co">#&gt; 7 SEDIMENT                 3772.… 7                         NA                NA</span>
+<span class="co">#&gt; 8 SALINITY/TOTAL DISSOLVE… 56.10… 1                         NA                NA</span>
+<span class="co">#&gt; 9 ORGANIC ENRICHMENT/OXYG… 5269.… 5                         NA                NA</span>
+<span class="co">#&gt; # … with 2 more variables: insufficent_information &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   insufficient_information_count &lt;dbl&gt;</span></code></pre></div>
 <p>The HUC12 service operates similarly but provides data summarized by area, specifically HUC12 units. For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span><span class="st">"020700100204"</span><span class="op">)</span>
@@ -299,22 +309,27 @@
 <div id="file-caching" class="section level2">
 <h2 class="hasAnchor">
 <a href="#file-caching" class="anchor"></a>File Caching</h2>
-<p>To reduce unneeded calls to the server, downloaded JSONs files are individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See <code>rATTAINS_caching</code> for additional info, but an example of accessing the file path and deleting files is shown below.</p>
+<p>To reduce unneeded calls to the server, downloaded JSONs files can be individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See <code>rATTAINS_caching</code> for additional info, but an example of accessing the file path and deleting files is shown below.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## This returns the file path where the files are cached</span>
+<code class="sourceCode R"><span class="co">## set package option</span>
+<span class="fu"><a href="../reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; NULL</span>
+
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span>
+
+<span class="co">## This returns the file path where the files are cached</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/domains"</span>
 
 <span class="co">## get a list of cached files</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; character(0)</span>
+<span class="co">#&gt; [1] "/Users/runner/Library/Caches/R/attains-public/api/domains/UseName_TCEQMAINdomains.json"</span>
 
 <span class="co">## delete one file</span>
 <span class="co">#dv_cache$delete(dv_cache$list()[[1]])</span>
 
 <span class="co">## delete all files in the directory</span>
-<span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; no files found</span></code></pre></div>
+<span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>The caching objects for each function are as follows:</p>
 <ul>
 <li>
