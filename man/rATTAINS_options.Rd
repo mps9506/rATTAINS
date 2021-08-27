@@ -10,7 +10,7 @@ rATTAINS_options(cache_downloads = FALSE)
 \item{cache_downloads}{(logical) whether to locally cache downloads. default: \code{FALSE}}
 }
 \value{
-\value{None}
+None
 }
 \description{
 rATTAINS options

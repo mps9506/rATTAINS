@@ -13,7 +13,7 @@
 \alias{surveys_cache}
 \title{rATTAINS caching}
 \value{
-\value{None}
+None
 }
 \description{
 Manage data caches

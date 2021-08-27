@@ -10,7 +10,7 @@ rATTAINSenv$cache_downloads <- FALSE
 #' @examples \dontrun{
 #' rATTAINS_options(cache_downloads = FALSE)
 #' }
-#' @return \value{None}
+#' @return None
 rATTAINS_options <- function(cache_downloads = FALSE) {
   rATTAINSenv$cache_downloads <- cache_downloads
   return(NULL)
