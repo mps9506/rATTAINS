@@ -257,7 +257,6 @@ in the `hoard::hoardr` class. For example:
 
 ``` r
 x <- surveys(organization_id="SDDENR")
-#> reading cached file from: ~/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json
 
 ## find the location of the file path
 surveys_cache$cache_path_get()
@@ -265,10 +264,11 @@ surveys_cache$cache_path_get()
 
 ## return the file names/path
 surveys_cache$list()
-#> [1] "/Users/runner/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json"
+#> character(0)
 
 ## delete the files in the cached path
 surveys_cache$delete_all()
+#> no files found
 
 ## or delete specific files
 # surveys_cache$delete("filepath.json")
