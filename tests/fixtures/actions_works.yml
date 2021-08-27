@@ -16,7 +16,7 @@ http_interactions:
       explanation: Request fulfilled, document follows
     headers:
       status: HTTP/1.1 200 200
-      date: Fri, 13 Aug 2021 20:37:44 GMT
+      date: Fri, 27 Aug 2021 17:37:27 GMT
       server: Apache
       strict-transport-security: max-age=31536000; includeSubDomains
       access-control-allow-headers: Content-Type
@@ -30,7 +30,24 @@ http_interactions:
       transfer-encoding: chunked
     body:
       encoding: UTF-8
-      file: yes
-      string: ../files/R8-ND-2018-03_N_Nactions.json
-  recorded_at: 2021-08-13 20:37:46 GMT
+      file: no
+      string: '{"items":[{"organizationIdentifier":"21NDHDWQ","organizationName":"North
+        Dakota","organizationTypeText":"State","actions":[{"actionIdentifier":"R8-ND-2018-03","actionName":"Wild
+        Rice River E. coli TMDL, Segment 012 - Sargent and Richland Counties","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2018-08-22","organizationId":"21NDHDWQ","documents":[{"agencyCode":"E","documentTypes":[{"documentTypeCode":"Transmitted
+        Approval Letter"}],"documentFileType":"application/pdf","documentFileName":"Wild
+        Rice River Seg 012 Ecoli TMDL_Approval Letter_signed 9-21-2018.pdf","documentName":"Wild
+        Rice River E. coli TMDL, Segment 012, Approval","documentDescription":null,"documentComments":null,"documentURL":"https://attains.epa.gov/attains-public/api/documents/actions/21NDHDWQ/R8-ND-2018-03/110893"},{"agencyCode":"S","documentTypes":[{"documentTypeCode":"TMDL
+        Report"}],"documentFileType":"application/pdf","documentFileName":"Wild Rice
+        River Seg 012 Ecoli TMDL_Final_8-23-2018.pdf","documentName":"Wild Rice River
+        E. coli TMDL, Segment 012","documentDescription":null,"documentComments":null,"documentURL":"https://attains.epa.gov/attains-public/api/documents/actions/21NDHDWQ/R8-ND-2018-03/110892"},{"agencyCode":"E","documentTypes":[{"documentTypeCode":"EPA
+        Decision Rationale"}],"documentFileType":"application/pdf","documentFileName":"Wild
+        Rice River Seg 012 Ecoli TMDL_Final Review Decision.pdf","documentName":"Wild
+        Rice River E. coli TMDL, Segment 012, Review Decision","documentDescription":null,"documentComments":null,"documentURL":"https://attains.epa.gov/attains-public/api/documents/actions/21NDHDWQ/R8-ND-2018-03/110894"}],"associatedWaters":{"specificWaters":[{"assessmentUnitIdentifier":"ND-09020105-012-S_00","associatedPollutants":[{"pollutantName":"ESCHERICHIA
+        COLI (E. COLI)","pollutantSourceTypeCode":"Nonpoint source","explicitMarginofSafetyText":"10%
+        of the loading capacity","implicitMarginofSafetyText":null,"loadAllocationDetails":[],"permits":[],"TMDLEndPointText":"30-day
+        geometric mean = 126 CFU/100mL"}],"parameters":[{"parameterName":"ESCHERICHIA
+        COLI (E. COLI)","associatedPollutants":[{"pollutantName":"ESCHERICHIA COLI
+        (E. COLI)"}]}],"sources":[]}]},"TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2018-09-20","indianCountryIndicator":null},"pollutants":[],"associatedActions":[]}]}],"count":1}'
+  recorded_at: 2021-08-27 17:37:21 GMT
   recorded_with: vcr/1.0.2, webmockr/0.8.0
