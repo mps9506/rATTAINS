@@ -175,32 +175,31 @@ actions <- function(action_id = NULL,
 
   ## setup file cache
   path <- "attains-public/api/actions"
-  actions_cache$mkdir()
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    actions_cache$mkdir()
 
-  ## check if current results have been cached
-  file_cache_name <- file_key(arg_list = args,
-                              name = "actions.json")
-  file_path_name <- fs::path(actions_cache$cache_path_get(),
-                             file_cache_name)
-
-  if(file.exists(file_path_name)) {
-    message(paste0("reading cached file from: ", file_path_name))
-    content <- readLines(file_path_name, warn = FALSE)
-  }
-
-  ## download data
-  else {
-    if(isTRUE(rATTAINSenv$cache_downloads)) {
+    ## check if current results have been cached
+    file_cache_name <- file_key(arg_list = args,
+                                name = "actions.json")
+    file_path_name <- fs::path(actions_cache$cache_path_get(),
+                               file_cache_name)
+    if(file.exists(file_path_name)) {
+      message(paste0("reading cached file from: ", file_path_name))
+      content <- readLines(file_path_name, warn = FALSE)
+    } else {
+      ## download data
       content <- xGET(path,
                       args,
                       file = file_path_name,
                       ...)
-    } else {
-      content <- xGET(path,
-                      args,
-                      ...)
     }
-  }
+  } else {
+    ## download data without caching
+    content <- xGET(path,
+                    args,
+                    file = NULL,
+                    ...)
+    }
 
   ## return raw JSON
   if(!isTRUE(tidy)) return(content)

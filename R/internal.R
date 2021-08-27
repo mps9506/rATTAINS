@@ -15,9 +15,14 @@ xGET <- function(path, args = list(), file = NULL, ...) {
   url <- "https://attains.epa.gov"
   cli <- crul::HttpClient$new(url,
                               opts = list(...))
-  res <- cli$get(path = path,
-                 disk = file,
-                 query = args)
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    res <- cli$get(path = path,
+                   disk = file,
+                   query = args)
+  } else {
+    res <- cli$get(path = path,
+                   query = args)
+  }
 
   errs(res)
 
