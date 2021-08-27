@@ -124,21 +124,30 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   ## setup file cache
   path <- "attains-public/api/assessmentUnits"
-  au_cache$mkdir()
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    au_cache$mkdir()
 
-  ## check if current results have been cached
-  file_cache_name <- file_key(arg_list = args,
-                              name = "assessmentUnits.json")
-  file_path_name <- fs::path(au_cache$cache_path_get(),
-                             file_cache_name)
+    ## check if current results have been cached
+    file_cache_name <- file_key(arg_list = args,
+                                name = "assessmentUnits.json")
+    file_path_name <- fs::path(au_cache$cache_path_get(),
+                               file_cache_name)
 
-  if(file.exists(file_path_name)) {
-    message(paste0("reading cached file from: ", file_path_name))
-    content <- readLines(file_path_name, warn = FALSE)
+    if(file.exists(file_path_name)) {
+      message(paste0("reading cached file from: ", file_path_name))
+      content <- readLines(file_path_name, warn = FALSE)
+      } else {
+        ## download data
+        content <- xGET(path,
+                        args,
+                        file = file_path_name,
+                        ...)
+      }
   } else {
+    ## download data without caching
     content <- xGET(path,
                     args,
-                    file = file_path_name,
+                    file = NULL,
                     ...)
   }
 

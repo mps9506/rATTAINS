@@ -72,23 +72,33 @@ surveys <- function(organization_id = NULL,
 
   ## setup file cache
   path = "attains-public/api/surveys"
-  surveys_cache$mkdir()
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    surveys_cache$mkdir()
 
-  ## check if current results have been cached
-  file_cache_name <- file_key(arg_list = args,
-                              name = "surveys.json")
-  file_path_name <- fs::path(surveys_cache$cache_path_get(),
-                             file_cache_name)
+    ## check if current results have been cached
+    file_cache_name <- file_key(arg_list = args,
+                                name = "surveys.json")
+    file_path_name <- fs::path(surveys_cache$cache_path_get(),
+                               file_cache_name)
 
-  if(file.exists(file_path_name)) {
-    message(paste0("reading cached file from: ", file_path_name))
-    content <- readLines(file_path_name, warn = FALSE)
-  } else { ## download data
+    if(file.exists(file_path_name)) {
+      message(paste0("reading cached file from: ", file_path_name))
+      content <- readLines(file_path_name, warn = FALSE)
+    } else {
+      ## download data
+      content <- xGET(path,
+                      args,
+                      file = file_path_name,
+                      ...)
+    }
+  } else {
+    ## download data without caching
     content <- xGET(path,
                     args,
-                    file = file_path_name,
+                    file = NULL,
                     ...)
   }
+
   ## return raw JSON
   if(!isTRUE(tidy)) return(content)
   ## parse and tidy JSON

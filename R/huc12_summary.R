@@ -57,23 +57,33 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
 
   ##setup file cache
   path = "attains-public/api/huc12summary"
-  huc12_cache$mkdir()
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    huc12_cache$mkdir()
 
-  ## check if current results have been cached
-  file_cache_name <- file_key(arg_list = args,
-                              name = "huc12.json")
-  file_path_name <- fs::path(huc12_cache$cache_path_get(),
-                             file_cache_name)
+    ## check if current results have been cached
+    file_cache_name <- file_key(arg_list = args,
+                                name = "huc12.json")
+    file_path_name <- fs::path(huc12_cache$cache_path_get(),
+                               file_cache_name)
 
-  if(file.exists(file_path_name)) {
-    message(paste0("reading cached file from: ", file_path_name))
-    content <- readLines(file_path_name, warn = FALSE)
-  } else {## download data
+    if(file.exists(file_path_name)) {
+      message(paste0("reading cached file from: ", file_path_name))
+      content <- readLines(file_path_name, warn = FALSE)
+    } else {
+      ## download data with caching
+      content <- xGET(path,
+                      args,
+                      file = file_path_name,
+                      ...)
+    }
+  } else {
+    ## download data without caching
     content <- xGET(path,
                     args,
-                    file = file_path_name,
+                    file = NULL,
                     ...)
   }
+
   if(!isTRUE(tidy)) {
     return(content)
   } else {
