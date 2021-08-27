@@ -190,10 +190,16 @@ actions <- function(action_id = NULL,
 
   ## download data
   else {
-    content <- xGET(path,
-                    args,
-                    file = file_path_name,
-                    ...)
+    if(isTRUE(rATTAINSenv$cache_downloads)) {
+      content <- xGET(path,
+                      args,
+                      file = file_path_name,
+                      ...)
+    } else {
+      content <- xGET(path,
+                      args,
+                      ...)
+    }
   }
 
   ## return raw JSON
