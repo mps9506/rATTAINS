@@ -1,5 +1,6 @@
 test_that("assessments works", {
   ## should clean cached files before hand
+  assessments_cache$delete_all()
   vcr::use_cassette("assessments_works", {
     x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
   })
@@ -7,6 +8,7 @@ test_that("assessments works", {
   testthat::expect_s3_class(x$use_assessment, "tbl_df")
   testthat::expect_s3_class(x$parameter_assessment, "tbl_df")
 
+  skip_on_cran()
   x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
   testthat::expect_type(x, "character")
 })
