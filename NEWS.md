@@ -1,3 +1,7 @@
+# rATTAINS 0.1.2
+
+* vignette no longer creates an empty file tree when building (issue  #14)
+
 # rATTAINS 0.1.1
 
 * add package option to cache files, defaults to `FALSE`.
