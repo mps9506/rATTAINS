@@ -4,13 +4,15 @@
 * GitHub Actions (macOS), release
 * GitHub Actions (windows), release
 * GitHub Actions (ubuntu-20.04), release, devel
-* win-builder (devel)
+* R-hub (macos-highsierra-release-cran), r-release
+* R-hub (debian-gcc-devel), r-devel
+* R-hub (windows-x86_64-patched), r-patched
 
 ## R CMD check results
 
 0 errors | 0 warnings | 0 note
 
-* This release addresses the CRAN check errors introduced on the initial release. Additional checks have been run on the rhub platforms that resulted in failed checks on the initial release.
+* This release fixes the 'Additional issues' note I was emailed about. Empty directory trees are no long created when building the vignette.
 
 Other comments:
 

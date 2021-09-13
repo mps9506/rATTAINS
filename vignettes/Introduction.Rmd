@@ -127,7 +127,7 @@ By default, all the functions rATTAINS return one or more "tidy" dataframes. The
  
 To reduce unneeded calls to the server, downloaded JSONs files can be individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See `rATTAINS_caching` for additional info, but an example of accessing the file path and deleting files is shown below.
 
-```{r hoard}
+```{r hoard, eval=FALSE}
 ## set package option
 rATTAINS_options(cache_downloads = TRUE)
 
@@ -160,7 +160,7 @@ The caching objects for each function are as follows:
  
 # Notes
 
-The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA.  Please do not abuse the webservice using this package. 
+The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affiliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA.  Please do not abuse the webservice using this package. 
 
 
 
