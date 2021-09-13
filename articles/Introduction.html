@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rATTAINS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -313,17 +313,14 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## set package option</span>
 <span class="fu"><a href="../reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; NULL</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span>
 
 <span class="co">## This returns the file path where the files are cached</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/domains"</span>
 
 <span class="co">## get a list of cached files</span>
 <span class="va">dv_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/Users/runner/Library/Caches/R/attains-public/api/domains/UseName_TCEQMAINdomains.json"</span>
 
 <span class="co">## delete one file</span>
 <span class="co">#dv_cache$delete(dv_cache$list()[[1]])</span>
@@ -359,7 +356,7 @@
 <div id="notes" class="section level1">
 <h1 class="hasAnchor">
 <a href="#notes" class="anchor"></a>Notes</h1>
-<p>The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA. Please do not abuse the webservice using this package.</p>
+<p>The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affiliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA. Please do not abuse the webservice using this package.</p>
 </div>
   </div>
 
