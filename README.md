@@ -128,8 +128,8 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 20 × 1
 #>    assessment_unit_id                      
 #>    <chr>                                   
-#>  1 MD-ANATF-02140205                       
-#>  2 MD-02140205-Northwest_Branch            
+#>  1 MD-02140205-Northwest_Branch            
+#>  2 MD-ANATF-02140205                       
 #>  3 MD-02140205                             
 #>  4 DCTFD01R_00                             
 #>  5 MD-ANATF                                
@@ -138,8 +138,8 @@ huc12_summary(huc = "020700100204")
 #>  8 DCTTX27R_00                             
 #>  9 DCTFC01R_00                             
 #> 10 MD-02140205-Mainstem                    
-#> 11 MD-02140205-Northeast_Northwest_Branches
-#> 12 MD-02140205-Mainstem2                   
+#> 11 MD-02140205-Mainstem2                   
+#> 12 MD-02140205-Northeast_Northwest_Branches
 #> 13 DCTWB00R_02                             
 #> 14 DCTWB00R_01                             
 #> 15 DCANA00E_02                             
@@ -261,15 +261,12 @@ x <- surveys(organization_id="SDDENR")
 ## find the location of the file path
 surveys_cache$cache_path_get()
 #> [1] "~/Library/Caches/R/attains-public/api/surveys"
-
 ## return the file names/path
 surveys_cache$list()
 #> character(0)
-
 ## delete the files in the cached path
 surveys_cache$delete_all()
 #> no files found
-
 ## or delete specific files
 # surveys_cache$delete("filepath.json")
 ```
