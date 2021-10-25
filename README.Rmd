@@ -90,9 +90,12 @@ str(df)
 
 ## File Caching
 
-By default rATTAINS will cache downloaded data to minimize calls to the EPA webservice. If a function is run with the same arguments, the cached file will be read instead of downloading from the webservice. A message will print if the cached file is used. It is probably a good idea to periodically delete the cached files, especially when updating packages or R. The cached file paths and files can be managed using the methods in the `hoard::hoardr` class. For example:
+rATTAINS can cache downloaded data to minimize calls to the EPA webservice. If a function is run with the same arguments, the cached file will be read instead of downloading from the webservice. A message will print if the cached file is used. It is probably a good idea to periodically delete the cached files, especially when updating packages or R. The cached file paths and files can be managed using the methods in the `hoard::hoardr` class. For example:
 
 ```{r}
+## set package option
+rATTAINS_options(cache_downloads = TRUE)
+
 x <- surveys(organization_id="SDDENR")
 
 ## find the location of the file path
