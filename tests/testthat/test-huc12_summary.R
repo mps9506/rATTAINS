@@ -23,4 +23,11 @@ test_that("huc_12 works", {
 test_that("huc_12 retruns errors", {
   expect_error(huc12_summary(huc = 20700100204))
   expect_error(huc12_summary(huc = "020700100204", tidy = "Y"))
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/huc12summary?huc=020700100204")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(huc12_summary(huc = "020700100204"))
+  webmockr::disable()
 })

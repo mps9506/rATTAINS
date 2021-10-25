@@ -19,4 +19,12 @@ test_that("state_summary returns expected errors", {
 
   testthat::expect_error(state_summary(),
                          "One of the following arguments must be provided: organization_id")
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TDECWR&reportingCycle=2016")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(state_summary(organization_id = "TDECWR",
+                                       reporting_cycle = "2016"))
+  webmockr::disable()
 })

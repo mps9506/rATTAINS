@@ -24,4 +24,11 @@ test_that("plans works", {
 test_that("plans returns errors", {
   testthat::expect_error(plans(huc ="020700100103", summarize = "Y"))
   testthat::expect_error(plans(huc = 12))
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/plans?huc=020700100103&summarize=N")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(plans(huc ="020700100103"))
+  webmockr::disable()
 })

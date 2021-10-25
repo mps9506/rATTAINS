@@ -13,4 +13,11 @@ test_that("survey returns expected types and classes", {
 test_that("surveys returns expected errors", {
   expect_error(x <- surveys())
   expect_error(x <- surveys(organization_id = 2))
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(surveys(organization_id="SDDENR"))
+  webmockr::disable()
 })

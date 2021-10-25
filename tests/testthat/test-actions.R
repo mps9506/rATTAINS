@@ -13,4 +13,13 @@ test_that("actions webservice works", {
 
 test_that("actions webservice returns errors", {
   testthat::expect_error(actions(action_id = 10))
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/actions?actionIdentifier=R8-ND-2018-03&summarize=N&returnCountOnly=N")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(actions(action_id = "R8-ND-2018-03"))
+  webmockr::disable()
 })
+
+
