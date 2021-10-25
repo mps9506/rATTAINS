@@ -16,12 +16,16 @@ xGET <- function(path, args = list(), file = NULL, ...) {
   cli <- crul::HttpClient$new(url,
                               opts = list(...))
   if(isTRUE(rATTAINSenv$cache_downloads)) {
-    res <- cli$get(path = path,
-                   disk = file,
-                   query = args)
+    res <- cli$retry("GET",
+                     path = path,
+                     disk = file,
+                     query = args,
+                     terminate_on = c(404))
   } else {
-    res <- cli$get(path = path,
-                   query = args)
+    res <- cli$retry("GET",
+                     path = path,
+                     query = args,
+                     terminate_on = c(404))
   }
 
   errs(res)
