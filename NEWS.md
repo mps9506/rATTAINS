@@ -1,3 +1,9 @@
+# rATTAINS 0.1.3
+
+* add citation file
+* add webmocker to suggests, unit test now test for status codes > 200
+* RETRY is used instead of GET to address system timeouts
+
 # rATTAINS 0.1.2
 
 * vignette no longer creates an empty file tree when building (issue  #14)
