@@ -1,13 +1,15 @@
 test_that("assessment_units works", {
 
   vcr::use_cassette("assessment_units_works", {
-    x <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200")
+    x_1 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200")
   })
-  testthat::expect_s3_class(x, "tbl_df")
+  testthat::expect_s3_class(x_1, "tbl_df")
 
-  skip_on_cran()
-  x <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
-  testthat::expect_type(x, "character")
+  vcr::use_cassette("assessment_units_chr_works", {
+    x_2 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+  })
+  testthat::expect_type(x_2, "character")
+
 })
 
 test_that("assessment_units webservice returns errors", {

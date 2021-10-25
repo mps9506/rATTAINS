@@ -1,14 +1,16 @@
 test_that("actions webservice works", {
 
   vcr::use_cassette("actions_works", {
-    x <- actions(action_id = "R8-ND-2018-03")
+    x_1 <- actions(action_id = "R8-ND-2018-03")
   })
-  testthat::expect_s3_class(x$documents, "tbl_df")
-  testthat::expect_s3_class(x$actions, "tbl_df")
+  testthat::expect_s3_class(x_1$documents, "tbl_df")
+  testthat::expect_s3_class(x_1$actions, "tbl_df")
 
-  skip_on_cran()
-  x <- actions(action_id = "R8-ND-2018-03", tidy = FALSE)
-  testthat::expect_type(x, "character")
+  vcr::use_cassette("actions_chr_works", {
+    x_2 <- actions(action_id = "R8-ND-2018-03", tidy = FALSE)
+  })
+  testthat::expect_type(x_2, "character")
+
 })
 
 test_that("actions webservice returns errors", {

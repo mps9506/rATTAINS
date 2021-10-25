@@ -5,12 +5,12 @@ test_that("state_summary returns expected types and classes", {
                                        reporting_cycle = "2016")})
   testthat::expect_s3_class(x, "tbl_df")
 
-  ## skips on cran due to API use
-  skip_on_cran()
-  x <- state_summary(organization_id = "TDECWR",
-                     reporting_cycle = "2016",
-                     tidy = FALSE)
+  vcr::use_cassette("state_summary_chr_works",
+                    { x <- state_summary(organization_id = "TDECWR",
+                                         reporting_cycle = "2016",
+                                         tidy = FALSE)})
   testthat::expect_type(x, "character")
+
 })
 
 test_that("state_summary returns expected errors", {

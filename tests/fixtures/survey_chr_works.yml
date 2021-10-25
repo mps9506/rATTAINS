@@ -1,0 +1,238 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 200
+      date: Mon, 25 Oct 2021 19:11:52 GMT
+      server: Apache
+      strict-transport-security: max-age=31536000; includeSubDomains
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"items":[{"organizationIdentifier":"SDDENR","organizationName":"South
+        Dakota","organizationTypeText":"State","surveys":[{"surveyStatusCode":"Final","year":2018,"surveyCommentText":null,"documents":[],"surveyWaterGroups":[{"waterTypeGroupCode":"LAKE/RESERVOIR/POND","subPopulationCode":"Statewide","unitCode":"Acres","size":213265,"siteNumber":70,"surveyWaterGroupCommentText":"The
+        total lake population consisted of 575 lakes designated the beneficial uses
+        of recreation and/or warmwater or coldwater fish life propagation accounting
+        for 213,265 lake acres in South Dakota.","surveyWaterGroupUseParameters":[{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":85.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":62.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":95.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":7.24,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":98.8,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":37.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":4.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":95.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":37.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":4.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":1.2,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":92.76,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":62.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":14.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":7.24,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":14.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":92.76,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":85.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":1.2,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":98.8,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null}]}]},{"surveyStatusCode":"Final","year":2016,"surveyCommentText":null,"documents":[],"surveyWaterGroups":[{"waterTypeGroupCode":"LAKE/RESERVOIR/POND","subPopulationCode":"Statewide","unitCode":"Acres","size":213265,"siteNumber":54,"surveyWaterGroupCommentText":null,"surveyWaterGroupUseParameters":[{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":2.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":84.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":2.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":97.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":3.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":97.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":3.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":15.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":15.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":84.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":2.6,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":97.4,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null}]}]},{"surveyStatusCode":"Final","year":2014,"surveyCommentText":null,"documents":[],"surveyWaterGroups":[{"waterTypeGroupCode":"LAKE/RESERVOIR/POND","subPopulationCode":"Statewide","unitCode":"Acres","size":213265,"siteNumber":55,"surveyWaterGroupCommentText":null,"surveyWaterGroupUseParameters":[{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":99.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":5.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":99.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":20.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":3.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":79.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":79.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":0.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":99.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":20.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":95.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":0.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":0.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":95.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":0.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":99.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":5.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":3.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":96.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null}]}]},{"surveyStatusCode":"Final","year":2012,"surveyCommentText":null,"documents":[],"surveyWaterGroups":[{"waterTypeGroupCode":"LAKE/RESERVOIR/POND","subPopulationCode":"Statewide","unitCode":"Acres","size":213265,"siteNumber":81,"surveyWaterGroupCommentText":null,"surveyWaterGroupUseParameters":[{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":97.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":6.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":2.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":84.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":6.2,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":6.2,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":0.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":15.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":100.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":84.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":93.8,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":2.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":15.5,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":93.8,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":93.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":97.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":0.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":100.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":6.9,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":93.1,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null}]}]},{"surveyStatusCode":"Final","year":2010,"surveyCommentText":null,"documents":[],"surveyWaterGroups":[{"waterTypeGroupCode":"LAKE/RESERVOIR/POND","subPopulationCode":"Statewide","unitCode":"Acres","size":213265,"siteNumber":80,"surveyWaterGroupCommentText":null,"surveyWaterGroupUseParameters":[{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":1.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":9.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":15.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":85.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":1.3,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Not Supporting","statistic":"Condition Estimate","metricValue":15.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"PH","surveyUseCode":"AQUATIC
+        LIFE - PH","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":85.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"LIMITED CONTACT RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":98.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"LIMITED
+        CONTACT RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":98.7,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":4.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"AQUATIC
+        LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":4.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"ESCHERICHIA
+        COLI (E. COLI)","surveyUseCode":"IMMERSION RECREATION WATERS","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":91.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":4.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"TEMPERATURE","surveyUseCode":"AQUATIC
+        LIFE - TEMPERATURE","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":96.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Not
+        Supporting","statistic":"Condition Estimate","metricValue":4.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":"DISSOLVED
+        OXYGEN","surveyUseCode":"AQUATIC LIFE - DISSOLVED OXYGEN","surveyCategoryCode":"Fully
+        Supporting","statistic":"Condition Estimate","metricValue":96.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Not Supporting","statistic":"Condition
+        Estimate","metricValue":9.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null},{"stressor":null,"surveyUseCode":"IMMERSION
+        RECREATION WATERS","surveyCategoryCode":"Fully Supporting","statistic":"Condition
+        Estimate","metricValue":91.0,"marginOfError":10.0,"confidenceLevel":90.0,"commentText":null}]}]}]}],"count":5}'
+  recorded_at: 2021-10-25 19:11:52 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

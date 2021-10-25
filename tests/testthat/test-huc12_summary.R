@@ -1,18 +1,20 @@
 test_that("huc_12 works", {
 
   vcr::use_cassette("huc12_works", {
-    x <- huc12_summary(huc = "020700100204")
+    x_1 <- huc12_summary(huc = "020700100204")
   })
-  testthat::expect_s3_class(x$huc_summary, "tbl_df")
-  testthat::expect_s3_class(x$au_summary, "tbl_df")
-  testthat::expect_s3_class(x$ir_summary, "tbl_df")
-  testthat::expect_s3_class(x$use_summary, "tbl_df")
-  testthat::expect_s3_class(x$param_summary, "tbl_df")
-  testthat::expect_s3_class(x$res_plan_summary, "tbl_df")
-  testthat::expect_s3_class(x$vision_plan_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$huc_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$au_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$ir_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$use_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$param_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$res_plan_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$vision_plan_summary, "tbl_df")
 
-  x <- huc12_summary(huc = "020700100204", tidy = FALSE)
-  testthat::expect_type(x, "character")
+  vcr::use_cassette("huc12_chr_works", {
+    x_2 <- huc12_summary(huc = "020700100204", tidy = FALSE)
+  })
+  testthat::expect_type(x_2, "character")
 
   # caching seems to cause testing problems on some CRAN platforms
   # test these caching message elsewhere

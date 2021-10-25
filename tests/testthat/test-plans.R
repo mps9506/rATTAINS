@@ -16,9 +16,12 @@ test_that("plans works", {
   testthat::expect_s3_class(x$associated_pollutants, "tbl_df")
   testthat::expect_s3_class(x$associated_parameters, "tbl_df")
 
-  skip_on_cran()
-  x <- plans(huc = "020700100103", tidy = FALSE)
+
+  vcr::use_cassette("plans_chr_works", {
+    x <- plans(huc = "020700100103", tidy = FALSE)
+  })
   testthat::expect_type(x, "character")
+
 })
 
 test_that("plans returns errors", {

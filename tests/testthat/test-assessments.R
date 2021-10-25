@@ -1,15 +1,18 @@
 test_that("assessments works", {
 
   vcr::use_cassette("assessments_works", {
-    x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+    x_1 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
   })
-  testthat::expect_s3_class(x$documents, "tbl_df")
-  testthat::expect_s3_class(x$use_assessment, "tbl_df")
-  testthat::expect_s3_class(x$parameter_assessment, "tbl_df")
+  testthat::expect_s3_class(x_1$documents, "tbl_df")
+  testthat::expect_s3_class(x_1$use_assessment, "tbl_df")
+  testthat::expect_s3_class(x_1$parameter_assessment, "tbl_df")
 
   skip_on_cran()
-  x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
-  testthat::expect_type(x, "character")
+  vcr::use_cassette("assessments_chr_works", {
+    x_2 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)
+  })
+  testthat::expect_type(x_2, "character")
+
 })
 
 test_that("assessment webservice returns errors", {

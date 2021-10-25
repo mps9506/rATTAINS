@@ -1,0 +1,104 @@
+http_interactions:
+- request:
+    method: get
+    uri: https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TDECWR&reportingCycle=2016
+    body:
+      encoding: ''
+      string: ''
+    headers:
+      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
+      Accept-Encoding: gzip, deflate
+      Accept: application/json, text/xml, application/xml, */*
+  response:
+    status:
+      status_code: '200'
+      message: OK
+      explanation: Request fulfilled, document follows
+    headers:
+      status: HTTP/1.1 200 200
+      date: Mon, 25 Oct 2021 19:10:44 GMT
+      server: Apache
+      strict-transport-security: max-age=31536000; includeSubDomains
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      x-frame-options: DENY
+      x-content-type-options: nosniff
+      content-type: application/json;charset=UTF-8
+      access-control-allow-origin: '*'
+      transfer-encoding: chunked
+    body:
+      encoding: UTF-8
+      file: no
+      string: '{"data":{"organizationIdentifier":"TDECWR","organizationName":"Tennessee","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2016","combinedCycles":[],"waterTypes":[{"waterTypeCode":"LAKE/RESERVOIR/POND","unitsCode":"Acres","useAttainments":[{"useName":"Fish
+        and Aquatic Life","Fully Supporting":531027.34,"Fully Supporting-count":55,"Not
+        Assessed":11738.4,"Not Assessed-count":40,"Not Supporting":28508.11,"Not Supporting-count":13,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":1289.22,"Cause-count":5},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":2254,"Cause-count":4},{"parameterGroup":"FLOW
+        ALTERATION(S)","Cause":494,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":20459,"Cause-count":1},{"parameterGroup":"AMMONIA","Cause":56.1,"Cause-count":1},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":56.1,"Cause-count":1},{"parameterGroup":"SEDIMENT","Cause":3772.12,"Cause-count":7},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":56.1,"Cause-count":1},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":5269.01,"Cause-count":5}]},{"useName":"Recreation","Fully
+        Supporting":376477.96,"Fully Supporting-count":36,"Not Assessed":7135.2,"Not
+        Assessed-count":40,"Not Supporting":187660.69,"Not Supporting-count":32,"parameters":[{"parameterGroup":"PESTICIDES","Cause":13872.98,"Cause-count":7},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":95450.88,"Cause-count":15},{"parameterGroup":"TASTE,
+        COLOR, AND ODOR","Cause":45,"Cause-count":2},{"parameterGroup":"PATHOGENS","Cause":2044,"Cause-count":2},{"parameterGroup":"NUTRIENTS","Cause":5800,"Cause-count":1},{"parameterGroup":"MERCURY","Cause":69382.69,"Cause-count":18},{"parameterGroup":"DIOXINS","Cause":10370,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":20459,"Cause-count":1}]},{"useName":"Industrial
+        Water Supply","Fully Supporting":447537.22,"Fully Supporting-count":38,"Not
+        Assessed":1172.22,"Not Assessed-count":3,"parameters":[]},{"useName":"Navigation","Fully
+        Supporting":1971,"Fully Supporting-count":1,"parameters":[]},{"useName":"Domestic
+        Water Supply","Fully Supporting":521638.94,"Fully Supporting-count":51,"Not
+        Assessed":3815.1,"Not Assessed-count":9,"Not Supporting":5800,"Not Supporting-count":1,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":5800,"Cause-count":1}]},{"useName":"Irrigation","Fully
+        Supporting":563584.65,"Fully Supporting-count":69,"Not Assessed":7689.2,"Not
+        Assessed-count":39,"parameters":[]},{"useName":"Livestock Watering and Wildlife","Fully
+        Supporting":563584.65,"Fully Supporting-count":69,"Not Assessed":7689.2,"Not
+        Assessed-count":39,"parameters":[]}]},{"waterTypeCode":"WETLANDS, FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"Fish
+        and Aquatic Life","Not Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Livestock
+        Watering and Wildlife","Not Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Irrigation","Not
+        Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Recreation","Not
+        Assessed":1837,"Not Assessed-count":1,"parameters":[]}]},{"waterTypeCode":"LAKE,
+        FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"Fish and Aquatic
+        Life","Not Supporting":15500,"Not Supporting-count":3,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":15500,"Cause-count":3},{"parameterGroup":"SEDIMENT","Cause":15500,"Cause-count":3},{"parameterGroup":"NUTRIENTS","Cause":15500,"Cause-count":3},{"parameterGroup":"FLOW
+        ALTERATION(S)","Cause":10950,"Cause-count":1}]},{"useName":"Livestock Watering
+        and Wildlife","Fully Supporting":15500,"Fully Supporting-count":3,"parameters":[]},{"useName":"Irrigation","Fully
+        Supporting":15500,"Fully Supporting-count":3,"parameters":[]},{"useName":"Recreation","Fully
+        Supporting":10950,"Fully Supporting-count":1,"Not Supporting":4550,"Not Supporting-count":2,"parameters":[{"parameterGroup":"NUISANCE
+        NATIVE SPECIES","Cause":4550,"Cause-count":2}]}]},{"waterTypeCode":"RIVER","unitsCode":"Miles","useAttainments":[{"useName":"Recreation","Fully
+        Supporting":7698.4,"Fully Supporting-count":658,"Not Assessed":44625.73,"Not
+        Assessed-count":4168,"Not Supporting":8112.99,"Not Supporting-count":826,"parameters":[{"parameterGroup":"PESTICIDES","Cause":259.3,"Cause-count":13},{"parameterGroup":"MERCURY","Cause":333.21,"Cause-count":28},{"parameterGroup":"TASTE,
+        COLOR, AND ODOR","Cause":5.03,"Cause-count":1},{"parameterGroup":"PATHOGENS","Cause":7665.91,"Cause-count":793},{"parameterGroup":"RADIATION","Cause":5.3,"Cause-count":1},{"parameterGroup":"DIOXINS","Cause":259.1,"Cause-count":13},{"parameterGroup":"OIL
+        AND GREASE","Cause":1.41,"Cause-count":1},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":333.98,"Cause-count":25},{"parameterGroup":"TOXIC
+        ORGANICS","Cause":0.54,"Cause-count":1},{"parameterGroup":"METALS (OTHER THAN
+        MERCURY)","Cause":51.3,"Cause-count":5}]},{"useName":"Industrial Water Supply","Fully
+        Supporting":3047.37,"Fully Supporting-count":254,"Not Assessed":353.73,"Not
+        Assessed-count":39,"Not Supporting":2.5,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":2.5,"Cause-count":1}]},{"useName":"Fish
+        and Aquatic Life","Fully Supporting":14750.35,"Fully Supporting-count":1380,"Insufficient
+        Information":150.5,"Insufficient Information-count":23,"Not Assessed":34801.89,"Not
+        Assessed-count":3039,"Not Supporting":10734.38,"Not Supporting-count":1210,"parameters":[{"parameterGroup":"OTHER
+        CAUSE","Cause":1.13,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":155.32,"Cause-count":23},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":354.64,"Cause-count":50},{"parameterGroup":"TASTE, COLOR,
+        AND ODOR","Cause":6.7,"Cause-count":1},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":13.6,"Cause-count":2},{"parameterGroup":"NUISANCE
+        NATIVE SPECIES","Cause":29.76,"Cause-count":2},{"parameterGroup":"FLOW ALTERATION(S)","Cause":530.57,"Cause-count":104},{"parameterGroup":"AMMONIA","Cause":82.34,"Cause-count":14},{"parameterGroup":"TOXIC
+        ORGANICS","Cause":74.02,"Cause-count":8},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":48.41,"Cause-count":12},{"parameterGroup":"CHLORINE","Cause":4.43,"Cause-count":2},{"parameterGroup":"SEDIMENT","Cause":6214.98,"Cause-count":657},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":298.86,"Cause-count":50},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":1839.46,"Cause-count":163},{"parameterGroup":"OIL
+        AND GREASE","Cause":7.8,"Cause-count":4},{"parameterGroup":"NUTRIENTS","Cause":3707.92,"Cause-count":366},{"parameterGroup":"TOXIC
+        INORGANICS","Cause":10.4,"Cause-count":2},{"parameterGroup":"TOTAL TOXICS","Cause":4.3,"Cause-count":1},{"parameterGroup":"HABITAT
+        ALTERATIONS","Cause":7208.14,"Cause-count":744},{"parameterGroup":"CAUSE UNKNOWN","Cause":97.2,"Cause-count":14},{"parameterGroup":"PESTICIDES","Cause":13.25,"Cause-count":2}]},{"useName":"Irrigation","Fully
+        Supporting":26556.67,"Fully Supporting-count":2699,"Not Assessed":33879.45,"Not
+        Assessed-count":2952,"Not Supporting":1,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1,"Cause-count":1}]},{"useName":"Naturally
+        Reproducing Trout Stream","Fully Supporting":139.9,"Fully Supporting-count":28,"Not
+        Assessed":50.23,"Not Assessed-count":7,"parameters":[]},{"useName":"Domestic
+        Water Supply","Fully Supporting":3276.96,"Fully Supporting-count":235,"Not
+        Assessed":655.1,"Not Assessed-count":61,"Not Supporting":66.2,"Not Supporting-count":6,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":48.2,"Cause-count":4},{"parameterGroup":"PATHOGENS","Cause":15.5,"Cause-count":1},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":2.5,"Cause-count":1}]},{"useName":"Livestock
+        Watering and Wildlife","Fully Supporting":26544.25,"Fully Supporting-count":2697,"Not
+        Assessed":33891.87,"Not Assessed-count":2954,"Not Supporting":1,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1,"Cause-count":1}]}]}]}]},"messages":[]}'
+  recorded_at: 2021-10-25 19:10:44 GMT
+  recorded_with: vcr/1.0.2, webmockr/0.8.0

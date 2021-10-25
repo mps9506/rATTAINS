@@ -5,8 +5,9 @@ test_that("survey returns expected types and classes", {
   testthat::expect_s3_class(x$documents, "tbl_df")
   testthat::expect_s3_class(x$surveys, "tbl_df")
 
-  skip_on_cran()
-  x <- surveys(organization_id="SDDENR", tidy = FALSE)
+  vcr::use_cassette("survey_chr_works",
+                    {x <- surveys(organization_id="SDDENR",
+                                  tidy = FALSE)})
   testthat::expect_type(x, "character")
 })
 
