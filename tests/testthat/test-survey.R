@@ -1,5 +1,10 @@
 test_that("survey returns expected types and classes", {
 
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
+  surveys_cache$delete_all()
+
   vcr::use_cassette("survey_works",
                     {x <- surveys(organization_id="SDDENR")})
   testthat::expect_s3_class(x$documents, "tbl_df")

@@ -1,5 +1,10 @@
 test_that("huc_12 works", {
 
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
+  huc12_cache$delete_all()
+
   vcr::use_cassette("huc12_works", {
     x_1 <- huc12_summary(huc = "020700100204")
   })

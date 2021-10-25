@@ -1,5 +1,10 @@
 test_that("domain_values works", {
 
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
+  dv_cache$delete_all()
+
   vcr::use_cassette("domains_works", {
     x <- domain_values(domain_name="UseName",context="TCEQMAIN")
   })

@@ -1,5 +1,10 @@
 test_that("assessments works", {
 
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
+  assessments_cache$delete_all()
+
   vcr::use_cassette("assessments_works", {
     x_1 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
   })

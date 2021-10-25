@@ -1,5 +1,10 @@
 test_that("plans works", {
 
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
+  plans_cache$delete_all()
+
   vcr::use_cassette("plans_works", {
     x <- plans(huc ="020700100103")
   })
