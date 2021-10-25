@@ -1,5 +1,5 @@
 test_that("plans works", {
-  plans_cache$delete_all()
+
   vcr::use_cassette("plans_works", {
     x <- plans(huc ="020700100103")
   })

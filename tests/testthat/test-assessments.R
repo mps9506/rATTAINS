@@ -1,6 +1,5 @@
 test_that("assessments works", {
-  ## should clean cached files before hand
-  assessments_cache$delete_all()
+
   vcr::use_cassette("assessments_works", {
     x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
   })

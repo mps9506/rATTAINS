@@ -1,5 +1,5 @@
 test_that("huc_12 works", {
-  huc12_cache$delete_all()
+
   vcr::use_cassette("huc12_works", {
     x <- huc12_summary(huc = "020700100204")
   })

@@ -1,5 +1,5 @@
 test_that("state_summary returns expected types and classes", {
-  state_cache$delete_all()
+
   vcr::use_cassette("state_summary_works",
                    { x <- state_summary(organization_id = "TDECWR",
                                        reporting_cycle = "2016")})
