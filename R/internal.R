@@ -20,11 +20,17 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                      path = path,
                      disk = file,
                      query = args,
+                     pause_base = 5,
+                     pause_cap = 60,
+                     pause_min = 5,
                      terminate_on = c(404))
   } else {
     res <- cli$retry("GET",
                      path = path,
                      query = args,
+                     pause_base = 5,
+                     pause_cap = 60,
+                     pause_min = 5,
                      terminate_on = c(404))
   }
 
