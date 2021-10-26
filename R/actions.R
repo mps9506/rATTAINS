@@ -106,6 +106,12 @@ actions <- function(action_id = NULL,
                     tidy = TRUE,
                     ...) {
 
+  ## check connectivity
+  if (!has_internet_2("www.epa.gov")) {
+    message("No connection to www.epa.gov available")
+    return(invisible(NULL))
+  }
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,

@@ -72,3 +72,19 @@ file_key <- function(arg_list, name) {
   return(x)
 }
 
+
+
+#' Check connectivity
+#'
+#' @param host a string with a hostname
+#'
+#' @return logical value
+#' @keywords internal
+#' @noRd
+#' @importFrom curl nslookup
+has_internet_2 <- function(host) {
+  !is.null(nslookup(host, error = FALSE))
+}
+
+
+

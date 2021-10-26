@@ -19,6 +19,7 @@ RoxygenNote: 7.1.1
 Imports: 
     checkmate,
     crul,
+    curl,
     dplyr,
     fauxpas,
     fs,
