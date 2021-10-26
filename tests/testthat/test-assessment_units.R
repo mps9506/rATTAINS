@@ -27,3 +27,19 @@ test_that("assessment_units webservice returns errors", {
   testthat::expect_error(assessment_units(assessment_unit_identifer = "AL03150201-0107-200"))
   webmockr::disable()
 })
+
+test_that("au cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+  testthat::expect_message(assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE),
+                           "reading cached file from: ")
+  y <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+  testthat::expect_equal(x, y)
+
+
+
+})

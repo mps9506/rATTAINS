@@ -27,3 +27,18 @@ test_that("surveys returns expected errors", {
   testthat::expect_error(surveys(organization_id="SDDENR"))
   webmockr::disable()
 })
+
+test_that("survey cache cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- surveys(organization_id="SDDENR")
+  testthat::expect_message(surveys(organization_id="SDDENR"),
+                           "reading cached file from: ")
+
+  y <- surveys(organization_id="SDDENR")
+  testthat::expect_equal(x, y)
+
+})

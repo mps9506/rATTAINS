@@ -33,3 +33,21 @@ test_that("state_summary returns expected errors", {
                                        reporting_cycle = "2016"))
   webmockr::disable()
 })
+
+test_that("state_summary cache cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- state_summary(organization_id = "TDECWR",
+                       reporting_cycle = "2016")
+  testthat::expect_message(state_summary(organization_id = "TDECWR",
+                                         reporting_cycle = "2016"),
+                           "reading cached file from: ")
+
+  y <- state_summary(organization_id = "TDECWR",
+                     reporting_cycle = "2016")
+  testthat::expect_equal(x, y)
+
+})

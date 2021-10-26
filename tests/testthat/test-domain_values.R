@@ -28,3 +28,19 @@ test_that("domain_values webservice returns errors",{
   testthat::expect_error(domain_values(domain_name="UseName",context="TCEQMAIN"))
   webmockr::disable()
 })
+
+
+test_that("dv cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- domain_values(domain_name="UseName",context="TCEQMAIN")
+  testthat::expect_message(domain_values(domain_name="UseName",context="TCEQMAIN"),
+                           "reading cached file from: ")
+
+  y <- domain_values(domain_name="UseName",context="TCEQMAIN")
+  testthat::expect_equal(x, y)
+
+})

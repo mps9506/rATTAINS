@@ -27,7 +27,7 @@ test_that("huc_12 works", {
   #                          "reading cached file from: ")
 })
 
-test_that("huc_12 retruns errors", {
+test_that("huc_12 retuns errors", {
   expect_error(huc12_summary(huc = 20700100204))
   expect_error(huc12_summary(huc = "020700100204", tidy = "Y"))
 
@@ -37,4 +37,19 @@ test_that("huc_12 retruns errors", {
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(huc12_summary(huc = "020700100204"))
   webmockr::disable()
+})
+
+test_that("huc12 cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- huc12_summary(huc = "020700100204")
+  testthat::expect_message(huc12_summary(huc = "020700100204"),
+                           "reading cached file from: ")
+
+  y <- huc12_summary(huc = "020700100204")
+  testthat::expect_equal(x, y)
+
 })

@@ -30,3 +30,17 @@ test_that("assessment webservice returns errors", {
   testthat::expect_error(assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES"))
   webmockr::disable()
 })
+
+test_that("assessment cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+  testthat::expect_message(assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES"),
+                           "reading cached file from: ")
+  y <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+  testthat::expect_equal(x, y)
+
+})

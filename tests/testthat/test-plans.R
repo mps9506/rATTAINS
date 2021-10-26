@@ -40,3 +40,18 @@ test_that("plans returns errors", {
   testthat::expect_error(plans(huc ="020700100103"))
   webmockr::disable()
 })
+
+test_that("plans cache cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- plans(huc ="020700100103")
+  testthat::expect_message(plans(huc ="020700100103"),
+                           "reading cached file from: ")
+
+  y <- plans(huc ="020700100103")
+  testthat::expect_equal(x, y)
+
+})
