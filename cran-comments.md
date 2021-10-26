@@ -13,9 +13,9 @@
 0 errors | 0 warnings | 0 note
 
 * This release fixes problems CRAN emailed me about providing informative messages
-  when internet resources are not available. The unit tests are using recorded HTTP
-  responses so the test failure was a legitimate failure as the tests are not actually
-  trying to request outside resources. 
+  when internet resources are not available. Connectivity checks and informative
+  user messages are included in this release. Additional bug fixes to address test
+  failures are also added.
 
 Other comments:
 

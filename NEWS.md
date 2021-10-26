@@ -3,6 +3,7 @@
 * add citation file
 * add webmocker to suggests, unit test now test for status codes > 200
 * RETRY is used instead of GET to address system timeouts
+* Connectivity check and useful messages are included if internet is down
 
 # rATTAINS 0.1.2
 
