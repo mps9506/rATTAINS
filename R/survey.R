@@ -105,6 +105,8 @@ surveys <- function(organization_id = NULL,
                     ...)
   }
 
+  if(is.null(content)) return(content)
+
   ## return raw JSON
   if(!isTRUE(tidy)) return(content)
   ## parse and tidy JSON

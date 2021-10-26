@@ -168,6 +168,8 @@ assessments <- function(assessment_unit_id = NULL,
                     ...)
   }
 
+  if(is.null(content)) return(content)
+
   if (!isTRUE(tidy)) {
     return(content)
   } else{

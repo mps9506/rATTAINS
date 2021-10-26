@@ -114,6 +114,8 @@ plans <- function(huc,
                     ...)
   }
 
+  if(is.null(content)) return(content)
+
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else { ## return parsed data

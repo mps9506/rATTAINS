@@ -105,6 +105,8 @@ domain_values <- function(domain_name = NULL,
                     ...)
   }
 
+  if(is.null(content)) return(content)
+
   if(!isTRUE(tidy)) {
     return(content)
     } else {

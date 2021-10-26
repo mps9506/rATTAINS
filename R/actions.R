@@ -205,8 +205,9 @@ actions <- function(action_id = NULL,
                     args,
                     file = NULL,
                     ...)
-    }
+  }
 
+  if(is.null(content)) return(content)
   ## return raw JSON
   if(!isTRUE(tidy)) return(content)
 

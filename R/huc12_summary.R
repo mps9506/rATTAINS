@@ -90,6 +90,8 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
                     ...)
   }
 
+  if(is.null(content)) return(content)
+
   if(!isTRUE(tidy)) {
     return(content)
   } else {

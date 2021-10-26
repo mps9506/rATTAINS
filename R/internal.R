@@ -15,28 +15,63 @@ xGET <- function(path, args = list(), file = NULL, ...) {
   url <- "https://attains.epa.gov"
   cli <- crul::HttpClient$new(url,
                               opts = list(...))
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    res <- cli$retry("GET",
-                     path = path,
-                     disk = file,
-                     query = args,
-                     pause_base = 5,
-                     pause_cap = 60,
-                     pause_min = 5,
-                     terminate_on = c(404))
+
+  full_url <- cli$url_fetch(path = path,
+                            query = args)
+
+
+  res <- tryCatch(
+    ## try GET
+    if(isTRUE(rATTAINSenv$cache_downloads)) {
+      cli$retry("GET",
+                path = path,
+                disk = file,
+                query = args,
+                pause_base = 5,
+                pause_cap = 60,
+                pause_min = 5,
+                terminate_on = c(404))
+    } else {
+      cli$retry("GET",
+                path = path,
+                query = args,
+                pause_base = 5,
+                pause_cap = 60,
+                pause_min = 5,
+                terminate_on = c(404))
+    },
+    # Handler when a warning occurs:
+    warning = function(cond) {
+      message(paste0(cond, " \n"))
+
+      # Choose a return value when such a type of condition occurs
+      return(NULL)
+    },
+    # Handler when an error occurs:
+    error = function(cond) {
+      message(paste0(cond, " \n"))
+
+      # Choose a return value when such a type of condition occurs
+      return(NULL)
+    },
+    ###############################################
+    # Final part: define what should happen AFTER #
+    # everything has been tried and/or handled    #
+    ###############################################
+
+    finally = {
+      message(paste("Downloaded from:", full_url))
+    }
+
+  )
+
+  if (!is.null(res)) {
+    errs(res)
+    content <- res$parse("UTF-8")
   } else {
-    res <- cli$retry("GET",
-                     path = path,
-                     query = args,
-                     pause_base = 5,
-                     pause_cap = 60,
-                     pause_min = 5,
-                     terminate_on = c(404))
+    content <- NULL
   }
 
-  errs(res)
-
-  content <- res$parse("UTF-8")
   # file.create(file)
   #cat(content, file = file)
 
