@@ -36,7 +36,8 @@ test_that("actions cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- actions(action_id = "R8-ND-2018-03", tidy = FALSE)
+  x <- actions(action_id = "R8-ND-2018-03", tidy = FALSE,
+               timeout_ms = 20000)
   y <- capture.output(actions(action_id = "R8-ND-2018-03", tidy = FALSE),
                       type = "message")
 

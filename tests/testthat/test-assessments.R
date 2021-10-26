@@ -37,7 +37,9 @@ test_that("assessment cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
+  x <- assessments(organization_id = "SDDENR",
+                   probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES",
+                   timeout_ms = 20000)
   testthat::expect_message(assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES"),
                            "reading cached file from: ")
   y <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")

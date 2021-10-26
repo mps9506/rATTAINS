@@ -34,7 +34,8 @@ test_that("survey cache cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- surveys(organization_id="SDDENR")
+  x <- surveys(organization_id="SDDENR",
+               timeout_ms = 20000)
   testthat::expect_message(surveys(organization_id="SDDENR"),
                            "reading cached file from: ")
 

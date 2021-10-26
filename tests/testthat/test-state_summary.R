@@ -41,7 +41,8 @@ test_that("state_summary cache cache works", {
   rATTAINS_options(cache_downloads = TRUE)
 
   x <- state_summary(organization_id = "TDECWR",
-                       reporting_cycle = "2016")
+                     reporting_cycle = "2016",
+                     timeout_ms = 20000)
   testthat::expect_message(state_summary(organization_id = "TDECWR",
                                          reporting_cycle = "2016"),
                            "reading cached file from: ")

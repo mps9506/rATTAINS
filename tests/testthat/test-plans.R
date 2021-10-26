@@ -47,7 +47,8 @@ test_that("plans cache cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- plans(huc ="020700100103")
+  x <- plans(huc ="020700100103",
+             timeout_ms = 20000)
   testthat::expect_message(plans(huc ="020700100103"),
                            "reading cached file from: ")
 

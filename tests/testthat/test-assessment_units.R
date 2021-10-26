@@ -34,7 +34,9 @@ test_that("au cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
+  x <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200",
+                        tidy = FALSE,
+                        timeout_ms = 20000)
   testthat::expect_message(assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE),
                            "reading cached file from: ")
   y <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)

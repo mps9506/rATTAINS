@@ -45,7 +45,8 @@ test_that("huc12 cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- huc12_summary(huc = "020700100204")
+  x <- huc12_summary(huc = "020700100204",
+                     timeout_ms = 20000)
   testthat::expect_message(huc12_summary(huc = "020700100204"),
                            "reading cached file from: ")
 

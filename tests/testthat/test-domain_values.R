@@ -36,7 +36,9 @@ test_that("dv cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
 
-  x <- domain_values(domain_name="UseName",context="TCEQMAIN")
+  x <- domain_values(domain_name="UseName",
+                     context="TCEQMAIN",
+                     timeout_ms = 20000)
   testthat::expect_message(domain_values(domain_name="UseName",context="TCEQMAIN"),
                            "reading cached file from: ")
 
