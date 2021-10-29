@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rATTAINS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -152,9 +152,9 @@
 <span class="va">x</span>
 <span class="co">#&gt; $huc_summary</span>
 <span class="co">#&gt; # A tibble: 1 × 14</span>
-<span class="co">#&gt;   huc12        assessment_unit… total_catchment… total_huc_area_… assessed_catchm…</span>
-<span class="co">#&gt;   &lt;chr&gt;                   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 020700100204               20             46.2             46.2             44.1</span>
+<span class="co">#&gt;   huc12  assessment_unit_… total_catchment_a… total_huc_area_… assessed_catchme…</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;dbl&gt;              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 02070…                20               46.2             46.2              44.1</span>
 <span class="co">#&gt; # … with 9 more variables: assessed_catchment_area_percent &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span>
@@ -177,8 +177,8 @@
 <span class="co">#&gt;  8 DCTTX27R_00                             </span>
 <span class="co">#&gt;  9 DCTFC01R_00                             </span>
 <span class="co">#&gt; 10 MD-02140205-Mainstem                    </span>
-<span class="co">#&gt; 11 MD-02140205-Northeast_Northwest_Branches</span>
-<span class="co">#&gt; 12 MD-02140205-Mainstem2                   </span>
+<span class="co">#&gt; 11 MD-02140205-Mainstem2                   </span>
+<span class="co">#&gt; 12 MD-02140205-Northeast_Northwest_Branches</span>
 <span class="co">#&gt; 13 DCTWB00R_02                             </span>
 <span class="co">#&gt; 14 DCTWB00R_01                             </span>
 <span class="co">#&gt; 15 DCANA00E_02                             </span>
@@ -250,6 +250,7 @@
 <p>For example if I want to find out the possible organization identifiers to query by:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"OrgStateCode"</span><span class="op">)</span>
+<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/domains?domainName=OrgStateCode</span>
 <span class="va">x</span>
 <span class="co">#&gt; # A tibble: 146 × 4</span>
 <span class="co">#&gt;    domain       name  code  context        </span>
@@ -268,6 +269,7 @@
 <p>The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span>
+<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/domains?domainName=UseName&amp;context=TCEQMAIN</span>
 <span class="va">x</span>
 <span class="co">#&gt; # A tibble: 17 × 4</span>
 <span class="co">#&gt;    domain  name                                        code              context</span>
