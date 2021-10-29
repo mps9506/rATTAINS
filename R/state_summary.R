@@ -47,6 +47,12 @@ state_summary <- function(organization_id = NULL,
                           tidy = TRUE,
                           ...) {
 
+  ## check connectivity
+  if (!has_internet_2("www.epa.gov")) {
+    message("No connection to www.epa.gov available")
+    return(invisible(NULL))
+  }
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -95,6 +101,9 @@ state_summary <- function(organization_id = NULL,
                     file = NULL,
                     ...)
   }
+
+
+  if(is.null(content)) return(content)
 
   if(!isTRUE(tidy)) { ## return raw data
     return(content)

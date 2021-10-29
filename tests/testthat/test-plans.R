@@ -1,5 +1,10 @@
 test_that("plans works", {
+
+  ## set package option
+  rATTAINS_options(cache_downloads = FALSE)
+  ## clear any pre-existing cache
   plans_cache$delete_all()
+
   vcr::use_cassette("plans_works", {
     x <- plans(huc ="020700100103")
   })
@@ -16,12 +21,38 @@ test_that("plans works", {
   testthat::expect_s3_class(x$associated_pollutants, "tbl_df")
   testthat::expect_s3_class(x$associated_parameters, "tbl_df")
 
-  skip_on_cran()
-  x <- plans(huc = "020700100103", tidy = FALSE)
+
+  vcr::use_cassette("plans_chr_works", {
+    x <- plans(huc = "020700100103", tidy = FALSE)
+  })
   testthat::expect_type(x, "character")
+
 })
 
 test_that("plans returns errors", {
   testthat::expect_error(plans(huc ="020700100103", summarize = "Y"))
   testthat::expect_error(plans(huc = 12))
+
+  skip_on_cran()
+  webmockr::enable()
+  stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/plans?huc=020700100103&summarize=N")
+  webmockr::to_return(stub, status = 502)
+  testthat::expect_error(plans(huc ="020700100103"))
+  webmockr::disable()
+})
+
+test_that("plans cache cache works", {
+  skip_on_cran()
+  skip_if_offline()
+  ## set package option
+  rATTAINS_options(cache_downloads = TRUE)
+
+  x <- plans(huc ="020700100103",
+             timeout_ms = 20000)
+  testthat::expect_message(plans(huc ="020700100103"),
+                           "reading cached file from: ")
+
+  y <- plans(huc ="020700100103")
+  testthat::expect_equal(x, y)
+
 })

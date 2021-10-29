@@ -12,7 +12,10 @@
 
 0 errors | 0 warnings | 0 note
 
-* This release fixes the 'Additional issues' note I was emailed about. Empty directory trees are no long created when building the vignette.
+* This release fixes problems CRAN emailed me about providing informative messages
+  when internet resources are not available. Connectivity checks and informative
+  user messages are included in this release. Additional bug fixes to address test
+  failures are also added.
 
 Other comments:
 
