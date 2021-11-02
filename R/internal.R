@@ -40,42 +40,18 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                 pause_min = 5,
                 terminate_on = c(404))
     },
-    # Handler when a warning occurs:
-    warning = function(cond) {
-      message(paste0(cond, " \n"))
+    error = function(e) e)
 
-      # Choose a return value when such a type of condition occurs
-      return(NULL)
-    },
-    # Handler when an error occurs:
-    error = function(cond) {
-      message(paste0(cond, " \n"))
-
-      # Choose a return value when such a type of condition occurs
-      return(NULL)
-    },
-    ###############################################
-    # Final part: define what should happen AFTER #
-    # everything has been tried and/or handled    #
-    ###############################################
-
-    finally = {
-      message(paste("Downloaded from:", full_url))
-    }
-
-  )
+  if (inherits(res, "error")) x$raise_for_status()
 
   if (!is.null(res)) {
     errs(res)
     content <- res$parse("UTF-8")
   } else {
     content <- NULL
+    warning("Sorry, no data found", call. = FALSE)
   }
 
-  # file.create(file)
-  #cat(content, file = file)
-
-  #attr(content, 'url') <- res$url
 
 
   return(content)
@@ -128,4 +104,11 @@ has_internet_2 <- function(host) {
 }
 
 
+check_connectivity <- function() {
+  ## check connectivity
+  if (!has_internet_2("attains.epa.gov")) {
+    message("No connection to attains.epa.gov available")
+    return(invisible(NULL))
+  }
+}
 
