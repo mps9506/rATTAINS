@@ -20,27 +20,24 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                             query = args)
 
 
-  res <- tryCatch(
-    ## try GET
-    if(isTRUE(rATTAINSenv$cache_downloads)) {
-      cli$retry("GET",
-                path = path,
-                disk = file,
-                query = args,
-                pause_base = 5,
-                pause_cap = 60,
-                pause_min = 5,
-                terminate_on = c(404))
-    } else {
-      cli$retry("GET",
-                path = path,
-                query = args,
-                pause_base = 5,
-                pause_cap = 60,
-                pause_min = 5,
-                terminate_on = c(404))
-    },
-    error = function(e) e)
+  if(isTRUE(rATTAINSenv$cache_downloads)) {
+    cli$retry("GET",
+              path = path,
+              disk = file,
+              query = args,
+              pause_base = 5,
+              pause_cap = 60,
+              pause_min = 5,
+              terminate_on = c(404))
+  } else {
+    cli$retry("GET",
+              path = path,
+              query = args,
+              pause_base = 5,
+              pause_cap = 60,
+              pause_min = 5,
+              terminate_on = c(404))
+  }
 
   errs(res)
 
