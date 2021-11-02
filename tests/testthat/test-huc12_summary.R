@@ -44,6 +44,8 @@ test_that("huc12 cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  ## give some time for api to rest
+  Sys.sleep(20)
 
   x <- huc12_summary(huc = "020700100204",
                      timeout_ms = 20000)

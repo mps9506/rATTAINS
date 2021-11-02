@@ -19,10 +19,8 @@ xGET <- function(path, args = list(), file = NULL, ...) {
   full_url <- cli$url_fetch(path = path,
                             query = args)
 
-
-  res <- tryCatch(
-    ## try GET
-    if(isTRUE(rATTAINSenv$cache_downloads)) {
+  tryCatch({
+    res <- if(isTRUE(rATTAINSenv$cache_downloads)) {
       cli$retry("GET",
                 path = path,
                 disk = file,
@@ -30,22 +28,35 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                 pause_base = 5,
                 pause_cap = 60,
                 pause_min = 5,
-                terminate_on = c(404))
-    } else {
-      cli$retry("GET",
-                path = path,
-                query = args,
-                pause_base = 5,
-                pause_cap = 60,
-                pause_min = 5,
-                terminate_on = c(404))
+                terminate_on = c(404),
+                ...)
+      } else {
+        cli$retry("GET",
+                  path = path,
+                  query = args,
+                  pause_base = 5,
+                  pause_cap = 60,
+                  pause_min = 5,
+                  terminate_on = c(404),
+                  ...)
+      }
+    if (!res$success()) {
+      stop(call. = FALSE)
+      }
     },
-    error = function(e) e)
+    error = function(e) {
+      e$message <-
+        paste("Something went wrong with the query, no data were returned.",
+              "Please see <https://attains.epa.gov> for potential server",
+              "issues.\n")
+      e$call <- NULL
+      stop(e)
+      }
+  )
 
-  if (inherits(res, "error")) x$raise_for_status()
+  errs(res)
 
   if (!is.null(res)) {
-    errs(res)
     content <- res$parse("UTF-8")
   } else {
     content <- NULL

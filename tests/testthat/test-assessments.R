@@ -36,6 +36,8 @@ test_that("assessment cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  ## give some time for api to rest
+  Sys.sleep(20)
 
   x <- assessments(organization_id = "SDDENR",
                    probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES",
