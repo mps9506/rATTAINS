@@ -85,7 +85,6 @@ Environmental Quality:
 library(rATTAINS)
 state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
   .[1,] %>% str()
-#> Downloaded from: https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TCEQMAIN&reportingCycle=2020
 #> tibble [1 × 13] (S3: tbl_df/tbl/data.frame)
 #>  $ organization_identifier: chr "TCEQMAIN"
 #>  $ organization_name      : chr "Texas"
@@ -114,7 +113,6 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
 
 ``` r
 huc12_summary(huc = "020700100204")
-#> Downloaded from: https://attains.epa.gov/attains-public/api/huc12summary?huc=020700100204
 #> $huc_summary
 #> # A tibble: 1 × 14
 #>   huc12  assessment_unit_… total_catchment_a… total_huc_area_… assessed_catchme…
@@ -132,8 +130,8 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 20 × 1
 #>    assessment_unit_id                      
 #>    <chr>                                   
-#>  1 MD-02140205-Northwest_Branch            
-#>  2 MD-ANATF-02140205                       
+#>  1 MD-ANATF-02140205                       
+#>  2 MD-02140205-Northwest_Branch            
 #>  3 MD-02140205                             
 #>  4 DCTFD01R_00                             
 #>  5 MD-ANATF                                
@@ -212,7 +210,6 @@ Find statistical surveys completed by an organization:
 
 ``` r
 df <- surveys(organization_id="SDDENR")
-#> Downloaded from: https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR
 str(df)
 #> List of 2
 #>  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)
@@ -266,7 +263,6 @@ rATTAINS_options(cache_downloads = TRUE)
 #> NULL
 
 x <- surveys(organization_id="SDDENR")
-#> Downloaded from: https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR
 
 ## find the location of the file path
 surveys_cache$cache_path_get()
@@ -303,7 +299,7 @@ citation("rATTAINS")
 #>     author = {Michael Schramm},
 #>     year = {2021},
 #>     url = {https://CRAN.R-project.org/package=rATTAINS},
-#>     doi = {https://doi.org/10.5281/zenodo.5469911},
+#>     doi = {10.5281/zenodo.5469911},
 #>     note = {R package version 0.1.3},
 #>   }
 ```
