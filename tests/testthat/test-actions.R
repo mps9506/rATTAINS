@@ -35,9 +35,13 @@ test_that("actions cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  ## give some time for api to rest
+  Sys.sleep(10)
 
   x <- actions(action_id = "R8-ND-2018-03", tidy = FALSE,
                timeout_ms = 20000)
+  ## give some time for api to rest
+  Sys.sleep(10)
   y <- capture.output(actions(action_id = "R8-ND-2018-03", tidy = FALSE),
                       type = "message")
 

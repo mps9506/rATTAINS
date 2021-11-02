@@ -8,7 +8,7 @@ on:
     branches:
       - master
 
-name: R-CMD-check
+name: CRAN-check
 
 jobs:
   R-CMD-check:
