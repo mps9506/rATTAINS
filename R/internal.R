@@ -42,10 +42,9 @@ xGET <- function(path, args = list(), file = NULL, ...) {
     },
     error = function(e) e)
 
-  if (inherits(res, "error")) x$raise_for_status()
+  errs(res)
 
   if (!is.null(res)) {
-    errs(res)
     content <- res$parse("UTF-8")
   } else {
     content <- NULL
