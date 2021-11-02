@@ -21,7 +21,7 @@ xGET <- function(path, args = list(), file = NULL, ...) {
 
 
   if(isTRUE(rATTAINSenv$cache_downloads)) {
-    cli$retry("GET",
+    res <- cli$retry("GET",
               path = path,
               disk = file,
               query = args,
@@ -30,7 +30,7 @@ xGET <- function(path, args = list(), file = NULL, ...) {
               pause_min = 5,
               terminate_on = c(404))
   } else {
-    cli$retry("GET",
+    res <- cli$retry("GET",
               path = path,
               query = args,
               pause_base = 5,
