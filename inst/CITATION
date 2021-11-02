@@ -6,7 +6,7 @@ citEntry(
   author   =  person("Michael", "Schramm", role = "aut"),
   year     = "2021",
   url      = "https://CRAN.R-project.org/package=rATTAINS",
-  doi      = "https://doi.org/10.5281/zenodo.5469911",
+  doi      = "10.5281/zenodo.5469911",
   note     = "R package version 0.1.3",
   textVersion = paste(
   "Schramm, Michael (2021). ",
