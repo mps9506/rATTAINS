@@ -47,10 +47,7 @@ plans <- function(huc,
                   ...) {
 
   ## check connectivity
-  if (!has_internet_2("www.epa.gov")) {
-    message("No connection to www.epa.gov available")
-    return(invisible(NULL))
-  }
+  check_connectivity()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
