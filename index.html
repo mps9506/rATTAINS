@@ -127,7 +127,6 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">rATTAINS</span><span class="op">)</span>
 <span class="fu"><a href="reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TCEQMAIN"</span>, reporting_cycle <span class="op">=</span> <span class="st">"2020"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="va">.</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TCEQMAIN&amp;reportingCycle=2020</span>
 <span class="co">#&gt; tibble [1 × 13] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ organization_identifier: chr "TCEQMAIN"</span>
 <span class="co">#&gt;  $ organization_name      : chr "Texas"</span>
@@ -153,7 +152,6 @@
 <p>Get a summary about assessed uses, parameters and plans in a HUC12:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span>huc <span class="op">=</span> <span class="st">"020700100204"</span><span class="op">)</span>
-<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/huc12summary?huc=020700100204</span>
 <span class="co">#&gt; $huc_summary</span>
 <span class="co">#&gt; # A tibble: 1 × 14</span>
 <span class="co">#&gt;   huc12  assessment_unit_… total_catchment_a… total_huc_area_… assessed_catchme…</span>
@@ -171,8 +169,8 @@
 <span class="co">#&gt; # A tibble: 20 × 1</span>
 <span class="co">#&gt;    assessment_unit_id                      </span>
 <span class="co">#&gt;    &lt;chr&gt;                                   </span>
-<span class="co">#&gt;  1 MD-02140205-Northwest_Branch            </span>
-<span class="co">#&gt;  2 MD-ANATF-02140205                       </span>
+<span class="co">#&gt;  1 MD-ANATF-02140205                       </span>
+<span class="co">#&gt;  2 MD-02140205-Northwest_Branch            </span>
 <span class="co">#&gt;  3 MD-02140205                             </span>
 <span class="co">#&gt;  4 DCTFD01R_00                             </span>
 <span class="co">#&gt;  5 MD-ANATF                                </span>
@@ -248,7 +246,6 @@
 <p>Find statistical surveys completed by an organization:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span>
-<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt; List of 2</span>
 <span class="co">#&gt;  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)</span>
@@ -294,7 +291,6 @@
 <span class="co">#&gt; NULL</span>
 
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span>
-<span class="co">#&gt; Downloaded from: https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR</span>
 
 <span class="co">## find the location of the file path</span>
 <span class="va">surveys_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
@@ -330,7 +326,7 @@
 <span class="co">#&gt;     author = {Michael Schramm},</span>
 <span class="co">#&gt;     year = {2021},</span>
 <span class="co">#&gt;     url = {https://CRAN.R-project.org/package=rATTAINS},</span>
-<span class="co">#&gt;     doi = {https://doi.org/10.5281/zenodo.5469911},</span>
+<span class="co">#&gt;     doi = {10.5281/zenodo.5469911},</span>
 <span class="co">#&gt;     note = {R package version 0.1.3},</span>
 <span class="co">#&gt;   }</span></code></pre></div>
 </div>
