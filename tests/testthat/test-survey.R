@@ -34,7 +34,7 @@ test_that("survey cache cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
   ## give some time for api to rest
-  Sys.sleep(10)
+  Sys.sleep(20)
 
   x <- surveys(organization_id="SDDENR",
                timeout_ms = 20000)

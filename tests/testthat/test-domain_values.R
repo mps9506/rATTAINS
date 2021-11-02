@@ -36,7 +36,7 @@ test_that("dv cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
   ## give some time for api to rest
-  Sys.sleep(10)
+  Sys.sleep(20)
   x <- domain_values(domain_name="UseName",
                      context="TCEQMAIN",
                      timeout_ms = 20000)

@@ -47,7 +47,7 @@ test_that("plans cache cache works", {
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
   ## give some time for api to rest
-  Sys.sleep(10)
+  Sys.sleep(20)
 
   x <- plans(huc ="020700100103",
              timeout_ms = 20000)
