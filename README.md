@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/rATTAINS)](https://cran.r-project.o
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/mps9506/rATTAINS/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/rATTAINS/actions)
-[![codecov](https://codecov.io/gh/mps9506/rATTAINS/branch/master/graph/badge.svg?token=J45QIKWA8E)](https://codecov.io/gh/mps9506/rATTAINS)
+[![codecov](https://codecov.io/gh/mps9506/rATTAINS/branch/master/graph/badge.svg?token=J45QIKWA8E)](https://app.codecov.io/gh/mps9506/rATTAINS)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5469911.svg)](https://doi.org/10.5281/zenodo.5469911)
 <!-- badges: end -->
