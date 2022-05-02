@@ -38,7 +38,10 @@ Suggests:
     knitr,
     rmarkdown,
     webmockr
-Config/testthat/edition: 3
 BugReports: https://github.com/mps9506/rATTAINS/issues
+URL: https://github.com/mps9506/rATTAINS,
+  https://mps9506.github.io/rATTAINS
 VignetteBuilder: knitr
-Config/Needs/website: mps9506/mps-templates
+Config/Needs/website: 
+  mps9506/mpsTemplates
+Config/testthat/edition: 3
