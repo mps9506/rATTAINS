@@ -1,45 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//index.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/404.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/actions.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/assessment_units.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/assessments.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/articles/Example---Tracking-Impaired-Waters.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/domain_values.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/articles/Introduction.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/huc12_summary.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/pipe.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/authors.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/plans.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/index.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/rATTAINS_caching.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/news/index.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/rATTAINS_options.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/reference/actions.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/state_summary.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/reference/assessment_units.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//reference/surveys.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/reference/assessments.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//articles/Introduction.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/reference/domain_values.html</loc>
   </url>
   <url>
-    <loc>https://mps9506.github.io/rATTAINS//articles/articles/Example---Tracking-Impaired-Waters.html</loc>
+    <loc>https://mps9506.github.io/rATTAINS/reference/huc12_summary.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/plans.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/rATTAINS_caching.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/rATTAINS_options.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/state_summary.html</loc>
+  </url>
+  <url>
+    <loc>https://mps9506.github.io/rATTAINS/reference/surveys.html</loc>
   </url>
 </urlset>
