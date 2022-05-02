@@ -133,9 +133,9 @@ huc12_summary(huc = "020700100204")
 #>  1 MD-02140205-Northwest_Branch
 #>  2 MD-02140205                 
 #>  3 DCTFD01R_00                 
-#>  4 MD-ANATF                    
-#>  5 DCTFS01R_00                 
-#>  6 DCTNA01R_00                 
+#>  4 DCTFS01R_00                 
+#>  5 DCTNA01R_00                 
+#>  6 MD-ANATF                    
 #>  7 DCTTX27R_00                 
 #>  8 DCTFC01R_00                 
 #>  9 MD-02140205-Mainstem        
