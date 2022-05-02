@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   Introduction: Introduction.html
   Example---Tracking-Impaired-Waters: Example---Tracking-Impaired-Waters.html
-last_built: 2022-05-02T14:58Z
+last_built: 2022-05-02T15:05Z
 urls:
   reference: https://mps9506.github.io/rATTAINS/reference
   article: https://mps9506.github.io/rATTAINS/articles
