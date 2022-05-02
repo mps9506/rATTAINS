@@ -41,4 +41,4 @@ Suggests:
 Config/testthat/edition: 3
 BugReports: https://github.com/mps9506/rATTAINS/issues
 VignetteBuilder: knitr
-Config/Needs/website: mps9506/mpsTemplates
+Config/Needs/website: mps9506/mps-templates
