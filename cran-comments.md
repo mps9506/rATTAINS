@@ -12,6 +12,8 @@
 
 0 errors | 0 warnings | 0 note
 
+* This resubmission fixes urls caught in the pretest.
+
 * This release fixes problems CRAN emailed me about providing informative messages
   when internet resources are not available. Connectivity checks and informative
   user messages are included in this release. Additional bug fixes to address test
