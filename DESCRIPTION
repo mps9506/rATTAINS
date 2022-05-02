@@ -1,6 +1,6 @@
 Package: rATTAINS
 Title: Access EPA 'ATTAINS' Data
-Version: 0.1.3
+Version: 0.1.3.9999
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
@@ -41,3 +41,4 @@ Suggests:
 Config/testthat/edition: 3
 BugReports: https://github.com/mps9506/rATTAINS/issues
 VignetteBuilder: knitr
+Config/Needs/website: mps9506/mpsTemplates
