@@ -22,11 +22,11 @@ test_that("actions webservice returns errors", {
   testthat::expect_error(actions(action_id = 10))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/actions?actionIdentifier=R8-ND-2018-03&summarize=N&returnCountOnly=N")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(actions(action_id = "R8-ND-2018-03"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 
@@ -35,6 +35,7 @@ test_that("actions cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  actions_cache$delete_all()
   ## give some time for api to rest
   Sys.sleep(20)
 

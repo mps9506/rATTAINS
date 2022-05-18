@@ -22,11 +22,11 @@ test_that("domain_values webservice returns errors",{
   testthat::expect_error(domain_values(domain_name = 10))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/domains?domainName=UseName&context=TCEQMAIN")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(domain_values(domain_name="UseName",context="TCEQMAIN"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 
@@ -35,6 +35,7 @@ test_that("dv cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  dv_cache$delete_all()
   ## give some time for api to rest
   Sys.sleep(20)
   x <- domain_values(domain_name="UseName",

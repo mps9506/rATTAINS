@@ -21,11 +21,11 @@ test_that("assessment_units webservice returns errors", {
   testthat::expect_error(assessment_units(assessment_unit_identifer = 10))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/assessmentUnits?assessmentUnitIdentifier=AL03150201-0107-200")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(assessment_units(assessment_unit_identifer = "AL03150201-0107-200"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 test_that("au cache works", {
@@ -33,6 +33,7 @@ test_that("au cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  au_cache$delete_all()
 
   ## give some time for api to rest
   Sys.sleep(20)

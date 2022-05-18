@@ -34,11 +34,11 @@ test_that("plans returns errors", {
   testthat::expect_error(plans(huc = 12))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/plans?huc=020700100103&summarize=N")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(plans(huc ="020700100103"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 test_that("plans cache cache works", {
@@ -46,6 +46,7 @@ test_that("plans cache cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  plans_cache$delete_all()
   ## give some time for api to rest
   Sys.sleep(20)
 

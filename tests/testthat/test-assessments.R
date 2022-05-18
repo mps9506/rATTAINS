@@ -24,11 +24,11 @@ test_that("assessment webservice returns errors", {
   testthat::expect_error(assessments(organization_id = 10))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/assessments?organizationId=SDDENR&probableSource=GRAZING%20IN%20RIPARIAN%20OR%20SHORELINE%20ZONES&returnCountOnly=N&excludeAssessments=N")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 test_that("assessment cache works", {
@@ -36,6 +36,7 @@ test_that("assessment cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  assessments_cache$delete_all()
   ## give some time for api to rest
   Sys.sleep(20)
 

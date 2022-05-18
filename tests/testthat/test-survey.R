@@ -21,11 +21,11 @@ test_that("surveys returns expected errors", {
   expect_error(x <- surveys(organization_id = 2))
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/surveys?organizationId=SDDENR")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(surveys(organization_id="SDDENR"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 test_that("survey cache cache works", {
@@ -33,6 +33,7 @@ test_that("survey cache cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  surveys_cache$delete_all()
   ## give some time for api to rest
   Sys.sleep(20)
 

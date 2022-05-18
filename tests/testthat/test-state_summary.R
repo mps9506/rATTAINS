@@ -26,12 +26,12 @@ test_that("state_summary returns expected errors", {
                          "One of the following arguments must be provided: organization_id")
 
   skip_on_cran()
-  webmockr::enable()
+  webmockr::enable(quiet = TRUE)
   stub <- webmockr::stub_request("get", "https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TDECWR&reportingCycle=2016")
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(state_summary(organization_id = "TDECWR",
                                        reporting_cycle = "2016"))
-  webmockr::disable()
+  webmockr::disable(quiet = TRUE)
 })
 
 test_that("state_summary cache cache works", {
@@ -39,6 +39,7 @@ test_that("state_summary cache cache works", {
   skip_if_offline()
   ## set package option
   rATTAINS_options(cache_downloads = TRUE)
+  state_cache$delete_all()
 
   x <- state_summary(organization_id = "TDECWR",
                      reporting_cycle = "2016",
