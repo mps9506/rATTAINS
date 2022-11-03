@@ -97,18 +97,18 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
       enter_object("items") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       as_tibble() %>%
       janitor::clean_names()
 
     au_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("assessmentUnits") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       janitor::clean_names()
 
@@ -116,48 +116,48 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
     ir_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("summaryByIRCategory") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       janitor::clean_names()
 
     use_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("summaryByUseGroup") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-c("array.index")) %>%
       enter_object("useAttainmentSummary") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-c("array.index")) %>%
       as_tibble() %>%
       janitor::clean_names()
 
     param_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("summaryByParameterImpairments")   %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       janitor::clean_names()
 
     res_plan_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("summaryRestorationPlans")   %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       janitor::clean_names()
 
@@ -165,11 +165,11 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
     vision_plan_summary <- content %>%
       enter_object("items") %>%
       gather_array() %>%
-      select(-c(.data$array.index, .data$document.id)) %>%
+      select(-c("array.index", "document.id")) %>%
       enter_object("summaryVisionRestorationPlans")   %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       janitor::clean_names()
 

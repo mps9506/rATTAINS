@@ -238,7 +238,7 @@ actions_to_tibble <- function(content,
   if(isTRUE(count)) {
     return(content %>%
              spread_all() %>%
-             select(.data$count) %>%
+             select("count") %>%
              as_tibble() %>%
              clean_names())
   } else {
@@ -247,11 +247,11 @@ actions_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("actions") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         as_tibble() %>%
         clean_names() -> content
       return(content)
@@ -260,20 +260,20 @@ actions_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         enter_object("actions") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         enter_object("associatedWaters") %>%
         enter_object("specificWaters") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         enter_object("associatedPollutants") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$document.id, .data$array.index)) %>%
+        select(-c("document.id", "array.index")) %>%
         as_tibble() %>%
         clean_names() -> content_actions
 
@@ -281,20 +281,20 @@ actions_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("actions") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index)) %>%
-        dplyr::rename(agencyCode_1 = .data$agencyCode) %>%
+        select(-"array.index") %>%
+        dplyr::rename(agencyCode_1 = "agencyCode") %>%
         enter_object("documents") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index)) %>%
+        select(-c("array.index")) %>%
         enter_object("documentTypes") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index)) %>%
+        select(-c("array.index")) %>%
         as_tibble() %>%
         clean_names()-> content_docs
 

@@ -201,7 +201,7 @@ assessments_to_tibble <- function(content,
       gather_object() %>%
       filter(.data$name == "count") %>%
       spread_values(count = jnumber()) %>%
-      select(-c(.data$document.id, .data$name)) %>%
+      select(-c("document.id", "name")) %>%
       as_tibble()
     return(content)
   } else {
@@ -210,11 +210,11 @@ assessments_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("documents") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         mutate(
           documentTypes = map(.data$..JSON, ~{
             .x[["documentTypes"]] %>% {
@@ -223,7 +223,7 @@ assessments_to_tibble <- function(content,
               )}
           })) %>%
         tibble::as_tibble() %>%
-        unnest(c(.data$documentTypes)) %>%
+        unnest("documentTypes") %>%
         clean_names()
       return(content)
     } else {
@@ -232,11 +232,11 @@ assessments_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("documents") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         as_tibble() -> content_docs
 
       ## return use assessment data
@@ -244,11 +244,11 @@ assessments_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("assessments") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index, .data$agencyCode)) %>%
+        select(-c("array.index", "agencyCode")) %>%
         mutate(
           probableSources = map(.data$..JSON, ~{
             .x[["probableSources"]] %>% {
@@ -261,13 +261,13 @@ assessments_to_tibble <- function(content,
                       causeName = map_chr(., "causeName")
                     )}
                 })) %>%
-                unnest(c(.data$associatedCauseName), keep_empty = TRUE)
+                unnest("associatedCauseName", keep_empty = TRUE)
             }})
         ) %>%
         enter_object("useAttainments") %>%
         gather_array() %>%
         spread_all()  %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         mutate(
           assessmentTypes = map(.data$..JSON, ~{
             .x[["assessmentMetadata"]][["assessmentTypes"]] %>% {
@@ -277,7 +277,7 @@ assessments_to_tibble <- function(content,
               )}
           })) %>%
         tibble::as_tibble() %>%
-        unnest(c(.data$probableSources, .data$assessmentTypes), keep_empty = TRUE) %>%
+        unnest(c("probableSources", "assessmentTypes"), keep_empty = TRUE) %>%
         janitor::clean_names()-> content_use_assessments
 
       ## return parameter assessment data
@@ -285,18 +285,18 @@ assessments_to_tibble <- function(content,
         enter_object("items") %>%
         gather_array() %>%
         spread_all() %>%
-        select(-c(.data$array.index, .data$document.id)) %>%
+        select(-c("array.index", "document.id")) %>%
         enter_object("assessments") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index, .data$agencyCode)) %>%
+        select(-c("array.index", "agencyCode")) %>%
         enter_object("parameters") %>%
         gather_array() %>%
         spread_all(recursive = TRUE) %>%
-        select(-c(.data$array.index)) %>%
+        select(-c("array.index")) %>%
         enter_object("associatedUses") %>%
         gather_array() %>%
-        select(-c(.data$array.index)) %>%
+        select(-"array.index") %>%
         spread_all(recursive = TRUE) %>%
         mutate(seasons = map(.data$..JSON, ~{
           .x[["seasons"]] %>% {
@@ -306,7 +306,7 @@ assessments_to_tibble <- function(content,
             )
           }
         })) %>%
-        unnest(.data$seasons, keep_empty = TRUE) -> content_parameter_assessments
+        unnest("seasons", keep_empty = TRUE) -> content_parameter_assessments
 
       return(list(documents = content_docs,
                   use_assessment = content_use_assessments,
