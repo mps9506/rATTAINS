@@ -12,10 +12,10 @@
     Clean Water Act requirements. ATTAINS information and API information is available at &lt;https://www.epa.gov/waterdata/attains&gt;.">
 <title>Access EPA ATTAINS Data • rATTAINS</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Inter-0.4.1/font.css" rel="stylesheet">
-<link href="deps/_JetBrains%20Mono-0.4.1/font.css" rel="stylesheet">
-<link href="deps/_Noto%20Sans%20Display-0.4.1/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="deps/Inter-0.4.4/font.css" rel="stylesheet">
+<link href="deps/JetBrains_Mono-0.4.4/font.css" rel="stylesheet">
+<link href="deps/Noto_Sans_Display-0.4.4/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Access EPA ATTAINS Data">
@@ -82,15 +82,16 @@
 <div class="page-header"><h1 id="rattains">rATTAINS<a class="anchor" aria-label="anchor" href="#rattains"></a>
 </h1></div>
 <!-- badges: start -->
+
 <p><a href="https://doi.org/10.5281/zenodo.5469911" class="external-link"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5469911.svg" alt="DOI"></a> <!-- badges: end --></p>
 <p>rATTAINS provides functions for downloading tidy data from the United States (U.S.) Environmental Protection Agency (EPA) <a href="https://www.epa.gov/waterdata/attains" class="external-link">ATTAINS</a> webservice. ATTAINS is the online system used to track and report Clean Water Act assessments and Total Maximum Daily Loads (TMDLs) in U.S. surface waters. rATTAINS facilitates access to the <a href="https://www.epa.gov/waterdata/get-data-access-public-attains-data" class="external-link">public information webservice</a> made available through the EPA.</p>
 <p>rATTAINS is on CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rATTAINS"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rATTAINS"</span><span class="op">)</span></span></code></pre></div>
 <p>Or install the development version from Github:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mps9506/rATTAINS"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mps9506/rATTAINS"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="functions-and-webservices">Functions and webservices<a class="anchor" aria-label="anchor" href="#functions-and-webservices"></a>
 </h2>
@@ -112,205 +113,205 @@
 </h1>
 <p>Get a summary about assessed uses from the Texas Commission on Environmental Quality:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mps9506/rATTAINS" class="external-link">rATTAINS</a></span><span class="op">)</span>
-<span class="fu"><a href="reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TCEQMAIN"</span>, reporting_cycle <span class="op">=</span> <span class="st">"2020"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span>
-  <span class="va">.</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; tibble [1 × 13] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ organization_identifier: chr "TCEQMAIN"</span>
-<span class="co">#&gt;  $ organization_name      : chr "Texas"</span>
-<span class="co">#&gt;  $ organization_type_text : chr "State"</span>
-<span class="co">#&gt;  $ reporting_cycle        : chr "2020"</span>
-<span class="co">#&gt;  $ combined_cycles        : chr NA</span>
-<span class="co">#&gt;  $ water_type_code        : chr "ESTUARY"</span>
-<span class="co">#&gt;  $ units_code             : chr "Square Miles"</span>
-<span class="co">#&gt;  $ use_name               : chr "Aquatic Life Use"</span>
-<span class="co">#&gt;  $ fully_supporting       : chr "1861.320000"</span>
-<span class="co">#&gt;  $ fully_supporting_count : chr "57"</span>
-<span class="co">#&gt;  $ not_assessed           : chr "46.190000"</span>
-<span class="co">#&gt;  $ not_assessed_count     : chr "6"</span>
-<span class="co">#&gt;  $ parameters             :List of 1</span>
-<span class="co">#&gt;   ..$ : tibble [7 × 7] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   .. ..$ parameter_group               : chr [1:7] "TOXIC INORGANICS" "ORGANIC ENRICHMENT/OXYGEN DEPLETION" "PESTICIDES" "TOXIC ORGANICS" ...</span>
-<span class="co">#&gt;   .. ..$ cause                         : chr [1:7] NA "616.850000" NA NA ...</span>
-<span class="co">#&gt;   .. ..$ cause_count                   : chr [1:7] NA "5" NA NA ...</span>
-<span class="co">#&gt;   .. ..$ meeting_criteria              : num [1:7] NA 1901.8 NA NA 96.9 ...</span>
-<span class="co">#&gt;   .. ..$ meeting_criteria_count        : num [1:7] NA 62 NA NA 8 NA 8</span>
-<span class="co">#&gt;   .. ..$ insufficent_information       : num [1:7] 2.76 NA 3.2 1.07 344.3 ...</span>
-<span class="co">#&gt;   .. ..$ insufficient_information_count: num [1:7] 1 NA 3 2 6 7 5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mps9506/rATTAINS" class="external-link">rATTAINS</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TCEQMAIN"</span>, reporting_cycle <span class="op">=</span> <span class="st">"2020"</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="va">.</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tibble [1 × 13] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  $ organization_identifier: chr "TCEQMAIN"</span></span>
+<span><span class="co">#&gt;  $ organization_name      : chr "Texas"</span></span>
+<span><span class="co">#&gt;  $ organization_type_text : chr "State"</span></span>
+<span><span class="co">#&gt;  $ reporting_cycle        : chr "2020"</span></span>
+<span><span class="co">#&gt;  $ combined_cycles        : chr NA</span></span>
+<span><span class="co">#&gt;  $ water_type_code        : chr "ESTUARY"</span></span>
+<span><span class="co">#&gt;  $ units_code             : chr "Square Miles"</span></span>
+<span><span class="co">#&gt;  $ use_name               : chr "Aquatic Life Use"</span></span>
+<span><span class="co">#&gt;  $ fully_supporting       : chr "1861.320000"</span></span>
+<span><span class="co">#&gt;  $ fully_supporting_count : chr "57"</span></span>
+<span><span class="co">#&gt;  $ not_assessed           : chr "46.190000"</span></span>
+<span><span class="co">#&gt;  $ not_assessed_count     : chr "6"</span></span>
+<span><span class="co">#&gt;  $ parameters             :List of 1</span></span>
+<span><span class="co">#&gt;   ..$ : tibble [7 × 7] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   .. ..$ parameter_group               : chr [1:7] "TOXIC INORGANICS" "ORGANIC ENRICHMENT/OXYGEN DEPLETION" "PESTICIDES" "TOXIC ORGANICS" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ cause                         : chr [1:7] NA "616.850000" NA NA ...</span></span>
+<span><span class="co">#&gt;   .. ..$ cause_count                   : chr [1:7] NA "5" NA NA ...</span></span>
+<span><span class="co">#&gt;   .. ..$ meeting_criteria              : num [1:7] NA 1901.8 NA NA 96.9 ...</span></span>
+<span><span class="co">#&gt;   .. ..$ meeting_criteria_count        : num [1:7] NA 62 NA NA 8 NA 8</span></span>
+<span><span class="co">#&gt;   .. ..$ insufficent_information       : num [1:7] 2.76 NA 3.2 1.07 344.3 ...</span></span>
+<span><span class="co">#&gt;   .. ..$ insufficient_information_count: num [1:7] 1 NA 3 2 6 7 5</span></span></code></pre></div>
 <p>Get a summary about assessed uses, parameters and plans in a HUC12:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span>huc <span class="op">=</span> <span class="st">"020700100204"</span><span class="op">)</span>
-<span class="co">#&gt; $huc_summary</span>
-<span class="co">#&gt; # A tibble: 1 × 14</span>
-<span class="co">#&gt;   huc12      assessment_unit… total_catchment… total_huc_area_… assessed_catchm…</span>
-<span class="co">#&gt;   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 020700100…               17             46.2             46.2             44.1</span>
-<span class="co">#&gt; # … with 9 more variables: assessed_catchment_area_percent &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   contain_impaired_waters_catchment_area_percent &lt;dbl&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $au_summary</span>
-<span class="co">#&gt; # A tibble: 17 × 1</span>
-<span class="co">#&gt;    assessment_unit_id          </span>
-<span class="co">#&gt;    &lt;chr&gt;                       </span>
-<span class="co">#&gt;  1 MD-02140205-Northwest_Branch</span>
-<span class="co">#&gt;  2 MD-02140205                 </span>
-<span class="co">#&gt;  3 DCTFD01R_00                 </span>
-<span class="co">#&gt;  4 MD-ANATF                    </span>
-<span class="co">#&gt;  5 DCTFS01R_00                 </span>
-<span class="co">#&gt;  6 DCTNA01R_00                 </span>
-<span class="co">#&gt;  7 DCTTX27R_00                 </span>
-<span class="co">#&gt;  8 DCTFC01R_00                 </span>
-<span class="co">#&gt;  9 MD-02140205-Mainstem        </span>
-<span class="co">#&gt; 10 DCTWB00R_02                 </span>
-<span class="co">#&gt; 11 DCTWB00R_01                 </span>
-<span class="co">#&gt; 12 DCANA00E_02                 </span>
-<span class="co">#&gt; 13 DCTHR01R_00                 </span>
-<span class="co">#&gt; 14 DCTPB01R_00                 </span>
-<span class="co">#&gt; 15 DCTDU01R_00                 </span>
-<span class="co">#&gt; 16 DCANA00E_01                 </span>
-<span class="co">#&gt; 17 DCAKL00L_00                 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $ir_summary</span>
-<span class="co">#&gt; # A tibble: 2 × 4</span>
-<span class="co">#&gt;   epa_ir_category_name catchment_size_sq_mi catchment_size_per… assessment_unit…</span>
-<span class="co">#&gt;   &lt;chr&gt;                               &lt;dbl&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 4A                                   25.2                54.5               10</span>
-<span class="co">#&gt; 2 5                                    37.9                81.9                7</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $use_summary</span>
-<span class="co">#&gt; # A tibble: 5 × 5</span>
-<span class="co">#&gt;   use_group_name      use_attainment           catchment_size_… catchment_size_…</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;                               &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 ECOLOGICAL_USE      Not Supporting                       1.77             3.83</span>
-<span class="co">#&gt; 2 FISHCONSUMPTION_USE Insufficient Information            22.8             49.3 </span>
-<span class="co">#&gt; 3 FISHCONSUMPTION_USE Not Supporting                      24.5             53.0 </span>
-<span class="co">#&gt; 4 OTHER_USE           Fully Supporting                    24.5             53.0 </span>
-<span class="co">#&gt; 5 RECREATION_USE      Not Supporting                       1.92             4.15</span>
-<span class="co">#&gt; # … with 1 more variable: assessment_unit_count &lt;dbl&gt;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $param_summary</span>
-<span class="co">#&gt; # A tibble: 16 × 4</span>
-<span class="co">#&gt;    parameter_group_name       catchment_size_… catchment_size_… assessment_unit…</span>
-<span class="co">#&gt;    &lt;chr&gt;                                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ALGAL GROWTH                          22.8             49.3                 2</span>
-<span class="co">#&gt;  2 CHLORINE                              10.7             23.2                 1</span>
-<span class="co">#&gt;  3 HABITAT ALTERATIONS                    5.80            12.5                 2</span>
-<span class="co">#&gt;  4 HYDROLOGIC ALTERATION                 17.0             36.8                 5</span>
-<span class="co">#&gt;  5 METALS (OTHER THAN MERCUR…            22.8             49.3                 9</span>
-<span class="co">#&gt;  6 NUTRIENTS                             22.8             49.3                 2</span>
-<span class="co">#&gt;  7 OIL AND GREASE                        22.8             49.3                 3</span>
-<span class="co">#&gt;  8 ORGANIC ENRICHMENT/OXYGEN…            22.8             49.3                 6</span>
-<span class="co">#&gt;  9 PATHOGENS                             24.5             53.0                13</span>
-<span class="co">#&gt; 10 PESTICIDES                            24.5             53.0                10</span>
-<span class="co">#&gt; 11 PH/ACIDITY/CAUSTIC CONDIT…             1.72             3.71                1</span>
-<span class="co">#&gt; 12 POLYCHLORINATED BIPHENYLS…            26.3             56.8                11</span>
-<span class="co">#&gt; 13 SEDIMENT                               3.88             8.39                1</span>
-<span class="co">#&gt; 14 TOXIC ORGANICS                        22.8             49.3                 8</span>
-<span class="co">#&gt; 15 TRASH                                 22.8             49.3                 2</span>
-<span class="co">#&gt; 16 TURBIDITY                             24.5             53.0                13</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $res_plan_summary</span>
-<span class="co">#&gt; # A tibble: 1 × 4</span>
-<span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span>
-<span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $vision_plan_summary</span>
-<span class="co">#&gt; # A tibble: 1 × 4</span>
-<span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span>
-<span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span>huc <span class="op">=</span> <span class="st">"020700100204"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $huc_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 14</span></span>
+<span><span class="co">#&gt;   huc12      assessment_unit… total_catchment… total_huc_area_… assessed_catchm…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 020700100…               17             46.2             46.2             44.1</span></span>
+<span><span class="co">#&gt; # … with 9 more variables: assessed_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   contain_impaired_waters_catchment_area_percent &lt;dbl&gt;, …</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $au_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 17 × 1</span></span>
+<span><span class="co">#&gt;    assessment_unit_id          </span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                       </span></span>
+<span><span class="co">#&gt;  1 MD-02140205-Northwest_Branch</span></span>
+<span><span class="co">#&gt;  2 MD-02140205                 </span></span>
+<span><span class="co">#&gt;  3 DCTFD01R_00                 </span></span>
+<span><span class="co">#&gt;  4 MD-ANATF                    </span></span>
+<span><span class="co">#&gt;  5 DCTFS01R_00                 </span></span>
+<span><span class="co">#&gt;  6 DCTNA01R_00                 </span></span>
+<span><span class="co">#&gt;  7 DCTTX27R_00                 </span></span>
+<span><span class="co">#&gt;  8 DCTFC01R_00                 </span></span>
+<span><span class="co">#&gt;  9 MD-02140205-Mainstem        </span></span>
+<span><span class="co">#&gt; 10 DCTWB00R_02                 </span></span>
+<span><span class="co">#&gt; 11 DCTWB00R_01                 </span></span>
+<span><span class="co">#&gt; 12 DCANA00E_02                 </span></span>
+<span><span class="co">#&gt; 13 DCTHR01R_00                 </span></span>
+<span><span class="co">#&gt; 14 DCTPB01R_00                 </span></span>
+<span><span class="co">#&gt; 15 DCTDU01R_00                 </span></span>
+<span><span class="co">#&gt; 16 DCANA00E_01                 </span></span>
+<span><span class="co">#&gt; 17 DCAKL00L_00                 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $ir_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
+<span><span class="co">#&gt;   epa_ir_category_name catchment_size_sq_mi catchment_size_per… assessment_unit…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                               &lt;dbl&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 4A                                   25.2                54.5               10</span></span>
+<span><span class="co">#&gt; 2 5                                    37.9                81.9                7</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $use_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
+<span><span class="co">#&gt;   use_group_name      use_attainment           catchment_size_… catchment_size_…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;                               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ECOLOGICAL_USE      Not Supporting                       1.77             3.83</span></span>
+<span><span class="co">#&gt; 2 FISHCONSUMPTION_USE Insufficient Information            22.8             49.3 </span></span>
+<span><span class="co">#&gt; 3 FISHCONSUMPTION_USE Not Supporting                      24.5             53.0 </span></span>
+<span><span class="co">#&gt; 4 OTHER_USE           Fully Supporting                    24.5             53.0 </span></span>
+<span><span class="co">#&gt; 5 RECREATION_USE      Not Supporting                       1.92             4.15</span></span>
+<span><span class="co">#&gt; # … with 1 more variable: assessment_unit_count &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $param_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 4</span></span>
+<span><span class="co">#&gt;    parameter_group_name       catchment_size_… catchment_size_… assessment_unit…</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ALGAL GROWTH                          22.8             49.3                 2</span></span>
+<span><span class="co">#&gt;  2 CHLORINE                              10.7             23.2                 1</span></span>
+<span><span class="co">#&gt;  3 HABITAT ALTERATIONS                    5.80            12.5                 2</span></span>
+<span><span class="co">#&gt;  4 HYDROLOGIC ALTERATION                 17.0             36.8                 5</span></span>
+<span><span class="co">#&gt;  5 METALS (OTHER THAN MERCUR…            22.8             49.3                 9</span></span>
+<span><span class="co">#&gt;  6 NUTRIENTS                             22.8             49.3                 2</span></span>
+<span><span class="co">#&gt;  7 OIL AND GREASE                        22.8             49.3                 3</span></span>
+<span><span class="co">#&gt;  8 ORGANIC ENRICHMENT/OXYGEN…            22.8             49.3                 6</span></span>
+<span><span class="co">#&gt;  9 PATHOGENS                             24.5             53.0                13</span></span>
+<span><span class="co">#&gt; 10 PESTICIDES                            24.5             53.0                10</span></span>
+<span><span class="co">#&gt; 11 PH/ACIDITY/CAUSTIC CONDIT…             1.72             3.71                1</span></span>
+<span><span class="co">#&gt; 12 POLYCHLORINATED BIPHENYLS…            26.3             56.8                11</span></span>
+<span><span class="co">#&gt; 13 SEDIMENT                               3.88             8.39                1</span></span>
+<span><span class="co">#&gt; 14 TOXIC ORGANICS                        22.8             49.3                 8</span></span>
+<span><span class="co">#&gt; 15 TRASH                                 22.8             49.3                 2</span></span>
+<span><span class="co">#&gt; 16 TURBIDITY                             24.5             53.0                13</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $res_plan_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
+<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $vision_plan_summary</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
+<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></span></code></pre></div>
 <p>Find statistical surveys completed by an organization:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
-<span class="co">#&gt; List of 2</span>
-<span class="co">#&gt;  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ organization_identifier: chr(0) </span>
-<span class="co">#&gt;   ..$ organization_name      : chr(0) </span>
-<span class="co">#&gt;   ..$ organization_type_text : chr(0) </span>
-<span class="co">#&gt;   ..$ survey_status_code     : chr(0) </span>
-<span class="co">#&gt;   ..$ year                   : num(0) </span>
-<span class="co">#&gt;   ..$ survey_comment_text    : chr(0) </span>
-<span class="co">#&gt;   ..$ agency_code            : chr(0) </span>
-<span class="co">#&gt;   ..$ document_file_type     : chr(0) </span>
-<span class="co">#&gt;   ..$ document_file_name     : chr(0) </span>
-<span class="co">#&gt;   ..$ document_description   : chr(0) </span>
-<span class="co">#&gt;   ..$ document_comments      : chr(0) </span>
-<span class="co">#&gt;   ..$ document_url           : chr(0) </span>
-<span class="co">#&gt;  $ surveys  : tibble [104 × 19] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;   ..$ organization_identifier        : chr [1:104] "SDDENR" "SDDENR" "SDDENR" "SDDENR" ...</span>
-<span class="co">#&gt;   ..$ organization_name              : chr [1:104] "South Dakota" "South Dakota" "South Dakota" "South Dakota" ...</span>
-<span class="co">#&gt;   ..$ organization_type_text         : chr [1:104] "State" "State" "State" "State" ...</span>
-<span class="co">#&gt;   ..$ survey_status_code             : chr [1:104] "Final" "Final" "Final" "Final" ...</span>
-<span class="co">#&gt;   ..$ year                           : num [1:104] 2018 2018 2018 2018 2018 ...</span>
-<span class="co">#&gt;   ..$ survey_comment_text            : chr [1:104] NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ water_type_group_code          : chr [1:104] "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" ...</span>
-<span class="co">#&gt;   ..$ sub_population_code            : chr [1:104] "Statewide" "Statewide" "Statewide" "Statewide" ...</span>
-<span class="co">#&gt;   ..$ unit_code                      : chr [1:104] "Acres" "Acres" "Acres" "Acres" ...</span>
-<span class="co">#&gt;   ..$ size                           : num [1:104] 213265 213265 213265 213265 213265 ...</span>
-<span class="co">#&gt;   ..$ site_number                    : chr [1:104] "70" "70" "70" "70" ...</span>
-<span class="co">#&gt;   ..$ survey_water_group_comment_text: chr [1:104] NA NA NA NA ...</span>
-<span class="co">#&gt;   ..$ stressor                       : chr [1:104] "TEMPERATURE" NA "DISSOLVED OXYGEN" NA ...</span>
-<span class="co">#&gt;   ..$ survey_use_code                : chr [1:104] "AQUATIC LIFE - TEMPERATURE" "AQUATIC LIFE - PH" "AQUATIC LIFE - DISSOLVED OXYGEN" "IMMERSION RECREATION WATERS" ...</span>
-<span class="co">#&gt;   ..$ survey_category_code           : chr [1:104] "Fully Supporting" "Fully Supporting" "Fully Supporting" "Not Supporting" ...</span>
-<span class="co">#&gt;   ..$ statistic                      : chr [1:104] "Condition Estimate" "Condition Estimate" "Condition Estimate" "Condition Estimate" ...</span>
-<span class="co">#&gt;   ..$ metric_value                   : num [1:104] 85.9 62.9 95.1 7.24 98.8 37.1 4.9 95.1 37.1 4.9 ...</span>
-<span class="co">#&gt;   ..$ confidence_level               : num [1:104] 90 90 90 90 90 90 90 90 90 90 ...</span>
-<span class="co">#&gt;   ..$ comment_text                   : chr [1:104] NA NA NA NA ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 2</span></span>
+<span><span class="co">#&gt;  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   ..$ organization_identifier: chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ organization_name      : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ organization_type_text : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ survey_status_code     : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ year                   : num(0) </span></span>
+<span><span class="co">#&gt;   ..$ survey_comment_text    : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ agency_code            : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ document_file_type     : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ document_file_name     : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ document_description   : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ document_comments      : chr(0) </span></span>
+<span><span class="co">#&gt;   ..$ document_url           : chr(0) </span></span>
+<span><span class="co">#&gt;  $ surveys  : tibble [104 × 19] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   ..$ organization_identifier        : chr [1:104] "SDDENR" "SDDENR" "SDDENR" "SDDENR" ...</span></span>
+<span><span class="co">#&gt;   ..$ organization_name              : chr [1:104] "South Dakota" "South Dakota" "South Dakota" "South Dakota" ...</span></span>
+<span><span class="co">#&gt;   ..$ organization_type_text         : chr [1:104] "State" "State" "State" "State" ...</span></span>
+<span><span class="co">#&gt;   ..$ survey_status_code             : chr [1:104] "Final" "Final" "Final" "Final" ...</span></span>
+<span><span class="co">#&gt;   ..$ year                           : num [1:104] 2018 2018 2018 2018 2018 ...</span></span>
+<span><span class="co">#&gt;   ..$ survey_comment_text            : chr [1:104] NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ water_type_group_code          : chr [1:104] "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" ...</span></span>
+<span><span class="co">#&gt;   ..$ sub_population_code            : chr [1:104] "Statewide" "Statewide" "Statewide" "Statewide" ...</span></span>
+<span><span class="co">#&gt;   ..$ unit_code                      : chr [1:104] "Acres" "Acres" "Acres" "Acres" ...</span></span>
+<span><span class="co">#&gt;   ..$ size                           : num [1:104] 213265 213265 213265 213265 213265 ...</span></span>
+<span><span class="co">#&gt;   ..$ site_number                    : chr [1:104] "70" "70" "70" "70" ...</span></span>
+<span><span class="co">#&gt;   ..$ survey_water_group_comment_text: chr [1:104] NA NA NA NA ...</span></span>
+<span><span class="co">#&gt;   ..$ stressor                       : chr [1:104] "TEMPERATURE" NA "DISSOLVED OXYGEN" NA ...</span></span>
+<span><span class="co">#&gt;   ..$ survey_use_code                : chr [1:104] "AQUATIC LIFE - TEMPERATURE" "AQUATIC LIFE - PH" "AQUATIC LIFE - DISSOLVED OXYGEN" "IMMERSION RECREATION WATERS" ...</span></span>
+<span><span class="co">#&gt;   ..$ survey_category_code           : chr [1:104] "Fully Supporting" "Fully Supporting" "Fully Supporting" "Not Supporting" ...</span></span>
+<span><span class="co">#&gt;   ..$ statistic                      : chr [1:104] "Condition Estimate" "Condition Estimate" "Condition Estimate" "Condition Estimate" ...</span></span>
+<span><span class="co">#&gt;   ..$ metric_value                   : num [1:104] 85.9 62.9 95.1 7.24 98.8 37.1 4.9 95.1 37.1 4.9 ...</span></span>
+<span><span class="co">#&gt;   ..$ confidence_level               : num [1:104] 90 90 90 90 90 90 90 90 90 90 ...</span></span>
+<span><span class="co">#&gt;   ..$ comment_text                   : chr [1:104] NA NA NA NA ...</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="file-caching">File Caching<a class="anchor" aria-label="anchor" href="#file-caching"></a>
 </h2>
 <p>rATTAINS can cache downloaded data to minimize calls to the EPA webservice. If a function is run with the same arguments, the cached file will be read instead of downloading from the webservice. A message will print if the cached file is used. It is probably a good idea to periodically delete the cached files, especially when updating packages or R. The cached file paths and files can be managed using the methods in the <code>hoard::hoardr</code> class. For example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## set package option</span>
-<span class="fu"><a href="reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; NULL</span>
-
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span>
-
-<span class="co">## find the location of the file path</span>
-<span class="va">surveys_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/surveys"</span>
-
-<span class="co">## return the file names/path</span>
-<span class="va">surveys_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "/Users/runner/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json"</span>
-
-<span class="co">## delete the files in the cached path</span>
-<span class="va">surveys_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co">## or delete specific files</span>
-<span class="co"># surveys_cache$delete("filepath.json")</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## set package option</span></span>
+<span><span class="fu"><a href="reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; NULL</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## find the location of the file path</span></span>
+<span><span class="va">surveys_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "~/Library/Caches/R/attains-public/api/surveys"</span></span>
+<span></span>
+<span><span class="co">## return the file names/path</span></span>
+<span><span class="va">surveys_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/Users/runner/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json"</span></span>
+<span></span>
+<span><span class="co">## delete the files in the cached path</span></span>
+<span><span class="va">surveys_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## or delete specific files</span></span>
+<span><span class="co"># surveys_cache$delete("filepath.json")</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use this package in a publication, please cite as:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rATTAINS"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite rATTAINS in publications use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R</span>
-<span class="co">#&gt;   package version 0.1.3. doi:10.5281/zenodo.3635017</span>
-<span class="co">#&gt;   https://CRAN.R-project.org/package=rATTAINS</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Manual{,</span>
-<span class="co">#&gt;     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},</span>
-<span class="co">#&gt;     author = {Michael Schramm},</span>
-<span class="co">#&gt;     year = {2021},</span>
-<span class="co">#&gt;     url = {https://CRAN.R-project.org/package=rATTAINS},</span>
-<span class="co">#&gt;     doi = {10.5281/zenodo.5469911},</span>
-<span class="co">#&gt;     note = {R package version 0.1.3},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rATTAINS"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite rATTAINS in publications use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R</span></span>
+<span><span class="co">#&gt;   package version 0.1.3. doi:10.5281/zenodo.3635017</span></span>
+<span><span class="co">#&gt;   https://CRAN.R-project.org/package=rATTAINS</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @Manual{,</span></span>
+<span><span class="co">#&gt;     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},</span></span>
+<span><span class="co">#&gt;     author = {Michael Schramm},</span></span>
+<span><span class="co">#&gt;     year = {2021},</span></span>
+<span><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=rATTAINS},</span></span>
+<span><span class="co">#&gt;     doi = {10.5281/zenodo.5469911},</span></span>
+<span><span class="co">#&gt;     note = {R package version 0.1.3},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 </div>
 
@@ -368,7 +369,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
