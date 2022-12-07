@@ -115,16 +115,16 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
 huc12_summary(huc = "020700100204")
 #> $huc_summary
 #> # A tibble: 1 × 14
-#>   huc12      assessment_unit… total_catchment… total_huc_area_… assessed_catchm…
-#>   <chr>                 <dbl>            <dbl>            <dbl>            <dbl>
-#> 1 020700100…               17             46.2             46.2             44.1
-#> # … with 9 more variables: assessed_catchment_area_percent <dbl>,
-#> #   assessed_good_catchment_area_sq_mi <dbl>,
-#> #   assessed_good_catchment_area_percent <dbl>,
-#> #   assessed_unknown_catchment_area_sq_mi <dbl>,
-#> #   assessed_unknown_catchment_area_percent <dbl>,
-#> #   contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_waters_catchment_area_percent <dbl>, …
+#>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
+#>   <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#> 1 02070…      17    46.2    46.2    44.1    95.4       0       0       0       0
+#> # … with 4 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
+#> #   contain_impaired_waters_catchment_area_percent <dbl>,
+#> #   contain_restoration_catchment_area_sq_mi <dbl>,
+#> #   contain_restoration_catchment_area_percent <dbl>, and abbreviated variable
+#> #   names ¹​assessment_unit_count, ²​total_catchment_area_sq_mi,
+#> #   ³​total_huc_area_sq_mi, ⁴​assessed_catchment_area_sq_mi,
+#> #   ⁵​assessed_catchment_area_percent, ⁶​assessed_good_catchment_area_sq_mi, …
 #> 
 #> $au_summary
 #> # A tibble: 17 × 1
@@ -150,54 +150,60 @@ huc12_summary(huc = "020700100204")
 #> 
 #> $ir_summary
 #> # A tibble: 2 × 4
-#>   epa_ir_category_name catchment_size_sq_mi catchment_size_per… assessment_unit…
-#>   <chr>                               <dbl>               <dbl>            <dbl>
-#> 1 4A                                   25.2                54.5               10
-#> 2 5                                    37.9                81.9                7
+#>   epa_ir_category_name catchment_size_sq_mi catchment_size_percent assessment_…¹
+#>   <chr>                               <dbl>                  <dbl>         <dbl>
+#> 1 4A                                   25.2                   54.5            10
+#> 2 5                                    37.9                   81.9             7
+#> # … with abbreviated variable name ¹​assessment_unit_count
 #> 
 #> $use_summary
 #> # A tibble: 5 × 5
-#>   use_group_name      use_attainment           catchment_size_… catchment_size_…
-#>   <chr>               <chr>                               <dbl>            <dbl>
-#> 1 ECOLOGICAL_USE      Not Supporting                       1.77             3.83
-#> 2 FISHCONSUMPTION_USE Insufficient Information            22.8             49.3 
-#> 3 FISHCONSUMPTION_USE Not Supporting                      24.5             53.0 
-#> 4 OTHER_USE           Fully Supporting                    24.5             53.0 
-#> 5 RECREATION_USE      Not Supporting                       1.92             4.15
-#> # … with 1 more variable: assessment_unit_count <dbl>
+#>   use_group_name      use_attainment           catchment_size_…¹ catch…² asses…³
+#>   <chr>               <chr>                                <dbl>   <dbl>   <dbl>
+#> 1 ECOLOGICAL_USE      Not Supporting                       22.8    49.3       13
+#> 2 FISHCONSUMPTION_USE Insufficient Information             24.5    53.0        1
+#> 3 FISHCONSUMPTION_USE Not Supporting                       24.5    53.0       12
+#> 4 OTHER_USE           Fully Supporting                      1.92    4.15       3
+#> 5 RECREATION_USE      Not Supporting                       24.5    53.0       13
+#> # … with abbreviated variable names ¹​catchment_size_sq_mi,
+#> #   ²​catchment_size_percent, ³​assessment_unit_count
 #> 
 #> $param_summary
 #> # A tibble: 16 × 4
-#>    parameter_group_name       catchment_size_… catchment_size_… assessment_unit…
-#>    <chr>                                 <dbl>            <dbl>            <dbl>
-#>  1 ALGAL GROWTH                          22.8             49.3                 2
-#>  2 CHLORINE                              10.7             23.2                 1
-#>  3 HABITAT ALTERATIONS                    5.80            12.5                 2
-#>  4 HYDROLOGIC ALTERATION                 17.0             36.8                 5
-#>  5 METALS (OTHER THAN MERCUR…            22.8             49.3                 9
-#>  6 NUTRIENTS                             22.8             49.3                 2
-#>  7 OIL AND GREASE                        22.8             49.3                 3
-#>  8 ORGANIC ENRICHMENT/OXYGEN…            22.8             49.3                 6
-#>  9 PATHOGENS                             24.5             53.0                13
-#> 10 PESTICIDES                            24.5             53.0                10
-#> 11 PH/ACIDITY/CAUSTIC CONDIT…             1.72             3.71                1
-#> 12 POLYCHLORINATED BIPHENYLS…            26.3             56.8                11
-#> 13 SEDIMENT                               3.88             8.39                1
-#> 14 TOXIC ORGANICS                        22.8             49.3                 8
-#> 15 TRASH                                 22.8             49.3                 2
-#> 16 TURBIDITY                             24.5             53.0                13
+#>    parameter_group_name                catchment_size_sq_mi catchment_…¹ asses…²
+#>    <chr>                                              <dbl>        <dbl>   <dbl>
+#>  1 ALGAL GROWTH                                       22.8         49.3        2
+#>  2 CHLORINE                                           10.7         23.2        1
+#>  3 HABITAT ALTERATIONS                                 5.80        12.5        2
+#>  4 HYDROLOGIC ALTERATION                              17.0         36.8        5
+#>  5 METALS (OTHER THAN MERCURY)                        22.8         49.3        9
+#>  6 NUTRIENTS                                          22.8         49.3        2
+#>  7 OIL AND GREASE                                     22.8         49.3        3
+#>  8 ORGANIC ENRICHMENT/OXYGEN DEPLETION                22.8         49.3        6
+#>  9 PATHOGENS                                          24.5         53.0       13
+#> 10 PESTICIDES                                         24.5         53.0        9
+#> 11 PH/ACIDITY/CAUSTIC CONDITIONS                       1.72         3.71       1
+#> 12 POLYCHLORINATED BIPHENYLS (PCBS)                   24.5         53.0       10
+#> 13 SEDIMENT                                            3.88         8.39       1
+#> 14 TOXIC ORGANICS                                     22.8         49.3        8
+#> 15 TRASH                                              22.8         49.3        2
+#> 16 TURBIDITY                                          24.5         53.0       13
+#> # … with abbreviated variable names ¹​catchment_size_percent,
+#> #   ²​assessment_unit_count
 #> 
 #> $res_plan_summary
 #> # A tibble: 1 × 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…
+#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
 #> 1 TMDL                              24.5                   53.0               13
+#> # … with abbreviated variable name ¹​assessment_unit_count
 #> 
 #> $vision_plan_summary
 #> # A tibble: 1 × 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…
+#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
 #> 1 TMDL                              24.5                   53.0               13
+#> # … with abbreviated variable name ¹​assessment_unit_count
 ```
 
 Find statistical surveys completed by an organization:
