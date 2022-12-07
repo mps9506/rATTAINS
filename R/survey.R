@@ -114,13 +114,13 @@ surveys <- function(organization_id = NULL,
       spread_values(organizationIdentifier = jstring("organizationIdentifier"),
                     organizationName = jstring("organizationName"),
                     organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-c(.data$document.id, .data$array.index)) %>%
+      select(-c("document.id", "array.index")) %>%
       enter_object("surveys") %>%
       gather_array() %>%
       spread_values(surveyStatusCode = jstring("surveyStatusCode"),
                     year = jnumber("year"),
                     surveyCommentText = jstring("surveyCommentText")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("surveyWaterGroups") %>%
       gather_array() %>%
       spread_values(waterTypeGroupCode = jstring("waterTypeGroupCode"),
@@ -129,7 +129,7 @@ surveys <- function(organization_id = NULL,
                     size = jnumber("size"),
                     siteNumber = jstring("siteNumber"),
                     surveyWaterGroupCommentText = jstring("surveyWaterGRoupCommentText")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("surveyWaterGroupUseParameters") %>%
       gather_array() %>%
       spread_values(stressor = jstring("stressor"),
@@ -139,7 +139,7 @@ surveys <- function(organization_id = NULL,
                     metricValue = jnumber("metricValue"),
                     confidenceLevel = jnumber("confidenceLevel"),
                     commentText = jstring("commentText")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       clean_names() -> content_surveys
 
@@ -149,13 +149,13 @@ surveys <- function(organization_id = NULL,
       spread_values(organizationIdentifier = jstring("organizationIdentifier"),
                     organizationName = jstring("organizationName"),
                     organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-c(.data$document.id, .data$array.index)) %>%
+      select(-c("document.id", "array.index")) %>%
       enter_object("surveys") %>%
       gather_array() %>%
       spread_values(surveyStatusCode = jstring("surveyStatusCode"),
                     year = jnumber("year"),
                     surveyCommentText = jstring("surveyCommentText")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("documents") %>%
       gather_array() %>%
       spread_values(agencyCode = jstring("agencyCode"),
@@ -164,11 +164,11 @@ surveys <- function(organization_id = NULL,
                     documentDescription = jstring("documentDescription"),
                     documentComments = jstring("documentComments"),
                     documentURL = jstring("documentURL")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("documentTypes") %>%
       gather_array() %>%
       spread_all %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       as_tibble() %>%
       clean_names() -> content_documents
 

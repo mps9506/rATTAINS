@@ -163,11 +163,11 @@ assessment_units <- function(assessment_unit_identifer = NULL,
       enter_object("items") %>%
       gather_array() %>%
       spread_all() %>%
-      select(-c(.data$document.id, .data$array.index)) %>%
+      select(-c("document.id", "array.index")) %>%
       enter_object("assessmentUnits") %>%
       gather_array() %>%
       spread_all(recursive = TRUE) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       ## this is slow as heck
       ## but not sure how else to consistently return empty lists
       ## without errors.

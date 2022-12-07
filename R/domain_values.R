@@ -116,7 +116,7 @@ domain_values <- function(domain_name = NULL,
           code = jstring("code"),
           context = jstring("context")
         ) %>%
-        select(-c(.data$document.id, .data$array.index)) %>%
+        select(-c("document.id", "array.index")) %>%
         as_tibble() %>%
         clean_names() -> content_domain
       return(content)

@@ -110,17 +110,17 @@ state_summary <- function(organization_id = NULL,
       spread_values(organizationIdentifier = jstring("organizationIdentifier"),
                     organizationName = jstring("organizationName"),
                     organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-c(.data$document.id)) %>%
+      select(-"document.id") %>%
       enter_object("reportingCycles") %>%
       gather_array() %>%
       spread_values(reportingCycle = jstring("reportingCycle"),
                     combinedCycles = jstring("combinedCycles")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("waterTypes") %>%
       gather_array() %>%
       spread_values(waterTypeCode = jstring("waterTypeCode"),
                     unitsCode = jstring("unitsCode")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       enter_object("useAttainments") %>%
       gather_array() %>%
       spread_values(useName = jstring("useName"),
@@ -128,7 +128,7 @@ state_summary <- function(organization_id = NULL,
                     fullySupportingCount = jstring("Fully Supporting-count"),
                     notAssessed = jstring("Not Assessed"),
                     notAssessedCount = jstring("Not Assessed-count")) %>%
-      select(-c(.data$array.index)) %>%
+      select(-"array.index") %>%
       mutate(parameters = map(.data$..JSON, ~{
         .x[["parameters"]] %>% {
           tibble(parameterGroup = map(., "parameterGroup", .default = NA) %>% flatten_chr(),
