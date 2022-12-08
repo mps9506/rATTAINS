@@ -12,8 +12,8 @@ state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/mps9506/rATTAINS/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/rATTAINS/actions)
 [![codecov](https://codecov.io/gh/mps9506/rATTAINS/branch/main/graph/badge.svg?token=J45QIKWA8E)](https://app.codecov.io/gh/mps9506/rATTAINS)
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5469911.svg)](https://doi.org/10.5281/zenodo.5469911)
+
 <!-- badges: end -->
 
 rATTAINS provides functions for downloading tidy data from the United
@@ -28,14 +28,14 @@ made available through the EPA.
 rATTAINS is on CRAN:
 
 ``` r
-install.packages("rATTAINS")
+install.packages('rATTAINS')
 ```
 
-Or install the development version from Github:
+Or install the development version from r-universe:
 
 ``` r
-install.packages("remotes")
-remotes::install_github("mps9506/rATTAINS")
+install.packages('rATTAINS',
+                 repos = 'https://mps9506.r-universe.dev')
 ```
 
 ## Functions and webservices
@@ -52,29 +52,29 @@ query and the tidying process used in rATTAINS might make poor
 assumptions in the data flattening process. If the function returns
 unexpected results, try parsing the raw JSON string.
 
-  - `state_summary()` provides summary information for assessed uses for
-    organizations and by integrated reporting cycle.
+- `state_summary()` provides summary information for assessed uses for
+  organizations and by integrated reporting cycle.
 
-  - `huc_2_summary()` provides summary information about impairments,
-    actions, and documents for the specified 12-digit HUC (watershed).
+- `huc_12_summary()` provides summary information about impairments,
+  actions, and documents for the specified 12-digit HUC (watershed).
 
-  - `actions()` provides a summary of information for particular
-    finalized actions (TMDLs and related).
+- `actions()` provides a summary of information for particular finalized
+  actions (TMDLs and related).
 
-  - `assessments()` provides summary data about the specified assessment
-    decisions by waterbody.
+- `assessments()` provides summary data about the specified assessment
+  decisions by waterbody.
 
-  - `plans()` returns a summary of the plans (TMDLs and related) within
-    a specified HUC.
+- `plans()` returns a summary of the plans (TMDLs and related) within a
+  specified HUC.
 
-  - `domain_values()` returns allowed values in ATTAINS. By default (no
-    arguments) the function returns a list of allowed `domain_names`.
+- `domain_values()` returns allowed values in ATTAINS. By default (no
+  arguments) the function returns a list of allowed `domain_names`.
 
-  - `assessment_units()` returns a summary of information about the
-    specified assessment units.
+- `assessment_units()` returns a summary of information about the
+  specified assessment units.
 
-  - `surveys()` returns results from state statistical survey results in
-    ATTAINS.
+- `surveys()` returns results from state statistical survey results in
+  ATTAINS.
 
 # Examples:
 
@@ -245,38 +245,6 @@ str(df)
 #>   ..$ metric_value                   : num [1:104] 85.9 62.9 95.1 7.24 98.8 37.1 4.9 95.1 37.1 4.9 ...
 #>   ..$ confidence_level               : num [1:104] 90 90 90 90 90 90 90 90 90 90 ...
 #>   ..$ comment_text                   : chr [1:104] NA NA NA NA ...
-```
-
-## File Caching
-
-rATTAINS can cache downloaded data to minimize calls to the EPA
-webservice. If a function is run with the same arguments, the cached
-file will be read instead of downloading from the webservice. A message
-will print if the cached file is used. It is probably a good idea to
-periodically delete the cached files, especially when updating packages
-or R. The cached file paths and files can be managed using the methods
-in the `hoard::hoardr` class. For example:
-
-``` r
-## set package option
-rATTAINS_options(cache_downloads = TRUE)
-#> NULL
-
-x <- surveys(organization_id="SDDENR")
-
-## find the location of the file path
-surveys_cache$cache_path_get()
-#> [1] "~/Library/Caches/R/attains-public/api/surveys"
-
-## return the file names/path
-surveys_cache$list()
-#> [1] "/Users/runner/Library/Caches/R/attains-public/api/surveys/SDDENRsurveys.json"
-
-## delete the files in the cached path
-surveys_cache$delete_all()
-
-## or delete specific files
-# surveys_cache$delete("filepath.json")
 ```
 
 ## Citation
