@@ -13,8 +13,7 @@
 #' @return If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
 #'   data is parsed and returned as a tibble.
 #' @note  Data downloaded from the EPA webservice is automatically cached to
-#'   reduce uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#'   reduce uneccessary calls to the server.
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
