@@ -18,26 +18,27 @@ knitr::opts_chunk$set(
 # rATTAINS
 
 <!-- badges: start -->
+
 [![CRAN status](https://www.r-pkg.org/badges/version/rATTAINS)](https://cran.r-project.org/package=rATTAINS)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![R-CMD-check](https://github.com/mps9506/rATTAINS/workflows/R-CMD-check/badge.svg)](https://github.com/mps9506/rATTAINS/actions)
 [![codecov](https://codecov.io/gh/mps9506/rATTAINS/branch/main/graph/badge.svg?token=J45QIKWA8E)](https://app.codecov.io/gh/mps9506/rATTAINS)
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5469911.svg)](https://doi.org/10.5281/zenodo.5469911)
+
 <!-- badges: end -->
 
 rATTAINS provides functions for downloading tidy data from the United States (U.S.) Environmental Protection Agency (EPA) [ATTAINS](https://www.epa.gov/waterdata/attains) webservice. ATTAINS is the online system used to track and report Clean Water Act assessments and Total Maximum Daily Loads (TMDLs) in U.S. surface waters. rATTAINS facilitates access to the [public information webservice](https://www.epa.gov/waterdata/get-data-access-public-attains-data) made available through the EPA.
 
 rATTAINS is on CRAN:
 ```{r eval=FALSE}
-install.packages("rATTAINS")
+install.packages('rATTAINS')
 ```
 
 
-Or install the development version from Github:
+Or install the development version from r-universe:
 ```{r eval=FALSE}
-install.packages("remotes")
-remotes::install_github("mps9506/rATTAINS")
+install.packages('rATTAINS',
+                 repos = 'https://mps9506.r-universe.dev')
 ```
 
 
@@ -49,7 +50,7 @@ There are eight user available functions that correspond with the first eight we
 
  - `state_summary()` provides summary information for assessed uses for organizations and by integrated reporting cycle.
 
- - `huc_2_summary()` provides summary information about impairments, actions, and documents for the specified 12-digit HUC (watershed).
+ - `huc_12_summary()` provides summary information about impairments, actions, and documents for the specified 12-digit HUC (watershed).
  
  - `actions()` provides a summary of information for particular finalized actions (TMDLs and related).
  
@@ -88,29 +89,7 @@ df <- surveys(organization_id="SDDENR")
 str(df)
 ```
 
-## File Caching
 
-rATTAINS can cache downloaded data to minimize calls to the EPA webservice. If a function is run with the same arguments, the cached file will be read instead of downloading from the webservice. A message will print if the cached file is used. It is probably a good idea to periodically delete the cached files, especially when updating packages or R. The cached file paths and files can be managed using the methods in the `hoard::hoardr` class. For example:
-
-```{r}
-## set package option
-rATTAINS_options(cache_downloads = TRUE)
-
-x <- surveys(organization_id="SDDENR")
-
-## find the location of the file path
-surveys_cache$cache_path_get()
-
-## return the file names/path
-surveys_cache$list()
-
-## delete the files in the cached path
-surveys_cache$delete_all()
-
-## or delete specific files
-# surveys_cache$delete("filepath.json")
-
-```
 
 ## Citation
 
