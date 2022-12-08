@@ -143,16 +143,16 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span>huc <span class="op">=</span> <span class="st">"020700100204"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; $huc_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 14</span></span>
-<span><span class="co">#&gt;   huc12      assessment_unit… total_catchment… total_huc_area_… assessed_catchm…</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 020700100…               17             46.2             46.2             44.1</span></span>
-<span><span class="co">#&gt; # … with 9 more variables: assessed_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_impaired_waters_catchment_area_percent &lt;dbl&gt;, …</span></span>
+<span><span class="co">#&gt;   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 02070…      17    46.2    46.2    44.1    95.4       0       0       0       0</span></span>
+<span><span class="co">#&gt; # … with 4 more variables: contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   contain_impaired_waters_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   contain_restoration_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   contain_restoration_catchment_area_percent &lt;dbl&gt;, and abbreviated variable</span></span>
+<span><span class="co">#&gt; #   names ¹​assessment_unit_count, ²​total_catchment_area_sq_mi,</span></span>
+<span><span class="co">#&gt; #   ³​total_huc_area_sq_mi, ⁴​assessed_catchment_area_sq_mi,</span></span>
+<span><span class="co">#&gt; #   ⁵​assessed_catchment_area_percent, ⁶​assessed_good_catchment_area_sq_mi, …</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $au_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 17 × 1</span></span>
@@ -178,54 +178,60 @@
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $ir_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 4</span></span>
-<span><span class="co">#&gt;   epa_ir_category_name catchment_size_sq_mi catchment_size_per… assessment_unit…</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;                               &lt;dbl&gt;               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 4A                                   25.2                54.5               10</span></span>
-<span><span class="co">#&gt; 2 5                                    37.9                81.9                7</span></span>
+<span><span class="co">#&gt;   epa_ir_category_name catchment_size_sq_mi catchment_size_percent assessment_…¹</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                               &lt;dbl&gt;                  &lt;dbl&gt;         &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 4A                                   25.2                   54.5            10</span></span>
+<span><span class="co">#&gt; 2 5                                    37.9                   81.9             7</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable name ¹​assessment_unit_count</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $use_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 5 × 5</span></span>
-<span><span class="co">#&gt;   use_group_name      use_attainment           catchment_size_… catchment_size_…</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;                               &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 ECOLOGICAL_USE      Not Supporting                       1.77             3.83</span></span>
-<span><span class="co">#&gt; 2 FISHCONSUMPTION_USE Insufficient Information            22.8             49.3 </span></span>
-<span><span class="co">#&gt; 3 FISHCONSUMPTION_USE Not Supporting                      24.5             53.0 </span></span>
-<span><span class="co">#&gt; 4 OTHER_USE           Fully Supporting                    24.5             53.0 </span></span>
-<span><span class="co">#&gt; 5 RECREATION_USE      Not Supporting                       1.92             4.15</span></span>
-<span><span class="co">#&gt; # … with 1 more variable: assessment_unit_count &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;   use_group_name      use_attainment           catchment_size_…¹ catch…² asses…³</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;                                &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 ECOLOGICAL_USE      Not Supporting                       22.8    49.3       13</span></span>
+<span><span class="co">#&gt; 2 FISHCONSUMPTION_USE Insufficient Information             24.5    53.0        1</span></span>
+<span><span class="co">#&gt; 3 FISHCONSUMPTION_USE Not Supporting                       24.5    53.0       12</span></span>
+<span><span class="co">#&gt; 4 OTHER_USE           Fully Supporting                      1.92    4.15       3</span></span>
+<span><span class="co">#&gt; 5 RECREATION_USE      Not Supporting                       24.5    53.0       13</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable names ¹​catchment_size_sq_mi,</span></span>
+<span><span class="co">#&gt; #   ²​catchment_size_percent, ³​assessment_unit_count</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $param_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 16 × 4</span></span>
-<span><span class="co">#&gt;    parameter_group_name       catchment_size_… catchment_size_… assessment_unit…</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;                                 &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 ALGAL GROWTH                          22.8             49.3                 2</span></span>
-<span><span class="co">#&gt;  2 CHLORINE                              10.7             23.2                 1</span></span>
-<span><span class="co">#&gt;  3 HABITAT ALTERATIONS                    5.80            12.5                 2</span></span>
-<span><span class="co">#&gt;  4 HYDROLOGIC ALTERATION                 17.0             36.8                 5</span></span>
-<span><span class="co">#&gt;  5 METALS (OTHER THAN MERCUR…            22.8             49.3                 9</span></span>
-<span><span class="co">#&gt;  6 NUTRIENTS                             22.8             49.3                 2</span></span>
-<span><span class="co">#&gt;  7 OIL AND GREASE                        22.8             49.3                 3</span></span>
-<span><span class="co">#&gt;  8 ORGANIC ENRICHMENT/OXYGEN…            22.8             49.3                 6</span></span>
-<span><span class="co">#&gt;  9 PATHOGENS                             24.5             53.0                13</span></span>
-<span><span class="co">#&gt; 10 PESTICIDES                            24.5             53.0                10</span></span>
-<span><span class="co">#&gt; 11 PH/ACIDITY/CAUSTIC CONDIT…             1.72             3.71                1</span></span>
-<span><span class="co">#&gt; 12 POLYCHLORINATED BIPHENYLS…            26.3             56.8                11</span></span>
-<span><span class="co">#&gt; 13 SEDIMENT                               3.88             8.39                1</span></span>
-<span><span class="co">#&gt; 14 TOXIC ORGANICS                        22.8             49.3                 8</span></span>
-<span><span class="co">#&gt; 15 TRASH                                 22.8             49.3                 2</span></span>
-<span><span class="co">#&gt; 16 TURBIDITY                             24.5             53.0                13</span></span>
+<span><span class="co">#&gt;    parameter_group_name                catchment_size_sq_mi catchment_…¹ asses…²</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;                                              &lt;dbl&gt;        &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 ALGAL GROWTH                                       22.8         49.3        2</span></span>
+<span><span class="co">#&gt;  2 CHLORINE                                           10.7         23.2        1</span></span>
+<span><span class="co">#&gt;  3 HABITAT ALTERATIONS                                 5.80        12.5        2</span></span>
+<span><span class="co">#&gt;  4 HYDROLOGIC ALTERATION                              17.0         36.8        5</span></span>
+<span><span class="co">#&gt;  5 METALS (OTHER THAN MERCURY)                        22.8         49.3        9</span></span>
+<span><span class="co">#&gt;  6 NUTRIENTS                                          22.8         49.3        2</span></span>
+<span><span class="co">#&gt;  7 OIL AND GREASE                                     22.8         49.3        3</span></span>
+<span><span class="co">#&gt;  8 ORGANIC ENRICHMENT/OXYGEN DEPLETION                22.8         49.3        6</span></span>
+<span><span class="co">#&gt;  9 PATHOGENS                                          24.5         53.0       13</span></span>
+<span><span class="co">#&gt; 10 PESTICIDES                                         24.5         53.0        9</span></span>
+<span><span class="co">#&gt; 11 PH/ACIDITY/CAUSTIC CONDITIONS                       1.72         3.71       1</span></span>
+<span><span class="co">#&gt; 12 POLYCHLORINATED BIPHENYLS (PCBS)                   24.5         53.0       10</span></span>
+<span><span class="co">#&gt; 13 SEDIMENT                                            3.88         8.39       1</span></span>
+<span><span class="co">#&gt; 14 TOXIC ORGANICS                                     22.8         49.3        8</span></span>
+<span><span class="co">#&gt; 15 TRASH                                              22.8         49.3        2</span></span>
+<span><span class="co">#&gt; 16 TURBIDITY                                          24.5         53.0       13</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable names ¹​catchment_size_percent,</span></span>
+<span><span class="co">#&gt; #   ²​assessment_unit_count</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $res_plan_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
-<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span></span>
+<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable name ¹​assessment_unit_count</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $vision_plan_summary</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 4</span></span>
-<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_unit…</span></span>
+<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                            &lt;dbl&gt;                  &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 TMDL                              24.5                   53.0               13</span></span>
+<span><span class="co">#&gt; # … with abbreviated variable name ¹​assessment_unit_count</span></span></code></pre></div>
 <p>Find statistical surveys completed by an organization:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span></span>
@@ -270,7 +276,7 @@
 <p>rATTAINS can cache downloaded data to minimize calls to the EPA webservice. If a function is run with the same arguments, the cached file will be read instead of downloading from the webservice. A message will print if the cached file is used. It is probably a good idea to periodically delete the cached files, especially when updating packages or R. The cached file paths and files can be managed using the methods in the <code>hoard::hoardr</code> class. For example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## set package option</span></span>
-<span><span class="fu"><a href="reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">rATTAINS_options</span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; NULL</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span><span class="op">)</span></span>

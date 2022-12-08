@@ -369,61 +369,6 @@ JSON data yourself, use the <code>tidy=FALSE</code> argument to return
 an unparsed JSON string. A number of R packages are available to parse
 and flatten JSON data to prepare it for analysis.</p>
 </div>
-<div class="section level3">
-<h3 id="file-caching">File Caching<a class="anchor" aria-label="anchor" href="#file-caching"></a>
-</h3>
-<p>To reduce unneeded calls to the server, downloaded JSONs files can be
-individually cached based on the input arguments. This means if you make
-a repeated call using the same function and combination of argument
-values, the function will instead read the cached file. You will want to
-periodically clean these files to ensure your results are up to date
-(although given the two year cycles of assessments, do not anticipate
-data being frequently updated). rATTAINS uses the hoardr package and
-associated methods to access the file cache. See
-<code>rATTAINS_caching</code> for additional info, but an example of
-accessing the file path and deleting files is shown below.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## set package option</span></span>
-<span><span class="fu"><a href="../reference/rATTAINS_options.html">rATTAINS_options</a></span><span class="op">(</span>cache_downloads <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## This returns the file path where the files are cached</span></span>
-<span><span class="va">dv_cache</span><span class="op">$</span><span class="fu">cache_path_get</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## get a list of cached files</span></span>
-<span><span class="va">dv_cache</span><span class="op">$</span><span class="fu">list</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## delete one file</span></span>
-<span><span class="co">#dv_cache$delete(dv_cache$list()[[1]])</span></span>
-<span></span>
-<span><span class="co">## delete all files in the directory</span></span>
-<span><span class="va">dv_cache</span><span class="op">$</span><span class="fu">delete_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The caching objects for each function are as follows:</p>
-<ul>
-<li>
-<code><a href="../reference/actions.html">actions()</a></code>: <code>actions_cache</code>
-</li>
-<li>
-<code><a href="../reference/assessments.html">assessments()</a></code>: <code>assessments_cache</code>
-</li>
-<li>
-<code><a href="../reference/assessment_units.html">assessment_units()</a></code>: <code>au_cache</code>
-</li>
-<li>
-<code><a href="../reference/domain_values.html">domain_values()</a></code>: <code>dv_cache</code>
-</li>
-<li>
-<code><a href="../reference/plans.html">plans()</a></code>: <code>plans_cache</code>
-</li>
-<li>
-<code><a href="../reference/state_summary.html">state_summary()</a></code>: <code>state_cache</code>
-</li>
-<li>
-<code><a href="../reference/surveys.html">surveys()</a></code>: <code>surveys_cache</code>
-</li>
-</ul>
-</div>
 </div>
 <div class="section level2">
 <h2 id="notes">Notes<a class="anchor" aria-label="anchor" href="#notes"></a>
