@@ -29,8 +29,7 @@ Provides information on allowed parameter values in ATTAINS.
 }
 \note{
 Data downloaded from the EPA webservice is automatically cached to
-reduce uneccessary calls to the server. To managed cached files see
-\link{rATTAINS_caching}
+reduce uneccessary calls to the server.
 }
 \examples{
 
