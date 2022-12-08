@@ -13,8 +13,7 @@
 #' @return If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
 #'   data is parsed and returned as a tibble.
 #' @note  Data downloaded from the EPA webservice is automatically cached to
-#'   reduce uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#'   reduce uneccessary calls to the server.
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
@@ -72,35 +71,13 @@ domain_values <- function(domain_name = NULL,
   args <- list(domainName = domain_name,
                context = context)
   args <- list.filter(args, !is.null(.data))
-
-  ##setup file cache
   path = "attains-public/api/domains"
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    dv_cache$mkdir()
 
-    ## check if current results have been cached
-    file_cache_name <- file_key(arg_list = args,
-                                name = "domains.json")
-    file_path_name <- path(dv_cache$cache_path_get(),
-                           file_cache_name)
-
-    if(file.exists(file_path_name)) {
-      message(paste0("reading cached file from: ", file_path_name))
-      content <- readLines(file_path_name, warn = FALSE)
-    } else {
-      ## download data with caching
-      content <- xGET(path,
-                      args,
-                      file = file_path_name,
-                      ...)
-    }
-  } else {
-    ## download without caching
-    content <- xGET(path,
-                    args,
-                    file = NULL,
-                    ...)
-  }
+  ## download without caching
+  content <- xGET(path,
+                  args,
+                  file = NULL,
+                  ...)
 
   if(is.null(content)) return(content)
 

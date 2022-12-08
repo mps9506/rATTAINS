@@ -86,10 +86,7 @@ and should be included as a comma separated values in the string (eg.
 \code{organization_id="TCEQMAIN,DCOEE"}).
 }
 \note{
-See \link{domain_values} to search values that can be queried. Data
-downloaded from the EPA webservice is automatically cached to reduce
-uneccessary calls to the server. To managed cached files see
-\link{rATTAINS_caching}.
+See \link{domain_values} to search values that can be queried.
 }
 \examples{
 

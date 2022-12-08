@@ -1,10 +1,5 @@
 test_that("state_summary returns expected types and classes", {
 
-  ## set package option
-  rATTAINS_options(cache_downloads = FALSE)
-  ## clear any pre-existing cache
-  state_cache$delete_all()
-
   vcr::use_cassette("state_summary_works",
                    { x <- state_summary(organization_id = "TDECWR",
                                        reporting_cycle = "2016")})
@@ -32,24 +27,4 @@ test_that("state_summary returns expected errors", {
   testthat::expect_error(state_summary(organization_id = "TDECWR",
                                        reporting_cycle = "2016"))
   webmockr::disable(quiet = TRUE)
-})
-
-test_that("state_summary cache cache works", {
-  skip_on_cran()
-  skip_if_offline()
-  ## set package option
-  rATTAINS_options(cache_downloads = TRUE)
-  state_cache$delete_all()
-
-  x <- state_summary(organization_id = "TDECWR",
-                     reporting_cycle = "2016",
-                     timeout_ms = 20000)
-  testthat::expect_message(state_summary(organization_id = "TDECWR",
-                                         reporting_cycle = "2016"),
-                           "reading cached file from: ")
-
-  y <- state_summary(organization_id = "TDECWR",
-                     reporting_cycle = "2016")
-  testthat::expect_equal(x, y)
-
 })

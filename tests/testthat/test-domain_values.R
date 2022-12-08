@@ -1,10 +1,5 @@
 test_that("domain_values works", {
 
-  ## set package option
-  rATTAINS_options(cache_downloads = FALSE)
-  ## clear any pre-existing cache
-  dv_cache$delete_all()
-
   vcr::use_cassette("domains_works", {
     x <- domain_values(domain_name="UseName",context="TCEQMAIN")
   })
@@ -27,24 +22,4 @@ test_that("domain_values webservice returns errors",{
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(domain_values(domain_name="UseName",context="TCEQMAIN"))
   webmockr::disable(quiet = TRUE)
-})
-
-
-test_that("dv cache works", {
-  skip_on_cran()
-  skip_if_offline()
-  ## set package option
-  rATTAINS_options(cache_downloads = TRUE)
-  dv_cache$delete_all()
-  ## give some time for api to rest
-  Sys.sleep(20)
-  x <- domain_values(domain_name="UseName",
-                     context="TCEQMAIN",
-                     timeout_ms = 20000)
-  testthat::expect_message(domain_values(domain_name="UseName",context="TCEQMAIN"),
-                           "reading cached file from: ")
-
-  y <- domain_values(domain_name="UseName",context="TCEQMAIN")
-  testthat::expect_equal(x, y)
-
 })

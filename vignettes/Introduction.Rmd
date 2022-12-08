@@ -123,40 +123,6 @@ vcr::eject_cassette("domains_works")
 
 By default, all the functions rATTAINS return one or more "tidy" dataframes. These dataframe are created by attempting to flatten the nested JSON data returned by the webservice. This does require some opinionated decisions on what constitutes flat data, and at what variable data should be flattened to. We recognize that the dataframe output might not meet user needs. There if you would prefer to parse the JSON data yourself, use the `tidy=FALSE` argument to return an unparsed JSON string. A number of R packages are available to parse and flatten JSON data to prepare it for analysis.
 
-## File Caching
- 
-To reduce unneeded calls to the server, downloaded JSONs files can be individually cached based on the input arguments. This means if you make a repeated call using the same function and combination of argument values, the function will instead read the cached file. You will want to periodically clean these files to ensure your results are up to date (although given the two year cycles of assessments, do not anticipate data being frequently updated). rATTAINS uses the hoardr package and associated methods to access the file cache. See `rATTAINS_caching` for additional info, but an example of accessing the file path and deleting files is shown below.
-
-```{r hoard, eval=FALSE}
-## set package option
-rATTAINS_options(cache_downloads = TRUE)
-
-x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
-
-## This returns the file path where the files are cached
-dv_cache$cache_path_get()
-
-## get a list of cached files
-dv_cache$list()
-
-## delete one file
-#dv_cache$delete(dv_cache$list()[[1]])
-
-## delete all files in the directory
-dv_cache$delete_all()
-```
- 
-
-
-The caching objects for each function are as follows:
-
- - `actions()`: `actions_cache`
- - `assessments()`: `assessments_cache`
- - `assessment_units()`: `au_cache`
- - `domain_values()`: `dv_cache`
- - `plans()`: `plans_cache`
- - `state_summary()`: `state_cache`
- - `surveys()`: `surveys_cache`
  
 # Notes
 

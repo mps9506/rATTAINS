@@ -13,10 +13,7 @@
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
 #' @details Arguments that allow multiple values should be entered as a comma
 #'   separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
-#' @note See [domain_values] to search values that can be queried. Data
-#'   downloaded from the EPA webservice is automatically cached to reduce
-#'   uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching].
+#' @note See [domain_values] to search values that can be queried.
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
@@ -73,34 +70,13 @@ surveys <- function(organization_id = NULL,
     stop("One of the following arguments must be provided: organization_id")
   }
 
-  ## setup file cache
   path = "attains-public/api/surveys"
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    surveys_cache$mkdir()
 
-    ## check if current results have been cached
-    file_cache_name <- file_key(arg_list = args,
-                                name = "surveys.json")
-    file_path_name <- fs::path(surveys_cache$cache_path_get(),
-                               file_cache_name)
-
-    if(file.exists(file_path_name)) {
-      message(paste0("reading cached file from: ", file_path_name))
-      content <- readLines(file_path_name, warn = FALSE)
-    } else {
-      ## download data
-      content <- xGET(path,
-                      args,
-                      file = file_path_name,
-                      ...)
-    }
-  } else {
-    ## download data without caching
-    content <- xGET(path,
-                    args,
-                    file = NULL,
-                    ...)
-  }
+  ## download data without caching
+  content <- xGET(path,
+                  args,
+                  file = NULL,
+                  ...)
 
   if(is.null(content)) return(content)
 

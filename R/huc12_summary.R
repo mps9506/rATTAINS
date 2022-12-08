@@ -12,10 +12,7 @@
 #'
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles that include a list of seven tibbles.
-#' @note See [domain_values] to search values that can be queried. Data
-#'   downloaded from the EPA webservice is automatically cached to reduce
-#'   uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#' @note See [domain_values] to search values that can be queried.
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
@@ -57,35 +54,13 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   checkmate::reportAssertions(coll)
 
   args <- list(huc = huc)
-
-  ##setup file cache
   path = "attains-public/api/huc12summary"
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    huc12_cache$mkdir()
 
-    ## check if current results have been cached
-    file_cache_name <- file_key(arg_list = args,
-                                name = "huc12.json")
-    file_path_name <- fs::path(huc12_cache$cache_path_get(),
-                               file_cache_name)
-
-    if(file.exists(file_path_name)) {
-      message(paste0("reading cached file from: ", file_path_name))
-      content <- readLines(file_path_name, warn = FALSE)
-    } else {
-      ## download data with caching
-      content <- xGET(path,
-                      args,
-                      file = file_path_name,
-                      ...)
-    }
-  } else {
-    ## download data without caching
-    content <- xGET(path,
-                    args,
-                    file = NULL,
-                    ...)
-  }
+  ## download data without caching
+  content <- xGET(path,
+                  args,
+                  file = NULL,
+                  ...)
 
   if(is.null(content)) return(content)
 
