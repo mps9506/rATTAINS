@@ -1,10 +1,5 @@
 test_that("plans works", {
 
-  ## set package option
-  rATTAINS_options(cache_downloads = FALSE)
-  ## clear any pre-existing cache
-  plans_cache$delete_all()
-
   vcr::use_cassette("plans_works", {
     x <- plans(huc ="020700100103")
   })
@@ -39,23 +34,4 @@ test_that("plans returns errors", {
   webmockr::to_return(stub, status = 502)
   testthat::expect_error(plans(huc ="020700100103"))
   webmockr::disable(quiet = TRUE)
-})
-
-test_that("plans cache cache works", {
-  skip_on_cran()
-  skip_if_offline()
-  ## set package option
-  rATTAINS_options(cache_downloads = TRUE)
-  plans_cache$delete_all()
-  ## give some time for api to rest
-  Sys.sleep(20)
-
-  x <- plans(huc ="020700100103",
-             timeout_ms = 20000)
-  testthat::expect_message(plans(huc ="020700100103"),
-                           "reading cached file from: ")
-
-  y <- plans(huc ="020700100103")
-  testthat::expect_equal(x, y)
-
 })

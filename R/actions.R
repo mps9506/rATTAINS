@@ -66,10 +66,7 @@
 #'   tibbles including documents and actions identified by the query. If
 #'   \code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
 #'   parsed and returned as tibbles.
-#' @note See [domain_values] to search values that can be queried. Data
-#'   downloaded from the EPA webservice is automatically cached to reduce
-#'   uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#' @note See [domain_values] to search values that can be queried.
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection
 #'   reportAssertions
@@ -107,7 +104,7 @@ actions <- function(action_id = NULL,
                     ...) {
 
   ## check connectivity
-  check_connectivity()
+  #check_connectivity()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -175,34 +172,14 @@ actions <- function(action_id = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: action_id, assessment_unit_id, state_code, or organization_id")
   }
-
-  ## setup file cache
   path <- "attains-public/api/actions"
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    actions_cache$mkdir()
 
-    ## check if current results have been cached
-    file_cache_name <- file_key(arg_list = args,
-                                name = "actions.json")
-    file_path_name <- fs::path(actions_cache$cache_path_get(),
-                               file_cache_name)
-    if(file.exists(file_path_name)) {
-      message(paste0("reading cached file from: ", file_path_name))
-      content <- readLines(file_path_name, warn = FALSE)
-    } else {
-      ## download data
-      content <- xGET(path,
-                      args,
-                      file = file_path_name,
-                      ...)
-    }
-  } else {
-    ## download data without caching
-    content <- xGET(path,
-                    args,
-                    file = NULL,
-                    ...)
-  }
+  ## download data without caching
+  content <- xGET(path,
+                  args,
+                  file = NULL,
+                  ...)
+
 
   if(is.null(content)) return(content)
   ## return raw JSON

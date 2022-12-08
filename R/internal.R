@@ -20,18 +20,7 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                             query = args)
 
   tryCatch({
-    res <- if(isTRUE(rATTAINSenv$cache_downloads)) {
-      cli$retry("GET",
-                path = path,
-                disk = file,
-                query = args,
-                pause_base = 5,
-                pause_cap = 60,
-                pause_min = 5,
-                terminate_on = c(404),
-                ...)
-      } else {
-        cli$retry("GET",
+    res <- cli$retry("GET",
                   path = path,
                   query = args,
                   pause_base = 5,
@@ -39,7 +28,7 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                   pause_min = 5,
                   terminate_on = c(404),
                   ...)
-      }
+
     if (!res$success()) {
       stop(call. = FALSE)
       }
@@ -83,21 +72,6 @@ errs <- function(x) {
     fun <- fauxpas::find_error_class(x$status_code)$new()
     fun$do_verbose(x)
   }
-}
-
-
-
-# returns the unique file path for the cached file
-file_key <- function(arg_list, name) {
-  if(length(arg_list) >= 1) {
-    x <- paste0(arg_list, collapse = "_")
-  } else {
-    x <- ("_")
-  }
-  #x <- file.path(path, x)
-  x <- paste0(x, name)
-  x <- gsub(" ", "_", x, fixed = TRUE)
-  return(x)
 }
 
 

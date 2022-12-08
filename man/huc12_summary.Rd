@@ -25,10 +25,7 @@ organizations. Returns the assessment units in the HUC12, size and
 percentages of assessment units considered Good, Unknown, or Impaired.
 }
 \note{
-See \link{domain_values} to search values that can be queried. Data
-downloaded from the EPA webservice is automatically cached to reduce
-uneccessary calls to the server. To managed cached files see
-\link{rATTAINS_caching}
+See \link{domain_values} to search values that can be queried.
 }
 \examples{
 

@@ -39,10 +39,7 @@
 #'   \code{organization_id="TCEQMAIN,DCOEE"}).
 #' @return When \code{tidy = TRUE} a tibble with many variables, some nested, is
 #'   returned. When \code{tidy=FALSE} a raw JSON string is returned.
-#' @note See [domain_values] to search values that can be queried. Data
-#'   downloaded from the EPA webservice is automatically cached to reduce
-#'   uneccessary calls to the server. To managed cached files see
-#'   [rATTAINS_caching]
+#' @note See [domain_values] to search values that can be queried.
 #' @export
 #' @import tidyjson
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
@@ -125,34 +122,13 @@ assessment_units <- function(assessment_unit_identifer = NULL,
     stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
   }
 
-  ## setup file cache
   path <- "attains-public/api/assessmentUnits"
-  if(isTRUE(rATTAINSenv$cache_downloads)) {
-    au_cache$mkdir()
 
-    ## check if current results have been cached
-    file_cache_name <- file_key(arg_list = args,
-                                name = "assessmentUnits.json")
-    file_path_name <- fs::path(au_cache$cache_path_get(),
-                               file_cache_name)
-
-    if(file.exists(file_path_name)) {
-      message(paste0("reading cached file from: ", file_path_name))
-      content <- readLines(file_path_name, warn = FALSE)
-      } else {
-        ## download data
-        content <- xGET(path,
-                        args,
-                        file = file_path_name,
-                        ...)
-      }
-  } else {
-    ## download data without caching
-    content <- xGET(path,
-                    args,
-                    file = NULL,
-                    ...)
-  }
+  ## download data without caching
+  content <- xGET(path,
+                  args,
+                  file = NULL,
+                  ...)
 
   if(is.null(content)) return(content)
 

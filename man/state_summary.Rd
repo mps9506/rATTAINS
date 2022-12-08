@@ -32,10 +32,7 @@ provided, the service will return the most recent cycle. If a reporting Cycle
 is provided, the service will return a summary for the requested cycle.
 }
 \note{
-See \link{domain_values} to search values that can be queried. Data
-downloaded from the EPA webservice is automatically cached to reduce
-uneccessary calls to the server. To managed cached files see
-\link{rATTAINS_caching}.
+See \link{domain_values} to search values that can be queried.
 }
 \examples{
 
