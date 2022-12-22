@@ -1,6 +1,6 @@
 Package: rATTAINS
 Title: Access EPA 'ATTAINS' Data
-Version: 0.1.3.9999
+Version: 0.1.4
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
