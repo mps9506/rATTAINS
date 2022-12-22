@@ -7,11 +7,11 @@ citEntry(
   year     = "2021",
   url      = "https://CRAN.R-project.org/package=rATTAINS",
   doi      = "10.5281/zenodo.5469911",
-  note     = "R package version 0.1.3",
+  note     = "R package version 0.1.4",
   textVersion = paste(
   "Schramm, Michael (2021). ",
   "rATTAINS: Access EPA 'ATTAINS' Data. ",
-  "R package version 0.1.3.",
+  "R package version 0.1.4.",
   "doi:10.5281/zenodo.3635017",
   "https://CRAN.R-project.org/package=rATTAINS"
   )
