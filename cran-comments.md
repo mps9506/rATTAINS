@@ -12,13 +12,18 @@
 
 0 errors | 0 warnings | 0 note
 
+## Comments
+
 * This submission primarily addresses breaking changes from upstream 
   dependencies (tidyselect, purrr, and tidyjson).
 * This also removes dependency on the hoardr package (archived by maintainer) 
   and functions for caching to ensure future compatibility with CRAN policies.
 
+## Reverse dependencies
 
-Other comments:
+There are currently no downstream dependencies for this package.
+
+## Other comments:
 
 * Examples are wrapped in \donttest{} since they rely on an internet connection 
   and API that will rate limit when automatically test or run.
