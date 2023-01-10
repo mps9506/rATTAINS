@@ -39,7 +39,7 @@ Suggests:
     webmockr
 BugReports: https://github.com/mps9506/rATTAINS/issues
 URL: https://github.com/mps9506/rATTAINS,
-  https://mps9506.github.io/rATTAINS
+  https://mps9506.github.io/rATTAINS/
 VignetteBuilder: knitr
 Config/Needs/website: 
   mps9506/mpsTemplates,
