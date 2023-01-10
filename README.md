@@ -7,6 +7,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/rATTAINS)](https://cran.r-project.org/package=rATTAINS)
+[![rATTAINS status
+badge](https://mps9506.r-universe.dev/badges/rATTAINS)](https://mps9506.r-universe.dev)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -85,6 +87,14 @@ Environmental Quality:
 library(rATTAINS)
 state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
   .[1,] %>% str()
+#> Warning: Automatic coercion from double to character was deprecated in purrr 1.0.0.
+#> ℹ Please use an explicit call to `as.character()` within `map_chr()` instead.
+#> ℹ The deprecated feature was likely used in the tidyjson package.
+#>   Please report the issue at <https://github.com/colearendt/tidyjson/issues>.
+#> Warning: Automatic coercion from integer to character was deprecated in purrr 1.0.0.
+#> ℹ Please use an explicit call to `as.character()` within `map_chr()` instead.
+#> ℹ The deprecated feature was likely used in the tidyjson package.
+#>   Please report the issue at <https://github.com/colearendt/tidyjson/issues>.
 #> tibble [1 × 13] (S3: tbl_df/tbl/data.frame)
 #>  $ organization_identifier: chr "TCEQMAIN"
 #>  $ organization_name      : chr "Texas"
@@ -117,7 +127,7 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 1 × 14
 #>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
 #>   <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 02070…      17    46.2    46.2    44.1    95.4       0       0       0       0
+#> 1 02070…      17    46.1    46.2    35.2    76.4       0       0       0       0
 #> # … with 4 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
 #> #   contain_impaired_waters_catchment_area_percent <dbl>,
 #> #   contain_restoration_catchment_area_sq_mi <dbl>,
@@ -133,16 +143,16 @@ huc12_summary(huc = "020700100204")
 #>  1 MD-02140205-Northwest_Branch
 #>  2 MD-02140205                 
 #>  3 DCTFD01R_00                 
-#>  4 MD-ANATF                    
+#>  4 DCTNA01R_00                 
 #>  5 DCTFS01R_00                 
-#>  6 DCTNA01R_00                 
+#>  6 MD-ANATF                    
 #>  7 DCTTX27R_00                 
 #>  8 DCTFC01R_00                 
 #>  9 MD-02140205-Mainstem        
 #> 10 DCTWB00R_02                 
-#> 11 DCTWB00R_01                 
-#> 12 DCANA00E_02                 
-#> 13 DCTHR01R_00                 
+#> 11 DCANA00E_02                 
+#> 12 DCTHR01R_00                 
+#> 13 DCTWB00R_01                 
 #> 14 DCTPB01R_00                 
 #> 15 DCTDU01R_00                 
 #> 16 DCANA00E_01                 
@@ -152,19 +162,19 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 2 × 4
 #>   epa_ir_category_name catchment_size_sq_mi catchment_size_percent assessment_…¹
 #>   <chr>                               <dbl>                  <dbl>         <dbl>
-#> 1 4A                                   25.2                   54.5            10
-#> 2 5                                    37.9                   81.9             7
+#> 1 4A                                   12.7                   27.5            10
+#> 2 5                                    25.8                   56.0             7
 #> # … with abbreviated variable name ¹​assessment_unit_count
 #> 
 #> $use_summary
 #> # A tibble: 5 × 5
 #>   use_group_name      use_attainment           catchment_size_…¹ catch…² asses…³
 #>   <chr>               <chr>                                <dbl>   <dbl>   <dbl>
-#> 1 ECOLOGICAL_USE      Not Supporting                       22.8    49.3       13
-#> 2 FISHCONSUMPTION_USE Insufficient Information             24.5    53.0        1
-#> 3 FISHCONSUMPTION_USE Not Supporting                       24.5    53.0       12
-#> 4 OTHER_USE           Fully Supporting                      1.92    4.15       3
-#> 5 RECREATION_USE      Not Supporting                       24.5    53.0       13
+#> 1 ECOLOGICAL_USE      Not Supporting                      10.9     23.7       13
+#> 2 FISHCONSUMPTION_USE Insufficient Information            15.9     34.4        1
+#> 3 FISHCONSUMPTION_USE Not Supporting                      15.9     34.4       12
+#> 4 OTHER_USE           Fully Supporting                     0.683    1.48       3
+#> 5 RECREATION_USE      Not Supporting                      15.2     32.9       13
 #> # … with abbreviated variable names ¹​catchment_size_sq_mi,
 #> #   ²​catchment_size_percent, ³​assessment_unit_count
 #> 
@@ -172,22 +182,22 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 16 × 4
 #>    parameter_group_name                catchment_size_sq_mi catchment_…¹ asses…²
 #>    <chr>                                              <dbl>        <dbl>   <dbl>
-#>  1 ALGAL GROWTH                                       22.8         49.3        2
-#>  2 CHLORINE                                           10.7         23.2        1
-#>  3 HABITAT ALTERATIONS                                 5.80        12.5        2
-#>  4 HYDROLOGIC ALTERATION                              17.0         36.8        5
-#>  5 METALS (OTHER THAN MERCURY)                        22.8         49.3        9
-#>  6 NUTRIENTS                                          22.8         49.3        2
-#>  7 OIL AND GREASE                                     22.8         49.3        3
-#>  8 ORGANIC ENRICHMENT/OXYGEN DEPLETION                22.8         49.3        6
-#>  9 PATHOGENS                                          24.5         53.0       13
-#> 10 PESTICIDES                                         24.5         53.0        9
-#> 11 PH/ACIDITY/CAUSTIC CONDITIONS                       1.72         3.71       1
-#> 12 POLYCHLORINATED BIPHENYLS (PCBS)                   24.5         53.0       10
-#> 13 SEDIMENT                                            3.88         8.39       1
-#> 14 TOXIC ORGANICS                                     22.8         49.3        8
-#> 15 TRASH                                              22.8         49.3        2
-#> 16 TURBIDITY                                          24.5         53.0       13
+#>  1 ALGAL GROWTH                                        9.21        20.0        2
+#>  2 CHLORINE                                            1.73         3.75       1
+#>  3 HABITAT ALTERATIONS                                 2.80         6.07       2
+#>  4 HYDROLOGIC ALTERATION                               5.98        13.0        5
+#>  5 METALS (OTHER THAN MERCURY)                        11.8         25.7        9
+#>  6 NUTRIENTS                                           9.21        20.0        2
+#>  7 OIL AND GREASE                                     10.9         23.7        3
+#>  8 ORGANIC ENRICHMENT/OXYGEN DEPLETION                12.7         27.5        6
+#>  9 PATHOGENS                                          15.9         34.4       13
+#> 10 PESTICIDES                                         15.2         32.9        9
+#> 11 PH/ACIDITY/CAUSTIC CONDITIONS                       1.95         4.22       1
+#> 12 POLYCHLORINATED BIPHENYLS (PCBS)                   15.2         32.9       10
+#> 13 SEDIMENT                                            1.90         4.11       1
+#> 14 TOXIC ORGANICS                                     13.3         28.7        8
+#> 15 TRASH                                               9.21        20.0        2
+#> 16 TURBIDITY                                          15.9         34.4       13
 #> # … with abbreviated variable names ¹​catchment_size_percent,
 #> #   ²​assessment_unit_count
 #> 
@@ -195,14 +205,14 @@ huc12_summary(huc = "020700100204")
 #> # A tibble: 1 × 4
 #>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
-#> 1 TMDL                              24.5                   53.0               13
+#> 1 TMDL                              15.9                   34.4               13
 #> # … with abbreviated variable name ¹​assessment_unit_count
 #> 
 #> $vision_plan_summary
 #> # A tibble: 1 × 4
 #>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
 #>   <chr>                            <dbl>                  <dbl>            <dbl>
-#> 1 TMDL                              24.5                   53.0               13
+#> 1 TMDL                              15.9                   34.4               13
 #> # … with abbreviated variable name ¹​assessment_unit_count
 ```
 
@@ -257,7 +267,7 @@ citation("rATTAINS")
 #> To cite rATTAINS in publications use:
 #> 
 #>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
-#>   package version 0.1.3. doi:10.5281/zenodo.3635017
+#>   package version 0.1.4. doi:10.5281/zenodo.3635017
 #>   https://CRAN.R-project.org/package=rATTAINS
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -268,6 +278,6 @@ citation("rATTAINS")
 #>     year = {2021},
 #>     url = {https://CRAN.R-project.org/package=rATTAINS},
 #>     doi = {10.5281/zenodo.5469911},
-#>     note = {R package version 0.1.3},
+#>     note = {R package version 0.1.4},
 #>   }
 ```
