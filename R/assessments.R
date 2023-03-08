@@ -17,8 +17,8 @@
 #'   with format: \code{"yyyy-mm-dd"}. optional
 #' @param last_change_earlier_than_date (character) Filters the returned assessments to only those last changed before the provided date. Must be a character
 #'   with format: \code{"yyyy-mm-dd"}. optional
-#' @param return_count_only (logical) If \code{TRUE} returns only the count of
-#'   actions the match the query. defaults to \code{FALSE}
+#' @param return_count_only `r lifecycle::badge("deprecated")`
+#'   `return_count_only = TRUE` is no longer supported.
 #' @param exclude_assessments (logical) If \code{TRUE} returns only the documents associated with the Assessment cycle instead of the assessment data. Defaults is \code{FALSE}.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
@@ -27,10 +27,7 @@
 #'   \code{organization_id}. Multiple values are allowed for indicated arguments
 #'   and should be included as a comma separated values in the string (eg.
 #'   \code{organization_id="TCEQMAIN,DCOEE"}).
-#' @return If \code{count = TRUE} returns a tibble that summarizes the count of
-#'   actions returned by the query. If \code{count = FALSE} returns a list of
-#'   tibbles including documents, use assessment data, and parameters assessment
-#'   data identified by the query. If \code{tidy = FALSE} the raw JSON string is
+#' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
@@ -70,6 +67,17 @@ assessments <- function(assessment_unit_id = NULL,
                         tidy = TRUE,
                         ...) {
 
+  ## depreciate return_count_only
+  if (isTRUE(return_count_only)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0",
+      what = "actions(return_count_only)",
+      details = "Ability to retun counts only is depreciated and defaults to
+      FALSE. The `return_count_only` argument will be removed in future
+      releases."
+    )
+  }
+
   ## check connectivity
   check_connectivity()
 
@@ -99,9 +107,11 @@ assessments <- function(assessment_unit_id = NULL,
                          add = coll))
   checkmate::reportAssertions(coll)
 
-  returnCountOnly <- if(isTRUE(return_count_only)) {
-    "Y"
-  } else {"N"}
+  #### DEPRECIATED ####
+  # returnCountOnly <- if(isTRUE(return_count_only)) {
+  #   "Y"
+  # } else {"N"}
+  #####################
   excludeAssessments <- if(isTRUE(exclude_assessments)) {
     "Y"
   } else {"N"}
@@ -121,7 +131,10 @@ assessments <- function(assessment_unit_id = NULL,
                multicategorySearch = multicategory_search,
                lastChangeLaterThanDate = last_change_later_than_date,
                lastChangeEarlierThanDate = last_change_earlier_than_date,
-               returnCountOnly = returnCountOnly,
+               ### DEPRECIATED ###
+               #returnCountOnly = returnCountOnly)#
+               ###################
+               returnCountOnly = "N",
                excludeAssessments = excludeAssessments)
 
   args <- list.filter(args, !is.null(.data))

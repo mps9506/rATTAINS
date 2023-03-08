@@ -59,8 +59,8 @@ with format: \code{"yyyy-mm-dd"}. optional}
 \item{last_change_earlier_than_date}{(character) Filters the returned assessments to only those last changed before the provided date. Must be a character
 with format: \code{"yyyy-mm-dd"}. optional}
 
-\item{return_count_only}{(logical) If \code{TRUE} returns only the count of
-actions the match the query. defaults to \code{FALSE}}
+\item{return_count_only}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{return_count_only = TRUE} is no longer supported.}
 
 \item{exclude_assessments}{(logical) If \code{TRUE} returns only the documents associated with the Assessment cycle instead of the assessment data. Defaults is \code{FALSE}.}
 
@@ -69,10 +69,7 @@ actions the match the query. defaults to \code{FALSE}}
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-If \code{count = TRUE} returns a tibble that summarizes the count of
-actions returned by the query. If \code{count = FALSE} returns a list of
-tibbles including documents, use assessment data, and parameters assessment
-data identified by the query. If \code{tidy = FALSE} the raw JSON string is
+If \code{tidy = FALSE} the raw JSON string is
 returned, else the JSON data is parsed and returned as tibbles.
 }
 \description{

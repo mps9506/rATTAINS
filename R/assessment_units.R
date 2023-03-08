@@ -27,8 +27,8 @@
 #'   with format: \code{"yyyy-mm-dd"}. optional
 #' @param status_indicator (character) Filter the returned assessment units to
 #'   those with specified status. "A" for active, "R" for retired. optional
-#' @param return_count_only (character) "Y" for yes, "N" for no. Defaults to
-#'   "N". optional
+#' @param return_count_only `r lifecycle::badge("deprecated")`
+#'   `return_count_only = Y` is no longer supported.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
@@ -74,6 +74,17 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                              tidy = TRUE,
                              ...) {
 
+  ## depreciate return_count_only
+  if (!is.null(return_count_only)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0",
+      what = "actions(return_count_only)",
+      details = "Ability to retun counts only is depreciated and defaults to
+      NULL. The `return_count_only` argument will be removed in future
+      releases."
+    )
+  }
+
   ## check connectivity
   check_connectivity()
 
@@ -112,7 +123,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                   lastChangeLaterThanDate = last_change_later_than_date,
                   lastChangeEarlierThanDate = last_change_earlier_than_date,
                   statusIndicator = status_indicator,
-                  returnCountOnly = return_count_only)
+                  returnCountOnly = NULL) ## depreciated and defaults NULL
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
                      "stateCode",

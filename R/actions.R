@@ -51,8 +51,8 @@
 #'   those with a last change date earlier than the value specified. Can be used
 #'   with \code{last_change_later_than_date} to return actions changed within a
 #'   date range. Must be a character formatted as \code{"YYYY-MM-DD"}. optional
-#' @param return_count_only (logical) If \code{TRUE} returns only the count of
-#'   actions the match the query.
+#' @param return_count_only `r lifecycle::badge("deprecated")`
+#'   `return_count_only = TRUE` is no longer supported.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
 #' @param ... list of curl options passed to [crul::HttpClient()]
@@ -61,11 +61,8 @@
 #'   \code{organization_id}. Multiple values are allowed for indicated arguments
 #'   and should be included as a comma separated values in the string (eg.
 #'   \code{organization_id="TCEQMAIN,DCOEE"}).
-#' @return If \code{count = TRUE} returns a tibble that summarizes the count of
-#'   actions returned by the query. If \code{count = FALSE} returns a list of
-#'   tibbles including documents and actions identified by the query. If
-#'   \code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
-#'   parsed and returned as tibbles.
+#' @return If \code{tidy = FALSE} the raw JSON string is returned, else the
+#'   JSON data is parsed and returned as tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection
@@ -103,6 +100,16 @@ actions <- function(action_id = NULL,
                     tidy = TRUE,
                     ...) {
 
+  ## depreciate return_count_only
+  if (isTRUE(return_count_only)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0",
+      what = "actions(return_count_only)",
+      details = "Ability to retun counts only is depreciated and defaults to
+      FALSE. The `return_count_only` argument will be removed in future
+      releases."
+    )
+  }
   ## check connectivity
   #check_connectivity()
 
@@ -136,10 +143,13 @@ actions <- function(action_id = NULL,
                          add = coll))
   checkmate::reportAssertions(coll)
 
+
   ## change logical aguments to "Y" or "N" for webservice
-  returnCountOnly <- if(isTRUE(return_count_only)) {
-    "Y"
-  } else {"N"}
+  #### DEPRECIATED ####
+  # returnCountOnly <- if(isTRUE(return_count_only)) {
+  #   "Y"
+  # } else {"N"}
+  #####################
   summarize <- if(isTRUE(summarize)) {
     "Y"
   } else {"N"}
@@ -162,7 +172,11 @@ actions <- function(action_id = NULL,
                tmdlDateEarlierThan = tmdl_date_earlier_then,
                lastChangeLaterThanDate = last_change_later_than_date,
                lastChangeEarlierThanDate = last_change_earlier_than_date,
-               returnCountOnly = returnCountOnly)
+               ### DEPRECIATED ###
+               #returnCountOnly = returnCountOnly)#
+               ###################
+               returnCountOnly = "N"
+  )
   args <- list.filter(args, !is.null(.data))
   required_args <- c("actionIdentifier",
                      "assessmentUnitIdentifier",
@@ -188,7 +202,7 @@ actions <- function(action_id = NULL,
   ## parse and tidy JSON
   else {
     content <- actions_to_tibble(content,
-                                 count = returnCountOnly,
+                                 count = FALSE, ## depreciated to FALSE
                                  summarize = summarize)
 
     return(content)

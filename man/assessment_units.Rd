@@ -58,8 +58,8 @@ with format: \code{"yyyy-mm-dd"}. optional}
 \item{status_indicator}{(character) Filter the returned assessment units to
 those with specified status. "A" for active, "R" for retired. optional}
 
-\item{return_count_only}{(character) "Y" for yes, "N" for no. Defaults to
-"N". optional}
+\item{return_count_only}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{return_count_only = Y} is no longer supported.}
 
 \item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
 tibble. \code{FALSE} the function returns the raw JSON string.}

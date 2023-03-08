@@ -93,8 +93,8 @@ those with a last change date earlier than the value specified. Can be used
 with \code{last_change_later_than_date} to return actions changed within a
 date range. Must be a character formatted as \code{"YYYY-MM-DD"}. optional}
 
-\item{return_count_only}{(logical) If \code{TRUE} returns only the count of
-actions the match the query.}
+\item{return_count_only}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{return_count_only = TRUE} is no longer supported.}
 
 \item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
 tibble. \code{FALSE} the function returns the raw JSON string.}
@@ -102,11 +102,8 @@ tibble. \code{FALSE} the function returns the raw JSON string.}
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-If \code{count = TRUE} returns a tibble that summarizes the count of
-actions returned by the query. If \code{count = FALSE} returns a list of
-tibbles including documents and actions identified by the query. If
-\code{tidy = FALSE} the raw JSON string is returned, else the JSON data is
-parsed and returned as tibbles.
+If \code{tidy = FALSE} the raw JSON string is returned, else the
+JSON data is parsed and returned as tibbles.
 }
 \description{
 Provides data about actions (TMDLs, 4B Actions, Alternative Actions,
