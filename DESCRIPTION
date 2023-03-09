@@ -30,6 +30,7 @@ Imports:
     rlang,
     rlist,
     tibble,
+    tibblify,
     tidyjson,
     tidyr
 Suggests: 
