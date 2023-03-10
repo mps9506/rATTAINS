@@ -68,6 +68,7 @@
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection
 #'   reportAssertions
 #' @importFrom fs path
+#' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty
 #' @examples
@@ -219,38 +220,45 @@ actions <- function(action_id = NULL,
 #' @import tibblify
 #' @importFrom dplyr select
 #' @importFrom janitor clean_names
+#' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unpack unnest
 #' @importFrom tidyselect everything
 actions_to_tibble <- function(content,
                   count = FALSE,
                   summarize = "N") {
 
+  ## parse JSON
   json_list <- jsonlite::fromJSON(content,
                                   simplifyVector = FALSE,
                                   simplifyDataFrame = FALSE,
                                   flatten = FALSE)
 
-
+  ## Create tibblify specification
   spec <- spec_actions(summarize = summarize)
+
+  ## Create nested lists according to spec
   content <- tibblify(json_list,
                       spec = spec,
                       unspecified = "drop")
+
+  ## lists -> rectangle
   content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
   content <- unpack(content, cols = everything())
 
-
+  ## data structure if request was made with summarize = TRUE
   if(summarize == "Y") {
     content <- unnest_longer(content, col = "documents")
     content <- unpack(content, cols = everything(), names_repair = "universal")
     content <- unnest_longer(content, col = "associatedPollutants")
     content <- unnest(content, cols = "documentTypes", keep_empty = TRUE)
     content <- select(content, -c("parameters"))
-
     content <- clean_names(content)
 
     return(content)
   }
+  ## data structure if request was made with summarize = FALSE
   if(summarize == "N") {
+    ## returns a list of two tibbles: documents and actions
     documents <- select(content, -c("specificWaters"))
     documents <- unnest(documents, cols = everything(), names_repair = "universal", keep_empty = TRUE)
     documents <- unnest(documents, cols = everything(), names_repair = "universal", keep_empty = TRUE)
@@ -268,8 +276,12 @@ actions_to_tibble <- function(content,
   }
 }
 
-
-## creates default tibblify specs for actions
+#' Create tibblify specification for actions
+#' @param summarize character, one of 'Y' or 'N'.
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
 spec_actions <- function(summarize = "N") {
 
   if(summarize == "N") {
