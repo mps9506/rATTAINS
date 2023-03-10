@@ -101,188 +101,205 @@ plans <- function(huc,
 #' @param summarize character
 #'
 #' @noRd
-#' @import tidyjson
-#' @importFrom dplyr select rename filter mutate
+#' @import tibblify
+#' @importFrom dplyr select
 #' @importFrom janitor clean_names
-#' @importFrom purrr map flatten_dbl flatten_chr
-#' @importFrom rlang .data
-#' @importFrom tibble as_tibble tibble
+#' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unnest
+#' @importFrom tidyselect everything
 plans_to_tibble <- function(content, summarize) {
 
-  if(summarize=="N"){
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifier = jstring("actionIdentifier"),
-                    actionName = jstring("actionName"),
-                    agencyCode = jstring("agencyCode"),
-                    actionTypeCode = jstring("actionTypeCode"),
-                    actionStatusCode = jstring("actionStatusCode"),
-                    completionDate = jstring("completionDate"),
-                    organizationId = jstring("organizationId"),
-                    associatedActions = jstring("associatedActions")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("TMDLReportDetails") %>%
-      spread_values(TMDLOtherIdentifier = jstring("TMDLOtherIdentifier"),
-                    TMDLDate = jstring("TMDLDate"),
-                    indianCountryIdentifier = jstring("indianCountryIdentifier")) %>%
-      as_tibble() %>%
-      clean_names() -> content_plans
+  ## parse JSON
+  json_list <- fromJSON(content,
+                        simplifyVector = FALSE,
+                        simplifyDataFrame = FALSE,
+                        flatten = FALSE)
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("documents") %>%
-      gather_array() %>%
-      spread_values(documentFileType = jstring("docuementFileType"),
-                    documentFileName = jstring("documentFileName"),
-                    documentName = jstring("documentName"),
-                    documentDescription = jstring("documentDescription"),
-                    documentComments = jstring("documentComments"),
-                    documentURL = jstring("documentURL")) %>%
-      select(-c("array.index"))  %>%
-      enter_object("documentTypes") %>%
-      gather_array() %>%
-      spread_values(documentTypeCode = jstring("documentTypeCode")) %>%
-      select(-c("array.index")) %>%
-      as_tibble() %>%
-      clean_names() -> content_documents
+  ## create tibblify specification
+  spec <- spec_plans(summarize = summarize)
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("associatedWaters") %>%
-      spread_all() %>%
-      enter_object("specificWaters") %>%
-      gather_array() %>%
-      spread_values(assessmentUnitIdentifier = jstring("assessmentUnitIdentifier")) %>%
-      select(-c("array.index"))  %>%
-      enter_object("associatedPollutants") %>%
-      gather_array() %>%
-      spread_values(pollutantName = jstring("pollutantName"),
-                    explicitMarginofSafetyText = jstring("explicitMarginofSafetyText"),
-                    implicitMarginofSafetyText = jstring("implicitMarginofSafetyText"),
-                    TMDLEndPointText = jstring("TMDLEndPointText")) %>%
-      select(-"array.index")  %>%
-      as_tibble() %>%
-      clean_names()  -> content_associated_pollutants
+  ## nested list -> rectangular data
+  content <- tibblify(json_list,
+                      spec = spec,
+                      unspecified = "drop")
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("associatedWaters") %>%
-      spread_all() %>%
-      enter_object("specificWaters") %>%
-      gather_array() %>%
-      spread_values(assessmentUnitIdentifier = jstring("assessmentUnitIdentifier")) %>%
-      select(-"array.index")  %>%
-      enter_object("parameters") %>%
-      gather_array() %>%
-      spread_values(parameterName = jstring("parameterName")) %>%
-      select("array.index")  %>%
-      enter_object("associatedPollutants") %>%
-      gather_array() %>%
-      spread_values(pollutantName = jstring("pollutantName")) %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      clean_names()  -> content_associated_parameters
+  if(summarize == "N") {
+    content <- unpack(content$items, cols = everything())
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("associatedWaters") %>%
-      spread_all() %>%
-      enter_object("specificWaters") %>%
-      gather_array() %>%
-      spread_values(assessmentUnitIdentifier = jstring("assessmentUnitIdentifier")) %>%
-      select(-"array.index") %>%
-      enter_object("associatedPollutants") %>%
-      gather_array() %>%
-      spread_values(pollutantName = jstring("pollutantName")) %>%
-      select(-"array.index") %>%
-      enter_object("permits") %>%
-      gather_array() %>%
-      spread_values(NPDESIdentifier = jstring("NPDESIdentifier"),
-                    otherIdentifier = jstring("otherIdentifier")) %>%
-      mutate(details = map(.data$..JSON, ~{
-        .x[["details"]] %>% {
-          tibble(
-            wasteLoadAllocationNumeric = map(., "wasteLoadAllocationNumeric", .default = NA) %>% purrr::flatten_dbl(),
-            wasteLoadAllocationUnitsText = map(., "wasteLoadAllocationUnitsText", .default = NA) %>% purrr::flatten_chr(),
-            seasonStartText = map(., "seasonStartText", .default = NA) %>% purrr::flatten_chr(),
-            seasonEndText = map(., "seasonEndText", .default = NA) %>% purrr::flatten_chr()
-          )
-        }
-      })) %>%
-      unnest("details", keep_empty = TRUE) %>%
-      as_tibble() %>%
-      clean_names() -> content_associated_permits
+    content_plans <- select(content, -c("specificWaters"))
+    content_plans <- unnest(content_plans, cols = everything(),
+                            names_repair = "unique", keep_empty = TRUE)
+    content_plans <- unnest(content_plans, cols = everything(),
+                            keep_empty = TRUE)
+    content_plans <- clean_names(content_plans)
 
-    return(list(plans = content_plans,
-                documents = content_documents,
-                associated_pollutants = content_associated_pollutants,
-                associated_parameters = content_associated_parameters,
-                associated_permits = content_associated_permits))
+    content_sp_waters <- select(content, -c("documents"))
+    content_sp_waters <- unnest(content_sp_waters, cols = everything(), keep_empty = TRUE)
+
+    associated_pollutants <- select(content_sp_waters, -c("parameters"))
+    associated_pollutants <- unnest(associated_pollutants, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_pollutants <- clean_names(associated_pollutants)
+
+
+    associated_parameters <- select(content_sp_waters, -c("associatedPollutants"))
+    associated_parameters <- unnest(associated_parameters, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_parameters <- unnest(associated_parameters, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_parameters <- clean_names(associated_parameters)
+
+    return(list(
+      plans = content_plans,
+      associated_pollutants = associated_pollutants,
+      associated_parameters = associated_parameters
+    ))
   }
+  if(summarize == "Y") {
 
-  if(summarize=="Y") {
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifier = jstring("actionIdentifier"),
-                    actionName = jstring("actionName"),
-                    agencyCode = jstring("agencyCode"),
-                    actionTypeCode = jstring("actionTypeCode"),
-                    actionStatusCode = jstring("actionStatusCode"),
-                    completionDate = jstring("completionDate"),
-                    organizationId = jstring("organizationId"),
-                    associatedActions = jstring("associatedActions")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("TMDLReportDetails") %>%
-      spread_values(TMDLOtherIdentifier = jstring("TMDLOtherIdentifier"),
-                    TMDLDate = jstring("TMDLDate"),
-                    indianCountryIdentifier = jstring("indianCountryIdentifier")) %>%
-      as_tibble() %>%
-      clean_names() -> content_plans
+    content <- tibblify(json_list,
+                        spec = spec,
+                        unspecified = "drop")
+    content <- unpack(content$items, cols = everything())
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("associatedPollutants") %>%
-      gather_array() %>%
-      spread_values(pollutantName = jstring("pollutantName"),
-                    auCount = jstring("auCount")) %>%
-      select(-"array.index")  %>%
-      as_tibble() %>%
-      clean_names()  -> content_associated_pollutants
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(actionIdentifer = jstring("actionIdentifier")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("parameters") %>%
-      gather_array() %>%
-      spread_values(parameterName = jstring("parameterName"),
-                    auCount = jstring("auCount")) %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      clean_names()  -> content_associated_parameters
+    associated_pollutants <- select(content, -c("parameters"))
+    associated_pollutants <- unnest(associated_pollutants, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_pollutants <- clean_names(associated_pollutants)
 
-    return(list(plans = content_plans,
-                associated_pollutants = content_associated_pollutants,
-                associated_parameters = content_associated_parameters))
+    associated_parameters <- select(content, -c("associatedPollutants"))
+    associated_parameters <- unnest(associated_parameters, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_parameters <- unnest(associated_parameters, cols = everything(),
+                                    keep_empty = TRUE)
+    associated_parameters <- clean_names(associated_parameters)
+
+    return(list(
+      associated_pollutants = associated_pollutants,
+      associated_parameters = associated_parameters
+    ))
   }
+}
 
+
+#' Create tibblify specification for plans
+#' @param summarize character, one of 'Y' or 'N'.
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_plans <- function(summarize) {
+
+  if(summarize == "N") {
+    spec <- tspec_object(
+      tib_df(
+        "items",
+        tib_chr("actionIdentifier"),
+        tib_chr("actionName"),
+        tib_chr("agencyCode"),
+        tib_chr("actionTypeCode"),
+        tib_chr("actionStatusCode"),
+        tib_chr("completionDate"),
+        tib_chr("organizationId"),
+        tib_df(
+          "documents",
+          tib_chr("agencyCode"),
+          tib_df(
+            "documentTypes",
+            tib_chr("documentTypeCode"),
+          ),
+          tib_chr("documentFileType"),
+          tib_chr("documentFileName"),
+          tib_chr("documentName"),
+          tib_unspecified("documentDescription"),
+          tib_chr("documentComments"),
+          tib_chr("documentURL"),
+        ),
+        tib_row(
+          "associatedWaters",
+          tib_df(
+            "specificWaters",
+            tib_chr("assessmentUnitIdentifier"),
+            tib_df(
+              "associatedPollutants",
+              tib_chr("pollutantName"),
+              tib_chr("pollutantSourceTypeCode"),
+              tib_chr("explicitMarginofSafetyText"),
+              tib_chr("implicitMarginofSafetyText"),
+              tib_unspecified("loadAllocationDetails"),
+              tib_df(
+                "permits",
+                tib_chr("NPDESIdentifier"),
+                tib_chr("otherIdentifier"),
+                tib_df(
+                  "details",
+                  tib_dbl("wasteLoadAllocationNumeric"),
+                  tib_chr("wasteLoadAllocationUnitsText"),
+                  tib_unspecified("seasonStartText"),
+                  tib_unspecified("seasonEndText"),
+                ),
+              ),
+              tib_chr("TMDLEndPointText"),
+            ),
+            tib_df(
+              "parameters",
+              tib_chr("parameterName"),
+              tib_df(
+                "associatedPollutants",
+                tib_chr("pollutantName"),
+              ),
+            ),
+            tib_unspecified("sources"),
+          ),
+        ),
+        tib_row(
+          "TMDLReportDetails",
+          tib_unspecified("TMDLOtherIdentifier"),
+          tib_chr("TMDLDate"),
+          tib_chr("indianCountryIndicator"),
+        ),
+        tib_unspecified("pollutants"),
+        tib_unspecified("associatedActions"),
+        tib_unspecified("histories"),
+      ),
+      tib_int("count"),
+    )
+    if(summarize == "Y") {
+
+    }
+  }
+  if(summarize == "Y") {
+    spec <- tspec_object(
+      tib_df(
+        "items",
+        tib_chr("actionIdentifier"),
+        tib_chr("actionName"),
+        tib_chr("agencyCode"),
+        tib_chr("actionTypeCode"),
+        tib_chr("actionStatusCode"),
+        tib_chr("completionDate"),
+        tib_chr("organizationId"),
+        tib_row(
+          "TMDLReportDetails",
+          tib_unspecified("TMDLOtherIdentifier"),
+          tib_chr("TMDLDate"),
+          tib_chr("indianCountryIndicator"),
+        ),
+        tib_df(
+          "associatedPollutants",
+          tib_chr("pollutantName"),
+          tib_chr("auCount"),
+        ),
+        tib_df(
+          "parameters",
+          tib_chr("parameterName"),
+          tib_chr("auCount"),
+        ),
+        tib_unspecified("associatedActions"),
+      ),
+      tib_int("count"),
+    )
+  }
+  return(spec)
 }
