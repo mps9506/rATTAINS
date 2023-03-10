@@ -41,15 +41,16 @@
 #'   returned. When \code{tidy=FALSE} a raw JSON string is returned.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @import tidyjson
+#' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom dplyr mutate select
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom purrr map
+#' @importFrom jsonlite fromJSON
+#' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble tibble as_tibble
+#' @importFrom tidyr unnest unpack
+#' @importFrom tidyselect everything
 #' @examples
 #'
 #' \dontrun{
@@ -146,43 +147,79 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   if (!isTRUE(tidy)) {
     return(content)
   } else {
-    content <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("assessmentUnits") %>%
-      gather_array() %>%
-      spread_all(recursive = TRUE) %>%
-      select(-"array.index") %>%
-      ## this is slow as heck
-      ## but not sure how else to consistently return empty lists
-      ## without errors.
-      mutate(
-        locations = map(.data$..JSON, ~{
-          .x[["locations"]] %>% {
-            tibble(
-              locationTypeCode = map(., "locationTypeCode"),
-              locationText = map(., "locationText")
-            )} %>%
-            clean_names()
-        }),
-        waterTypes = map(.data$..JSON, ~{
-          .x[["waterTypes"]] %>% {
-            tibble(
-              waterTypeCode = map(., "waterTypeCode"),
-              waterSizeNumber = map(., "waterSizeNumber"),
-              unitsCode = map(., "unitsCode"),
-              sizeEstimationMethod = map(., "SizeEstimationMethod"),
-              sizeSourceText = map(., "sizeSourceText"),
-              sizeSourceScaleText = map(., "sizeSourceScaleText")
-            )} %>%
-            clean_names()
-        })
-      ) %>%
-      as_tibble() %>%
-      clean_names()
 
+    ## Parse JSON
+    json_list <- jsonlite::fromJSON(content,
+                                    simplifyVector = FALSE,
+                                    simplifyDataFrame = FALSE,
+                                    flatten = FALSE)
+
+    ## Create tibblify specification
+    spec <- spec_assessment_units()
+
+    ## Created nested lists according to spec
+    content <- tibblify(json_list,
+                        spec = spec,
+                        unspecified = "drop")
+
+    ## list -> rectangle
+    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = "waterTypes", keep_empty = TRUE)
+    content <- unpack(content, cols = everything())
+    content <- clean_names(content)
     return(content)
-  }
+    }
+}
+
+#' Create tibblify specification for assessment_units
+#'
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_assessment_units <- function() {
+  spec <- tspec_object(
+    tib_df(
+      "items",
+      tib_chr("organizationIdentifier"),
+      tib_chr("organizationName"),
+      tib_chr("organizationTypeText"),
+      tib_df(
+        "assessmentUnits",
+        tib_chr("assessmentUnitIdentifier"),
+        tib_chr("assessmentUnitName"),
+        tib_chr("locationDescriptionText"),
+        tib_chr("agencyCode"),
+        tib_chr("stateCode"),
+        tib_chr("statusIndicator"),
+        tib_df(
+          "waterTypes",
+          tib_chr("waterTypeCode"),
+          tib_dbl("waterSizeNumber"),
+          tib_chr("unitsCode"),
+          tib_chr("sizeEstimationMethodCode"),
+          tib_chr("sizeSourceText"),
+          tib_chr("sizeSourceScaleText"),
+        ),
+        tib_df(
+          "locations",
+          tib_chr("locationTypeCode"),
+          tib_chr("locationText"),
+        ),
+        tib_df(
+          "monitoringStations",
+          tib_chr("monitoringOrganizationIdentifier"),
+          tib_chr("monitoringLocationIdentifier"),
+          tib_chr("monitoringDataLinkText"),
+        ),
+        tib_row(
+          "useClass",
+          tib_chr("useClassCode", required = FALSE),
+          tib_chr("useClassName", required = FALSE),
+        ),
+        tib_df("documents"),
+      ),
+    ),
+    tib_int("count"),
+  )
 }
