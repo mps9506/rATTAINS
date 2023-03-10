@@ -13,13 +13,14 @@
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles that include a list of seven tibbles.
 #' @note See [domain_values] to search values that can be queried.
-#' @import tidyjson
+#' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom rlang .data
-#' @importFrom tibble as_tibble
+#' @importFrom jsonlite fromJSON
+#' @importFrom tidyr unnest
+#' @importFrom tidyselect everything
 #' @export
 #' @examples
 #'
@@ -67,95 +68,181 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   if(!isTRUE(tidy)) {
     return(content)
   } else {
-    ## parse json
-    huc_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-c("array.index", "document.id")) %>%
-      as_tibble() %>%
-      janitor::clean_names()
 
-    au_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("assessmentUnits") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    ## parse JSON
+    json_list <- jsonlite::fromJSON(content,
+                                    simplifyVector = FALSE,
+                                    simplifyDataFrame = FALSE,
+                                    flatten = FALSE)
 
+    ## create tibblify specification
+    spec <- spec_huc12()
 
-    ir_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("summaryByIRCategory") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    ## nested list -> rectangle
+    content <- tibblify(json_list, spec = spec, unspecified = "drop")
 
-    use_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("summaryByUseGroup") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-c("array.index")) %>%
-      enter_object("useAttainmentSummary") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-c("array.index")) %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    ## create separate tibbles to return as list
+    content_huc_summary <- select(content$items, -c("assessmentUnits",
+                                                    "summaryByIRCategory",
+                                                    "summaryByOverallStatus",
+                                                    "summaryByUseGroup",
+                                                    "summaryByUse",
+                                                    "summaryByParameterImpairments",
+                                                    "summaryRestorationPlans",
+                                                    "summaryVisionRestorationPlans"))
+    content_huc_summary <- clean_names(content_huc_summary)
 
-    param_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("summaryByParameterImpairments")   %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    content_assessment_units <- select(content$items, c("assessmentUnits"))
+    content_assessment_units <- unnest(content_assessment_units,
+                                       cols = everything(), keep_empty = TRUE)
+    content_assessment_units <- clean_names(content_assessment_units)
 
-    res_plan_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("summaryRestorationPlans")   %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    content_IR_summary <- select(content$items, c("summaryByIRCategory"))
+    content_IR_summary <- unnest(content_IR_summary, cols = everything(),
+                                 keep_empty = TRUE)
+    content_IR_summary <- clean_names(content_IR_summary)
 
+    content_status_summary <- select(content$items, c("summaryByOverallStatus"))
+    content_status_summary <- unnest(content_status_summary,
+                                     cols = everything(), keep_empty = TRUE)
+    content_status_summary <- clean_names(content_status_summary)
 
-    vision_plan_summary <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      select(-c("array.index", "document.id")) %>%
-      enter_object("summaryVisionRestorationPlans")   %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      janitor::clean_names()
+    content_use_group_summary <- select(content$items, c("summaryByUseGroup"))
+    content_use_group_summary <- unnest(content_use_group_summary,
+                                        cols = everything(), keep_empty = TRUE)
+    content_use_group_summary <- unnest(content_use_group_summary,
+                                        cols = everything(), keep_empty = TRUE)
+    content_use_group_summary <- clean_names(content_use_group_summary)
 
-    content <- list(huc_summary = huc_summary,
-                    au_summary = au_summary,
-                    ir_summary = ir_summary,
-                    use_summary = use_summary,
-                    param_summary = param_summary,
-                    res_plan_summary = res_plan_summary,
-                    vision_plan_summary = vision_plan_summary)
+    content_use <- select(content$items, c("summaryByUse"))
+    content_use <- unnest(content_use, cols = everything(), keep_empty = TRUE)
+    content_use <- unnest(content_use, cols = everything(), keep_empty = TRUE)
+    content_use <- clean_names(content_use)
 
+    content_parameter_impairment <- select(content$items,
+                                           c("summaryByParameterImpairments"))
+    content_parameter_impairment <- unnest(content_parameter_impairment,
+                                           cols = everything(),
+                                           keep_empty = TRUE)
+    content_parameter_impairment <- clean_names(content_parameter_impairment)
+
+    content_restoration_plans <- select(content$items,
+                                        c("summaryRestorationPlans"))
+    content_restoration_plans <- unnest(content_restoration_plans,
+                                        cols = everything(), keep_empty = TRUE)
+    content_restoration_plans <- clean_names(content_restoration_plans)
+
+    content_vision_restoration_plans <- select(content$items,
+                                               c("summaryVisionRestorationPlans"))
+    content_vision_restoration_plans <- unnest(content_vision_restoration_plans,
+                                               cols = everything(),
+                                               keep_empty = TRUE)
+    content_vision_restoration_plans <- clean_names(content_vision_restoration_plans)
+
+    content <- list(
+      huc_summary = content_huc_summary,
+      au_summary = content_assessment_units,
+      ir_summary = content_IR_summary,
+      status_summary = content_status_summary,
+      use_group_summary = content_use_group_summary,
+      use_summary = content_use,
+      param_summary = content_parameter_impairment,
+      res_plan_summary = content_restoration_plans,
+      vision_plan_summary = content_vision_restoration_plans
+    )
     return(content)
   }
+}
+
+
+#' Create tibblify specification for huc12_summary
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_huc12 <- function() {
+  spec <- tspec_object(
+    tib_df(
+      "items",
+      tib_chr("huc12"),
+      tib_int("assessmentUnitCount"),
+      tib_dbl("totalCatchmentAreaSqMi"),
+      tib_dbl("totalHucAreaSqMi"),
+      tib_dbl("assessedCatchmentAreaSqMi"),
+      tib_dbl("assessedCatchmentAreaPercent"),
+      tib_int("assessedGoodCatchmentAreaSqMi"),
+      tib_int("assessedGoodCatchmentAreaPercent"),
+      tib_int("assessedUnknownCatchmentAreaSqMi"),
+      tib_int("assessedUnknownCatchmentAreaPercent"),
+      tib_dbl("containImpairedWatersCatchmentAreaSqMi"),
+      tib_dbl("containImpairedWatersCatchmentAreaPercent"),
+      tib_dbl("containRestorationCatchmentAreaSqMi"),
+      tib_dbl("containRestorationCatchmentAreaPercent"),
+      tib_df(
+        "assessmentUnits",
+        tib_chr("assessmentUnitId"),
+      ),
+      tib_df(
+        "summaryByIRCategory",
+        tib_chr("epaIRCategoryName"),
+        tib_dbl("catchmentSizeSqMi"),
+        tib_dbl("catchmentSizePercent"),
+        tib_int("assessmentUnitCount"),
+      ),
+      tib_df(
+        "summaryByOverallStatus",
+        tib_chr("overallStatus"),
+        tib_dbl("catchmentSizeSqMi"),
+        tib_dbl("catchmentSizePercent"),
+        tib_int("assessmentUnitCount"),
+      ),
+      tib_df(
+        "summaryByUseGroup",
+        tib_chr("useGroupName"),
+        tib_df(
+          "useAttainmentSummary",
+          tib_chr("useAttainment"),
+          tib_dbl("catchmentSizeSqMi"),
+          tib_dbl("catchmentSizePercent"),
+          tib_int("assessmentUnitCount"),
+        ),
+      ),
+      tib_df(
+        "summaryByUse",
+        tib_chr("useName"),
+        tib_chr("useGroupName"),
+        tib_df(
+          "useAttainmentSummary",
+          tib_chr("useAttainment"),
+          tib_dbl("catchmentSizeSqMi"),
+          tib_dbl("catchmentSizePercent"),
+          tib_int("assessmentUnitCount"),
+        ),
+      ),
+      tib_df(
+        "summaryByParameterImpairments",
+        tib_chr("parameterGroupName"),
+        tib_dbl("catchmentSizeSqMi"),
+        tib_dbl("catchmentSizePercent"),
+        tib_int("assessmentUnitCount"),
+      ),
+      tib_df(
+        "summaryRestorationPlans",
+        tib_chr("summaryTypeName"),
+        tib_dbl("catchmentSizeSqMi"),
+        tib_dbl("catchmentSizePercent"),
+        tib_int("assessmentUnitCount"),
+      ),
+      tib_df(
+        "summaryVisionRestorationPlans",
+        tib_chr("summaryTypeName"),
+        tib_dbl("catchmentSizeSqMi"),
+        tib_dbl("catchmentSizePercent"),
+        tib_int("assessmentUnitCount"),
+      ),
+    ),
+    tib_int("count"),
+  )
+
+  return(spec)
 }
