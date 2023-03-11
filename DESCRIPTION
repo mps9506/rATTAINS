@@ -1,6 +1,6 @@
 Package: rATTAINS
 Title: Access EPA 'ATTAINS' Data
-Version: 0.1.4.9000
+Version: 1.0.0
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
@@ -24,12 +24,14 @@ Imports:
     fauxpas,
     fs,
     janitor,
+    jsonlite,
     lifecycle,
     magrittr,
     rlang,
     rlist,
     tibblify,
-    tidyr
+    tidyr,
+    tidyselect
 Suggests: 
     vcr (>= 0.6.0),
     testthat (>= 3.0.0),

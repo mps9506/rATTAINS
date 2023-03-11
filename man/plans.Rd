@@ -42,7 +42,9 @@ indicated arguments and should be included as a comma separated values in
 the string (eg. \code{organization_id="TCEQMAIN,DCOEE"}).
 }
 \note{
-See \link{domain_values} to search values that can be queried.
+See \link{domain_values} to search values that can be queried. As of v1.0
+this function no longer returns the \code{documents}, \code{associated_permits}, or
+\code{plans} tibbles.
 }
 \examples{
 
