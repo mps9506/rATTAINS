@@ -26,7 +26,6 @@ Imports:
     janitor,
     jsonlite,
     lifecycle,
-    magrittr,
     rlang,
     rlist,
     tibblify,

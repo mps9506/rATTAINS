@@ -22,26 +22,26 @@ library(ggrepel)
 A simple example utilizing ATTAINS data is tracking the changes in waters assessed as "impaired" from year to year. We can access this data using the `state_summary()` function that will provide aggregated information about assessment decisions by organization identifier. First we need to find out what organization identifier to use:
 
 ```{r}
-domain_values(domain_name = "OrgStateCode") %>%
+domain_values(domain_name = "OrgStateCode") |> 
   filter(code == "TX")
 ```
 
 It appears we can use `TCEQMAIN` as a identifier code if we are interested in assessment summaries in the state of Texas. I'm interested in the three most recent assessment cycles. Unfortunately, we can use multiple values in the `reporting_cycle` argument so we need to either loop through the calls or do some row binding. Since it is just a few years, I will just bind the rows.
 
 ```{r}
-df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
-  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2018")) %>%
-  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2016")) %>%
+df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") |> 
+  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2018")) |> 
+  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2016")) |> 
   bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2014"))
 ```
 
 Next summarize the counts of "causes" by reporting cycle and designated use:
 
 ```{r}
-df_uses <- df %>%
+df_uses <- df |> 
   mutate(reporting_cycle = as.numeric(reporting_cycle),
-         cause_count = as.numeric(cause_count)) %>%
-  group_by(reporting_cycle, use_name) %>%
+         cause_count = as.numeric(cause_count)) |> 
+  group_by(reporting_cycle, use_name) |> 
   summarise(count = sum(cause_count, na.rm = TRUE))
 ```
 Finally, plot with some ggplot and ggrepel magic:
@@ -49,14 +49,14 @@ Finally, plot with some ggplot and ggrepel magic:
 ```{r recuseplot}
 ggplot(df_uses, aes(x = reporting_cycle, y = count, group = use_name)) +
   geom_line(aes(color = use_name)) +
-  geom_text_repel(data = df_uses %>% filter(reporting_cycle==2020),
+  geom_text_repel(data = df_uses |>  filter(reporting_cycle==2020),
                   aes(label = use_name),
                   size = 2.5,
                   hjust = "left",
                   fontface="bold",
                   direction= "y",
                   nudge_x = 5) +
-  geom_text_repel(data = df_uses %>% filter(reporting_cycle==2014),
+  geom_text_repel(data = df_uses |>  filter(reporting_cycle==2014),
                   aes(label = use_name),
                   size = 2.5,
                   hjust = "right",
