@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(vcr)
 invisible(vcr::vcr_configure(
   dir = "../tests/fixtures",
-  write_disk_path = "../tests/files"
+  write_disk_path = NULL
 ))
 
 ```
