@@ -1,5 +1,20 @@
 # rATTAINS (development version)
 
+## Major changes
+
+* all API functions use `tibblify::tibblify()` to converted nested lists to
+tibbles. This change will ensure functions return consistent data structures
+between web calls. Some functions may return slightly different data structures
+compared to previous package versions.
+* removes magrittr pipe import/export
+
+## Internal changes
+
+* remove dependency on tidyjson.
+* update citation file to use bibentry().
+* remove the `write_disk_path` folder used by vcr in the test folder.
+
+
 # rATTAINS 0.1.4
 
 * fixes for compatibility with tidyselect and prep for purrr 1.0.0 (PR #26 @hadley).
