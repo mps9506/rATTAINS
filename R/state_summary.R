@@ -19,15 +19,15 @@
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
 #' @note See [domain_values] to search values that can be queried.
-#' @import tidyjson
+#' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom dplyr select mutate
 #' @importFrom fs path
 #' @importFrom janitor clean_names
-#' @importFrom purrr map flatten_dbl flatten_chr
+#' @importFrom jsonlite fromJSON
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble as_tibble tibble
-#' @importFrom tidyr unnest_longer unnest_wider
+#' @importFrom rlist list.filter
+#' @importFrom tidyr unnest
+#' @importFrom tidyselect everything
 #' @export
 #' @examples
 #'
@@ -80,46 +80,70 @@ state_summary <- function(organization_id = NULL,
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else {## return parsed data
-    content <- content %>%
-      enter_object("data") %>%
-      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
-                    organizationName = jstring("organizationName"),
-                    organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-"document.id") %>%
-      enter_object("reportingCycles") %>%
-      gather_array() %>%
-      spread_values(reportingCycle = jstring("reportingCycle"),
-                    combinedCycles = jstring("combinedCycles")) %>%
-      select(-"array.index") %>%
-      enter_object("waterTypes") %>%
-      gather_array() %>%
-      spread_values(waterTypeCode = jstring("waterTypeCode"),
-                    unitsCode = jstring("unitsCode")) %>%
-      select(-"array.index") %>%
-      enter_object("useAttainments") %>%
-      gather_array() %>%
-      spread_values(useName = jstring("useName"),
-                    fullySupporting = jstring("Fully Supporting"),
-                    fullySupportingCount = jstring("Fully Supporting-count"),
-                    notAssessed = jstring("Not Assessed"),
-                    notAssessedCount = jstring("Not Assessed-count")) %>%
-      select(-"array.index") %>%
-      mutate(parameters = map(.data$..JSON, ~{
-        .x[["parameters"]] %>% {
-          tibble(parameterGroup = map(., "parameterGroup", .default = NA) %>% flatten_chr(),
-                 cause = map(., "Cause", .default = NA) %>% flatten_chr(),
-                 causeCount = map(., "Cause-count", .default = NA) %>% flatten_chr(),
-                 meetingCriteria = map(., "Meeting Criteria", .default = NA) %>% flatten_dbl(),
-                 meetingCriteriaCount = map(., "Meeting Criteria-count", .default = NA) %>% flatten_dbl(),
-                 insufficentInformation = map(., "Insufficient Information", .default = NA) %>% flatten_dbl(),
-                 insufficientInformationCount = map(., "Insufficient Information-count", .default = NA) %>% flatten_dbl()) %>%
-            clean_names()
-        }
-      })) %>%
-      as_tibble() %>%
-      clean_names()
+
+    ## parse json
+    json_list <- jsonlite::fromJSON(content,
+                                    simplifyVector = FALSE,
+                                    simplifyDataFrame = FALSE,
+                                    flatten = FALSE)
+
+    ## create tibblify specification
+    spec <- spec_state_summary()
+
+    ## nested list -> rectangular data
+    content <- tibblify(json_list$data,
+                        spec = spec,
+                        unspecified = "drop")
+
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+    content <- clean_names(content)
 
     return(content)
   }
 
 }
+
+
+#' Create tibblify specification for state_summary
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_state_summary <- function() {
+  spec <- tspec_row(
+    tib_chr("organizationIdentifier"),
+    tib_chr("organizationName"),
+    tib_chr("organizationTypeText"),
+    tib_df(
+      "reportingCycles",
+      tib_chr("reportingCycle"),
+      tib_unspecified("combinedCycles"),
+      tib_df(
+        "waterTypes",
+        tib_chr("waterTypeCode"),
+        tib_chr("unitsCode"),
+        tib_df(
+          "useAttainments",
+          tib_chr("useName"),
+          tib_dbl("Fully Supporting", required = FALSE),
+          tib_int("Fully Supporting-count", required = FALSE),
+          tib_dbl("Not Assessed", required = FALSE),
+          tib_int("Not Assessed-count", required = FALSE),
+          tib_dbl("Not Supporting", required = FALSE),
+          tib_int("Not Supporting-count", required = FALSE),
+          tib_df(
+            "parameters",
+            tib_chr("parameterGroup", required = FALSE),
+            tib_dbl("Cause", required = FALSE),
+            tib_int("Cause-count", required = FALSE),
+          ),
+          tib_dbl("Insufficient Information", required = FALSE),
+          tib_int("Insufficient Information-count", required = FALSE),
+        ),
+      ),
+    ),
+  )
+  }
