@@ -5,6 +5,7 @@ invisible(vcr::vcr_configure(
   ## dir = "../fixtures",
   ## this creates an absolute path
   ## write_disk_path = vcr::vcr_test_path("files")
+  write_disk_path = NULL
   ## probably want a relative path
   ## write_disk_path = "../files"
 ))
