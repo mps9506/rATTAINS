@@ -70,7 +70,7 @@
 #' @importFrom fs path
 #' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
-#' @importFrom rlang is_empty
+#' @importFrom rlang .data is_empty
 #' @examples
 #' \dontrun{
 #'
@@ -221,7 +221,7 @@ actions <- function(action_id = NULL,
 #' @importFrom dplyr select
 #' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
-#' @importFrom tidyr unpack unnest
+#' @importFrom tidyr unpack unnest unnest_longer
 #' @importFrom tidyselect everything
 actions_to_tibble <- function(content,
                   count = FALSE,
@@ -282,7 +282,7 @@ actions_to_tibble <- function(content,
 #' @keywords internal
 #' @noRd
 #' @import tibblify
-spec_actions <- function(summarize = "N") {
+spec_actions <- function(summarize) {
 
   if(summarize == "N") {
 
