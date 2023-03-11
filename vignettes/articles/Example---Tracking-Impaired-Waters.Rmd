@@ -39,7 +39,6 @@ Next summarize the counts of "causes" by reporting cycle and designated use:
 
 ```{r}
 df_uses <- df %>%
-  tidyr::unnest(parameters) %>%
   mutate(reporting_cycle = as.numeric(reporting_cycle),
          cause_count = as.numeric(cause_count)) %>%
   group_by(reporting_cycle, use_name) %>%
