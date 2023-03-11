@@ -2,8 +2,7 @@ test_that("survey returns expected types and classes", {
 
   vcr::use_cassette("survey_works",
                     {x <- surveys(organization_id="SDDENR")})
-  testthat::expect_s3_class(x$documents, "tbl_df")
-  testthat::expect_s3_class(x$surveys, "tbl_df")
+  testthat::expect_s3_class(x, "tbl_df")
 
   vcr::use_cassette("survey_chr_works",
                     {x <- surveys(organization_id="SDDENR",

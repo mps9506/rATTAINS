@@ -5,7 +5,7 @@ test_that("assessments works", {
   })
   testthat::expect_s3_class(x_1$documents, "tbl_df")
   testthat::expect_s3_class(x_1$use_assessment, "tbl_df")
-  testthat::expect_s3_class(x_1$parameter_assessment, "tbl_df")
+  testthat::expect_s3_class(x_1$delisted_waters, "tbl_df")
 
   skip_on_cran()
   vcr::use_cassette("assessments_chr_works", {

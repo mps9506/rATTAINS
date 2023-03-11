@@ -6,6 +6,8 @@ test_that("huc_12 works", {
   testthat::expect_s3_class(x_1$huc_summary, "tbl_df")
   testthat::expect_s3_class(x_1$au_summary, "tbl_df")
   testthat::expect_s3_class(x_1$ir_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$status_summary, "tbl_df")
+  testthat::expect_s3_class(x_1$use_group_summary, "tbl_df")
   testthat::expect_s3_class(x_1$use_summary, "tbl_df")
   testthat::expect_s3_class(x_1$param_summary, "tbl_df")
   testthat::expect_s3_class(x_1$res_plan_summary, "tbl_df")
@@ -15,11 +17,6 @@ test_that("huc_12 works", {
     x_2 <- huc12_summary(huc = "020700100204", tidy = FALSE)
   })
   testthat::expect_type(x_2, "character")
-
-  # caching seems to cause testing problems on some CRAN platforms
-  # test these caching message elsewhere
-  # testthat::expect_message(huc12_summary(huc = "020700100204"),
-  #                          "reading cached file from: ")
 })
 
 test_that("huc_12 retuns errors", {
