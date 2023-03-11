@@ -22,7 +22,9 @@
 #'   tibbles including documents, use assessment data, and parameters assessment
 #'   data identified by the query. If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
-#' @note See [domain_values] to search values that can be queried.
+#' @note See [domain_values] to search values that can be queried. As of v1.0
+#'   this function no longer returns the `documents`, `associated_permits`, or
+#'   `plans` tibbles.
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection
 #'   reportAssertions
 #' @importFrom fs path
@@ -197,75 +199,75 @@ spec_plans <- function(summarize) {
     spec <- tspec_object(
       tib_df(
         "items",
-        tib_chr("actionIdentifier"),
-        tib_chr("actionName"),
-        tib_chr("agencyCode"),
-        tib_chr("actionTypeCode"),
-        tib_chr("actionStatusCode"),
-        tib_chr("completionDate"),
-        tib_chr("organizationId"),
+        tib_chr("actionIdentifier", required = FALSE),
+        tib_chr("actionName", required = FALSE),
+        "actionAgencyCode" = tib_chr("agencyCode", required = FALSE),
+        tib_chr("actionTypeCode", required = FALSE),
+        tib_chr("actionStatusCode", required = FALSE),
+        tib_chr("completionDate", required = FALSE),
+        tib_chr("organizationId", required = FALSE),
         tib_df(
           "documents",
-          tib_chr("agencyCode"),
+          "documentAgencyCode" = tib_chr("agencyCode", required = FALSE),
           tib_df(
             "documentTypes",
-            tib_chr("documentTypeCode"),
+            tib_chr("documentTypeCode", required = FALSE),
           ),
-          tib_chr("documentFileType"),
-          tib_chr("documentFileName"),
-          tib_chr("documentName"),
-          tib_unspecified("documentDescription"),
-          tib_chr("documentComments"),
-          tib_chr("documentURL"),
+          tib_chr("documentFileType", required = FALSE),
+          tib_chr("documentFileName", required = FALSE),
+          tib_chr("documentName", required = FALSE),
+          tib_unspecified("documentDescription", required = FALSE),
+          tib_chr("documentComments", required = FALSE),
+          tib_chr("documentURL", required = FALSE),
         ),
         tib_row(
           "associatedWaters",
           tib_df(
             "specificWaters",
-            tib_chr("assessmentUnitIdentifier"),
+            tib_chr("assessmentUnitIdentifier", required = FALSE),
             tib_df(
               "associatedPollutants",
-              tib_chr("pollutantName"),
-              tib_chr("pollutantSourceTypeCode"),
-              tib_chr("explicitMarginofSafetyText"),
-              tib_chr("implicitMarginofSafetyText"),
-              tib_unspecified("loadAllocationDetails"),
+              tib_chr("pollutantName", required = FALSE),
+              tib_chr("pollutantSourceTypeCode", required = FALSE),
+              tib_chr("explicitMarginofSafetyText", required = FALSE),
+              tib_chr("implicitMarginofSafetyText", required = FALSE),
+              tib_unspecified("loadAllocationDetails", required = FALSE),
               tib_df(
                 "permits",
-                tib_chr("NPDESIdentifier"),
-                tib_chr("otherIdentifier"),
+                tib_chr("NPDESIdentifier", required = FALSE),
+                tib_chr("otherIdentifier", required = FALSE),
                 tib_df(
                   "details",
-                  tib_dbl("wasteLoadAllocationNumeric"),
-                  tib_chr("wasteLoadAllocationUnitsText"),
-                  tib_unspecified("seasonStartText"),
-                  tib_unspecified("seasonEndText"),
+                  tib_dbl("wasteLoadAllocationNumeric", required = FALSE),
+                  tib_chr("wasteLoadAllocationUnitsText", required = FALSE),
+                  tib_unspecified("seasonStartText", required = FALSE),
+                  tib_unspecified("seasonEndText", required = FALSE),
                 ),
               ),
-              tib_chr("TMDLEndPointText"),
+              tib_chr("TMDLEndPointText", required = FALSE),
             ),
             tib_df(
               "parameters",
-              tib_chr("parameterName"),
+              tib_chr("parameterName", required = FALSE),
               tib_df(
                 "associatedPollutants",
-                tib_chr("pollutantName"),
+                tib_chr("pollutantName", required = FALSE),
               ),
             ),
-            tib_unspecified("sources"),
+            tib_unspecified("sources", required = FALSE),
           ),
         ),
         tib_row(
           "TMDLReportDetails",
-          tib_unspecified("TMDLOtherIdentifier"),
-          tib_chr("TMDLDate"),
-          tib_chr("indianCountryIndicator"),
+          tib_unspecified("TMDLOtherIdentifier", required = FALSE),
+          tib_chr("TMDLDate", required = FALSE),
+          tib_chr("indianCountryIndicator", required = FALSE),
         ),
-        tib_unspecified("pollutants"),
-        tib_unspecified("associatedActions"),
-        tib_unspecified("histories"),
+        tib_unspecified("pollutants", required = FALSE),
+        tib_unspecified("associatedActions", required = FALSE),
+        tib_unspecified("histories", required = FALSE),
       ),
-      tib_int("count"),
+      tib_int("count", required = FALSE),
     )
     if(summarize == "Y") {
 
