@@ -29,7 +29,7 @@
 #'   \code{organization_id="TCEQMAIN,DCOEE"}).
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as tibbles.
-#' @note See [domain_values] to search values that can be queried.
+#' @note See [domain_values] to search values that can be queried. In v1.0.0 rATTAINS returns a list of tibbles (`documents`, `use_assessment`, `delisted_waters`). Prior versions returned `documents`, `use_assessment`, and `parameter_assessment`.
 #' @export
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
