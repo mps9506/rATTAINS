@@ -83,7 +83,7 @@ and should be included as a comma separated values in the string (eg.
 \code{organization_id="TCEQMAIN,DCOEE"}).
 }
 \note{
-See \link{domain_values} to search values that can be queried.
+See \link{domain_values} to search values that can be queried. In v1.0.0 rATTAINS returns a list of tibbles (\code{documents}, \code{use_assessment}, \code{delisted_waters}). Prior versions returned \code{documents}, \code{use_assessment}, and \code{parameter_assessment}.
 }
 \examples{
 
