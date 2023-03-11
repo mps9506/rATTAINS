@@ -28,9 +28,7 @@ Imports:
     magrittr,
     rlang,
     rlist,
-    tibble,
     tibblify,
-    tidyjson,
     tidyr
 Suggests: 
     vcr (>= 0.6.0),
