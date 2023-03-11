@@ -1,9 +1,9 @@
 citHeader("To cite rATTAINS in publications use:")
 
-citEntry(
-  entry    = "manual",
+bibentry(
+  bibtype  = "manual",
   title    = "{rATTAINS}: Access EPA 'ATTAINS' Data",
-  author   =  person("Michael", "Schramm", role = "aut"),
+  author   =  person("Michael", "Schramm"),
   year     = "2021",
   url      = "https://CRAN.R-project.org/package=rATTAINS",
   doi      = "10.5281/zenodo.5469911",
