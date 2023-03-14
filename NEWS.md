@@ -5,7 +5,7 @@
 * all API functions use `tibblify::tibblify()` to converted nested lists to
 tibbles. This change will ensure functions return consistent data structures
 between web calls. Some functions may return slightly different data structures
-compared to previous package versions.
+compared to previous package versions (fixes #25, #31).
 * removes magrittr pipe import/export
 
 ## Internal changes
