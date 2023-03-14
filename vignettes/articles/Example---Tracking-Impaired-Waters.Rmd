@@ -8,7 +8,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   out.width = "100%",
   dev = "ragg_png",
-  dpi = 200
+  dpi = 300
 )
 ```
 
@@ -17,6 +17,7 @@ library(rATTAINS)
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
+library(mpsTemplates)
 ```
 
 A simple example utilizing ATTAINS data is tracking the changes in waters assessed as "impaired" from year to year. We can access this data using the `state_summary()` function that will provide aggregated information about assessment decisions by organization identifier. First we need to find out what organization identifier to use:
@@ -32,13 +33,14 @@ It appears we can use `TCEQMAIN` as a identifier code if we are interested in as
 df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") |> 
   bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2018")) |> 
   bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2016")) |> 
-  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2014"))
+  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2014")) 
 ```
 
 Next summarize the counts of "causes" by reporting cycle and designated use:
 
 ```{r}
 df_uses <- df |> 
+  filter(use_name != "DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY") |> 
   mutate(reporting_cycle = as.numeric(reporting_cycle),
          cause_count = as.numeric(cause_count)) |> 
   group_by(reporting_cycle, use_name) |> 
@@ -46,7 +48,7 @@ df_uses <- df |>
 ```
 Finally, plot with some ggplot and ggrepel magic:
 
-```{r recuseplot}
+```{r recuseplot, fig.height=6}
 ggplot(df_uses, aes(x = reporting_cycle, y = count, group = use_name)) +
   geom_line(aes(color = use_name)) +
   geom_text_repel(data = df_uses |>  filter(reporting_cycle==2020),
@@ -55,23 +57,27 @@ ggplot(df_uses, aes(x = reporting_cycle, y = count, group = use_name)) +
                   hjust = "left",
                   fontface="bold",
                   direction= "y",
-                  nudge_x = 5) +
+                  nudge_x = 5,
+                  color = alpha("white", .75)) +
   geom_text_repel(data = df_uses |>  filter(reporting_cycle==2014),
                   aes(label = use_name),
                   size = 2.5,
                   hjust = "right",
                   fontface="bold",
                   direction= "y",
-                  nudge_x = -5) +
+                  nudge_x = -5,
+                  color = alpha("white", .75)) +
   geom_label(aes(label = count),
              size = 2,
              label.padding = unit(0.05, "lines"), 
-             label.size = 0.0) +
+             label.size = 0.0,
+             fill = "#1C2023",
+             color = alpha("white", .75)) +
   scale_x_continuous(position = "top",
                      breaks = c(2014,2016,2018,2020),
                      expand = expansion(mult = 0.25)) +
-  scale_color_brewer(palette = "Dark2") +
-  theme_bw() +
+  scale_color_brewer(palette = "Accent") +
+  theme_mps_noto_dark() +
   theme(axis.ticks = element_blank(),
         axis.title.y = element_blank(),
         axis.title.x = element_blank(),
