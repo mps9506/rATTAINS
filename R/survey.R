@@ -99,13 +99,13 @@ surveys <- function(organization_id = NULL,
     content <- tibblify(json_list,
                         spec = spec,
                         unspecified = "drop")
+    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
 
     ## if unnest == FALSE do not unnest lists
     if(!isTRUE(.unnest)) {
       return(content)
     }
 
-    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
 
