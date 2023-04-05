@@ -6,12 +6,15 @@
 tibbles. This change will ensure functions return consistent data structures
 between web calls. Some functions may return slightly different data structures
 compared to previous package versions (fixes #25, #31).
-* removes magrittr pipe import/export
+* added the `.unnest` argument to most functions that return API results. It
+defaults to `TRUE` to preserve backwards compatibility. If `FALSE`, results will
+be returned in the nest structure provided by ATTAINS.
 
 ## Internal changes
 
 * remove dependency on tidyjson.
-* update citation file to use bibentry().
+* update citation file to use `bibentry()`.
+* removes magrittr pipe import/export.
 * remove the `write_disk_path` folder used by vcr in the test folder.
 
 
