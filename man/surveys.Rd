@@ -4,7 +4,13 @@
 \alias{surveys}
 \title{Download State Survey Results}
 \usage{
-surveys(organization_id = NULL, survey_year = NULL, tidy = TRUE, ...)
+surveys(
+  organization_id = NULL,
+  survey_year = NULL,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+)
 }
 \arguments{
 \item{organization_id}{(character) Filters the list to only those “belonging

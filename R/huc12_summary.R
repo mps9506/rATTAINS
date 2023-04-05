@@ -1,20 +1,26 @@
 #' Download HUC12 Summary
 #'
-#' @description Provides summary data for a 12-digit Hydrologic Unit Code (HUC12), based on
-#' Assessment Units in the HUC12. Watershed boundaries may cross state
-#' boundaries, so the service may return assessment units from multiple
-#' organizations. Returns the assessment units in the HUC12, size and
-#' percentages of assessment units considered Good, Unknown, or Impaired.
+#' @description Provides summary data for a 12-digit Hydrologic Unit Code
+#'   (HUC12), based on Assessment Units in the HUC12. Watershed boundaries may
+#'   cross state boundaries, so the service may return assessment units from
+#'   multiple organizations. Returns the assessment units in the HUC12, size and
+#'   percentages of assessment units considered Good, Unknown, or Impaired.
 #'
 #' @param huc (character) Specifies the 12-digit HUC to be summarized. required
-#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
+#'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
-#' @return If \code{tidy = FALSE} the raw JSON string is
-#'   returned, else the JSON data is parsed and returned as a list of tibbles that include a list of seven tibbles.
+#' @return If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
+#'   data is parsed and returned as a list of tibbles that include a list of
+#'   seven tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection
+#'   reportAssertions
 #' @importFrom dplyr select
 #' @importFrom fs path
 #' @importFrom janitor clean_names
@@ -31,7 +37,10 @@
 #' ## Return as a JSON string
 #' x <- huc12_summary(huc = "020700100204", tidy = TRUE)
 #' }
-huc12_summary <- function(huc, tidy = TRUE, ...) {
+huc12_summary <- function(huc,
+                          tidy = TRUE,
+                          .unnest = TRUE,
+                          ...) {
 
   ## check connectivity
   check_connectivity()
@@ -48,8 +57,8 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -57,13 +66,18 @@ huc12_summary <- function(huc, tidy = TRUE, ...) {
   args <- list(huc = huc)
   path = "attains-public/api/huc12summary"
 
-  ## download data without caching
+  ## download data
   content <- xGET(path,
                   args,
                   file = NULL,
                   ...)
 
   if(is.null(content)) return(content)
+
+  ## if unnest = FALSE do not unnest lists
+  if(!isTRUE(.unnest)) {
+    return(content)
+  }
 
   if(!isTRUE(tidy)) {
     return(content)

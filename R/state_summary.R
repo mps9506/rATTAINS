@@ -14,6 +14,9 @@
 #'   cycle by reporting cycle. optional
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #'
 #' @return If \code{tidy = FALSE} the raw JSON string is
@@ -42,6 +45,7 @@
 state_summary <- function(organization_id = NULL,
                           reporting_cycle = NULL,
                           tidy = TRUE,
+                          .unnest = TRUE,
                           ...) {
 
   ## check connectivity
@@ -68,7 +72,7 @@ state_summary <- function(organization_id = NULL,
   }
   path <- "attains-public/api/usesStateSummary"
 
-  ## download data without caching
+  ## download data
   content <- xGET(path,
                   args,
                   file = NULL,
@@ -94,6 +98,11 @@ state_summary <- function(organization_id = NULL,
     content <- tibblify(json_list$data,
                         spec = spec,
                         unspecified = "drop")
+
+    ## if unnest == FALSE do not unnest lists
+    if(!isTRUE(.unnest)) {
+      return(content)
+    }
 
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)

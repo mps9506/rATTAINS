@@ -31,6 +31,9 @@
 #'   `return_count_only = Y` is no longer supported.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @details One or more of the following arguments must be included:
 #'   \code{assessment_unit_identfier}, \code{state_code} or
@@ -73,6 +76,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                              status_indicator = NULL,
                              return_count_only = NULL,
                              tidy = TRUE,
+                             .unnest = TRUE,
                              ...) {
 
   ## depreciate return_count_only
@@ -107,8 +111,8 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -136,7 +140,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   path <- "attains-public/api/assessmentUnits"
 
-  ## download data without caching
+  ## download data
   content <- xGET(path,
                   args,
                   file = NULL,
@@ -161,6 +165,11 @@ assessment_units <- function(assessment_unit_identifer = NULL,
     content <- tibblify(json_list,
                         spec = spec,
                         unspecified = "drop")
+
+    ## if unnest == FALSE return nested data
+    if(!isTRUE(.unnest)) {
+      return(content)
+    }
 
     ## list -> rectangle
     content <- unnest(content$items, cols = everything(), keep_empty = TRUE)

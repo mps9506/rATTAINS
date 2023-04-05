@@ -38,6 +38,7 @@
 surveys <- function(organization_id = NULL,
                     survey_year = NULL,
                     tidy = TRUE,
+                    .unnest = TRUE,
                     ...) {
 
   ## check connectivity
@@ -55,8 +56,8 @@ surveys <- function(organization_id = NULL,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -98,6 +99,11 @@ surveys <- function(organization_id = NULL,
     content <- tibblify(json_list,
                         spec = spec,
                         unspecified = "drop")
+
+    ## if unnest == FALSE do not unnest lists
+    if(!isTRUE(.unnest)) {
+      return(content)
+    }
 
     content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)

@@ -17,6 +17,7 @@ assessment_units(
   status_indicator = NULL,
   return_count_only = NULL,
   tidy = TRUE,
+  .unnest = TRUE,
   ...
 )
 }
@@ -63,6 +64,10 @@ those with specified status. "A" for active, "R" for retired. optional}
 
 \item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
 tibble. \code{FALSE} the function returns the raw JSON string.}
+
+\item{.unnest}{(logical) \code{TRUE} (default) the function attempts to unnest
+data to longest format possible. This defaults to \code{TRUE} for backwards
+compatibility but it is suggested to use \code{FALSE}.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }

@@ -13,6 +13,9 @@
 #'   Defaults to \code{FALSE}.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a list of
 #'   tibbles. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @details \code{huc} is a required argument. Multiple values are allowed for
 #'   indicated arguments and should be included as a comma separated values in
@@ -45,6 +48,7 @@ plans <- function(huc,
                   organization_id = NULL,
                   summarize = FALSE,
                   tidy = TRUE,
+                  .unnest = TRUE,
                   ...) {
 
   ## check connectivity
@@ -62,8 +66,8 @@ plans <- function(huc,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(summarize, tidy),
-         .var.name = c("summarize", "tidy"),
+         x = list(summarize, tidy, .unnest),
+         .var.name = c("summarize", "tidy", ".unnest"),
          MoreArgs = list(null.ok = TRUE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -84,7 +88,7 @@ plans <- function(huc,
 
   path = "attains-public/api/plans"
 
-  ## download data without caching
+  ## download data
   content <- xGET(path,
                   args,
                   file = NULL,
@@ -95,7 +99,9 @@ plans <- function(huc,
   if(!isTRUE(tidy)) { ## return raw data
     return(content)
   } else { ## return parsed data
-    content <- plans_to_tibble(content = content, summarize = summarize)
+    content <- plans_to_tibble(content = content,
+                               summarize = summarize,
+                               .unnest = .unnest)
     return(content)
   }
 }
@@ -103,6 +109,7 @@ plans <- function(huc,
 #'
 #' @param content raw JSON
 #' @param summarize character
+#' @param .unnest logical
 #'
 #' @noRd
 #' @import tibblify
@@ -111,7 +118,9 @@ plans <- function(huc,
 #' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unnest
 #' @importFrom tidyselect everything
-plans_to_tibble <- function(content, summarize) {
+plans_to_tibble <- function(content,
+                            summarize,
+                            .unnest) {
 
   ## parse JSON
   json_list <- fromJSON(content,
@@ -126,6 +135,11 @@ plans_to_tibble <- function(content, summarize) {
   content <- tibblify(json_list,
                       spec = spec,
                       unspecified = "drop")
+
+  ## if unnest = FALSE do not unnest lists
+  if(!isTRUE(.unnest)) {
+    return(content)
+  }
 
   if(summarize == "N") {
     content <- unpack(content$items, cols = everything())

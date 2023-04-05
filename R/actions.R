@@ -55,6 +55,9 @@
 #'   `return_count_only = TRUE` is no longer supported.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @details One or more of the following arguments must be included:
 #'   \code{action_id}, \code{assessment_unit_id}, \code{state_code} or
@@ -99,6 +102,7 @@ actions <- function(action_id = NULL,
                     last_change_earlier_than_date = NULL,
                     return_count_only = FALSE,
                     tidy = TRUE,
+                    .unnest = TRUE,
                     ...) {
 
   ## depreciate return_count_only
@@ -138,8 +142,8 @@ actions <- function(action_id = NULL,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(summarize, tidy),
-         .var.name = c("summarize", "tidy"),
+         x = list(summarize, tidy, .unnest),
+         .var.name = c("summarize", "tidy", ".unnest"),
          MoreArgs = list(null.ok = TRUE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -203,7 +207,8 @@ actions <- function(action_id = NULL,
   else {
     content <- actions_to_tibble(content,
                                  count = FALSE, ## depreciated to FALSE
-                                 summarize = summarize)
+                                 summarize = summarize,
+                                 .unnest = .unnest)
 
     return(content)
   }
@@ -215,6 +220,7 @@ actions <- function(action_id = NULL,
 #' @param content json
 #' @param count logical
 #' @param summarize character
+#' @param .unnest logical
 #' @keywords internal
 #' @noRd
 #' @import tibblify
@@ -225,7 +231,8 @@ actions <- function(action_id = NULL,
 #' @importFrom tidyselect everything
 actions_to_tibble <- function(content,
                   count = FALSE,
-                  summarize = "N") {
+                  summarize = "N",
+                  .unnest) {
 
   ## parse JSON
   json_list <- jsonlite::fromJSON(content,
@@ -244,6 +251,11 @@ actions_to_tibble <- function(content,
   ## lists -> rectangle
   content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
   content <- unpack(content, cols = everything())
+
+  ## if unnest == FALSE do not unnest data
+  if(!isTRUE(.unnest)) {
+    return(content)
+  }
 
   ## data structure if request was made with summarize = TRUE
   if(summarize == "Y") {

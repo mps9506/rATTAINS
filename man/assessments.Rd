@@ -23,54 +23,89 @@ assessments(
   return_count_only = FALSE,
   exclude_assessments = FALSE,
   tidy = TRUE,
+  .unnest = TRUE,
   ...
 )
 }
 \arguments{
-\item{assessment_unit_id}{(character) Specify the specific assessment unit assessment data to return. Multiple values can be provided. optional}
+\item{assessment_unit_id}{(character) Specify the specific assessment unit
+assessment data to return. Multiple values can be provided. optional}
 
-\item{state_code}{(character) Filters returned assessments to those from the specified state. optional}
+\item{state_code}{(character) Filters returned assessments to those from the
+specified state. optional}
 
-\item{organization_id}{(character) Filters the returned assessments to those belonging to the specified organization. optional}
+\item{organization_id}{(character) Filters the returned assessments to those
+belonging to the specified organization. optional}
 
-\item{reporting_cycle}{(character) Filters the returned assessments to those for the specified reporting cycle. The reporting cycle refers to the four-digit year that the reporting cycle ended. Defaults to the current cycle. optional}
+\item{reporting_cycle}{(character) Filters the returned assessments to those
+for the specified reporting cycle. The reporting cycle refers to the
+four-digit year that the reporting cycle ended. Defaults to the current
+cycle. optional}
 
-\item{use}{(character) Filters the returned assessments to those with the specified uses. Multiple values can be provided. optional}
+\item{use}{(character) Filters the returned assessments to those with the
+specified uses. Multiple values can be provided. optional}
 
-\item{use_support}{(character) Filters returned assessments to those fully supporting the specified uses or that are threatened. Multiple values can be provided. Allowable values include \code{"X"}= Not Assessed, \code{"I"}= Insufficient Information, \code{"F"}= Fully Supporting, \code{"N"}= Not Supporting, and \code{"T"}= Threatened. optional}
+\item{use_support}{(character) Filters returned assessments to those fully
+supporting the specified uses or that are threatened. Multiple values can
+be provided. Allowable values include \code{"X"}= Not Assessed, \code{"I"}=
+Insufficient Information, \code{"F"}= Fully Supporting, \code{"N"}= Not
+Supporting, and \code{"T"}= Threatened. optional}
 
-\item{parameter}{(character) Filters the returned assessments to those with one or more of the specified parameters. Multiple values can be provided. optional}
+\item{parameter}{(character) Filters the returned assessments to those with
+one or more of the specified parameters. Multiple values can be provided.
+optional}
 
-\item{parameter_status_name}{(character) Filters the returned assessments to those with one or more associated parameters meeting the provided value. Valid values are \code{"Meeting Criteria"}, \code{"Cause"}, \code{"Observed Effect"}. Multiple valuse can be provided. optional}
+\item{parameter_status_name}{(character) Filters the returned assessments to
+those with one or more associated parameters meeting the provided value.
+Valid values are \code{"Meeting Criteria"}, \code{"Cause"}, \code{"Observed
+  Effect"}. Multiple valuse can be provided. optional}
 
-\item{probable_source}{(character) Filters the returned assessments to those having the specified probable source. Multiple values can be provided. optional}
+\item{probable_source}{(character) Filters the returned assessments to those
+having the specified probable source. Multiple values can be provided.
+optional}
 
-\item{agency_code}{(character) Filters the returned assessments to those by the type of agency responsible for the assessment. Allowed values are \code{"E"}=EPA, \code{"S"}=State, \code{"T"}=Tribal. optional}
+\item{agency_code}{(character) Filters the returned assessments to those by
+the type of agency responsible for the assessment. Allowed values are
+\code{"E"}=EPA, \code{"S"}=State, \code{"T"}=Tribal. optional}
 
-\item{ir_category}{(character) Filters the returned assessments to those having the specified IR category. Multiple values can be provided. optional}
+\item{ir_category}{(character) Filters the returned assessments to those
+having the specified IR category. Multiple values can be provided. optional}
 
-\item{state_ir_category_code}{(character) Filters the returned assessments to include those having the provided codes.}
+\item{state_ir_category_code}{(character) Filters the returned assessments to
+include those having the provided codes.}
 
-\item{multicategory_search}{(character) Specifies whether to search at multiple levels.  If this parameter is set to “Y” then the query applies the EPA IR Category at the Assessment, UseAttainment, and Parameter levels; if the parameter is set to “N” it looks only at the Assessment level.}
+\item{multicategory_search}{(character) Specifies whether to search at
+multiple levels.  If this parameter is set to “Y” then the query applies
+the EPA IR Category at the Assessment, UseAttainment, and Parameter levels;
+if the parameter is set to “N” it looks only at the Assessment level.}
 
-\item{last_change_later_than_date}{(character) Filters the returned assessments to only those last changed after the provided date. Must be a character
-with format: \code{"yyyy-mm-dd"}. optional}
+\item{last_change_later_than_date}{(character) Filters the returned
+assessments to only those last changed after the provided date. Must be a
+character with format: \code{"yyyy-mm-dd"}. optional}
 
-\item{last_change_earlier_than_date}{(character) Filters the returned assessments to only those last changed before the provided date. Must be a character
-with format: \code{"yyyy-mm-dd"}. optional}
+\item{last_change_earlier_than_date}{(character) Filters the returned
+assessments to only those last changed before the provided date. Must be a
+character with format: \code{"yyyy-mm-dd"}. optional}
 
 \item{return_count_only}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{return_count_only = TRUE} is no longer supported.}
 
-\item{exclude_assessments}{(logical) If \code{TRUE} returns only the documents associated with the Assessment cycle instead of the assessment data. Defaults is \code{FALSE}.}
+\item{exclude_assessments}{(logical) If \code{TRUE} returns only the
+documents associated with the Assessment cycle instead of the assessment
+data. Defaults is \code{FALSE}.}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
+
+\item{.unnest}{(logical) \code{TRUE} (default) the function attempts to unnest
+data to longest format possible. This defaults to \code{TRUE} for backwards
+compatibility but it is suggested to use \code{FALSE}.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-If \code{tidy = FALSE} the raw JSON string is
-returned, else the JSON data is parsed and returned as tibbles.
+If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
+data is parsed and returned as tibbles.
 }
 \description{
 Download Assessment Decisions
@@ -83,7 +118,10 @@ and should be included as a comma separated values in the string (eg.
 \code{organization_id="TCEQMAIN,DCOEE"}).
 }
 \note{
-See \link{domain_values} to search values that can be queried. In v1.0.0 rATTAINS returns a list of tibbles (\code{documents}, \code{use_assessment}, \code{delisted_waters}). Prior versions returned \code{documents}, \code{use_assessment}, and \code{parameter_assessment}.
+See \link{domain_values} to search values that can be queried. In v1.0.0
+rATTAINS returns a list of tibbles (\code{documents}, \code{use_assessment},
+\code{delisted_waters}). Prior versions returned \code{documents}, \code{use_assessment},
+and \code{parameter_assessment}.
 }
 \examples{
 
