@@ -167,7 +167,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
     ## if unnest == FALSE return nested data
     if(!isTRUE(.unnest)) {
-      return(content)
+      return(content$items)
     }
 
     ## list -> rectangle
