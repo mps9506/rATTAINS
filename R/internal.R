@@ -19,36 +19,13 @@ xGET <- function(path, args = list(), file = NULL, ...) {
   full_url <- cli$url_fetch(path = path,
                             query = args)
 
-  # tryCatch({
-  #   res <- cli$retry("GET",
-  #                 path = path,
-  #                 query = args,
-  #                 pause_base = 5,
-  #                 pause_cap = 60,
-  #                 pause_min = 5,
-  #                 terminate_on = c(404),
-  #                 ...)
-  #
-  #   if (!res$success()) {
-  #     stop(call. = FALSE)
-  #     }
-  #   },
-  #   error = function(e) {
-  #     e$message <-
-  #       paste("Something went wrong with the query, no data were returned.",
-  #             "Please see <https://attains.epa.gov> for potential server",
-  #             "issues.\n")
-  #     e$call <- NULL
-  #     stop(e)
-  #     }
-  # )
-
   res <- cli$retry("GET",
                    path = path,
                    query = args,
                    pause_base = 5,
                    pause_cap = 60,
                    pause_min = 5,
+                   times = 3,
                    terminate_on = c(404),
                    ...)
 
@@ -79,7 +56,7 @@ errs <- function(x) {
   if (x$status_code > 201) {
 
     fun <- fauxpas::find_error_class(x$status_code)$new()
-    fun$do_verbose(x)
+    fun$do(x)
   }
 }
 
