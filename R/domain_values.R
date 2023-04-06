@@ -40,7 +40,10 @@ domain_values <- function(domain_name = NULL,
                           ...) {
 
   ## check connectivity
-  check_connectivity()
+  con_check <- check_connectivity()
+  if(!isTRUE(con_check)){
+    return(invisible(NULL))
+  }
 
   ## check that arguments are character
   coll <- makeAssertCollection()

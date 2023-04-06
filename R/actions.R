@@ -116,7 +116,10 @@ actions <- function(action_id = NULL,
     )
   }
   ## check connectivity
-  #check_connectivity()
+  con_check <- check_connectivity()
+  if(!isTRUE(con_check)){
+    return(invisible(NULL))
+  }
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()

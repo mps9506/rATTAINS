@@ -90,7 +90,10 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   }
 
   ## check connectivity
-  check_connectivity()
+  con_check <- check_connectivity()
+  if(!isTRUE(con_check)){
+    return(invisible(NULL))
+  }
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
