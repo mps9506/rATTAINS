@@ -61,7 +61,9 @@ webmockr::stub_request("get",
 ```
 
 ```{r}
-actions(action_id = "R8-ND-2018-03")
+try(
+  actions(action_id = "R8-ND-2018-03")
+)
 ```
 
 ```{r echo=FALSE, message=FALSE, include=FALSE}
