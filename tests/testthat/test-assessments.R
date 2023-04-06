@@ -7,6 +7,13 @@ test_that("assessments works", {
   testthat::expect_s3_class(x_1$use_assessment, "tbl_df")
   testthat::expect_s3_class(x_1$delisted_waters, "tbl_df")
 
+  vcr::use_cassette("assessments_unnest_works", {
+    x_1 <- assessments(organization_id = "SDDENR",
+                       probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES",
+                       .unnest = FALSE)
+  })
+  testthat::expect_s3_class(x_1, "tbl_df")
+
   skip_on_cran()
   vcr::use_cassette("assessments_chr_works", {
     x_2 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES", tidy = FALSE)

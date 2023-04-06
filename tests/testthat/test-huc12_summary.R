@@ -13,6 +13,12 @@ test_that("huc_12 works", {
   testthat::expect_s3_class(x_1$res_plan_summary, "tbl_df")
   testthat::expect_s3_class(x_1$vision_plan_summary, "tbl_df")
 
+  vcr::use_cassette("huc12_unnest_works", {
+    x_1 <- huc12_summary(huc = "020700100204",
+                         .unnest = FALSE)
+  })
+  testthat::expect_s3_class(x_1, "tbl_df")
+
   vcr::use_cassette("huc12_chr_works", {
     x_2 <- huc12_summary(huc = "020700100204", tidy = FALSE)
   })
