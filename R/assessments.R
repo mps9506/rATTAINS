@@ -218,7 +218,6 @@ assessments <- function(assessment_unit_id = NULL,
 #' @noRd
 #' @import tibblify
 #' @importFrom dplyr select
-#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unnest
 #' @importFrom tidyselect everything
@@ -247,12 +246,12 @@ assessments_to_tibble <- function(content,
 
   if(exclude_assessments == "N") {
 
-    content_documents <- select(content$items, -c("assessments", "delistedWaters"))
+    content_documents <- select(content$items, -c("assessments", "delisted_waters"))
     content_documents <- unnest(content_documents, cols = everything(), keep_empty = TRUE)
     content_documents <- unnest(content_documents, cols = everything(), keep_empty = TRUE)
 
 
-    content_assessments <- select(content$items, -c("documents", "delistedWaters"))
+    content_assessments <- select(content$items, -c("documents", "delisted_waters"))
     content_assessments <- unnest(content_assessments, cols = everything(), keep_empty = TRUE)
 
 
@@ -283,171 +282,171 @@ spec_assessments <- function(exclude_assessments) {
 
   if(exclude_assessments == "N") {
     spec <- tspec_object(
-      tib_df(
+      "items" = tib_df(
         "items",
-        tib_chr("organizationIdentifier", required = FALSE),
-        tib_chr("organizationName", required = FALSE),
-        tib_chr("organizationTypeText", required = FALSE),
-        tib_chr("reportingCycleText", required = FALSE),
-        tib_unspecified("combinedCycles", required = FALSE),
-        tib_chr("reportStatusCode", required = FALSE),
-        tib_df(
+        "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
+        "organization_name" = tib_chr("organizationName", required = FALSE),
+        "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
+        "reporting_cycle_text" = tib_chr("reportingCycleText", required = FALSE),
+        "combined_cycles" = tib_unspecified("combinedCycles", required = FALSE),
+        "report_status_code" = tib_chr("reportStatusCode", required = FALSE),
+        "documents" = tib_df(
           "documents",
-          tib_chr("agencyCode", required = FALSE),
-          tib_df(
+          "agency_code" = tib_chr("agencyCode", required = FALSE),
+          "document_types" = tib_df(
             "documentTypes",
-            tib_chr("documentTypeCode", required = FALSE),
+            "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
           ),
-          tib_chr("documentFileType", required = FALSE),
-          tib_chr("documentFileName", required = FALSE),
-          tib_chr("documentName", required = FALSE),
-          tib_chr("documentDescription", required = FALSE),
-          tib_chr("documentComments", required = FALSE),
-          tib_chr("documentURL", required = FALSE),
+          "document_file_type" = tib_chr("documentFileType", required = FALSE),
+          "document_file_name" = tib_chr("documentFileName", required = FALSE),
+          "document_name" = tib_chr("documentName", required = FALSE),
+          "document_description" = tib_chr("documentDescription", required = FALSE),
+          "document_comments" = tib_chr("documentComments", required = FALSE),
+          "document_url" = tib_chr("documentURL", required = FALSE),
         ),
-        tib_df(
+        "assessments" = tib_df(
           "assessments",
-          tib_chr("assessmentUnitIdentifier", required = FALSE),
-          tib_chr("agencyCode", required = FALSE),
-          tib_chr("trophicStatusCode", required = FALSE),
-          tib_df(
+          "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
+          "agency_code" = tib_chr("agencyCode", required = FALSE),
+          "trophic_status_code" = tib_chr("trophicStatusCode", required = FALSE),
+          "use_attainments" = tib_df(
             "useAttainments",
-            tib_chr("useName", required = FALSE),
-            tib_chr("useAttainmentCode", required = FALSE),
-            tib_chr("threatenedIndicator", required = FALSE),
-            tib_chr("trendCode", required = FALSE),
-            tib_chr("agencyCode", required = FALSE),
-            tib_row(
+            "use_name" = tib_chr("useName", required = FALSE),
+            "use_attainment_code" = tib_chr("useAttainmentCode", required = FALSE),
+            "threatened_indicator" =tib_chr("threatenedIndicator", required = FALSE),
+            "trend_code" = tib_chr("trendCode", required = FALSE),
+            "agency_code" = tib_chr("agencyCode", required = FALSE),
+            "assessment_metadata" = tib_row(
               "assessmentMetadata",
-              tib_chr("assessmentBasisCode", required = FALSE),
-              tib_df(
+              "assessment_basis_code" = tib_chr("assessmentBasisCode", required = FALSE),
+              "assessment_types" = tib_df(
                 "assessmentTypes",
                 .required = FALSE,
-                tib_chr("assessmentTypeCode", required = FALSE),
-                tib_chr("assessmentConfidenceCode", required = FALSE),
+                "assessment_type_code" = tib_chr("assessmentTypeCode", required = FALSE),
+                "assessment_confidence_code" = tib_chr("assessmentConfidenceCode", required = FALSE),
               ),
-              tib_df(
+              "assessment_method_types" = tib_df(
                 "assessmentMethodTypes",
                 .required = FALSE,
-                tib_chr("methodTypeContext", required = FALSE),
-                tib_chr("methodTypeCode", required = FALSE),
-                tib_chr("methodTypeName", required = FALSE),
+                "method_type_context" = tib_chr("methodTypeContext", required = FALSE),
+                "method_type_code" = tib_chr("methodTypeCode", required = FALSE),
+                "method_type_name" = tib_chr("methodTypeName", required = FALSE),
               ),
-              tib_row(
+              "monitoring_activity" = tib_row(
                 "monitoringActivity",
                 .required = FALSE,
-                tib_chr("monitoringStartDate", required = FALSE),
-                tib_chr("monitoringEndDate", required = FALSE),
+                "monitoring_start_date" = tib_chr("monitoringStartDate", required = FALSE),
+                "monitoring_end_date" = tib_chr("monitoringEndDate", required = FALSE),
               ),
-              tib_row(
+              "assessment_activity" = tib_row(
                 "assessmentActivity",
                 .required = FALSE,
-                tib_chr("assessmentDate", required = FALSE),
-                tib_chr("assessorName", required = FALSE),
+                "assessment_date" = tib_chr("assessmentDate", required = FALSE),
+                "assessor_name" = tib_chr("assessorName", required = FALSE),
               ),
             ),
-            tib_chr("useAttainmentCodeName", required = FALSE),
+            "use_attainment_code_name" = tib_chr("useAttainmentCodeName", required = FALSE),
           ),
-          tib_df(
+          "parameters" = tib_df(
             "parameters",
-            tib_chr("parameterStatusName", required = FALSE),
-            tib_chr("parameterName", required = FALSE),
-            tib_df(
+            "parameter_status_name" = tib_chr("parameterStatusName", required = FALSE),
+            "parameter_name" = tib_chr("parameterName", required = FALSE),
+            "associated_uses" = tib_df(
               "associatedUses",
-              tib_chr("associatedUseName", required = FALSE),
-              tib_chr("parameterAttainmentCode", required = FALSE),
-              tib_chr("trendCode", required = FALSE),
-              tib_df("seasons"),
+              "associated_use_name" = tib_chr("associatedUseName", required = FALSE),
+              "parameter_attainment_code" = tib_chr("parameterAttainmentCode", required = FALSE),
+              "trend_code" = tib_chr("trendCode", required = FALSE),
+              "seasons" = tib_df("seasons"),
             ),
-            tib_df(
+            "impaired_waters_information" = tib_df(
               "impairedWatersInformation",
               .names_to = ".names",
-              tib_chr("agencyCode", required = FALSE),
-              tib_chr("cycleFirstListedText", required = FALSE),
-              tib_chr("cycleScheduledForTMDLText", required = FALSE),
-              tib_chr("CWA303dPriorityRankingText", required = FALSE),
-              tib_chr("consentDecreeCycleText", required = FALSE),
-              tib_unspecified("alternateListingIdentifier", required = FALSE),
-              tib_chr("cycleExpectedToAttain", required = FALSE),
+              "agency_code" = tib_chr("agencyCode", required = FALSE),
+              "cycle_first_listed_text" = tib_chr("cycleFirstListedText", required = FALSE),
+              "cycle_scheduled_for_TMDL_text" = tib_chr("cycleScheduledForTMDLText", required = FALSE),
+              "CWA_303d_priority_ranking_text" = tib_chr("CWA303dPriorityRankingText", required = FALSE),
+              "consent_decree_cycle_text" = tib_chr("consentDecreeCycleText", required = FALSE),
+              "alternate_listing_identifier" = tib_unspecified("alternateListingIdentifier", required = FALSE),
+              "cycle_expected_to_attain" = tib_chr("cycleExpectedToAttain", required = FALSE),
             ),
-            tib_df(
+            "associated_actions" = tib_df(
               "associatedActions",
-              tib_chr("associatedActionIdentifier", required = FALSE),
+              "associated_action_identifier" = tib_chr("associatedActionIdentifier", required = FALSE),
             ),
-            tib_chr("pollutantIndicator", required = FALSE),
+            "pollutant_indicator" = tib_chr("pollutantIndicator", required = FALSE),
           ),
-          tib_df(
+          "probable_sources" = tib_df(
             "probableSources",
-            tib_chr("sourceName", required = FALSE),
-            tib_chr("sourceConfirmedIndicator", required = FALSE),
-            tib_df(
+            "source_name" = tib_chr("sourceName", required = FALSE),
+            "source_confirmed_indicator" = tib_chr("sourceConfirmedIndicator", required = FALSE),
+            "associated_casue_names" = tib_df(
               "associatedCauseNames",
-              tib_chr("causeName", required = FALSE),
+              "cause_name" = tib_chr("causeName", required = FALSE),
             ),
           ),
-          tib_df(
+          "documents" = tib_df(
             "documents",
-            tib_chr("agencyCode", required = FALSE),
-            tib_df(
+            "agency_code" = tib_chr("agencyCode", required = FALSE),
+            "document_types" = tib_df(
               "documentTypes",
-              tib_chr("documentTypeCode", required = FALSE),
+              "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
             ),
-            tib_chr("documentFileType", required = FALSE),
-            tib_chr("documentFileName", required = FALSE),
-            tib_chr("documentName", required = FALSE),
-            tib_chr("documentDescription", required = FALSE),
-            tib_chr("documentComments", required = FALSE),
-            tib_chr("documentURL", required = FALSE),
+            "document_file_type" = tib_chr("documentFileType", required = FALSE),
+            "document_file_name" = tib_chr("documentFileName", required = FALSE),
+            "document_name" = tib_chr("documentName", required = FALSE),
+            "document_description" = tib_chr("documentDescription", required = FALSE),
+            "document_comments" = tib_chr("documentComments", required = FALSE),
+            "document_url" = tib_chr("documentURL", required = FALSE),
           ),
-          tib_chr("rationaleText", required = FALSE),
-          tib_chr("epaIRCategory", required = FALSE),
-          tib_chr("overallStatus", required = FALSE),
-          tib_chr("cycleLastAssessedText", required = FALSE),
-          tib_chr("yearLastMonitoredText", required = FALSE),
+          "rationale_text" = tib_chr("rationaleText", required = FALSE),
+          "EPA_IR_category" = tib_chr("epaIRCategory", required = FALSE),
+          "overall_status" = tib_chr("overallStatus", required = FALSE),
+          "cycle_last_assessed_text" = tib_chr("cycleLastAssessedText", required = FALSE),
+          "year_last_monitored_text" = tib_chr("yearLastMonitoredText", required = FALSE),
         ),
-        tib_df(
+        "delisted_waters" = tib_df(
           "delistedWaters",
-          tib_chr("assessmentUnitIdentifier", required = FALSE),
-          tib_df(
+          "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
+          "delisted_water_causes" = tib_df(
             "delistedWaterCauses",
-            tib_chr("causeName", required = FALSE),
-            tib_chr("agencyCode", required = FALSE),
-            tib_chr("delistingReasonCode", required = FALSE),
-            tib_chr("delistingCommentText", required = FALSE),
+            "delisiting_cause_name" = tib_chr("causeName", required = FALSE),
+            "delisting_agency_code" = tib_chr("agencyCode", required = FALSE),
+            "delisting_reason_code" = tib_chr("delistingReasonCode", required = FALSE),
+            "delisting_comment_text" = tib_chr("delistingCommentText", required = FALSE),
           ),
         ),
       ),
-      tib_int("count", required = FALSE),
+      "count" = tib_int("count", required = FALSE),
     )
   }
   if(exclude_assessments == "Y") {
     spec <- tspec_object(
-      tib_df(
+      "items" = tib_df(
         "items",
-        tib_chr("organizationIdentifier"),
-        tib_chr("organizationName"),
-        tib_chr("organizationTypeText"),
-        tib_chr("reportingCycleText"),
-        tib_unspecified("combinedCycles"),
-        tib_chr("reportStatusCode"),
-        tib_df(
+        "organization_identifier" = tib_chr("organizationIdentifier"),
+        "organization_name" = tib_chr("organizationName"),
+        "organization_type_text" = tib_chr("organizationTypeText"),
+        "reporting_cycle_text" = tib_chr("reportingCycleText"),
+        "combined_cycles" = tib_unspecified("combinedCycles"),
+        "report_Status_code" = tib_chr("reportStatusCode"),
+        "documents" = tib_df(
           "documents",
-          tib_chr("agencyCode"),
-          tib_df(
+          "agency_code" = tib_chr("agencyCode"),
+          "document_types" = tib_df(
             "documentTypes",
-            tib_chr("documentTypeCode"),
+            "document_type_code" = tib_chr("documentTypeCode"),
           ),
-          tib_chr("documentFileType"),
-          tib_chr("documentFileName"),
-          tib_chr("documentName"),
-          tib_unspecified("documentDescription"),
-          tib_chr("documentComments"),
-          tib_chr("documentURL"),
+          "document_file_type" = tib_chr("documentFileType"),
+          "document_file_name" = tib_chr("documentFileName"),
+          "document_name" = tib_chr("documentName"),
+          "document_description" = tib_unspecified("documentDescription"),
+          "document_comments" = tib_chr("documentComments"),
+          "document_url" = tib_chr("documentURL"),
         ),
-        tib_unspecified("assessments"),
-        tib_unspecified("delistedWaters"),
+        "assessments" = tib_unspecified("assessments"),
+        "delisted_waters" = tib_unspecified("delistedWaters"),
       ),
-      tib_int("count"),
+      "count" = tib_int("count"),
     )
   }
   return(spec)

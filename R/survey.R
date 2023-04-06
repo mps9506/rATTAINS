@@ -8,6 +8,9 @@
 #'   performed. optional.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
@@ -18,7 +21,6 @@
 #' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
-#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
@@ -109,8 +111,6 @@ surveys <- function(organization_id = NULL,
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
 
-    content <- clean_names(content)
-
     return(content)
     }
 }
@@ -123,53 +123,53 @@ surveys <- function(organization_id = NULL,
 #' @import tibblify
 spec_survey <- function(summarize) {
   spec <- tspec_object(
-    tib_df(
+    "items" = tib_df(
       "items",
-      tib_chr("organizationIdentifier", required = FALSE),
-      tib_chr("organizationName", required = FALSE),
-      tib_chr("organizationTypeText", required = FALSE),
-      tib_df(
+      "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
+      "organization_name" = tib_chr("organizationName", required = FALSE),
+      "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
+      "surveys" = tib_df(
         "surveys",
-        tib_chr("surveyStatusCode", required = FALSE),
-        tib_int("year", required = FALSE),
-        tib_chr("surveyCommentText", required = FALSE),
-        tib_df(
+        "survey_status_code" = tib_chr("surveyStatusCode", required = FALSE),
+        "year" = tib_int("year", required = FALSE),
+        "survey_comment_text" = tib_chr("surveyCommentText", required = FALSE),
+        "documents" = tib_df(
           "documents",
-          tib_chr("agencyCode", required = FALSE),
-          tib_df(
+          "agency_code" = tib_chr("agencyCode", required = FALSE),
+          "document_types" = tib_df(
             "documentTypes",
-            tib_chr("documentTypeCode", required = FALSE),
+            "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
           ),
-          tib_chr("documentFileType", required = FALSE),
-          tib_chr("documentFileName", required = FALSE),
-          tib_chr("documentName", required = FALSE),
-          tib_chr("documentDescription", required = FALSE),
-          tib_chr("documentComments", required = FALSE),
-          tib_chr("documentURL", required = FALSE),
+          "document_file_type" = tib_chr("documentFileType", required = FALSE),
+          "document_file_name" = tib_chr("documentFileName", required = FALSE),
+          "document_name" = tib_chr("documentName", required = FALSE),
+          "document_description" = tib_chr("documentDescription", required = FALSE),
+          "document_comments" = tib_chr("documentComments", required = FALSE),
+          "document_url" = tib_chr("documentURL", required = FALSE),
         ),
-        tib_df(
+        "survey_water_groups" = tib_df(
           "surveyWaterGroups",
-          tib_chr("waterTypeGroupCode", required = FALSE),
-          tib_chr("subPopulationCode", required = FALSE),
-          tib_chr("unitCode", required = FALSE),
-          tib_int("size", required = FALSE),
-          tib_int("siteNumber", required = FALSE),
-          tib_chr("surveyWaterGroupCommentText", required = FALSE),
-          tib_df(
+          "water_type_group_code" = tib_chr("waterTypeGroupCode", required = FALSE),
+          "sub_population_code" = tib_chr("subPopulationCode", required = FALSE),
+          "unit_code" = tib_chr("unitCode", required = FALSE),
+          "size" = tib_int("size", required = FALSE),
+          "site_number" = tib_int("siteNumber", required = FALSE),
+          "surey_water_group_comment_text" = tib_chr("surveyWaterGroupCommentText", required = FALSE),
+          "survey_water_group_use_parameters" = tib_df(
             "surveyWaterGroupUseParameters",
-            tib_chr("stressor", required = FALSE),
-            tib_chr("surveyUseCode", required = FALSE),
-            tib_chr("surveyCategoryCode", required = FALSE),
-            tib_chr("statistic", required = FALSE),
-            tib_dbl("metricValue", required = FALSE),
-            tib_dbl("marginOfError", required = FALSE),
-            tib_dbl("confidenceLevel", required = FALSE),
-            tib_chr("commentText", required = FALSE),
+            "stressor" = tib_chr("stressor", required = FALSE),
+            "survey_use_code" = tib_chr("surveyUseCode", required = FALSE),
+            "survey_category_code" = tib_chr("surveyCategoryCode", required = FALSE),
+            "statistic" = tib_chr("statistic", required = FALSE),
+            "metric_value" = tib_dbl("metricValue", required = FALSE),
+            "margin_of_error" = tib_dbl("marginOfError", required = FALSE),
+            "confidence_level" = tib_dbl("confidenceLevel", required = FALSE),
+            "comment_text" = tib_chr("commentText", required = FALSE),
           ),
         ),
       ),
     ),
-    tib_int("count"),
+    "count" = tib_int("count"),
   )
   return(spec)
 }

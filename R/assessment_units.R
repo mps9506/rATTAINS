@@ -47,7 +47,6 @@
 #' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
-#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
@@ -173,9 +172,8 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
     ## list -> rectangle
     content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
-    content <- unnest(content, cols = "waterTypes", keep_empty = TRUE)
+    content <- unnest(content, cols = "water_types", keep_empty = TRUE)
     content <- unpack(content, cols = everything())
-    content <- clean_names(content)
     return(content)
     }
 }
@@ -188,47 +186,47 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 #' @import tibblify
 spec_assessment_units <- function() {
   spec <- tspec_object(
-    tib_df(
+    "items" = tib_df(
       "items",
-      tib_chr("organizationIdentifier", required = FALSE),
-      tib_chr("organizationName", required = FALSE),
-      tib_chr("organizationTypeText", required = FALSE),
-      tib_df(
+      "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
+      "organization_name" = tib_chr("organizationName", required = FALSE),
+      "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
+      "assessment_units" = tib_df(
         "assessmentUnits",
-        tib_chr("assessmentUnitIdentifier", required = FALSE),
-        tib_chr("assessmentUnitName", required = FALSE),
-        tib_chr("locationDescriptionText", required = FALSE),
-        tib_chr("agencyCode", required = FALSE),
-        tib_chr("stateCode", required = FALSE),
-        tib_chr("statusIndicator", required = FALSE),
-        tib_df(
+        "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
+        "assessment_unit_name" = tib_chr("assessmentUnitName", required = FALSE),
+        "location_description_text" = tib_chr("locationDescriptionText", required = FALSE),
+        "agency_code" = tib_chr("agencyCode", required = FALSE),
+        "state_code" = tib_chr("stateCode", required = FALSE),
+        "status_indicator" = tib_chr("statusIndicator", required = FALSE),
+        "water_types" = tib_df(
           "waterTypes",
-          tib_chr("waterTypeCode", required = FALSE),
-          tib_dbl("waterSizeNumber", required = FALSE),
-          tib_chr("unitsCode", required = FALSE),
-          tib_chr("sizeEstimationMethodCode", required = FALSE),
-          tib_chr("sizeSourceText", required = FALSE),
-          tib_chr("sizeSourceScaleText", required = FALSE),
+          "water_type_code" = tib_chr("waterTypeCode", required = FALSE),
+          "water_size_number" = tib_dbl("waterSizeNumber", required = FALSE),
+          "units_code" = tib_chr("unitsCode", required = FALSE),
+          "size_estimation_method_code" = tib_chr("sizeEstimationMethodCode", required = FALSE),
+          "size_source_text" = tib_chr("sizeSourceText", required = FALSE),
+          "size_source_scale_text" = tib_chr("sizeSourceScaleText", required = FALSE),
         ),
-        tib_df(
+        "locations" = tib_df(
           "locations",
-          tib_chr("locationTypeCode", required = FALSE),
-          tib_chr("locationText", required = FALSE),
+          "location_type_code" = tib_chr("locationTypeCode", required = FALSE),
+          "location_text" = tib_chr("locationText", required = FALSE),
         ),
-        tib_df(
+        "monitoring_stations" = tib_df(
           "monitoringStations",
-          tib_chr("monitoringOrganizationIdentifier", required = FALSE),
-          tib_chr("monitoringLocationIdentifier", required = FALSE),
-          tib_chr("monitoringDataLinkText", required = FALSE),
+          "monitoring_organization_identifier" = tib_chr("monitoringOrganizationIdentifier", required = FALSE),
+          "monitoring_location_identifier" = tib_chr("monitoringLocationIdentifier", required = FALSE),
+          "monitoring_data_link_text" = tib_chr("monitoringDataLinkText", required = FALSE),
         ),
-        tib_row(
+        "use_class" = tib_row(
           "useClass",
-          tib_chr("useClassCode", required = FALSE),
-          tib_chr("useClassName", required = FALSE),
+          "use_class_code" = tib_chr("useClassCode", required = FALSE),
+          "use_class_name" = tib_chr("useClassName", required = FALSE),
         ),
-        tib_df("documents"),
+        "documents" = tib_df("documents"),
       ),
     ),
-    tib_int("count", required = FALSE),
+    "count" = tib_int("count", required = FALSE),
   )
 }

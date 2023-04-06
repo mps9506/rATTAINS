@@ -25,7 +25,6 @@
 #' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
-#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom rlang is_empty .data
 #' @importFrom rlist list.filter
@@ -57,6 +56,15 @@ state_summary <- function(organization_id = NULL,
          x = list(organization_id, reporting_cycle),
          .var.name = c("organization_id", "reporting_cycle"),
          MoreArgs = list(null.ok = TRUE,
+                         add = coll))
+  checkmate::reportAssertions(coll)
+
+  ## check logical
+  coll <- checkmate::makeAssertCollection()
+  mapply(FUN = checkmate::assert_logical,
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
+         MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
 
@@ -108,7 +116,6 @@ state_summary <- function(organization_id = NULL,
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
     content <- unnest(content, cols = everything(), keep_empty = TRUE)
-    content <- clean_names(content)
 
     return(content)
   }
@@ -123,36 +130,43 @@ state_summary <- function(organization_id = NULL,
 #' @import tibblify
 spec_state_summary <- function() {
   spec <- tspec_row(
-    tib_chr("organizationIdentifier"),
-    tib_chr("organizationName"),
-    tib_chr("organizationTypeText"),
-    tib_df(
+    "organization_identifer" = tib_chr("organizationIdentifier"),
+    "organization_name" = tib_chr("organizationName"),
+    "organization_type_text" = tib_chr("organizationTypeText"),
+    "reporting_cycles" = tib_df(
       "reportingCycles",
-      tib_chr("reportingCycle"),
-      tib_unspecified("combinedCycles"),
-      tib_df(
+      "reporting_cycle" = tib_chr("reportingCycle"),
+      "combined_cycles" = tib_unspecified("combinedCycles"),
+      "water_types" = tib_df(
         "waterTypes",
-        tib_chr("waterTypeCode"),
-        tib_chr("unitsCode"),
-        tib_df(
+        "water_type_code" = tib_chr("waterTypeCode"),
+        "units_code" = tib_chr("unitsCode"),
+        "use_attainments" = tib_df(
           "useAttainments",
-          tib_chr("useName"),
-          tib_dbl("Fully Supporting", required = FALSE),
-          tib_int("Fully Supporting-count", required = FALSE),
-          tib_dbl("Not Assessed", required = FALSE),
-          tib_int("Not Assessed-count", required = FALSE),
-          tib_dbl("Not Supporting", required = FALSE),
-          tib_int("Not Supporting-count", required = FALSE),
-          tib_df(
+          "use_name" = tib_chr("useName"),
+          "fully_supporting" = tib_dbl("Fully Supporting", required = FALSE),
+          "fully_supporting_count" = tib_int("Fully Supporting-count", required = FALSE),
+          "use_insufficient_information" = tib_dbl("Insufficient Information", required = FALSE),
+          "use_insufficient_information_count" = tib_int("Insufficient Information-count", required = FALSE),
+          "not_assessed" = tib_dbl("Not Assessed", required = FALSE),
+          "not_assessed_count" = tib_int("Not Assessed-count", required = FALSE),
+          "not_supporting" = tib_dbl("Not Supporting", required = FALSE),
+          "not_supporting_count" = tib_int("Not Supporting-count", required = FALSE),
+          "parameters" = tib_df(
             "parameters",
-            tib_chr("parameterGroup", required = FALSE),
-            tib_dbl("Cause", required = FALSE),
-            tib_int("Cause-count", required = FALSE),
+            "parameter_group" = tib_chr("parameterGroup", required = FALSE),
+            "parameter_insufficient_information" = tib_dbl("Insufficient Information", required = FALSE),
+            "parameter_insufficient_information_count" = tib_int("Insufficient Information-count", required = FALSE),
+            "cause" = tib_dbl("Cause", required = FALSE),
+            "cause_count" = tib_int("Cause-count", required = FALSE),
+            "meeting_criteria" = tib_dbl("Meeting Criteria", required = FALSE),
+            "meeting_criteria_count" = tib_int("Meeting Criteria-count", required = FALSE),
+            "removed" = tib_dbl("Removed", required = FALSE),
+            "removed_count" = tib_int("Removed-count", required = FALSE),
           ),
-          tib_dbl("Insufficient Information", required = FALSE),
-          tib_int("Insufficient Information-count", required = FALSE),
         ),
       ),
     ),
   )
+  return(spec)
   }

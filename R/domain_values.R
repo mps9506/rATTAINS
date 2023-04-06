@@ -18,7 +18,6 @@
 #' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
-#' @importFrom janitor clean_names
 #' @importFrom rlang .data
 #' @importFrom rlist list.filter
 #' @examples
@@ -92,17 +91,15 @@ domain_values <- function(domain_name = NULL,
 
       ## create tibblify specification
       spec <- tspec_df(
-        tib_chr("domain"),
-        tib_chr("name"),
-        tib_chr("code"),
-        tib_chr("context", required = FALSE),
-        tib_chr("context2", required = FALSE),
+        "domain" = tib_chr("domain"),
+        "name" = tib_chr("name"),
+        "code" = tib_chr("code"),
+        "context" = tib_chr("context", required = FALSE),
+        "context_2" = tib_chr("context2", required = FALSE),
       )
 
       ## nested list -> rectangle
       content <- tibblify(json_list, spec = spec, unspecified = "drop")
-
-      content <- clean_names(content)
 
       return(content)
       }

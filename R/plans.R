@@ -114,7 +114,6 @@ plans <- function(huc,
 #' @noRd
 #' @import tibblify
 #' @importFrom dplyr select
-#' @importFrom janitor clean_names
 #' @importFrom jsonlite fromJSON
 #' @importFrom tidyr unnest
 #' @importFrom tidyselect everything
@@ -144,12 +143,12 @@ plans_to_tibble <- function(content,
   if(summarize == "N") {
     content <- unpack(content$items, cols = everything())
 
-    content_plans <- select(content, -c("specificWaters"))
+    content_plans <- select(content, -c("specific_waters"))
     content_plans <- unnest(content_plans, cols = everything(),
                             names_repair = "unique", keep_empty = TRUE)
     content_plans <- unnest(content_plans, cols = everything(),
                             keep_empty = TRUE)
-    content_plans <- clean_names(content_plans)
+
 
     content_sp_waters <- select(content, -c("documents"))
     content_sp_waters <- unnest(content_sp_waters, cols = everything(), keep_empty = TRUE)
@@ -157,15 +156,15 @@ plans_to_tibble <- function(content,
     associated_pollutants <- select(content_sp_waters, -c("parameters"))
     associated_pollutants <- unnest(associated_pollutants, cols = everything(),
                                     keep_empty = TRUE)
-    associated_pollutants <- clean_names(associated_pollutants)
 
 
-    associated_parameters <- select(content_sp_waters, -c("associatedPollutants"))
+
+    associated_parameters <- select(content_sp_waters, -c("associated_pollutants"))
     associated_parameters <- unnest(associated_parameters, cols = everything(),
                                     keep_empty = TRUE)
     associated_parameters <- unnest(associated_parameters, cols = everything(),
                                     keep_empty = TRUE)
-    associated_parameters <- clean_names(associated_parameters)
+
 
     return(list(
       plans = content_plans,
@@ -184,14 +183,14 @@ plans_to_tibble <- function(content,
     associated_pollutants <- select(content, -c("parameters"))
     associated_pollutants <- unnest(associated_pollutants, cols = everything(),
                                     keep_empty = TRUE)
-    associated_pollutants <- clean_names(associated_pollutants)
 
-    associated_parameters <- select(content, -c("associatedPollutants"))
+
+    associated_parameters <- select(content, -c("associated_pollutants"))
     associated_parameters <- unnest(associated_parameters, cols = everything(),
                                     keep_empty = TRUE)
     associated_parameters <- unnest(associated_parameters, cols = everything(),
                                     keep_empty = TRUE)
-    associated_parameters <- clean_names(associated_parameters)
+
 
     return(list(
       associated_pollutants = associated_pollutants,
@@ -211,77 +210,77 @@ spec_plans <- function(summarize) {
 
   if(summarize == "N") {
     spec <- tspec_object(
-      tib_df(
+      "items" = tib_df(
         "items",
-        tib_chr("actionIdentifier", required = FALSE),
-        tib_chr("actionName", required = FALSE),
-        "actionAgencyCode" = tib_chr("agencyCode", required = FALSE),
-        tib_chr("actionTypeCode", required = FALSE),
-        tib_chr("actionStatusCode", required = FALSE),
-        tib_chr("completionDate", required = FALSE),
-        tib_chr("organizationId", required = FALSE),
-        tib_df(
+        "action_identifier" = tib_chr("actionIdentifier", required = FALSE),
+        "action_name" = tib_chr("actionName", required = FALSE),
+        "action_agency_code" = tib_chr("agencyCode", required = FALSE),
+        "action_type_code" = tib_chr("actionTypeCode", required = FALSE),
+        "action_status_code" = tib_chr("actionStatusCode", required = FALSE),
+        "completion_date" = tib_chr("completionDate", required = FALSE),
+        "organization_id" = tib_chr("organizationId", required = FALSE),
+        "documents" = tib_df(
           "documents",
-          "documentAgencyCode" = tib_chr("agencyCode", required = FALSE),
-          tib_df(
+          "document_agency_code" = tib_chr("agencyCode", required = FALSE),
+          "document_types" = tib_df(
             "documentTypes",
-            tib_chr("documentTypeCode", required = FALSE),
+            "document_type_codes" = tib_chr("documentTypeCode", required = FALSE),
           ),
-          tib_chr("documentFileType", required = FALSE),
-          tib_chr("documentFileName", required = FALSE),
-          tib_chr("documentName", required = FALSE),
-          tib_unspecified("documentDescription", required = FALSE),
-          tib_chr("documentComments", required = FALSE),
-          tib_chr("documentURL", required = FALSE),
+          "document_file_type" = tib_chr("documentFileType", required = FALSE),
+          "document_file_name" = tib_chr("documentFileName", required = FALSE),
+          "document_name" = tib_chr("documentName", required = FALSE),
+          "document_description" = tib_unspecified("documentDescription", required = FALSE),
+          "document_comments" = tib_chr("documentComments", required = FALSE),
+          "document_url" = tib_chr("documentURL", required = FALSE),
         ),
-        tib_row(
+        "associated_waters" = tib_row(
           "associatedWaters",
-          tib_df(
+          "specific_waters" = tib_df(
             "specificWaters",
-            tib_chr("assessmentUnitIdentifier", required = FALSE),
-            tib_df(
+            "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
+            "associated_pollutants" = tib_df(
               "associatedPollutants",
-              tib_chr("pollutantName", required = FALSE),
-              tib_chr("pollutantSourceTypeCode", required = FALSE),
-              tib_chr("explicitMarginofSafetyText", required = FALSE),
-              tib_chr("implicitMarginofSafetyText", required = FALSE),
-              tib_unspecified("loadAllocationDetails", required = FALSE),
-              tib_df(
+              "pollutant_name" = tib_chr("pollutantName", required = FALSE),
+              "pollutant_source_type_code" = tib_chr("pollutantSourceTypeCode", required = FALSE),
+              "explicit_margin_of_safety_text" = tib_chr("explicitMarginofSafetyText", required = FALSE),
+              "implicit_margin_of_safety_text" = tib_chr("implicitMarginofSafetyText", required = FALSE),
+              "load_allocation_details" = tib_unspecified("loadAllocationDetails", required = FALSE),
+              "permits" = tib_df(
                 "permits",
-                tib_chr("NPDESIdentifier", required = FALSE),
-                tib_chr("otherIdentifier", required = FALSE),
-                tib_df(
+                "NPDES_identifier" = tib_chr("NPDESIdentifier", required = FALSE),
+                "other_identifier" = tib_chr("otherIdentifier", required = FALSE),
+                "details" = tib_df(
                   "details",
-                  tib_dbl("wasteLoadAllocationNumeric", required = FALSE),
-                  tib_chr("wasteLoadAllocationUnitsText", required = FALSE),
-                  tib_unspecified("seasonStartText", required = FALSE),
-                  tib_unspecified("seasonEndText", required = FALSE),
+                  "waste_load_allocation_numeric" = tib_dbl("wasteLoadAllocationNumeric", required = FALSE),
+                  "waste_load_allocation_units_text" = tib_chr("wasteLoadAllocationUnitsText", required = FALSE),
+                  "season_start_text" = tib_unspecified("seasonStartText", required = FALSE),
+                  "season_end_text" = tib_unspecified("seasonEndText", required = FALSE),
                 ),
               ),
-              tib_chr("TMDLEndPointText", required = FALSE),
+              "TMDL_end_point_text" = tib_chr("TMDLEndPointText", required = FALSE),
             ),
-            tib_df(
+            "parameters" = tib_df(
               "parameters",
-              tib_chr("parameterName", required = FALSE),
-              tib_df(
+              "parameter_name" = tib_chr("parameterName", required = FALSE),
+              "associated_pollutants" = tib_df(
                 "associatedPollutants",
-                tib_chr("pollutantName", required = FALSE),
+                "pollutant_name" = tib_chr("pollutantName", required = FALSE),
               ),
             ),
-            tib_unspecified("sources", required = FALSE),
+            "sources" = tib_unspecified("sources", required = FALSE),
           ),
         ),
-        tib_row(
+        "TMDL_report_details" = tib_row(
           "TMDLReportDetails",
-          tib_unspecified("TMDLOtherIdentifier", required = FALSE),
-          tib_chr("TMDLDate", required = FALSE),
-          tib_chr("indianCountryIndicator", required = FALSE),
+          "TMDL_other_identifier" = tib_unspecified("TMDLOtherIdentifier", required = FALSE),
+          "TMDL_date" = tib_chr("TMDLDate", required = FALSE),
+          "indian_country_indicator" = tib_chr("indianCountryIndicator", required = FALSE),
         ),
-        tib_unspecified("pollutants", required = FALSE),
-        tib_unspecified("associatedActions", required = FALSE),
-        tib_unspecified("histories", required = FALSE),
+        "pollutants" = tib_unspecified("pollutants", required = FALSE),
+        "associated_actions" = tib_unspecified("associatedActions", required = FALSE),
+        "histories" = tib_unspecified("histories", required = FALSE),
       ),
-      tib_int("count", required = FALSE),
+      "count" = tib_int("count", required = FALSE),
     )
     if(summarize == "Y") {
 
@@ -289,34 +288,34 @@ spec_plans <- function(summarize) {
   }
   if(summarize == "Y") {
     spec <- tspec_object(
-      tib_df(
+      "items" = tib_df(
         "items",
-        tib_chr("actionIdentifier"),
-        tib_chr("actionName"),
-        tib_chr("agencyCode"),
-        tib_chr("actionTypeCode"),
-        tib_chr("actionStatusCode"),
-        tib_chr("completionDate"),
-        tib_chr("organizationId"),
-        tib_row(
+        "action_identifier" = tib_chr("actionIdentifier"),
+        "action_name" = tib_chr("actionName"),
+        "action_agency_code" = tib_chr("agencyCode"),
+        "action_type_code" = tib_chr("actionTypeCode"),
+        "action_status_code" = tib_chr("actionStatusCode"),
+        "completion_date" = tib_chr("completionDate"),
+        "organization_id" = tib_chr("organizationId"),
+        "TMDL_report_details" = tib_row(
           "TMDLReportDetails",
-          tib_unspecified("TMDLOtherIdentifier"),
-          tib_chr("TMDLDate"),
-          tib_chr("indianCountryIndicator"),
+          "TMDL_other_identifier" = tib_unspecified("TMDLOtherIdentifier"),
+          "TMDL_date" = tib_chr("TMDLDate"),
+          "indian_country_indicator" = tib_chr("indianCountryIndicator"),
         ),
-        tib_df(
+        "associated_pollutants" = tib_df(
           "associatedPollutants",
-          tib_chr("pollutantName"),
-          tib_chr("auCount"),
+          "pollutant_name" = tib_chr("pollutantName"),
+          "au_count" = tib_chr("auCount"),
         ),
-        tib_df(
+        "parameters" = tib_df(
           "parameters",
-          tib_chr("parameterName"),
-          tib_chr("auCount"),
+          "parameter_name" = tib_chr("parameterName"),
+          "au_count" = tib_chr("auCount"),
         ),
-        tib_unspecified("associatedActions"),
+        "associated_actions" = tib_unspecified("associatedActions"),
       ),
-      tib_int("count"),
+      "count" = tib_int("count"),
     )
   }
   return(spec)
