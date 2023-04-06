@@ -137,7 +137,7 @@ plans_to_tibble <- function(content,
 
   ## if unnest = FALSE do not unnest lists
   if(!isTRUE(.unnest)) {
-    return(content)
+    return(content$items)
   }
 
   if(summarize == "N") {
