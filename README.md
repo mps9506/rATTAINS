@@ -54,29 +54,29 @@ query and the tidying process used in rATTAINS might make poor
 assumptions in the data flattening process. If the function returns
 unexpected results, try parsing the raw JSON string.
 
-- `state_summary()` provides summary information for assessed uses for
-  organizations and by integrated reporting cycle.
+-   `state_summary()` provides summary information for assessed uses for
+    organizations and by integrated reporting cycle.
 
-- `huc_12_summary()` provides summary information about impairments,
-  actions, and documents for the specified 12-digit HUC (watershed).
+-   `huc_12_summary()` provides summary information about impairments,
+    actions, and documents for the specified 12-digit HUC (watershed).
 
-- `actions()` provides a summary of information for particular finalized
-  actions (TMDLs and related).
+-   `actions()` provides a summary of information for particular
+    finalized actions (TMDLs and related).
 
-- `assessments()` provides summary data about the specified assessment
-  decisions by waterbody.
+-   `assessments()` provides summary data about the specified assessment
+    decisions by waterbody.
 
-- `plans()` returns a summary of the plans (TMDLs and related) within a
-  specified HUC.
+-   `plans()` returns a summary of the plans (TMDLs and related) within
+    a specified HUC.
 
-- `domain_values()` returns allowed values in ATTAINS. By default (no
-  arguments) the function returns a list of allowed `domain_names`.
+-   `domain_values()` returns allowed values in ATTAINS. By default (no
+    arguments) the function returns a list of allowed `domain_names`.
 
-- `assessment_units()` returns a summary of information about the
-  specified assessment units.
+-   `assessment_units()` returns a summary of information about the
+    specified assessment units.
 
-- `surveys()` returns results from state statistical survey results in
-  ATTAINS.
+-   `surveys()` returns results from state statistical survey results in
+    ATTAINS.
 
 # Examples:
 
@@ -85,176 +85,126 @@ Environmental Quality:
 
 ``` r
 library(rATTAINS)
-state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
-  .[1,] %>% str()
-#> Warning: Automatic coercion from double to character was deprecated in purrr 1.0.0.
-#> ℹ Please use an explicit call to `as.character()` within `map_chr()` instead.
-#> ℹ The deprecated feature was likely used in the tidyjson package.
-#>   Please report the issue at <https://github.com/colearendt/tidyjson/issues>.
-#> Warning: Automatic coercion from integer to character was deprecated in purrr 1.0.0.
-#> ℹ Please use an explicit call to `as.character()` within `map_chr()` instead.
-#> ℹ The deprecated feature was likely used in the tidyjson package.
-#>   Please report the issue at <https://github.com/colearendt/tidyjson/issues>.
-#> tibble [1 × 13] (S3: tbl_df/tbl/data.frame)
-#>  $ organization_identifier: chr "TCEQMAIN"
-#>  $ organization_name      : chr "Texas"
-#>  $ organization_type_text : chr "State"
-#>  $ reporting_cycle        : chr "2020"
-#>  $ combined_cycles        : chr NA
-#>  $ water_type_code        : chr "ESTUARY"
-#>  $ units_code             : chr "Square Miles"
-#>  $ use_name               : chr "Aquatic Life Use"
-#>  $ fully_supporting       : chr "1861.320000"
-#>  $ fully_supporting_count : chr "57"
-#>  $ not_assessed           : chr "46.190000"
-#>  $ not_assessed_count     : chr "6"
-#>  $ parameters             :List of 1
-#>   ..$ : tibble [7 × 7] (S3: tbl_df/tbl/data.frame)
-#>   .. ..$ parameter_group               : chr [1:7] "TOXIC INORGANICS" "ORGANIC ENRICHMENT/OXYGEN DEPLETION" "PESTICIDES" "TOXIC ORGANICS" ...
-#>   .. ..$ cause                         : chr [1:7] NA "616.850000" NA NA ...
-#>   .. ..$ cause_count                   : chr [1:7] NA "5" NA NA ...
-#>   .. ..$ meeting_criteria              : num [1:7] NA 1901.8 NA NA 96.9 ...
-#>   .. ..$ meeting_criteria_count        : num [1:7] NA 62 NA NA 8 NA 8
-#>   .. ..$ insufficent_information       : num [1:7] 2.76 NA 3.2 1.07 344.3 ...
-#>   .. ..$ insufficient_information_count: num [1:7] 1 NA 3 2 6 7 5
+state_summary(organization_id = "TCEQMAIN", 
+              reporting_cycle = "2020",
+              .unnest = FALSE) |>
+  tidyr::unnest(reporting_cycles) |> 
+  tidyr::unnest(water_types) |> 
+  tidyr::unnest(use_attainments)
+#> # A tibble: 31 × 16
+#>    organizatio…¹ organ…² organ…³ repor…⁴ water…⁵ units…⁶ use_n…⁷ fully…⁸ fully…⁹
+#>    <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl>   <int>
+#>  1 TCEQMAIN      Texas   State   2020    ESTUARY Square… Aquati…  1.86e3      57
+#>  2 TCEQMAIN      Texas   State   2020    ESTUARY Square… Recrea…  2.26e3      61
+#>  3 TCEQMAIN      Texas   State   2020    ESTUARY Square… Oyster…  1.52e3      21
+#>  4 TCEQMAIN      Texas   State   2020    ESTUARY Square… Genera…  2.51e3      55
+#>  5 TCEQMAIN      Texas   State   2020    ESTUARY Square… Fish C…  2.70e2      11
+#>  6 TCEQMAIN      Texas   State   2020    RESERV… Acres   DOMEST…  1.31e6     330
+#>  7 TCEQMAIN      Texas   State   2020    RESERV… Acres   Aquati…  1.08e6     309
+#>  8 TCEQMAIN      Texas   State   2020    RESERV… Acres   Fish C…  1.59e5      62
+#>  9 TCEQMAIN      Texas   State   2020    RESERV… Acres   Genera…  1.14e6     301
+#> 10 TCEQMAIN      Texas   State   2020    RESERV… Acres   Recrea…  8.42e5     242
+#> # … with 21 more rows, 7 more variables: use_insufficient_information <dbl>,
+#> #   use_insufficient_information_count <int>, not_assessed <dbl>,
+#> #   not_assessed_count <int>, not_supporting <dbl>, not_supporting_count <int>,
+#> #   parameters <list<tibble[,9]>>, and abbreviated variable names
+#> #   ¹​organization_identifer, ²​organization_name, ³​organization_type_text,
+#> #   ⁴​reporting_cycle, ⁵​water_type_code, ⁶​units_code, ⁷​use_name,
+#> #   ⁸​fully_supporting, ⁹​fully_supporting_count
 ```
 
 Get a summary about assessed uses, parameters and plans in a HUC12:
 
 ``` r
-huc12_summary(huc = "020700100204")
-#> $huc_summary
-#> # A tibble: 1 × 14
+df <- huc12_summary(huc = "020700100204",
+              .unnest = FALSE)
+
+tidyr::unnest(df, summary_by_use)
+#> # A tibble: 5 × 24
 #>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
-#>   <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 02070…      17    46.1    46.2    35.2    76.4       0       0       0       0
-#> # … with 4 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_waters_catchment_area_percent <dbl>,
+#>   <chr>    <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#> 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 2 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 3 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 4 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 5 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> # … with 14 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
+#> #   contain_impaired_catchment_area_percent <dbl>,
 #> #   contain_restoration_catchment_area_sq_mi <dbl>,
-#> #   contain_restoration_catchment_area_percent <dbl>, and abbreviated variable
-#> #   names ¹​assessment_unit_count, ²​total_catchment_area_sq_mi,
-#> #   ³​total_huc_area_sq_mi, ⁴​assessed_catchment_area_sq_mi,
-#> #   ⁵​assessed_catchment_area_percent, ⁶​assessed_good_catchment_area_sq_mi, …
-#> 
-#> $au_summary
-#> # A tibble: 17 × 1
-#>    assessment_unit_id          
-#>    <chr>                       
-#>  1 MD-02140205-Northwest_Branch
-#>  2 MD-02140205                 
-#>  3 DCTFD01R_00                 
-#>  4 DCTNA01R_00                 
-#>  5 DCTFS01R_00                 
-#>  6 MD-ANATF                    
-#>  7 DCTTX27R_00                 
-#>  8 DCTFC01R_00                 
-#>  9 MD-02140205-Mainstem        
-#> 10 DCTWB00R_02                 
-#> 11 DCANA00E_02                 
-#> 12 DCTHR01R_00                 
-#> 13 DCTWB00R_01                 
-#> 14 DCTPB01R_00                 
-#> 15 DCTDU01R_00                 
-#> 16 DCANA00E_01                 
-#> 17 DCAKL00L_00                 
-#> 
-#> $ir_summary
-#> # A tibble: 2 × 4
-#>   epa_ir_category_name catchment_size_sq_mi catchment_size_percent assessment_…¹
-#>   <chr>                               <dbl>                  <dbl>         <dbl>
-#> 1 4A                                   12.7                   27.5            10
-#> 2 5                                    25.8                   56.0             7
-#> # … with abbreviated variable name ¹​assessment_unit_count
-#> 
-#> $use_summary
-#> # A tibble: 5 × 5
-#>   use_group_name      use_attainment           catchment_size_…¹ catch…² asses…³
-#>   <chr>               <chr>                                <dbl>   <dbl>   <dbl>
-#> 1 ECOLOGICAL_USE      Not Supporting                      10.9     23.7       13
-#> 2 FISHCONSUMPTION_USE Insufficient Information            15.9     34.4        1
-#> 3 FISHCONSUMPTION_USE Not Supporting                      15.9     34.4       12
-#> 4 OTHER_USE           Fully Supporting                     0.683    1.48       3
-#> 5 RECREATION_USE      Not Supporting                      15.2     32.9       13
-#> # … with abbreviated variable names ¹​catchment_size_sq_mi,
-#> #   ²​catchment_size_percent, ³​assessment_unit_count
-#> 
-#> $param_summary
-#> # A tibble: 16 × 4
-#>    parameter_group_name                catchment_size_sq_mi catchment_…¹ asses…²
-#>    <chr>                                              <dbl>        <dbl>   <dbl>
-#>  1 ALGAL GROWTH                                        9.21        20.0        2
-#>  2 CHLORINE                                            1.73         3.75       1
-#>  3 HABITAT ALTERATIONS                                 2.80         6.07       2
-#>  4 HYDROLOGIC ALTERATION                               5.98        13.0        5
-#>  5 METALS (OTHER THAN MERCURY)                        11.8         25.7        9
-#>  6 NUTRIENTS                                           9.21        20.0        2
-#>  7 OIL AND GREASE                                     10.9         23.7        3
-#>  8 ORGANIC ENRICHMENT/OXYGEN DEPLETION                12.7         27.5        6
-#>  9 PATHOGENS                                          15.9         34.4       13
-#> 10 PESTICIDES                                         15.2         32.9        9
-#> 11 PH/ACIDITY/CAUSTIC CONDITIONS                       1.95         4.22       1
-#> 12 POLYCHLORINATED BIPHENYLS (PCBS)                   15.2         32.9       10
-#> 13 SEDIMENT                                            1.90         4.11       1
-#> 14 TOXIC ORGANICS                                     13.3         28.7        8
-#> 15 TRASH                                               9.21        20.0        2
-#> 16 TURBIDITY                                          15.9         34.4       13
-#> # … with abbreviated variable names ¹​catchment_size_percent,
-#> #   ²​assessment_unit_count
-#> 
-#> $res_plan_summary
-#> # A tibble: 1 × 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
-#>   <chr>                            <dbl>                  <dbl>            <dbl>
-#> 1 TMDL                              15.9                   34.4               13
-#> # … with abbreviated variable name ¹​assessment_unit_count
-#> 
-#> $vision_plan_summary
-#> # A tibble: 1 × 4
-#>   summary_type_name catchment_size_sq_mi catchment_size_percent assessment_uni…¹
-#>   <chr>                            <dbl>                  <dbl>            <dbl>
-#> 1 TMDL                              15.9                   34.4               13
-#> # … with abbreviated variable name ¹​assessment_unit_count
+#> #   contain_restoration_catchment_area_percent <dbl>,
+#> #   assessment_units <list<tibble[,1]>>,
+#> #   summary_by_IR_category <list<tibble[,4]>>,
+#> #   summary_by_overall_status <list<tibble[,4]>>, …
+
+tidyr::unnest(df, summary_by_parameter_impairments, names_repair = "minimal")
+#> # A tibble: 16 × 25
+#>    huc12 asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
+#>    <chr>   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  2 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  3 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  4 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  5 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  6 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  7 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  8 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#>  9 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 10 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 11 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 12 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 13 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 14 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 15 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> 16 0207…      17    46.1    46.2    59.7     100       0       0       0       0
+#> # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
+#> #   contain_impaired_catchment_area_percent <dbl>,
+#> #   contain_restoration_catchment_area_sq_mi <dbl>,
+#> #   contain_restoration_catchment_area_percent <dbl>,
+#> #   assessment_units <list<tibble[,1]>>,
+#> #   summary_by_IR_category <list<tibble[,4]>>,
+#> #   summary_by_overall_status <list<tibble[,4]>>, …
+
+tidyr::unnest(df, summary_restoration_plans, names_repair = "minimal")
+#> # A tibble: 1 × 25
+#>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
+#>   <chr>    <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+#> 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0
+#> # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
+#> #   contain_impaired_catchment_area_percent <dbl>,
+#> #   contain_restoration_catchment_area_sq_mi <dbl>,
+#> #   contain_restoration_catchment_area_percent <dbl>,
+#> #   assessment_units <list<tibble[,1]>>,
+#> #   summary_by_IR_category <list<tibble[,4]>>,
+#> #   summary_by_overall_status <list<tibble[,4]>>, …
 ```
 
 Find statistical surveys completed by an organization:
 
 ``` r
-df <- surveys(organization_id="SDDENR")
-str(df)
-#> List of 2
-#>  $ documents: tibble [0 × 12] (S3: tbl_df/tbl/data.frame)
-#>   ..$ organization_identifier: chr(0) 
-#>   ..$ organization_name      : chr(0) 
-#>   ..$ organization_type_text : chr(0) 
-#>   ..$ survey_status_code     : chr(0) 
-#>   ..$ year                   : num(0) 
-#>   ..$ survey_comment_text    : chr(0) 
-#>   ..$ agency_code            : chr(0) 
-#>   ..$ document_file_type     : chr(0) 
-#>   ..$ document_file_name     : chr(0) 
-#>   ..$ document_description   : chr(0) 
-#>   ..$ document_comments      : chr(0) 
-#>   ..$ document_url           : chr(0) 
-#>  $ surveys  : tibble [104 × 19] (S3: tbl_df/tbl/data.frame)
-#>   ..$ organization_identifier        : chr [1:104] "SDDENR" "SDDENR" "SDDENR" "SDDENR" ...
-#>   ..$ organization_name              : chr [1:104] "South Dakota" "South Dakota" "South Dakota" "South Dakota" ...
-#>   ..$ organization_type_text         : chr [1:104] "State" "State" "State" "State" ...
-#>   ..$ survey_status_code             : chr [1:104] "Final" "Final" "Final" "Final" ...
-#>   ..$ year                           : num [1:104] 2018 2018 2018 2018 2018 ...
-#>   ..$ survey_comment_text            : chr [1:104] NA NA NA NA ...
-#>   ..$ water_type_group_code          : chr [1:104] "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" "LAKE/RESERVOIR/POND" ...
-#>   ..$ sub_population_code            : chr [1:104] "Statewide" "Statewide" "Statewide" "Statewide" ...
-#>   ..$ unit_code                      : chr [1:104] "Acres" "Acres" "Acres" "Acres" ...
-#>   ..$ size                           : num [1:104] 213265 213265 213265 213265 213265 ...
-#>   ..$ site_number                    : chr [1:104] "70" "70" "70" "70" ...
-#>   ..$ survey_water_group_comment_text: chr [1:104] NA NA NA NA ...
-#>   ..$ stressor                       : chr [1:104] "TEMPERATURE" NA "DISSOLVED OXYGEN" NA ...
-#>   ..$ survey_use_code                : chr [1:104] "AQUATIC LIFE - TEMPERATURE" "AQUATIC LIFE - PH" "AQUATIC LIFE - DISSOLVED OXYGEN" "IMMERSION RECREATION WATERS" ...
-#>   ..$ survey_category_code           : chr [1:104] "Fully Supporting" "Fully Supporting" "Fully Supporting" "Not Supporting" ...
-#>   ..$ statistic                      : chr [1:104] "Condition Estimate" "Condition Estimate" "Condition Estimate" "Condition Estimate" ...
-#>   ..$ metric_value                   : num [1:104] 85.9 62.9 95.1 7.24 98.8 37.1 4.9 95.1 37.1 4.9 ...
-#>   ..$ confidence_level               : num [1:104] 90 90 90 90 90 90 90 90 90 90 ...
-#>   ..$ comment_text                   : chr [1:104] NA NA NA NA ...
+surveys(organization_id="SDDENR",
+        .unnest = FALSE) |> 
+  tidyr::unnest(survey_water_groups) |> 
+  tidyr::unnest(survey_water_group_use_parameters)
+#> # A tibble: 104 × 21
+#>    organ…¹ organ…² organ…³ surve…⁴  year surve…⁵ docum…⁶ water…⁷ sub_p…⁸ unit_…⁹
+#>    <chr>   <chr>   <chr>   <chr>   <int> <chr>   <list<> <chr>   <chr>   <chr>  
+#>  1 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  2 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  3 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  4 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  5 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  6 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  7 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  8 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#>  9 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#> 10 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
+#> # … with 94 more rows, 11 more variables: size <int>, site_number <int>,
+#> #   surey_water_group_comment_text <chr>, stressor <chr>,
+#> #   survey_use_code <chr>, survey_category_code <chr>, statistic <chr>,
+#> #   metric_value <dbl>, margin_of_error <dbl>, confidence_level <dbl>,
+#> #   comment_text <chr>, and abbreviated variable names
+#> #   ¹​organization_identifier, ²​organization_name, ³​organization_type_text,
+#> #   ⁴​survey_status_code, ⁵​survey_comment_text, ⁶​documents, …
 ```
 
 ## Citation
@@ -267,7 +217,7 @@ citation("rATTAINS")
 #> To cite rATTAINS in publications use:
 #> 
 #>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
-#>   package version 0.1.4. doi:10.5281/zenodo.3635017
+#>   package version 1.0.0. doi:10.5281/zenodo.5469911
 #>   https://CRAN.R-project.org/package=rATTAINS
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -278,6 +228,6 @@ citation("rATTAINS")
 #>     year = {2021},
 #>     url = {https://CRAN.R-project.org/package=rATTAINS},
 #>     doi = {10.5281/zenodo.5469911},
-#>     note = {R package version 0.1.4},
+#>     note = {R package version 1.0.0},
 #>   }
 ```

@@ -72,22 +72,34 @@ Get a summary about assessed uses from the Texas Commission on Environmental Qua
 
 ```{r}
 library(rATTAINS)
-state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020") %>%
-  .[1,] %>% str()
+state_summary(organization_id = "TCEQMAIN", 
+              reporting_cycle = "2020",
+              .unnest = FALSE) |>
+  tidyr::unnest(reporting_cycles) |> 
+  tidyr::unnest(water_types) |> 
+  tidyr::unnest(use_attainments)
 ```
 
 Get a summary about assessed uses, parameters and plans in a HUC12:
 
 ```{r}
-huc12_summary(huc = "020700100204")
+df <- huc12_summary(huc = "020700100204",
+              .unnest = FALSE)
 
+tidyr::unnest(df, summary_by_use)
+
+tidyr::unnest(df, summary_by_parameter_impairments, names_repair = "minimal")
+
+tidyr::unnest(df, summary_restoration_plans, names_repair = "minimal")
 ```
 
 Find statistical surveys completed by an organization:
 
 ```{r}
-df <- surveys(organization_id="SDDENR")
-str(df)
+surveys(organization_id="SDDENR",
+        .unnest = FALSE) |> 
+  tidyr::unnest(survey_water_groups) |> 
+  tidyr::unnest(survey_water_group_use_parameters)
 ```
 
 
