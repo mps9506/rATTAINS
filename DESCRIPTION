@@ -23,7 +23,6 @@ Imports:
     dplyr,
     fauxpas,
     fs,
-    janitor,
     jsonlite,
     lifecycle,
     rlang,
