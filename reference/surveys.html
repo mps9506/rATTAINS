@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
+    <a class="dropdown-item" href="../articles/Dealing-With-Errors.html">Dealing with Errors</a>
     <a class="dropdown-item" href="../articles/Example---Tracking-Impaired-Waters.html">Example - Tracking Impaired Waters</a>
   </div>
 </li>
@@ -58,7 +59,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">surveys</span><span class="op">(</span>organization_id <span class="op">=</span> <span class="cn">NULL</span>, survey_year <span class="op">=</span> <span class="cn">NULL</span>, tidy <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">surveys</span><span class="op">(</span></span>
+<span>  organization_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  survey_year <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tidy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .unnest <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,6 +84,12 @@ performed. optional.</p></dd>
 <dt>tidy</dt>
 <dd><p>(logical) <code>TRUE</code> (default) the function returns a tidied
 tibble. <code>FALSE</code> the function returns the raw JSON string.</p></dd>
+
+
+<dt>.unnest</dt>
+<dd><p>(logical) <code>TRUE</code> (default) the function attempts to unnest
+data to longest format possible. This defaults to <code>TRUE</code> for backwards
+compatibility but it is suggested to use <code>FALSE</code>.</p></dd>
 
 
 <dt>...</dt>

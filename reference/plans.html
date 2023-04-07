@@ -16,7 +16,7 @@ assessment units covered by a plan or action within the specified HUC."><!-- mat
     
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +31,7 @@ assessment units covered by a plan or action within the specified HUC."><!-- mat
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
+    <a class="dropdown-item" href="../articles/Dealing-With-Errors.html">Dealing with Errors</a>
     <a class="dropdown-item" href="../articles/Example---Tracking-Impaired-Waters.html">Example - Tracking Impaired Waters</a>
   </div>
 </li>
@@ -67,7 +68,14 @@ assessment units covered by a plan or action within the specified HUC.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plans</span><span class="op">(</span><span class="va">huc</span>, organization_id <span class="op">=</span> <span class="cn">NULL</span>, summarize <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plans</span><span class="op">(</span></span>
+<span>  <span class="va">huc</span>,</span>
+<span>  organization_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  summarize <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  tidy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .unnest <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,6 +102,12 @@ Defaults to <code>FALSE</code>.</p></dd>
 tibbles. <code>FALSE</code> the function returns the raw JSON string.</p></dd>
 
 
+<dt>.unnest</dt>
+<dd><p>(logical) <code>TRUE</code> (default) the function attempts to unnest
+data to longest format possible. This defaults to <code>TRUE</code> for backwards
+compatibility but it is suggested to use <code>FALSE</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>list of curl options passed to <code><a href="https://docs.ropensci.org/crul/reference/HttpClient.html" class="external-link">crul::HttpClient()</a></code></p></dd>
 
@@ -116,7 +130,9 @@ the string (eg. <code>organization_id="TCEQMAIN,DCOEE"</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>See <a href="domain_values.html">domain_values</a> to search values that can be queried.</p>
+    <p>See <a href="domain_values.html">domain_values</a> to search values that can be queried. As of v1.0
+this function no longer returns the <code>documents</code>, <code>associated_permits</code>, or
+<code>plans</code> tibbles.</p>
     </div>
 
     <div class="section level2">

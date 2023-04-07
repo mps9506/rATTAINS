@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,6 +25,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
+    <a class="dropdown-item" href="../articles/Dealing-With-Errors.html">Dealing with Errors</a>
     <a class="dropdown-item" href="../articles/Example---Tracking-Impaired-Waters.html">Example - Tracking Impaired Waters</a>
   </div>
 </li>
@@ -77,6 +78,7 @@
 <span>  return_count_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  exclude_assessments <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  tidy <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  .unnest <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -84,78 +86,114 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>assessment_unit_id</dt>
-<dd><p>(character) Specify the specific assessment unit assessment data to return. Multiple values can be provided. optional</p></dd>
+<dd><p>(character) Specify the specific assessment unit
+assessment data to return. Multiple values can be provided. optional</p></dd>
 
 
 <dt>state_code</dt>
-<dd><p>(character) Filters returned assessments to those from the specified state. optional</p></dd>
+<dd><p>(character) Filters returned assessments to those from the
+specified state. optional</p></dd>
 
 
 <dt>organization_id</dt>
-<dd><p>(character) Filters the returned assessments to those belonging to the specified organization. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those
+belonging to the specified organization. optional</p></dd>
 
 
 <dt>reporting_cycle</dt>
-<dd><p>(character) Filters the returned assessments to those for the specified reporting cycle. The reporting cycle refers to the four-digit year that the reporting cycle ended. Defaults to the current cycle. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those
+for the specified reporting cycle. The reporting cycle refers to the
+four-digit year that the reporting cycle ended. Defaults to the current
+cycle. optional</p></dd>
 
 
 <dt>use</dt>
-<dd><p>(character) Filters the returned assessments to those with the specified uses. Multiple values can be provided. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those with the
+specified uses. Multiple values can be provided. optional</p></dd>
 
 
 <dt>use_support</dt>
-<dd><p>(character) Filters returned assessments to those fully supporting the specified uses or that are threatened. Multiple values can be provided. Allowable values include <code>"X"</code>= Not Assessed, <code>"I"</code>= Insufficient Information, <code>"F"</code>= Fully Supporting, <code>"N"</code>= Not Supporting, and <code>"T"</code>= Threatened. optional</p></dd>
+<dd><p>(character) Filters returned assessments to those fully
+supporting the specified uses or that are threatened. Multiple values can
+be provided. Allowable values include <code>"X"</code>= Not Assessed, <code>"I"</code>=
+Insufficient Information, <code>"F"</code>= Fully Supporting, <code>"N"</code>= Not
+Supporting, and <code>"T"</code>= Threatened. optional</p></dd>
 
 
 <dt>parameter</dt>
-<dd><p>(character) Filters the returned assessments to those with one or more of the specified parameters. Multiple values can be provided. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those with
+one or more of the specified parameters. Multiple values can be provided.
+optional</p></dd>
 
 
 <dt>parameter_status_name</dt>
-<dd><p>(character) Filters the returned assessments to those with one or more associated parameters meeting the provided value. Valid values are <code>"Meeting Criteria"</code>, <code>"Cause"</code>, <code>"Observed Effect"</code>. Multiple valuse can be provided. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to
+those with one or more associated parameters meeting the provided value.
+Valid values are <code>"Meeting Criteria"</code>, <code>"Cause"</code>, <code>"Observed
+  Effect"</code>. Multiple valuse can be provided. optional</p></dd>
 
 
 <dt>probable_source</dt>
-<dd><p>(character) Filters the returned assessments to those having the specified probable source. Multiple values can be provided. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those
+having the specified probable source. Multiple values can be provided.
+optional</p></dd>
 
 
 <dt>agency_code</dt>
-<dd><p>(character) Filters the returned assessments to those by the type of agency responsible for the assessment. Allowed values are <code>"E"</code>=EPA, <code>"S"</code>=State, <code>"T"</code>=Tribal. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those by
+the type of agency responsible for the assessment. Allowed values are
+<code>"E"</code>=EPA, <code>"S"</code>=State, <code>"T"</code>=Tribal. optional</p></dd>
 
 
 <dt>ir_category</dt>
-<dd><p>(character) Filters the returned assessments to those having the specified IR category. Multiple values can be provided. optional</p></dd>
+<dd><p>(character) Filters the returned assessments to those
+having the specified IR category. Multiple values can be provided. optional</p></dd>
 
 
 <dt>state_ir_category_code</dt>
-<dd><p>(character) Filters the returned assessments to include those having the provided codes.</p></dd>
+<dd><p>(character) Filters the returned assessments to
+include those having the provided codes.</p></dd>
 
 
 <dt>multicategory_search</dt>
-<dd><p>(character) Specifies whether to search at multiple levels.  If this parameter is set to “Y” then the query applies the EPA IR Category at the Assessment, UseAttainment, and Parameter levels; if the parameter is set to “N” it looks only at the Assessment level.</p></dd>
+<dd><p>(character) Specifies whether to search at
+multiple levels.  If this parameter is set to “Y” then the query applies
+the EPA IR Category at the Assessment, UseAttainment, and Parameter levels;
+if the parameter is set to “N” it looks only at the Assessment level.</p></dd>
 
 
 <dt>last_change_later_than_date</dt>
-<dd><p>(character) Filters the returned assessments to only those last changed after the provided date. Must be a character
-with format: <code>"yyyy-mm-dd"</code>. optional</p></dd>
+<dd><p>(character) Filters the returned
+assessments to only those last changed after the provided date. Must be a
+character with format: <code>"yyyy-mm-dd"</code>. optional</p></dd>
 
 
 <dt>last_change_earlier_than_date</dt>
-<dd><p>(character) Filters the returned assessments to only those last changed before the provided date. Must be a character
-with format: <code>"yyyy-mm-dd"</code>. optional</p></dd>
+<dd><p>(character) Filters the returned
+assessments to only those last changed before the provided date. Must be a
+character with format: <code>"yyyy-mm-dd"</code>. optional</p></dd>
 
 
 <dt>return_count_only</dt>
-<dd><p>(logical) If <code>TRUE</code> returns only the count of
-actions the match the query. defaults to <code>FALSE</code></p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+<code>return_count_only = TRUE</code> is no longer supported.</p></dd>
 
 
 <dt>exclude_assessments</dt>
-<dd><p>(logical) If <code>TRUE</code> returns only the documents associated with the Assessment cycle instead of the assessment data. Defaults is <code>FALSE</code>.</p></dd>
+<dd><p>(logical) If <code>TRUE</code> returns only the
+documents associated with the Assessment cycle instead of the assessment
+data. Defaults is <code>FALSE</code>.</p></dd>
 
 
 <dt>tidy</dt>
-<dd><p>(logical) <code>TRUE</code> (default) the function returns a tidied tibble. <code>FALSE</code> the function returns the raw JSON string.</p></dd>
+<dd><p>(logical) <code>TRUE</code> (default) the function returns a tidied
+tibble. <code>FALSE</code> the function returns the raw JSON string.</p></dd>
+
+
+<dt>.unnest</dt>
+<dd><p>(logical) <code>TRUE</code> (default) the function attempts to unnest
+data to longest format possible. This defaults to <code>TRUE</code> for backwards
+compatibility but it is suggested to use <code>FALSE</code>.</p></dd>
 
 
 <dt>...</dt>
@@ -166,11 +204,8 @@ actions the match the query. defaults to <code>FALSE</code></p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>If <code>count = TRUE</code> returns a tibble that summarizes the count of
-actions returned by the query. If <code>count = FALSE</code> returns a list of
-tibbles including documents, use assessment data, and parameters assessment
-data identified by the query. If <code>tidy = FALSE</code> the raw JSON string is
-returned, else the JSON data is parsed and returned as tibbles.</p>
+<p>If <code>tidy = FALSE</code> the raw JSON string is returned, else the JSON
+data is parsed and returned as tibbles.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -182,7 +217,10 @@ and should be included as a comma separated values in the string (eg.
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>See <a href="domain_values.html">domain_values</a> to search values that can be queried.</p>
+    <p>See <a href="domain_values.html">domain_values</a> to search values that can be queried. In v1.0.0
+rATTAINS returns a list of tibbles (<code>documents</code>, <code>use_assessment</code>,
+<code>delisted_waters</code>). Prior versions returned <code>documents</code>, <code>use_assessment</code>,
+and <code>parameter_assessment</code>.</p>
     </div>
 
     <div class="section level2">
