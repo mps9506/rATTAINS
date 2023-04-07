@@ -1,4 +1,3 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # rATTAINS
@@ -29,16 +28,12 @@ made available through the EPA.
 
 rATTAINS is on CRAN:
 
-``` r
-install.packages('rATTAINS')
-```
+    install.packages('rATTAINS')
 
 Or install the development version from r-universe:
 
-``` r
-install.packages('rATTAINS',
-                 repos = 'https://mps9506.r-universe.dev')
-```
+    install.packages('rATTAINS',
+                     repos = 'https://mps9506.r-universe.dev')
 
 ## Functions and webservices
 
@@ -83,151 +78,143 @@ unexpected results, try parsing the raw JSON string.
 Get a summary about assessed uses from the Texas Commission on
 Environmental Quality:
 
-``` r
-library(rATTAINS)
-state_summary(organization_id = "TCEQMAIN", 
-              reporting_cycle = "2020",
-              .unnest = FALSE) |>
-  tidyr::unnest(reporting_cycles) |> 
-  tidyr::unnest(water_types) |> 
-  tidyr::unnest(use_attainments)
-#> # A tibble: 31 × 16
-#>    organizatio…¹ organ…² organ…³ repor…⁴ water…⁵ units…⁶ use_n…⁷ fully…⁸ fully…⁹
-#>    <chr>         <chr>   <chr>   <chr>   <chr>   <chr>   <chr>     <dbl>   <int>
-#>  1 TCEQMAIN      Texas   State   2020    ESTUARY Square… Aquati…  1.86e3      57
-#>  2 TCEQMAIN      Texas   State   2020    ESTUARY Square… Recrea…  2.26e3      61
-#>  3 TCEQMAIN      Texas   State   2020    ESTUARY Square… Oyster…  1.52e3      21
-#>  4 TCEQMAIN      Texas   State   2020    ESTUARY Square… Genera…  2.51e3      55
-#>  5 TCEQMAIN      Texas   State   2020    ESTUARY Square… Fish C…  2.70e2      11
-#>  6 TCEQMAIN      Texas   State   2020    RESERV… Acres   DOMEST…  1.31e6     330
-#>  7 TCEQMAIN      Texas   State   2020    RESERV… Acres   Aquati…  1.08e6     309
-#>  8 TCEQMAIN      Texas   State   2020    RESERV… Acres   Fish C…  1.59e5      62
-#>  9 TCEQMAIN      Texas   State   2020    RESERV… Acres   Genera…  1.14e6     301
-#> 10 TCEQMAIN      Texas   State   2020    RESERV… Acres   Recrea…  8.42e5     242
-#> # … with 21 more rows, 7 more variables: use_insufficient_information <dbl>,
-#> #   use_insufficient_information_count <int>, not_assessed <dbl>,
-#> #   not_assessed_count <int>, not_supporting <dbl>, not_supporting_count <int>,
-#> #   parameters <list<tibble[,9]>>, and abbreviated variable names
-#> #   ¹​organization_identifer, ²​organization_name, ³​organization_type_text,
-#> #   ⁴​reporting_cycle, ⁵​water_type_code, ⁶​units_code, ⁷​use_name,
-#> #   ⁸​fully_supporting, ⁹​fully_supporting_count
-```
+    library(rATTAINS)
+    state_summary(organization_id = "TCEQMAIN", 
+                  reporting_cycle = "2020",
+                  .unnest = FALSE) |>
+      tidyr::unnest(reporting_cycles) |> 
+      tidyr::unnest(water_types) |> 
+      tidyr::unnest(use_attainments)
+    #> # A tibble: 31 × 16
+    #>    organization_identifer organization_name organization_type_text
+    #>    <chr>                  <chr>             <chr>                 
+    #>  1 TCEQMAIN               Texas             State                 
+    #>  2 TCEQMAIN               Texas             State                 
+    #>  3 TCEQMAIN               Texas             State                 
+    #>  4 TCEQMAIN               Texas             State                 
+    #>  5 TCEQMAIN               Texas             State                 
+    #>  6 TCEQMAIN               Texas             State                 
+    #>  7 TCEQMAIN               Texas             State                 
+    #>  8 TCEQMAIN               Texas             State                 
+    #>  9 TCEQMAIN               Texas             State                 
+    #> 10 TCEQMAIN               Texas             State                 
+    #> # ℹ 21 more rows
+    #> # ℹ 13 more variables: reporting_cycle <chr>, water_type_code <chr>,
+    #> #   units_code <chr>, use_name <chr>, fully_supporting <dbl>,
+    #> #   fully_supporting_count <int>, use_insufficient_information <dbl>,
+    #> #   use_insufficient_information_count <int>, not_assessed <dbl>,
+    #> #   not_assessed_count <int>, not_supporting <dbl>, not_supporting_count <int>,
+    #> #   parameters <list<tibble[,9]>>
 
 Get a summary about assessed uses, parameters and plans in a HUC12:
 
-``` r
-df <- huc12_summary(huc = "020700100204",
-              .unnest = FALSE)
+    df <- huc12_summary(huc = "020700100204",
+                  .unnest = FALSE)
 
-tidyr::unnest(df, summary_by_use)
-#> # A tibble: 5 × 24
-#>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
-#>   <chr>    <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 2 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 3 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 4 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 5 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> # … with 14 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_catchment_area_percent <dbl>,
-#> #   contain_restoration_catchment_area_sq_mi <dbl>,
-#> #   contain_restoration_catchment_area_percent <dbl>,
-#> #   assessment_units <list<tibble[,1]>>,
-#> #   summary_by_IR_category <list<tibble[,4]>>,
-#> #   summary_by_overall_status <list<tibble[,4]>>, …
+    tidyr::unnest(df, summary_by_use)
+    #> # A tibble: 5 × 24
+    #>   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
+    #>   <chr>                        <int>                  <dbl>                <dbl>
+    #> 1 020700100204                    17                   46.1                 46.2
+    #> 2 020700100204                    17                   46.1                 46.2
+    #> 3 020700100204                    17                   46.1                 46.2
+    #> 4 020700100204                    17                   46.1                 46.2
+    #> 5 020700100204                    17                   46.1                 46.2
+    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
+    #> # ℹ 20 more variables: assessed_catchment_area_sq_mi <dbl>,
+    #> #   assessed_cathcment_area_percent <dbl>,
+    #> #   assessed_good_catchment_area_sq_mi <dbl>,
+    #> #   assessed_good_catchment_area_percent <dbl>,
+    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
+    #> #   assessed_unknown_catchment_area_percent <dbl>, …
 
-tidyr::unnest(df, summary_by_parameter_impairments, names_repair = "minimal")
-#> # A tibble: 16 × 25
-#>    huc12 asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
-#>    <chr>   <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#>  1 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  2 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  3 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  4 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  5 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  6 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  7 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  8 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#>  9 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 10 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 11 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 12 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 13 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 14 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 15 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> 16 0207…      17    46.1    46.2    59.7     100       0       0       0       0
-#> # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_catchment_area_percent <dbl>,
-#> #   contain_restoration_catchment_area_sq_mi <dbl>,
-#> #   contain_restoration_catchment_area_percent <dbl>,
-#> #   assessment_units <list<tibble[,1]>>,
-#> #   summary_by_IR_category <list<tibble[,4]>>,
-#> #   summary_by_overall_status <list<tibble[,4]>>, …
+    tidyr::unnest(df, summary_by_parameter_impairments, names_repair = "minimal")
+    #> # A tibble: 16 × 25
+    #>    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
+    #>    <chr>                       <int>                  <dbl>                <dbl>
+    #>  1 0207001002…                    17                   46.1                 46.2
+    #>  2 0207001002…                    17                   46.1                 46.2
+    #>  3 0207001002…                    17                   46.1                 46.2
+    #>  4 0207001002…                    17                   46.1                 46.2
+    #>  5 0207001002…                    17                   46.1                 46.2
+    #>  6 0207001002…                    17                   46.1                 46.2
+    #>  7 0207001002…                    17                   46.1                 46.2
+    #>  8 0207001002…                    17                   46.1                 46.2
+    #>  9 0207001002…                    17                   46.1                 46.2
+    #> 10 0207001002…                    17                   46.1                 46.2
+    #> 11 0207001002…                    17                   46.1                 46.2
+    #> 12 0207001002…                    17                   46.1                 46.2
+    #> 13 0207001002…                    17                   46.1                 46.2
+    #> 14 0207001002…                    17                   46.1                 46.2
+    #> 15 0207001002…                    17                   46.1                 46.2
+    #> 16 0207001002…                    17                   46.1                 46.2
+    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
+    #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
+    #> #   assessed_cathcment_area_percent <dbl>,
+    #> #   assessed_good_catchment_area_sq_mi <dbl>,
+    #> #   assessed_good_catchment_area_percent <dbl>,
+    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
+    #> #   assessed_unknown_catchment_area_percent <dbl>, …
 
-tidyr::unnest(df, summary_restoration_plans, names_repair = "minimal")
-#> # A tibble: 1 × 25
-#>   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹
-#>   <chr>    <int>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-#> 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0
-#> # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi <dbl>,
-#> #   contain_impaired_catchment_area_percent <dbl>,
-#> #   contain_restoration_catchment_area_sq_mi <dbl>,
-#> #   contain_restoration_catchment_area_percent <dbl>,
-#> #   assessment_units <list<tibble[,1]>>,
-#> #   summary_by_IR_category <list<tibble[,4]>>,
-#> #   summary_by_overall_status <list<tibble[,4]>>, …
-```
+    tidyr::unnest(df, summary_restoration_plans, names_repair = "minimal")
+    #> # A tibble: 1 × 25
+    #>   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
+    #>   <chr>                        <int>                  <dbl>                <dbl>
+    #> 1 020700100204                    17                   46.1                 46.2
+    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
+    #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
+    #> #   assessed_cathcment_area_percent <dbl>,
+    #> #   assessed_good_catchment_area_sq_mi <dbl>,
+    #> #   assessed_good_catchment_area_percent <dbl>,
+    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
+    #> #   assessed_unknown_catchment_area_percent <dbl>, …
 
 Find statistical surveys completed by an organization:
 
-``` r
-surveys(organization_id="SDDENR",
-        .unnest = FALSE) |> 
-  tidyr::unnest(survey_water_groups) |> 
-  tidyr::unnest(survey_water_group_use_parameters)
-#> # A tibble: 104 × 21
-#>    organ…¹ organ…² organ…³ surve…⁴  year surve…⁵ docum…⁶ water…⁷ sub_p…⁸ unit_…⁹
-#>    <chr>   <chr>   <chr>   <chr>   <int> <chr>   <list<> <chr>   <chr>   <chr>  
-#>  1 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  2 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  3 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  4 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  5 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  6 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  7 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  8 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#>  9 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#> 10 SDDENR  South … State   Final    2018 <NA>    [0 × 8] LAKE/R… Statew… Acres  
-#> # … with 94 more rows, 11 more variables: size <int>, site_number <int>,
-#> #   surey_water_group_comment_text <chr>, stressor <chr>,
-#> #   survey_use_code <chr>, survey_category_code <chr>, statistic <chr>,
-#> #   metric_value <dbl>, margin_of_error <dbl>, confidence_level <dbl>,
-#> #   comment_text <chr>, and abbreviated variable names
-#> #   ¹​organization_identifier, ²​organization_name, ³​organization_type_text,
-#> #   ⁴​survey_status_code, ⁵​survey_comment_text, ⁶​documents, …
-```
+    surveys(organization_id="SDDENR",
+            .unnest = FALSE) |> 
+      tidyr::unnest(survey_water_groups) |> 
+      tidyr::unnest(survey_water_group_use_parameters)
+    #> # A tibble: 104 × 21
+    #>    organization_identifier organization_name organization_type_text
+    #>    <chr>                   <chr>             <chr>                 
+    #>  1 SDDENR                  South Dakota      State                 
+    #>  2 SDDENR                  South Dakota      State                 
+    #>  3 SDDENR                  South Dakota      State                 
+    #>  4 SDDENR                  South Dakota      State                 
+    #>  5 SDDENR                  South Dakota      State                 
+    #>  6 SDDENR                  South Dakota      State                 
+    #>  7 SDDENR                  South Dakota      State                 
+    #>  8 SDDENR                  South Dakota      State                 
+    #>  9 SDDENR                  South Dakota      State                 
+    #> 10 SDDENR                  South Dakota      State                 
+    #> # ℹ 94 more rows
+    #> # ℹ 18 more variables: survey_status_code <chr>, year <int>,
+    #> #   survey_comment_text <chr>, documents <list<tibble[,8]>>,
+    #> #   water_type_group_code <chr>, sub_population_code <chr>, unit_code <chr>,
+    #> #   size <int>, site_number <int>, surey_water_group_comment_text <chr>,
+    #> #   stressor <chr>, survey_use_code <chr>, survey_category_code <chr>,
+    #> #   statistic <chr>, metric_value <dbl>, margin_of_error <dbl>, …
 
 ## Citation
 
 If you use this package in a publication, please cite as:
 
-``` r
-citation("rATTAINS")
-#> 
-#> To cite rATTAINS in publications use:
-#> 
-#>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
-#>   package version 1.0.0. doi:10.5281/zenodo.5469911
-#>   https://CRAN.R-project.org/package=rATTAINS
-#> 
-#> A BibTeX entry for LaTeX users is
-#> 
-#>   @Manual{,
-#>     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},
-#>     author = {Michael Schramm},
-#>     year = {2021},
-#>     url = {https://CRAN.R-project.org/package=rATTAINS},
-#>     doi = {10.5281/zenodo.5469911},
-#>     note = {R package version 1.0.0},
-#>   }
-```
+    citation("rATTAINS")
+    #> 
+    #> To cite rATTAINS in publications use:
+    #> 
+    #>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
+    #>   package version 1.0.0. doi:10.5281/zenodo.5469911
+    #>   https://CRAN.R-project.org/package=rATTAINS
+    #> 
+    #> A BibTeX entry for LaTeX users is
+    #> 
+    #>   @Manual{,
+    #>     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},
+    #>     author = {Michael Schramm},
+    #>     year = {2021},
+    #>     url = {https://CRAN.R-project.org/package=rATTAINS},
+    #>     doi = {10.5281/zenodo.5469911},
+    #>     note = {R package version 1.0.0},
+    #>   }
