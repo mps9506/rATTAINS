@@ -60,10 +60,8 @@ webmockr::stub_request("get",
   to_return(status = 429)
 ```
 
-```{r}
-try(
-  actions(action_id = "R8-ND-2018-03")
-)
+```{r error=TRUE}
+actions(action_id = "R8-ND-2018-03")
 ```
 
 ```{r echo=FALSE, message=FALSE, include=FALSE}
