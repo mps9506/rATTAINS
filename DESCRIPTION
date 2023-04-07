@@ -1,6 +1,6 @@
 Package: rATTAINS
 Title: Access EPA 'ATTAINS' Data
-Version: 0.1.4.9000
+Version: 1.0.0
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
@@ -15,7 +15,7 @@ Description: An R interface to United States Environmental Protection Agency (EP
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Imports: 
     checkmate,
     crul,
@@ -23,14 +23,13 @@ Imports:
     dplyr,
     fauxpas,
     fs,
-    janitor,
-    magrittr,
-    purrr,
+    jsonlite,
+    lifecycle,
     rlang,
     rlist,
-    tibble,
-    tidyjson,
-    tidyr
+    tibblify,
+    tidyr,
+    tidyselect
 Suggests: 
     vcr (>= 0.6.0),
     testthat (>= 3.0.0),
@@ -44,5 +43,6 @@ VignetteBuilder: knitr
 Config/Needs/website: 
   mps9506/mpsTemplates,
   ggrepel,
-  ggplot2
+  ggplot2,
+  ggtext
 Config/testthat/edition: 3

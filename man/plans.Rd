@@ -4,7 +4,14 @@
 \alias{plans}
 \title{Download Plans and Actions by HUC}
 \usage{
-plans(huc, organization_id = NULL, summarize = FALSE, tidy = TRUE, ...)
+plans(
+  huc,
+  organization_id = NULL,
+  summarize = FALSE,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+)
 }
 \arguments{
 \item{huc}{(character) Filters the returned actions by 8-digit or higher HUC.
@@ -20,6 +27,10 @@ Defaults to \code{FALSE}.}
 
 \item{tidy}{(logical) \code{TRUE} (default) the function returns a list of
 tibbles. \code{FALSE} the function returns the raw JSON string.}
+
+\item{.unnest}{(logical) \code{TRUE} (default) the function attempts to unnest
+data to longest format possible. This defaults to \code{TRUE} for backwards
+compatibility but it is suggested to use \code{FALSE}.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
@@ -42,7 +53,9 @@ indicated arguments and should be included as a comma separated values in
 the string (eg. \code{organization_id="TCEQMAIN,DCOEE"}).
 }
 \note{
-See \link{domain_values} to search values that can be queried.
+See \link{domain_values} to search values that can be queried. As of v1.0
+this function no longer returns the \code{documents}, \code{associated_permits}, or
+\code{plans} tibbles.
 }
 \examples{
 

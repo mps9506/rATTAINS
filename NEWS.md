@@ -1,4 +1,29 @@
-# rATTAINS (development version)
+# rATTAINS (1.0.0)
+
+## Major changes
+
+This major release stabilizes the data structure returned by the functions
+calling the ATTAINS API. There might be some breaking changes due to changes
+in some column names and nested structure of the data. Unless there are major
+changes in the data returned by ATTAINS, my goal is for the current data column
+names and structure to stay consistent from this release forward.
+
+* all API functions use `tibblify::tibblify()` to converted nested lists to
+tibbles. This change will ensure functions return consistent data structures
+between web calls. Some functions may return slightly different data structures
+compared to previous package versions (fixes #25, #31).
+* added the `.unnest` argument to most functions that return API results. It
+defaults to `TRUE` to preserve backwards compatibility. If `FALSE`, results will
+be returned in the nest structure provided by ATTAINS.
+
+## Internal changes
+
+* remove dependency on tidyjson.
+* remove dependency on janitor.
+* update citation file to use `bibentry()`.
+* removes magrittr pipe import/export.
+* remove the `write_disk_path` folder used by vcr in the test folder.
+
 
 # rATTAINS 0.1.4
 

@@ -27,10 +27,13 @@
 #'   with format: \code{"yyyy-mm-dd"}. optional
 #' @param status_indicator (character) Filter the returned assessment units to
 #'   those with specified status. "A" for active, "R" for retired. optional
-#' @param return_count_only (character) "Y" for yes, "N" for no. Defaults to
-#'   "N". optional
+#' @param return_count_only `r lifecycle::badge("deprecated")`
+#'   `return_count_only = Y` is no longer supported.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @details One or more of the following arguments must be included:
 #'   \code{assessment_unit_identfier}, \code{state_code} or
@@ -41,15 +44,15 @@
 #'   returned. When \code{tidy=FALSE} a raw JSON string is returned.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @import tidyjson
+#' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom dplyr mutate select
 #' @importFrom fs path
-#' @importFrom janitor clean_names
-#' @importFrom purrr map
+#' @importFrom jsonlite fromJSON
+#' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble tibble as_tibble
+#' @importFrom tidyr unnest unpack
+#' @importFrom tidyselect everything
 #' @examples
 #'
 #' \dontrun{
@@ -72,10 +75,25 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                              status_indicator = NULL,
                              return_count_only = NULL,
                              tidy = TRUE,
+                             .unnest = TRUE,
                              ...) {
 
+  ## depreciate return_count_only
+  if (!is.null(return_count_only)) {
+    lifecycle::deprecate_warn(
+      when = "1.0.0",
+      what = "actions(return_count_only)",
+      details = "Ability to retun counts only is depreciated and defaults to
+      NULL. The `return_count_only` argument will be removed in future
+      releases."
+    )
+  }
+
   ## check connectivity
-  check_connectivity()
+  con_check <- check_connectivity()
+  if(!isTRUE(con_check)){
+    return(invisible(NULL))
+  }
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -95,8 +113,8 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -112,7 +130,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                   lastChangeLaterThanDate = last_change_later_than_date,
                   lastChangeEarlierThanDate = last_change_earlier_than_date,
                   statusIndicator = status_indicator,
-                  returnCountOnly = return_count_only)
+                  returnCountOnly = NULL) ## depreciated and defaults NULL
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
                      "stateCode",
@@ -124,7 +142,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   path <- "attains-public/api/assessmentUnits"
 
-  ## download data without caching
+  ## download data
   content <- xGET(path,
                   args,
                   file = NULL,
@@ -135,43 +153,83 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   if (!isTRUE(tidy)) {
     return(content)
   } else {
-    content <- content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_all() %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("assessmentUnits") %>%
-      gather_array() %>%
-      spread_all(recursive = TRUE) %>%
-      select(-"array.index") %>%
-      ## this is slow as heck
-      ## but not sure how else to consistently return empty lists
-      ## without errors.
-      mutate(
-        locations = map(.data$..JSON, ~{
-          .x[["locations"]] %>% {
-            tibble(
-              locationTypeCode = map(., "locationTypeCode"),
-              locationText = map(., "locationText")
-            )} %>%
-            clean_names()
-        }),
-        waterTypes = map(.data$..JSON, ~{
-          .x[["waterTypes"]] %>% {
-            tibble(
-              waterTypeCode = map(., "waterTypeCode"),
-              waterSizeNumber = map(., "waterSizeNumber"),
-              unitsCode = map(., "unitsCode"),
-              sizeEstimationMethod = map(., "SizeEstimationMethod"),
-              sizeSourceText = map(., "sizeSourceText"),
-              sizeSourceScaleText = map(., "sizeSourceScaleText")
-            )} %>%
-            clean_names()
-        })
-      ) %>%
-      as_tibble() %>%
-      clean_names()
 
+    ## Parse JSON
+    json_list <- jsonlite::fromJSON(content,
+                                    simplifyVector = FALSE,
+                                    simplifyDataFrame = FALSE,
+                                    flatten = FALSE)
+
+    ## Create tibblify specification
+    spec <- spec_assessment_units()
+
+    ## Created nested lists according to spec
+    content <- tibblify(json_list,
+                        spec = spec,
+                        unspecified = "drop")
+
+    ## if unnest == FALSE return nested data
+    if(!isTRUE(.unnest)) {
+      return(content$items)
+    }
+
+    ## list -> rectangle
+    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = "water_types", keep_empty = TRUE)
+    content <- unpack(content, cols = everything())
     return(content)
-  }
+    }
+}
+
+#' Create tibblify specification for assessment_units
+#'
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_assessment_units <- function() {
+  spec <- tspec_object(
+    "items" = tib_df(
+      "items",
+      "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
+      "organization_name" = tib_chr("organizationName", required = FALSE),
+      "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
+      "assessment_units" = tib_df(
+        "assessmentUnits",
+        "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
+        "assessment_unit_name" = tib_chr("assessmentUnitName", required = FALSE),
+        "location_description_text" = tib_chr("locationDescriptionText", required = FALSE),
+        "agency_code" = tib_chr("agencyCode", required = FALSE),
+        "state_code" = tib_chr("stateCode", required = FALSE),
+        "status_indicator" = tib_chr("statusIndicator", required = FALSE),
+        "water_types" = tib_df(
+          "waterTypes",
+          "water_type_code" = tib_chr("waterTypeCode", required = FALSE),
+          "water_size_number" = tib_dbl("waterSizeNumber", required = FALSE),
+          "units_code" = tib_chr("unitsCode", required = FALSE),
+          "size_estimation_method_code" = tib_chr("sizeEstimationMethodCode", required = FALSE),
+          "size_source_text" = tib_chr("sizeSourceText", required = FALSE),
+          "size_source_scale_text" = tib_chr("sizeSourceScaleText", required = FALSE),
+        ),
+        "locations" = tib_df(
+          "locations",
+          "location_type_code" = tib_chr("locationTypeCode", required = FALSE),
+          "location_text" = tib_chr("locationText", required = FALSE),
+        ),
+        "monitoring_stations" = tib_df(
+          "monitoringStations",
+          "monitoring_organization_identifier" = tib_chr("monitoringOrganizationIdentifier", required = FALSE),
+          "monitoring_location_identifier" = tib_chr("monitoringLocationIdentifier", required = FALSE),
+          "monitoring_data_link_text" = tib_chr("monitoringDataLinkText", required = FALSE),
+        ),
+        "use_class" = tib_row(
+          "useClass",
+          "use_class_code" = tib_chr("useClassCode", required = FALSE),
+          "use_class_name" = tib_chr("useClassName", required = FALSE),
+        ),
+        "documents" = tib_df("documents"),
+      ),
+    ),
+    "count" = tib_int("count", required = FALSE),
+  )
 }

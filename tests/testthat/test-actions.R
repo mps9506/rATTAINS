@@ -6,6 +6,11 @@ test_that("actions webservice works", {
   testthat::expect_s3_class(x_1$documents, "tbl_df")
   testthat::expect_s3_class(x_1$actions, "tbl_df")
 
+  vcr::use_cassette("actions_unnest_works", {
+    x_1 <- actions(action_id = "R8-ND-2018-03", .unnest = FALSE)
+  })
+  testthat::expect_s3_class(x_1, "tbl_df")
+
   vcr::use_cassette("actions_chr_works", {
     x_2 <- actions(action_id = "R8-ND-2018-03", tidy = FALSE)
   })

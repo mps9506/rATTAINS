@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(vcr)
 invisible(vcr::vcr_configure(
   dir = "../tests/fixtures",
-  write_disk_path = "../tests/files"
+  write_disk_path = NULL
 ))
 
 ```
@@ -45,12 +45,6 @@ x <- state_summary(organization_id = "TDECWR",
 x
 ```
 
-The resulting tibble includes the water type, designated use, summary of the how much of the assessed uses meet criteria (by count, area, distance, etc.) or are not assessed. For each row, there is a variable called "parameters" composed of a nested tibble that provides further information about the use assessment by parameters assessed:
-
-```{r state_params, message=FALSE}
-x$parameters[[1]]
-```
-
 ```{r include=FALSE}
 vcr::eject_cassette("state_summary")
 ```
@@ -70,7 +64,15 @@ x
 vcr::eject_cassette("huc12_works")
 ```
 
-`huc12_summary()` returns a list of tibbles with different summaries of information. Using the above example, `x$huc_summary` provides a summary of HUC area, and the area and percentage of catchment assessed as good, unknown, or impaired. `x$assessment_unit_id` provides a tibble with the unique identifiers for the assessment units (or distinct sections of waterbodies) within the queried HUC12. `x$ir_summary` provides a simple summary of the area of the catchment classified under different Integrated Report Categories. `x$use_summary` provides a summary of use attainment with the HUC12. `x$param_summary` provides the same information for parameter groups. `x$res_plan_summary` and `x$vision_plan_summary` provides a summary of the amount of the watershed covered by particular types of restoration plans or vision plan, such as TMDLs. 
+`huc12_summary()` returns a list of tibbles with different summaries of information. Using the above example: 
+- `x$huc_summary` provides a summary of HUC area, and the area and percentage of catchment assessed as good, unknown, or impaired. 
+- `x$au_summary` provides a tibble with the unique identifiers for the assessment units (or distinct sections of waterbodies) within the queried HUC12. 
+- `x$ir_summary` provides a simple summary of the area of the catchment classified under different Integrated Report Categories. 
+- `x$status_summary` provides a summary of the overall status within the HUC12. 
+- `x$use_group_summary` provides a summary of use attainment bu use group within the HUC12.
+- `x$use_summary` breaks the use summary down further by the use name.
+- `x$param_summary` provides the same information for parameter groups. 
+- `x$res_plan_summary` and `x$vision_plan_summary` provides a summary of the amount of the watershed covered by particular types of restoration plans or vision plan, such as TMDLs. 
 
 ## Domains
 

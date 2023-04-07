@@ -1,0 +1,119 @@
+---
+title: "Dealing with Errors"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%",
+  dev = "ragg_png",
+  dpi = 300
+)
+library(webmockr)
+webmockr::enable()
+```
+
+```{r setup}
+library(rATTAINS)
+library(jsonlite)
+library(tibblify)
+library(tidyr)
+
+```
+
+There are a number of errors that you might encounter using this rATTAINS. Here
+is a list of potential errors and fixes. Feel free to raise an issue if I missed
+something.
+
+
+## Network Connectivity
+
+The following error message likely indicates an issue connecting to the EPA
+server:
+
+
+
+```{r echo=TRUE, eval=FALSE}
+state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2022")
+```
+
+```{r echo=FALSE, include=FALSE}
+warning("No connection to <https://attains.epa.gov> available!",
+        call. = FALSE)
+```
+
+Potential issues/fixes:
+ 
+ - Check your network connection.
+ - Check [attains.epa.gov](attains.epa.gov). If you are able to connect, a warning notice about accessing U.S. Government information systems should show in your web browser.
+ - Occasionally proxy systems used in corporate IT systems cause issues with connections (see: [https://stackoverflow.com/questions/59796178/r-curlhas-internet-false-even-though-there-are-internet-connection](https://stackoverflow.com/questions/59796178/r-curlhas-internet-false-even-though-there-are-internet-connection)). I've tried to account for this in the package, but you might run into occasional issues.
+ 
+
+## Server Response
+
+The server might also return http code messages. The most common will be 404 or 429. rATTAINS will generally provide a simple message and error when this is encountered:
+
+```{r echo=FALSE, include=FALSE}
+webmockr::stub_request("get",
+                       "https://attains.epa.gov/attains-public/api/actions?actionIdentifier=R8-ND-2018-03&summarize=N&returnCountOnly=N") |> 
+  to_return(status = 429)
+```
+
+```{r error=TRUE}
+actions(action_id = "R8-ND-2018-03")
+```
+
+```{r echo=FALSE, message=FALSE, include=FALSE}
+webmockr::disable()
+```
+
+
+Potential issues/fixes:
+
+- Wait until the server is responsive.
+- Make less frequent requests.
+
+## Parsing Errors
+
+The default behavior in rATTAINS is to parse JSON data downloaded from the API to one or more dataframes. These are returned as a single dataframe or list of dataframes depending on the function. rATTAINS also tries to flatten the data as much as possible. This design choice **might** have been a mistake because it can become a source of errors if the data returned by the API changes or is inconsistent. As of version 1.0.0 of the package the `.unnest` argument was added to most functions. By setting `.unnest=FALSE` many of these problems should be avoided.
+
+Default behavior:
+
+```{r}
+state_summary(organization_id = "TDECWR", 
+              reporting_cycle = "2016")
+```
+
+
+Using `.unnest=FALSE` returns nested columns. The tidyr family of `unnest()` functions is an easy way to flatten this data:
+
+```{r}
+df <- state_summary(organization_id = "TDECWR", 
+                    reporting_cycle = "2016",
+                    .unnest = FALSE)
+df
+
+df |>
+  tidyr::unnest(reporting_cycles) |> 
+  tidyr::unnest(water_types) |> 
+  tidyr::unnest(use_attainments)
+```
+
+If the above option doesn't work, rATTAINS can also provide the raw JSON data from the API. The [tibblify](https://cran.r-project.org/package=tibblify) 📦️ and [jsonlite](https://cran.r-project.org/package=jsonlite) 📦 provide tools to convert JSON to nested lists then tibbles pretty easily. First, use the `tidy=FALSE` argument to return the unparsed JSON string, then uses jsonlite to convert that data to a nested list, then tibblify to convert to a nested dataframe!
+
+```{r}
+raw_data <- state_summary(organization_id = "TDECWR", 
+                    reporting_cycle = "2016",
+                    tidy = FALSE)
+
+list_data <- jsonlite::fromJSON(raw_data,
+                                simplifyVector = FALSE,
+                                simplifyDataFrame = FALSE,
+                                flatten = FALSE)
+
+df <- tibblify::tibblify(list_data$data,
+                         unspecified = "drop")
+df$reportingCycles
+```
+

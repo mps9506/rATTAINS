@@ -5,6 +5,12 @@ test_that("state_summary returns expected types and classes", {
                                        reporting_cycle = "2016")})
   testthat::expect_s3_class(x, "tbl_df")
 
+  vcr::use_cassette("state_summary_unnest_works",
+                    { x <- state_summary(organization_id = "TDECWR",
+                                         reporting_cycle = "2016",
+                                         .unnest = TRUE)})
+  testthat::expect_s3_class(x, "tbl_df")
+
   vcr::use_cassette("state_summary_chr_works",
                     { x <- state_summary(organization_id = "TDECWR",
                                          reporting_cycle = "2016",

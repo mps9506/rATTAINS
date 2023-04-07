@@ -4,24 +4,30 @@
 \alias{huc12_summary}
 \title{Download HUC12 Summary}
 \usage{
-huc12_summary(huc, tidy = TRUE, ...)
+huc12_summary(huc, tidy = TRUE, .unnest = TRUE, ...)
 }
 \arguments{
 \item{huc}{(character) Specifies the 12-digit HUC to be summarized. required}
 
-\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied tibble. \code{FALSE} the function returns the raw JSON string.}
+\item{tidy}{(logical) \code{TRUE} (default) the function returns a tidied
+tibble. \code{FALSE} the function returns the raw JSON string.}
+
+\item{.unnest}{(logical) \code{TRUE} (default) the function attempts to unnest
+data to longest format possible. This defaults to \code{TRUE} for backwards
+compatibility but it is suggested to use \code{FALSE}.}
 
 \item{...}{list of curl options passed to \code{\link[crul:HttpClient]{crul::HttpClient()}}}
 }
 \value{
-If \code{tidy = FALSE} the raw JSON string is
-returned, else the JSON data is parsed and returned as a list of tibbles that include a list of seven tibbles.
+If \code{tidy = FALSE} the raw JSON string is returned, else the JSON
+data is parsed and returned as a list of tibbles that include a list of
+seven tibbles.
 }
 \description{
-Provides summary data for a 12-digit Hydrologic Unit Code (HUC12), based on
-Assessment Units in the HUC12. Watershed boundaries may cross state
-boundaries, so the service may return assessment units from multiple
-organizations. Returns the assessment units in the HUC12, size and
+Provides summary data for a 12-digit Hydrologic Unit Code
+(HUC12), based on Assessment Units in the HUC12. Watershed boundaries may
+cross state boundaries, so the service may return assessment units from
+multiple organizations. Returns the assessment units in the HUC12, size and
 percentages of assessment units considered Good, Unknown, or Impaired.
 }
 \note{

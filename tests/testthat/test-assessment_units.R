@@ -5,6 +5,11 @@ test_that("assessment_units works", {
   })
   testthat::expect_s3_class(x_1, "tbl_df")
 
+  vcr::use_cassette("assessment_units_unnest_works", {
+    x_1 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", .unnest = FALSE)
+  })
+  testthat::expect_s3_class(x_1, "tbl_df")
+
   vcr::use_cassette("assessment_units_chr_works", {
     x_2 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
   })

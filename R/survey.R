@@ -8,6 +8,9 @@
 #'   performed. optional.
 #' @param tidy (logical) \code{TRUE} (default) the function returns a tidied
 #'   tibble. \code{FALSE} the function returns the raw JSON string.
+#' @param .unnest (logical) \code{TRUE} (default) the function attempts to unnest
+#'   data to longest format possible. This defaults to \code{TRUE} for backwards
+#'   compatibility but it is suggested to use \code{FALSE}.
 #' @param ... list of curl options passed to [crul::HttpClient()]
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
@@ -15,14 +18,14 @@
 #'   separated string with no spaces (\code{organization_id = "DOEE,21AWIC"}).
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @import tidyjson
+#' @import tibblify
 #' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom dplyr select
 #' @importFrom fs path
-#' @importFrom janitor clean_names
+#' @importFrom jsonlite fromJSON
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
-#' @importFrom tibble as_tibble
+#' @importFrom tidyr unnest
+#' @importFrom tidyselect everything
 #' @examples
 #'
 #' \dontrun{
@@ -37,10 +40,14 @@
 surveys <- function(organization_id = NULL,
                     survey_year = NULL,
                     tidy = TRUE,
+                    .unnest = TRUE,
                     ...) {
 
   ## check connectivity
-  check_connectivity()
+  con_check <- check_connectivity()
+  if(!isTRUE(con_check)){
+    return(invisible(NULL))
+  }
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -54,8 +61,8 @@ surveys <- function(organization_id = NULL,
   ## check logical
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
+         x = list(tidy, .unnest),
+         .var.name = c("tidy", ".unnest"),
          MoreArgs = list(null.ok = FALSE,
                          add = coll))
   checkmate::reportAssertions(coll)
@@ -84,73 +91,88 @@ surveys <- function(organization_id = NULL,
   if(!isTRUE(tidy)) return(content)
   ## parse and tidy JSON
   else {
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
-                    organizationName = jstring("organizationName"),
-                    organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("surveys") %>%
-      gather_array() %>%
-      spread_values(surveyStatusCode = jstring("surveyStatusCode"),
-                    year = jnumber("year"),
-                    surveyCommentText = jstring("surveyCommentText")) %>%
-      select(-"array.index") %>%
-      enter_object("surveyWaterGroups") %>%
-      gather_array() %>%
-      spread_values(waterTypeGroupCode = jstring("waterTypeGroupCode"),
-                    subPopulationCode = jstring("subPopulationCode"),
-                    unitCode = jstring("unitCode"),
-                    size = jnumber("size"),
-                    siteNumber = jstring("siteNumber"),
-                    surveyWaterGroupCommentText = jstring("surveyWaterGRoupCommentText")) %>%
-      select(-"array.index") %>%
-      enter_object("surveyWaterGroupUseParameters") %>%
-      gather_array() %>%
-      spread_values(stressor = jstring("stressor"),
-                    surveyUseCode = jstring("surveyUseCode"),
-                    surveyCategoryCode = jstring("surveyCategoryCode"),
-                    statistic = jstring("statistic"),
-                    metricValue = jnumber("metricValue"),
-                    confidenceLevel = jnumber("confidenceLevel"),
-                    commentText = jstring("commentText")) %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      clean_names() -> content_surveys
 
-    content %>%
-      enter_object("items") %>%
-      gather_array() %>%
-      spread_values(organizationIdentifier = jstring("organizationIdentifier"),
-                    organizationName = jstring("organizationName"),
-                    organizationTypeText = jstring("organizationTypeText")) %>%
-      select(-c("document.id", "array.index")) %>%
-      enter_object("surveys") %>%
-      gather_array() %>%
-      spread_values(surveyStatusCode = jstring("surveyStatusCode"),
-                    year = jnumber("year"),
-                    surveyCommentText = jstring("surveyCommentText")) %>%
-      select(-"array.index") %>%
-      enter_object("documents") %>%
-      gather_array() %>%
-      spread_values(agencyCode = jstring("agencyCode"),
-                    documentFileType = jstring("documentFileType"),
-                    documentFileName = jstring("documentFileName"),
-                    documentDescription = jstring("documentDescription"),
-                    documentComments = jstring("documentComments"),
-                    documentURL = jstring("documentURL")) %>%
-      select(-"array.index") %>%
-      enter_object("documentTypes") %>%
-      gather_array() %>%
-      spread_all %>%
-      select(-"array.index") %>%
-      as_tibble() %>%
-      clean_names() -> content_documents
+    ## parse JSON
+    json_list <- fromJSON(content,
+                          simplifyVector = FALSE,
+                          simplifyDataFrame = FALSE,
+                          flatten = FALSE)
 
-    return(list(documents = content_documents,
-                surveys = content_surveys))
+    ## create tibblify spec
+    spec <- spec_survey()
+
+    content <- tibblify(json_list,
+                        spec = spec,
+                        unspecified = "drop")
+    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
+
+    ## if unnest == FALSE do not unnest lists
+    if(!isTRUE(.unnest)) {
+      return(content)
+    }
+
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+    content <- unnest(content, cols = everything(), keep_empty = TRUE)
+
+    return(content)
     }
 }
 
 
+#' Create tibblify specification for survey
+#' @return tibblify specification
+#' @keywords internal
+#' @noRd
+#' @import tibblify
+spec_survey <- function(summarize) {
+  spec <- tspec_object(
+    "items" = tib_df(
+      "items",
+      "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
+      "organization_name" = tib_chr("organizationName", required = FALSE),
+      "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
+      "surveys" = tib_df(
+        "surveys",
+        "survey_status_code" = tib_chr("surveyStatusCode", required = FALSE),
+        "year" = tib_int("year", required = FALSE),
+        "survey_comment_text" = tib_chr("surveyCommentText", required = FALSE),
+        "documents" = tib_df(
+          "documents",
+          "agency_code" = tib_chr("agencyCode", required = FALSE),
+          "document_types" = tib_df(
+            "documentTypes",
+            "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
+          ),
+          "document_file_type" = tib_chr("documentFileType", required = FALSE),
+          "document_file_name" = tib_chr("documentFileName", required = FALSE),
+          "document_name" = tib_chr("documentName", required = FALSE),
+          "document_description" = tib_chr("documentDescription", required = FALSE),
+          "document_comments" = tib_chr("documentComments", required = FALSE),
+          "document_url" = tib_chr("documentURL", required = FALSE),
+        ),
+        "survey_water_groups" = tib_df(
+          "surveyWaterGroups",
+          "water_type_group_code" = tib_chr("waterTypeGroupCode", required = FALSE),
+          "sub_population_code" = tib_chr("subPopulationCode", required = FALSE),
+          "unit_code" = tib_chr("unitCode", required = FALSE),
+          "size" = tib_int("size", required = FALSE),
+          "site_number" = tib_int("siteNumber", required = FALSE),
+          "surey_water_group_comment_text" = tib_chr("surveyWaterGroupCommentText", required = FALSE),
+          "survey_water_group_use_parameters" = tib_df(
+            "surveyWaterGroupUseParameters",
+            "stressor" = tib_chr("stressor", required = FALSE),
+            "survey_use_code" = tib_chr("surveyUseCode", required = FALSE),
+            "survey_category_code" = tib_chr("surveyCategoryCode", required = FALSE),
+            "statistic" = tib_chr("statistic", required = FALSE),
+            "metric_value" = tib_dbl("metricValue", required = FALSE),
+            "margin_of_error" = tib_dbl("marginOfError", required = FALSE),
+            "confidence_level" = tib_dbl("confidenceLevel", required = FALSE),
+            "comment_text" = tib_chr("commentText", required = FALSE),
+          ),
+        ),
+      ),
+    ),
+    "count" = tib_int("count"),
+  )
+  return(spec)
+}
