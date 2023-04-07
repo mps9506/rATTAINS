@@ -43,5 +43,6 @@ VignetteBuilder: knitr
 Config/Needs/website: 
   mps9506/mpsTemplates,
   ggrepel,
-  ggplot2
+  ggplot2,
+  ggtext
 Config/testthat/edition: 3

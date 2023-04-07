@@ -486,26 +486,6 @@
       "Hash": "0080607b4a1a7b28979aecef976d8bc2",
       "Requirements": []
     },
-    "janitor": {
-      "Package": "janitor",
-      "Version": "2.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "6de84a8c67fb247e721166049c84695f",
-      "Requirements": [
-        "dplyr",
-        "lifecycle",
-        "lubridate",
-        "magrittr",
-        "purrr",
-        "rlang",
-        "snakecase",
-        "stringi",
-        "stringr",
-        "tidyr",
-        "tidyselect"
-      ]
-    },
     "jpeg": {
       "Package": "jpeg",
       "Version": "0.1-10",
@@ -572,17 +552,6 @@
         "cli",
         "glue",
         "rlang"
-      ]
-    },
-    "lubridate": {
-      "Package": "lubridate",
-      "Version": "1.9.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "2af4550c2f0f7fbe7cbbf3dbf4ea3902",
-      "Requirements": [
-        "generics",
-        "timechange"
       ]
     },
     "magrittr": {
@@ -916,17 +885,6 @@
         "viridisLite"
       ]
     },
-    "snakecase": {
-      "Package": "snakecase",
-      "Version": "0.11.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4079070fc210c7901c0832a3aeab894f",
-      "Requirements": [
-        "stringi",
-        "stringr"
-      ]
-    },
     "stringi": {
       "Package": "stringi",
       "Version": "1.7.8",
@@ -1073,16 +1031,6 @@
         "rlang",
         "vctrs",
         "withr"
-      ]
-    },
-    "timechange": {
-      "Package": "timechange",
-      "Version": "0.1.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4657195cc632097bb8d140d626b519fb",
-      "Requirements": [
-        "cpp11"
       ]
     },
     "tinytex": {
