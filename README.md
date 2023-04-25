@@ -201,7 +201,6 @@ Find statistical surveys completed by an organization:
 If you use this package in a publication, please cite as:
 
     citation("rATTAINS")
-    #> 
     #> To cite rATTAINS in publications use:
     #> 
     #>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
