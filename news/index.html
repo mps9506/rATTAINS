@@ -53,6 +53,23 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="rattains-100">rATTAINS 1.0.0<a class="anchor" aria-label="anchor" href="#rattains-100"></a></h2>
+<div class="section level3">
+<h3 id="major-changes-1-0-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-0"></a></h3>
+<p>This major release stabilizes the data structure returned by the functions calling the ATTAINS API. There might be some breaking changes due to changes in some column names and nested structure of the data. Unless there are major changes in the data returned by ATTAINS, my goal is for the current data column names and structure to stay consistent from this release forward.</p>
+<ul><li>all API functions use <code><a href="https://mgirlich.github.io/tibblify/reference/tibblify.html" class="external-link">tibblify::tibblify()</a></code> to converted nested lists to tibbles. This change will ensure functions return consistent data structures between web calls. Some functions may return slightly different data structures compared to previous package versions (fixes <a href="https://github.com/mps9506/rATTAINS/issues/25" class="external-link">#25</a>, <a href="https://github.com/mps9506/rATTAINS/issues/31" class="external-link">#31</a>).</li>
+<li>added the <code>.unnest</code> argument to most functions that return API results. It defaults to <code>TRUE</code> to preserve backwards compatibility. If <code>FALSE</code>, results will be returned in the nest structure provided by ATTAINS.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-changes-1-0-0">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-1-0-0"></a></h3>
+<ul><li>remove dependency on tidyjson.</li>
+<li>remove dependency on janitor.</li>
+<li>update citation file to use <code><a href="https://rdrr.io/r/utils/bibentry.html" class="external-link">bibentry()</a></code>.</li>
+<li>removes magrittr pipe import/export.</li>
+<li>remove the <code>write_disk_path</code> folder used by vcr in the test folder.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.4" id="rattains-014">rATTAINS 0.1.4<a class="anchor" aria-label="anchor" href="#rattains-014"></a></h2><p class="text-muted">CRAN release: 2023-01-10</p>
 <ul><li>fixes for compatibility with tidyselect and prep for purrr 1.0.0 (PR <a href="https://github.com/mps9506/rATTAINS/issues/26" class="external-link">#26</a> <a href="https://github.com/hadley" class="external-link">@hadley</a>).</li>
 <li>breaking change - removed caching functionality and dependency on hoardr (archived).</li>

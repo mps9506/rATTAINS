@@ -87,12 +87,10 @@
 <!-- badges: end -->
 <p>rATTAINS provides functions for downloading tidy data from the United States (U.S.) Environmental Protection Agency (EPA) <a href="https://www.epa.gov/waterdata/attains" class="external-link">ATTAINS</a> webservice. ATTAINS is the online system used to track and report Clean Water Act assessments and Total Maximum Daily Loads (TMDLs) in U.S. surface waters. rATTAINS facilitates access to the <a href="https://www.epa.gov/waterdata/get-data-access-public-attains-data" class="external-link">public information webservice</a> made available through the EPA.</p>
 <p>rATTAINS is on CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'rATTAINS'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'rATTAINS'</span>)</span></code></pre></div>
 <p>Or install the development version from r-universe:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'rATTAINS'</span>,</span>
-<span>                 repos <span class="op">=</span> <span class="st">'https://mps9506.r-universe.dev'</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'rATTAINS'</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repos =</span> <span class="st">'https://mps9506.r-universe.dev'</span>)</span></code></pre></div>
 <div class="section level2">
 <h2 id="functions-and-webservices">Functions and webservices<a class="anchor" aria-label="anchor" href="#functions-and-webservices"></a>
 </h2>
@@ -113,145 +111,141 @@
 <h1 id="examples">Examples:<a class="anchor" aria-label="anchor" href="#examples"></a>
 </h1>
 <p>Get a summary about assessed uses from the Texas Commission on Environmental Quality:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mps9506/rATTAINS" class="external-link">rATTAINS</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TCEQMAIN"</span>, </span>
-<span>              reporting_cycle <span class="op">=</span> <span class="st">"2020"</span>,</span>
-<span>              .unnest <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">reporting_cycles</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">water_types</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">use_attainments</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 31 × 16</span></span>
-<span><span class="co">#&gt;    organizatio…¹ organ…² organ…³ repor…⁴ water…⁵ units…⁶ use_n…⁷ fully…⁸ fully…⁹</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 TCEQMAIN      Texas   State   2020    ESTUARY Square… Aquati…  1.86e3      57</span></span>
-<span><span class="co">#&gt;  2 TCEQMAIN      Texas   State   2020    ESTUARY Square… Recrea…  2.26e3      61</span></span>
-<span><span class="co">#&gt;  3 TCEQMAIN      Texas   State   2020    ESTUARY Square… Oyster…  1.52e3      21</span></span>
-<span><span class="co">#&gt;  4 TCEQMAIN      Texas   State   2020    ESTUARY Square… Genera…  2.51e3      55</span></span>
-<span><span class="co">#&gt;  5 TCEQMAIN      Texas   State   2020    ESTUARY Square… Fish C…  2.70e2      11</span></span>
-<span><span class="co">#&gt;  6 TCEQMAIN      Texas   State   2020    RESERV… Acres   DOMEST…  1.31e6     330</span></span>
-<span><span class="co">#&gt;  7 TCEQMAIN      Texas   State   2020    RESERV… Acres   Aquati…  1.08e6     309</span></span>
-<span><span class="co">#&gt;  8 TCEQMAIN      Texas   State   2020    RESERV… Acres   Fish C…  1.59e5      62</span></span>
-<span><span class="co">#&gt;  9 TCEQMAIN      Texas   State   2020    RESERV… Acres   Genera…  1.14e6     301</span></span>
-<span><span class="co">#&gt; 10 TCEQMAIN      Texas   State   2020    RESERV… Acres   Recrea…  8.42e5     242</span></span>
-<span><span class="co">#&gt; # … with 21 more rows, 7 more variables: use_insufficient_information &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   use_insufficient_information_count &lt;int&gt;, not_assessed &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   not_assessed_count &lt;int&gt;, not_supporting &lt;dbl&gt;, not_supporting_count &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   parameters &lt;list&lt;tibble[,9]&gt;&gt;, and abbreviated variable names</span></span>
-<span><span class="co">#&gt; #   ¹​organization_identifer, ²​organization_name, ³​organization_type_text,</span></span>
-<span><span class="co">#&gt; #   ⁴​reporting_cycle, ⁵​water_type_code, ⁶​units_code, ⁷​use_name,</span></span>
-<span><span class="co">#&gt; #   ⁸​fully_supporting, ⁹​fully_supporting_count</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rATTAINS)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">state_summary</span>(<span class="at">organization_id =</span> <span class="st">"TCEQMAIN"</span>, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">reporting_cycle =</span> <span class="st">"2020"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">.unnest =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(reporting_cycles) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(water_types) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(use_attainments)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 31 × 16</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    organization_identifer organization_name organization_type_text</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                  &lt;chr&gt;             &lt;chr&gt;                 </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 TCEQMAIN               Texas             State                 </span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 21 more rows</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 13 more variables: reporting_cycle &lt;chr&gt;, water_type_code &lt;chr&gt;,</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   units_code &lt;chr&gt;, use_name &lt;chr&gt;, fully_supporting &lt;dbl&gt;,</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   fully_supporting_count &lt;int&gt;, use_insufficient_information &lt;dbl&gt;,</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   use_insufficient_information_count &lt;int&gt;, not_assessed &lt;dbl&gt;,</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   not_assessed_count &lt;int&gt;, not_supporting &lt;dbl&gt;, not_supporting_count &lt;int&gt;,</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   parameters &lt;list&lt;tibble[,9]&gt;&gt;</span></span></code></pre></div>
 <p>Get a summary about assessed uses, parameters and plans in a HUC12:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span>huc <span class="op">=</span> <span class="st">"020700100204"</span>,</span>
-<span>              .unnest <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">summary_by_use</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 5 × 24</span></span>
-<span><span class="co">#&gt;   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 2 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 3 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 4 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 5 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; # … with 14 more variables: contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_impaired_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessment_units &lt;list&lt;tibble[,1]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_IR_category &lt;list&lt;tibble[,4]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_overall_status &lt;list&lt;tibble[,4]&gt;&gt;, …</span></span>
-<span></span>
-<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">summary_by_parameter_impairments</span>, names_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 16 × 25</span></span>
-<span><span class="co">#&gt;    huc12 asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  2 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  3 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  4 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  5 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  6 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  7 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  8 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt;  9 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 10 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 11 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 12 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 13 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 14 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 15 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; 16 0207…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_impaired_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessment_units &lt;list&lt;tibble[,1]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_IR_category &lt;list&lt;tibble[,4]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_overall_status &lt;list&lt;tibble[,4]&gt;&gt;, …</span></span>
-<span></span>
-<span><span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">summary_restoration_plans</span>, names_repair <span class="op">=</span> <span class="st">"minimal"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 25</span></span>
-<span><span class="co">#&gt;   huc12  asses…¹ total…² total…³ asses…⁴ asses…⁵ asses…⁶ asses…⁷ asses…⁸ asses…⁹</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 02070…      17    46.1    46.2    59.7     100       0       0       0       0</span></span>
-<span><span class="co">#&gt; # … with 15 more variables: contain_impaired_waters_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_impaired_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   contain_restoration_catchment_area_percent &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   assessment_units &lt;list&lt;tibble[,1]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_IR_category &lt;list&lt;tibble[,4]&gt;&gt;,</span></span>
-<span><span class="co">#&gt; #   summary_by_overall_status &lt;list&lt;tibble[,4]&gt;&gt;, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">huc12_summary</span>(<span class="at">huc =</span> <span class="st">"020700100204"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">.unnest =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>tidyr<span class="sc">::</span><span class="fu">unnest</span>(df, summary_by_use)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 × 24</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                        &lt;int&gt;                  &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​total_catchment_area_sq_mi</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 20 more variables: assessed_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_cathcment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;, …</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>tidyr<span class="sc">::</span><span class="fu">unnest</span>(df, summary_by_parameter_impairments, <span class="at">names_repair =</span> <span class="st">"minimal"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 16 × 25</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                       &lt;int&gt;                  &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16 0207001002…                    17                   46.1                 46.2</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​total_catchment_area_sq_mi</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 21 more variables: assessed_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_cathcment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;, …</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>tidyr<span class="sc">::</span><span class="fu">unnest</span>(df, summary_restoration_plans, <span class="at">names_repair =</span> <span class="st">"minimal"</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 × 25</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;                        &lt;int&gt;                  &lt;dbl&gt;                &lt;dbl&gt;</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 020700100204                    17                   46.1                 46.2</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ abbreviated name: ¹​total_catchment_area_sq_mi</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 21 more variables: assessed_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_cathcment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   assessed_unknown_catchment_area_percent &lt;dbl&gt;, …</span></span></code></pre></div>
 <p>Find statistical surveys completed by an organization:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/surveys.html">surveys</a></span><span class="op">(</span>organization_id<span class="op">=</span><span class="st">"SDDENR"</span>,</span>
-<span>        .unnest <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">survey_water_groups</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">survey_water_group_use_parameters</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 104 × 21</span></span>
-<span><span class="co">#&gt;    organ…¹ organ…² organ…³ surve…⁴  year surve…⁵ docum…⁶ water…⁷ sub_p…⁸ unit_…⁹</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;   &lt;list&lt;&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  </span></span>
-<span><span class="co">#&gt;  1 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  2 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  3 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  4 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  5 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  6 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  7 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  8 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt;  9 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt; 10 SDDENR  South … State   Final    2018 &lt;NA&gt;    [0 × 8] LAKE/R… Statew… Acres  </span></span>
-<span><span class="co">#&gt; # … with 94 more rows, 11 more variables: size &lt;int&gt;, site_number &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   surey_water_group_comment_text &lt;chr&gt;, stressor &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   survey_use_code &lt;chr&gt;, survey_category_code &lt;chr&gt;, statistic &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   metric_value &lt;dbl&gt;, margin_of_error &lt;dbl&gt;, confidence_level &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   comment_text &lt;chr&gt;, and abbreviated variable names</span></span>
-<span><span class="co">#&gt; #   ¹​organization_identifier, ²​organization_name, ³​organization_type_text,</span></span>
-<span><span class="co">#&gt; #   ⁴​survey_status_code, ⁵​survey_comment_text, ⁶​documents, …</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">surveys</span>(<span class="at">organization_id=</span><span class="st">"SDDENR"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">.unnest =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(survey_water_groups) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">unnest</span>(survey_water_group_use_parameters)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 104 × 21</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    organization_identifier organization_name organization_type_text</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;                   &lt;chr&gt;             &lt;chr&gt;                 </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 SDDENR                  South Dakota      State                 </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 94 more rows</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ℹ 18 more variables: survey_status_code &lt;chr&gt;, year &lt;int&gt;,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   survey_comment_text &lt;chr&gt;, documents &lt;list&lt;tibble[,8]&gt;&gt;,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   water_type_group_code &lt;chr&gt;, sub_population_code &lt;chr&gt;, unit_code &lt;chr&gt;,</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   size &lt;int&gt;, site_number &lt;int&gt;, surey_water_group_comment_text &lt;chr&gt;,</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   stressor &lt;chr&gt;, survey_use_code &lt;chr&gt;, survey_category_code &lt;chr&gt;,</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   statistic &lt;chr&gt;, metric_value &lt;dbl&gt;, margin_of_error &lt;dbl&gt;, …</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>If you use this package in a publication, please cite as:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rATTAINS"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; To cite rATTAINS in publications use:</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R</span></span>
-<span><span class="co">#&gt;   package version 1.0.0. doi:10.5281/zenodo.5469911</span></span>
-<span><span class="co">#&gt;   https://CRAN.R-project.org/package=rATTAINS</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   @Manual{,</span></span>
-<span><span class="co">#&gt;     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},</span></span>
-<span><span class="co">#&gt;     author = {Michael Schramm},</span></span>
-<span><span class="co">#&gt;     year = {2021},</span></span>
-<span><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=rATTAINS},</span></span>
-<span><span class="co">#&gt;     doi = {10.5281/zenodo.5469911},</span></span>
-<span><span class="co">#&gt;     note = {R package version 1.0.0},</span></span>
-<span><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">"rATTAINS"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; To cite rATTAINS in publications use:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   package version 1.0.0. doi:10.5281/zenodo.5469911</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   https://CRAN.R-project.org/package=rATTAINS</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   @Manual{,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     author = {Michael Schramm},</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year = {2021},</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     url = {https://CRAN.R-project.org/package=rATTAINS},</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doi = {10.5281/zenodo.5469911},</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.0.0},</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 </div>
 
