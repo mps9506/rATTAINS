@@ -46,7 +46,7 @@ x
 ```
 
 ```{r include=FALSE}
-vcr::eject_cassette("state_summary")
+vcr::eject_cassette()
 ```
 
 The HUC12 service operates similarly but provides data summarized by area, specifically HUC12 units. For example:
@@ -61,7 +61,7 @@ x
 ```
 
 ```{r include=FALSE}
-vcr::eject_cassette("huc12_works")
+vcr::eject_cassette()
 ```
 
 `huc12_summary()` returns a list of tibbles with different summaries of information. Using the above example: 
@@ -90,7 +90,7 @@ x
 ```
 
 ```{r include=FALSE}
-vcr::eject_cassette("single_domain")
+vcr::eject_cassette()
 ```
 
 The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:
@@ -106,7 +106,7 @@ x
 ```
 
 ```{r include=FALSE}
-vcr::eject_cassette("domains_works")
+vcr::eject_cassette()
 ```
 
 ## Other Services
@@ -129,6 +129,3 @@ By default, all the functions rATTAINS return one or more "tidy" dataframes. The
 # Notes
 
 The U.S. EPA is the data provider for this public information. rATTAINS and the author are not affiliated with the EPA. Questions about the package functionality should be directed to the package author. Questions about the webservice or underlying data should be directed to the U.S. EPA.  Please do not abuse the webservice using this package. 
-
-
-
