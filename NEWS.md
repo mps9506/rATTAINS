@@ -1,3 +1,9 @@
+# rATTAINS 1.0.1
+
+## Minor changes
+
+* updates for compatibility with vcr v2 (PR #37 @hadley).
+
 # rATTAINS 1.0.0
 
 ## Major changes
