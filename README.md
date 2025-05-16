@@ -112,14 +112,20 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
                   .unnest = FALSE)
 
     tidyr::unnest(df, summary_by_use)
-    #> # A tibble: 5 × 24
-    #>   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
-    #>   <chr>                        <int>                  <dbl>                <dbl>
-    #> 1 020700100204                    17                   46.1                 46.2
-    #> 2 020700100204                    17                   46.1                 46.2
-    #> 3 020700100204                    17                   46.1                 46.2
-    #> 4 020700100204                    17                   46.1                 46.2
-    #> 5 020700100204                    17                   46.1                 46.2
+    #> # A tibble: 11 × 24
+    #>    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
+    #>    <chr>                       <int>                  <dbl>                <dbl>
+    #>  1 0207001002…                    18                   46.1                 46.2
+    #>  2 0207001002…                    18                   46.1                 46.2
+    #>  3 0207001002…                    18                   46.1                 46.2
+    #>  4 0207001002…                    18                   46.1                 46.2
+    #>  5 0207001002…                    18                   46.1                 46.2
+    #>  6 0207001002…                    18                   46.1                 46.2
+    #>  7 0207001002…                    18                   46.1                 46.2
+    #>  8 0207001002…                    18                   46.1                 46.2
+    #>  9 0207001002…                    18                   46.1                 46.2
+    #> 10 0207001002…                    18                   46.1                 46.2
+    #> 11 0207001002…                    18                   46.1                 46.2
     #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
     #> # ℹ 20 more variables: assessed_catchment_area_sq_mi <dbl>,
     #> #   assessed_cathcment_area_percent <dbl>,
@@ -132,22 +138,22 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
     #> # A tibble: 16 × 25
     #>    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
     #>    <chr>                       <int>                  <dbl>                <dbl>
-    #>  1 0207001002…                    17                   46.1                 46.2
-    #>  2 0207001002…                    17                   46.1                 46.2
-    #>  3 0207001002…                    17                   46.1                 46.2
-    #>  4 0207001002…                    17                   46.1                 46.2
-    #>  5 0207001002…                    17                   46.1                 46.2
-    #>  6 0207001002…                    17                   46.1                 46.2
-    #>  7 0207001002…                    17                   46.1                 46.2
-    #>  8 0207001002…                    17                   46.1                 46.2
-    #>  9 0207001002…                    17                   46.1                 46.2
-    #> 10 0207001002…                    17                   46.1                 46.2
-    #> 11 0207001002…                    17                   46.1                 46.2
-    #> 12 0207001002…                    17                   46.1                 46.2
-    #> 13 0207001002…                    17                   46.1                 46.2
-    #> 14 0207001002…                    17                   46.1                 46.2
-    #> 15 0207001002…                    17                   46.1                 46.2
-    #> 16 0207001002…                    17                   46.1                 46.2
+    #>  1 0207001002…                    18                   46.1                 46.2
+    #>  2 0207001002…                    18                   46.1                 46.2
+    #>  3 0207001002…                    18                   46.1                 46.2
+    #>  4 0207001002…                    18                   46.1                 46.2
+    #>  5 0207001002…                    18                   46.1                 46.2
+    #>  6 0207001002…                    18                   46.1                 46.2
+    #>  7 0207001002…                    18                   46.1                 46.2
+    #>  8 0207001002…                    18                   46.1                 46.2
+    #>  9 0207001002…                    18                   46.1                 46.2
+    #> 10 0207001002…                    18                   46.1                 46.2
+    #> 11 0207001002…                    18                   46.1                 46.2
+    #> 12 0207001002…                    18                   46.1                 46.2
+    #> 13 0207001002…                    18                   46.1                 46.2
+    #> 14 0207001002…                    18                   46.1                 46.2
+    #> 15 0207001002…                    18                   46.1                 46.2
+    #> 16 0207001002…                    18                   46.1                 46.2
     #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
     #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
     #> #   assessed_cathcment_area_percent <dbl>,
@@ -160,7 +166,7 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
     #> # A tibble: 1 × 25
     #>   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
     #>   <chr>                        <int>                  <dbl>                <dbl>
-    #> 1 020700100204                    17                   46.1                 46.2
+    #> 1 020700100204                    18                   46.1                 46.2
     #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
     #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
     #> #   assessed_cathcment_area_percent <dbl>,
