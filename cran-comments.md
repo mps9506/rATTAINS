@@ -1,11 +1,12 @@
 ## Test environments
 
-* GitHub Actions (macos-monterey), release 
-* GitHub Actions (windows), release 
-* GitHub Actions (ubuntu-22.04), release, devel 
-* R-hub (macos-highsierra-release-cran), r-release 
-* R-hub (debian-gcc-devel), r-devel 
-* R-hub (windows-x86_64-patched), r-patched
+* GitHub Actions (macos-latest), release 
+* GitHub Actions (windows-latest), release 
+* GitHub Actions (ubuntu-22.04.2), release, devel 
+* R-hub (macos-m1), devel 
+* R-hub (windows-latest), devel
+* R-hub (ubuntu-latest), devel, patched
+* winbuilder (windows), release, devel 
 
 ## R CMD check results
 
@@ -13,8 +14,8 @@
 
 ## Comments
 
-* This submission ensures API functions return consistent data structures
-between different web API calls.
+* This submission includes minor fixes to build errors introduced by the 
+upstream dependency vcr v2.
 
 ## Reverse dependencies
 

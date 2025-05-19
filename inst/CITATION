@@ -4,14 +4,14 @@ bibentry(
   bibtype  = "manual",
   title    = "{rATTAINS}: Access EPA 'ATTAINS' Data",
   author   =  person("Michael", "Schramm"),
-  year     = "2021",
+  year     = "2025",
   url      = "https://CRAN.R-project.org/package=rATTAINS",
   doi      = "10.5281/zenodo.5469911",
-  note     = "R package version 1.0.0",
+  note     = "R package version 1.0.1",
   textVersion = paste(
   "Schramm, Michael (2021). ",
   "rATTAINS: Access EPA 'ATTAINS' Data. ",
-  "R package version 1.0.0.",
+  "R package version 1.0.1",
   "doi:10.5281/zenodo.5469911",
   "https://CRAN.R-project.org/package=rATTAINS"
   )
