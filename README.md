@@ -210,7 +210,7 @@ If you use this package in a publication, please cite as:
     #> To cite rATTAINS in publications use:
     #> 
     #>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
-    #>   package version 1.0.0. doi:10.5281/zenodo.5469911
+    #>   package version 1.0.1 doi:10.5281/zenodo.5469911
     #>   https://CRAN.R-project.org/package=rATTAINS
     #> 
     #> A BibTeX entry for LaTeX users is
@@ -218,8 +218,8 @@ If you use this package in a publication, please cite as:
     #>   @Manual{,
     #>     title = {{rATTAINS}: Access EPA 'ATTAINS' Data},
     #>     author = {Michael Schramm},
-    #>     year = {2021},
+    #>     year = {2025},
     #>     url = {https://CRAN.R-project.org/package=rATTAINS},
     #>     doi = {10.5281/zenodo.5469911},
-    #>     note = {R package version 1.0.0},
+    #>     note = {R package version 1.0.1},
     #>   }
