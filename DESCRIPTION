@@ -25,6 +25,7 @@ Imports:
     fs,
     jsonlite,
     lifecycle,
+    purrr,
     rlang,
     rlist,
     tibble,
