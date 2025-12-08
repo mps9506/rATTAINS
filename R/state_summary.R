@@ -23,13 +23,6 @@
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom fs path
-#' @importFrom jsonlite fromJSON
-#' @importFrom rlang is_empty .data
-#' @importFrom rlist list.filter
-#' @importFrom tidyr unnest
-#' @importFrom tidyselect everything
 #' @export
 #' @examples
 #'
@@ -98,78 +91,39 @@ state_summary <- function(organization_id = NULL,
 
     ## parse json
     json_list <- jsonlite::fromJSON(content,
-                                    simplifyVector = FALSE,
-                                    simplifyDataFrame = FALSE,
+                                    simplifyVector = TRUE,
+                                    simplifyDataFrame = TRUE,
                                     flatten = FALSE)
 
-    ## create tibblify specification
-    spec <- spec_state_summary()
+    df <- as_tibble(json_list$data)
+    df <- unnest_wider(df, "reportingCycles") 
+    df <- unnest(df, c("combinedCycles", "waterTypes"))
+    df <- unnest(df, c("waterTypes"))
+    df <- unnest(df, c("useAttainments"))
 
-    ## nested list -> rectangular data
-    content <- tibblify(json_list$data,
-                        spec = spec,
-                        unspecified = "drop")
+
 
     ## if unnest == FALSE do not unnest lists
     if(!isTRUE(.unnest)) {
+      content <- list(
+        items = df
+      )
       return(content)
+    } else {
+       df <- tryCatch(
+        unnest(df, cols = everything(), keep_empty = TRUE),
+        error = function(e) {df},
+        finally = message("Unable to further unnest data, check for nested dataframes.")
+       )
+      content <- list(
+        items = df
+      )
+      return(content) 
     }
 
-    content <- unnest(content, cols = everything(), keep_empty = TRUE)
-    content <- unnest(content, cols = everything(), keep_empty = TRUE)
-    content <- unnest(content, cols = everything(), keep_empty = TRUE)
-    content <- unnest(content, cols = everything(), keep_empty = TRUE)
 
-    return(content)
   }
 
 }
 
 
-#' Create tibblify specification for state_summary
-#' @return tibblify specification
-#' @keywords internal
-#' @noRd
-#' @import tibblify
-spec_state_summary <- function() {
-  spec <- tspec_row(
-    "organization_identifer" = tib_chr("organizationIdentifier"),
-    "organization_name" = tib_chr("organizationName"),
-    "organization_type_text" = tib_chr("organizationTypeText"),
-    "reporting_cycles" = tib_df(
-      "reportingCycles",
-      "reporting_cycle" = tib_chr("reportingCycle"),
-      "combined_cycles" = tib_unspecified("combinedCycles"),
-      "water_types" = tib_df(
-        "waterTypes",
-        "water_type_code" = tib_chr("waterTypeCode"),
-        "units_code" = tib_chr("unitsCode"),
-        "use_attainments" = tib_df(
-          "useAttainments",
-          "use_name" = tib_chr("useName"),
-          "fully_supporting" = tib_dbl("Fully Supporting", required = FALSE),
-          "fully_supporting_count" = tib_int("Fully Supporting-count", required = FALSE),
-          "use_insufficient_information" = tib_dbl("Insufficient Information", required = FALSE),
-          "use_insufficient_information_count" = tib_int("Insufficient Information-count", required = FALSE),
-          "not_assessed" = tib_dbl("Not Assessed", required = FALSE),
-          "not_assessed_count" = tib_int("Not Assessed-count", required = FALSE),
-          "not_supporting" = tib_dbl("Not Supporting", required = FALSE),
-          "not_supporting_count" = tib_int("Not Supporting-count", required = FALSE),
-          "parameters" = tib_df(
-            "parameters",
-            "parameter_group" = tib_chr("parameterGroup", required = FALSE),
-            "parameter_insufficient_information" = tib_dbl("Insufficient Information", required = FALSE),
-            "parameter_insufficient_information_count" = tib_int("Insufficient Information-count", required = FALSE),
-            "cause" = tib_dbl("Cause", required = FALSE),
-            "cause_count" = tib_int("Cause-count", required = FALSE),
-            "meeting_criteria" = tib_dbl("Meeting Criteria", required = FALSE),
-            "meeting_criteria_count" = tib_int("Meeting Criteria-count", required = FALSE),
-            "removed" = tib_dbl("Removed", required = FALSE),
-            "removed_count" = tib_int("Removed-count", required = FALSE),
-          ),
-        ),
-      ),
-    ),
-  )
-  return(spec)
-  }
