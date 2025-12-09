@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@
       <h1>Dealing with Errors</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mps9506/rATTAINS/blob/v1.0.1/vignettes/articles/Dealing-With-Errors.Rmd" class="external-link"><code>vignettes/articles/Dealing-With-Errors.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mps9506/rATTAINS/blob/main/vignettes/articles/Dealing-With-Errors.Rmd" class="external-link"><code>vignettes/articles/Dealing-With-Errors.Rmd</code></a></small>
       <div class="d-none name"><code>Dealing-With-Errors.Rmd</code></div>
     </div>
 
@@ -73,7 +73,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mps9506/rATTAINS" class="external-link">rATTAINS</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jeroen.r-universe.dev/jsonlite" class="external-link">jsonlite</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mgirlich/tibblify" class="external-link">tibblify</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span></code></pre></div>
 <p>There are a number of errors that you might encounter using this
 rATTAINS. Here is a list of potential errors and fixes. Feel free to
@@ -105,7 +104,10 @@ be 404 or 429. rATTAINS will generally provide a simple message and
 error when this is encountered:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/actions.html">actions</a></span><span class="op">(</span>action_id <span class="op">=</span> <span class="st">"R8-ND-2018-03"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error: Too Many Requests (HTTP 429)</span></span></code></pre></div>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Error: parse error: premature EOF</span></span>
+<span><span class="co">#&gt;                                        </span></span>
+<span><span class="co">#&gt;                      (right here) ------^</span></span></code></pre></div>
 <p>Potential issues/fixes:</p>
 <ul>
 <li>Wait until the server is responsive.</li>
@@ -126,92 +128,130 @@ inconsistent. As of version 1.0.0 of the package the
 <code>.unnest=FALSE</code> many of these problems should be avoided.</p>
 <p>Default behavior:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>, </span>
-<span>              reporting_cycle <span class="op">=</span> <span class="st">"2016"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 71 × 24</span></span></span>
-<span><span class="co">#&gt;    organization_identifer organization_name organization_type_text</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 61 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 21 more variables: reporting_cycle &lt;chr&gt;, water_type_code &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   units_code &lt;chr&gt;, use_name &lt;chr&gt;, fully_supporting &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fully_supporting_count &lt;int&gt;, use_insufficient_information &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   use_insufficient_information_count &lt;int&gt;, not_assessed &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   not_assessed_count &lt;int&gt;, not_supporting &lt;dbl&gt;, not_supporting_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   parameter_group &lt;chr&gt;, parameter_insufficient_information &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>, reporting_cycle <span class="op">=</span> <span class="st">"2022"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Unable to further unnest data, check for nested dataframes.</span></span>
+<span><span class="co">#&gt; $items</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 20 × 18</span></span></span>
+<span><span class="co">#&gt;    organizationIdentifier organizationName organizationTypeText reportingCycle</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: cycleStatus &lt;chr&gt;, combinedCycles &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   waterTypeCode &lt;chr&gt;, unitsCode &lt;chr&gt;, useName &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Fully Supporting` &lt;dbl&gt;, `Fully Supporting-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Assessed` &lt;dbl&gt;, `Not Assessed-count` &lt;int&gt;, parameters &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Supporting` &lt;dbl&gt;, `Not Supporting-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Insufficient Information` &lt;dbl&gt;, `Insufficient Information-count` &lt;int&gt;</span></span></span></code></pre></div>
 <p>Using <code>.unnest=FALSE</code> returns nested columns. The tidyr
 family of <code><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest()</a></code> functions is an easy way to flatten this
 data:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>, </span>
-<span>                    reporting_cycle <span class="op">=</span> <span class="st">"2016"</span>,</span>
-<span>                    .unnest <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">df</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;   organization_identifer organization_name organization_type_text</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: reporting_cycles &lt;list&lt;tibble[,2]&gt;&gt;</span></span></span>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span></span>
+<span>  organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>,</span>
+<span>  reporting_cycle <span class="op">=</span> <span class="st">"2022"</span>,</span>
+<span>  .unnest <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">reporting_cycles</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">water_types</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">use_attainments</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 22 × 16</span></span></span>
-<span><span class="co">#&gt;    organization_identifer organization_name organization_type_text</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 12 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 13 more variables: reporting_cycle &lt;chr&gt;, water_type_code &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   units_code &lt;chr&gt;, use_name &lt;chr&gt;, fully_supporting &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fully_supporting_count &lt;int&gt;, use_insufficient_information &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   use_insufficient_information_count &lt;int&gt;, not_assessed &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   not_assessed_count &lt;int&gt;, not_supporting &lt;dbl&gt;, not_supporting_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   parameters &lt;list&lt;tibble[,9]&gt;&gt;</span></span></span></code></pre></div>
+<span><span class="va">df</span><span class="op">$</span><span class="va">items</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">parameters</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html" class="external-link">unnest_wider</a></span><span class="op">(</span><span class="va">parameters</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="va">parameterGroup</span>,</span>
+<span>    <span class="va">Cause</span>,</span>
+<span>    <span class="st">"Cause-count"</span>,</span>
+<span>    <span class="st">"Meeting Criteria"</span>,</span>
+<span>    <span class="st">"Meeting Criteria-count"</span>,</span>
+<span>    <span class="st">"Insufficient Information"</span>,</span>
+<span>    <span class="st">"Insufficient Information-count"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 67 × 7</span></span></span>
+<span><span class="co">#&gt;    parameterGroup                         Cause `Cause-count` `Meeting Criteria`</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> NUTRIENTS                            <span style="text-decoration: underline;">29</span>134.              3                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> SALINITY/TOTAL DISSOLVED SOLIDS/CHL…    56.1             1                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> PH/ACIDITY/CAUSTIC CONDITIONS        <span style="text-decoration: underline;">23</span>051               1                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> SALINITY/TOTAL DISSOLVED SOLIDS/CHL…    56.1             1                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> PH/ACIDITY/CAUSTIC CONDITIONS        <span style="text-decoration: underline;">23</span>107.              2                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ORGANIC ENRICHMENT/OXYGEN DEPLETION   <span style="text-decoration: underline;">5</span>269.              5                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> SEDIMENT                              <span style="text-decoration: underline;">3</span>772.              7                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> SALINITY/TOTAL DISSOLVED SOLIDS/CHL…    56.1             1                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> AMMONIA                                 56.1             1                 <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TEMPERATURE                             <span style="color: #BB0000;">NA</span>              <span style="color: #BB0000;">NA</span>              <span style="text-decoration: underline;">20</span>459</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 57 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: `Meeting Criteria-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Insufficient Information` &lt;dbl&gt;, `Insufficient Information-count` &lt;int&gt;</span></span></span></code></pre></div>
 <p>If the above option doesn’t work, rATTAINS can also provide the raw
-JSON data from the API. The <a href="https://cran.r-project.org/package=tibblify" class="external-link">tibblify</a> 📦️ and
-<a href="https://cran.r-project.org/package=jsonlite" class="external-link">jsonlite</a> 📦
-provide tools to convert JSON to nested lists then tibbles pretty
+JSON data from the API. The <a href="https://cran.r-project.org/package=jsonlite" class="external-link">jsonlite</a> 📦
+provides tools to convert JSON to nested lists and tibbles pretty
 easily. First, use the <code>tidy=FALSE</code> argument to return the
 unparsed JSON string, then uses jsonlite to convert that data to a
-nested list, then tibblify to convert to a nested dataframe!</p>
+nested list, then use tidyr to access the nested dataframes!</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>, </span>
-<span>                    reporting_cycle <span class="op">=</span> <span class="st">"2016"</span>,</span>
-<span>                    tidy <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">raw_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span></span>
+<span>  organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>,</span>
+<span>  reporting_cycle <span class="op">=</span> <span class="st">"2022"</span>,</span>
+<span>  tidy <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">list_data</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">raw_data</span>,</span>
-<span>                                simplifyVector <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                                simplifyDataFrame <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                                flatten <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">list_data</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/jsonlite/reference/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="va">raw_data</span>,</span>
+<span>  simplifyVector <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  simplifyDataFrame <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  flatten <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibblify</span><span class="fu">::</span><span class="fu"><a href="https://mgirlich.github.io/tibblify/reference/tibblify.html" class="external-link">tibblify</a></span><span class="op">(</span><span class="va">list_data</span><span class="op">$</span><span class="va">data</span>,</span>
-<span>                         unspecified <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The spec contains 1 unspecified field:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> reportingCycles-&gt;<span style="font-weight: bold;">combinedCycles</span></span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">reportingCycles</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 3</span></span></span>
-<span><span class="co">#&gt;   reportingCycle cycleStatus         waterTypes</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&lt;tibble[,3]&gt;&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2016           Historical             <span style="color: #949494;">[4 × 3]</span></span></span></code></pre></div>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">list_data</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">reportingCycles</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">waterTypes</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">useAttainments</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 20 × 18</span></span></span>
+<span><span class="co">#&gt;    organizationIdentifier organizationName organizationTypeText reportingCycle</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> TDECWR                 Tennessee        State                2022          </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: cycleStatus &lt;chr&gt;, combinedCycles &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   waterTypeCode &lt;chr&gt;, unitsCode &lt;chr&gt;, useName &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Fully Supporting` &lt;dbl&gt;, `Fully Supporting-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Assessed` &lt;dbl&gt;, `Not Assessed-count` &lt;int&gt;, parameters &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Supporting` &lt;dbl&gt;, `Not Supporting-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Insufficient Information` &lt;dbl&gt;, `Insufficient Information-count` &lt;int&gt;</span></span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -224,7 +264,7 @@ nested list, then tibblify to convert to a nested dataframe!</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,9 +35,20 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/mps9506/rATTAINS/blob/v1.0.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/mps9506/rATTAINS/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.1.0" id="rattains-110">rATTAINS 1.1.0<a class="anchor" aria-label="anchor" href="#rattains-110"></a></h2>
+<div class="section level3">
+<h3 id="major-change-1-1-0">Major change<a class="anchor" aria-label="anchor" href="#major-change-1-1-0"></a></h3>
+<p>This release removes the tibblify dependency. Some endpoints may return slightly different lists or incompletely unnested dataframes. We suggest using the <code>.unnest = FALSE</code> argument and to tidy the dataframes using your prefered data rectangling packages (tidyr, data.table, etc.) for the best consistency across version types.</p>
+</div>
+<div class="section level3">
+<h3 id="internal-changes-1-1-0">Internal changes<a class="anchor" aria-label="anchor" href="#internal-changes-1-1-0"></a></h3>
+<ul><li>remove tibblify dependency (fixes <a href="https://github.com/mps9506/rATTAINS/issues/39" class="external-link">#39</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="rattains-101">rATTAINS 1.0.1<a class="anchor" aria-label="anchor" href="#rattains-101"></a></h2><p class="text-muted">CRAN release: 2025-05-19</p>
 <div class="section level3">
@@ -50,7 +61,7 @@
 <div class="section level3">
 <h3 id="major-changes-1-0-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-1-0-0"></a></h3>
 <p>This major release stabilizes the data structure returned by the functions calling the ATTAINS API. There might be some breaking changes due to changes in some column names and nested structure of the data. Unless there are major changes in the data returned by ATTAINS, my goal is for the current data column names and structure to stay consistent from this release forward.</p>
-<ul><li>all API functions use <code><a href="https://mgirlich.github.io/tibblify/reference/tibblify.html" class="external-link">tibblify::tibblify()</a></code> to converted nested lists to tibbles. This change will ensure functions return consistent data structures between web calls. Some functions may return slightly different data structures compared to previous package versions (fixes <a href="https://github.com/mps9506/rATTAINS/issues/25" class="external-link">#25</a>, <a href="https://github.com/mps9506/rATTAINS/issues/31" class="external-link">#31</a>).</li>
+<ul><li>all API functions use <code>tibblify::tibblify()</code> to converted nested lists to tibbles. This change will ensure functions return consistent data structures between web calls. Some functions may return slightly different data structures compared to previous package versions (fixes <a href="https://github.com/mps9506/rATTAINS/issues/25" class="external-link">#25</a>, <a href="https://github.com/mps9506/rATTAINS/issues/31" class="external-link">#31</a>).</li>
 <li>added the <code>.unnest</code> argument to most functions that return API results. It defaults to <code>TRUE</code> to preserve backwards compatibility. If <code>FALSE</code>, results will be returned in the nest structure provided by ATTAINS.</li>
 </ul></div>
 <div class="section level3">
@@ -103,7 +114,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

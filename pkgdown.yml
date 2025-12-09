@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.2
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   articles/Dealing-With-Errors: Dealing-With-Errors.html
   articles/Example---Tracking-Impaired-Waters: Example---Tracking-Impaired-Waters.html
   Introduction: Introduction.html
-last_built: 2025-05-21T13:31Z
+last_built: 2025-12-09T22:34Z
 urls:
   reference: https://mps9506.github.io/rATTAINS/reference
   article: https://mps9506.github.io/rATTAINS/articles

@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@
       <h1>Introduction</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/mps9506/rATTAINS/blob/v1.0.1/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mps9506/rATTAINS/blob/main/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="d-none name"><code>Introduction.Rmd</code></div>
     </div>
 
@@ -103,49 +103,59 @@ state of Tennessee the following function is used:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mps9506/rATTAINS" class="external-link">rATTAINS</a></span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/state_summary.html">state_summary</a></span><span class="op">(</span>organization_id <span class="op">=</span> <span class="st">"TDECWR"</span>,</span>
-<span>                   reporting_cycle <span class="op">=</span> <span class="st">"2016"</span><span class="op">)</span></span>
+<span>                   reporting_cycle <span class="op">=</span> <span class="st">"2024"</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 71 × 24</span></span></span>
-<span><span class="co">#&gt;    organization_identifer organization_name organization_type_text</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee         State                 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 61 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 21 more variables: reporting_cycle &lt;chr&gt;, water_type_code &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   units_code &lt;chr&gt;, use_name &lt;chr&gt;, fully_supporting &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fully_supporting_count &lt;int&gt;, use_insufficient_information &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   use_insufficient_information_count &lt;int&gt;, not_assessed &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   not_assessed_count &lt;int&gt;, not_supporting &lt;dbl&gt;, not_supporting_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   parameter_group &lt;chr&gt;, parameter_insufficient_information &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; $items</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 20 × 18</span></span></span>
+<span><span class="co">#&gt;    organizationIdentifier organizationName organizationTypeText reportingCycle</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> TDECWR                 Tennessee        State                2024          </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: cycleStatus &lt;chr&gt;, combinedCycles &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   waterTypeCode &lt;chr&gt;, unitsCode &lt;chr&gt;, useName &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Fully Supporting` &lt;dbl&gt;, `Fully Supporting-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Insufficient Information` &lt;dbl&gt;, `Insufficient Information-count` &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Assessed` &lt;dbl&gt;, `Not Assessed-count` &lt;int&gt;, `Not Supporting` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Not Supporting-count` &lt;int&gt;, parameters &lt;list&gt;</span></span></span></code></pre></div>
 <p>The HUC12 service operates similarly but provides data summarized by
 area, specifically HUC12 units. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/huc12_summary.html">huc12_summary</a></span><span class="op">(</span><span class="st">"020700100204"</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt; $huc_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 14</span></span></span>
-<span><span class="co">#&gt;   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 020700100204                    17                   46.1                 46.2</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​total_catchment_area_sq_mi</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10 more variables: assessed_catchment_area_sq_mi &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   assessed_cathcment_area_percent &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   assessed_good_catchment_area_sq_mi &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   assessed_good_catchment_area_percent &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   assessed_unknown_catchment_area_sq_mi &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   assessed_unknown_catchment_area_percent &lt;dbl&gt;, …</span></span></span>
+<span><span class="co">#&gt; $hucSummary</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 15</span></span></span>
+<span><span class="co">#&gt;   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 020700100204                  18                   46.1             46.2</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 11 more variables: assessedCatchmentAreaSqMi &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   assessedCatchmentAreaPercent &lt;dbl&gt;, assessedGoodCatchmentAreaSqMi &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   assessedGoodCatchmentAreaPercent &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   assessedUnknownCatchmentAreaSqMi &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   assessedUnknownCatchmentAreaPercent &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   containImpairedWatersCatchmentAreaSqMi &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   containImpairedWatersCatchmentAreaPercent &lt;dbl&gt;, …</span></span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $au_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 17 × 1</span></span></span>
-<span><span class="co">#&gt;    assessment_unit_id          </span></span>
+<span><span class="co">#&gt; $assessmentUnits</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 18 × 1</span></span></span>
+<span><span class="co">#&gt;    assessmentUnitId            </span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> MD-02140205-Northwest_Branch</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> MD-02140205                 </span></span>
@@ -155,89 +165,87 @@ area, specifically HUC12 units. For example:</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> MD-ANATF                    </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> DCTTX27R_00                 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DCTFC01R_00                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> MD-02140205-Mainstem        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> DCTWB00R_02                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> DCANA00E_02                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> DCTHR01R_00                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> DCTWB00R_01                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> DCTPB01R_00                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> DCTDU01R_00                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> DCANA00E_01                 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> DCAKL00L_00                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> MD-ANATF-SWSAV              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> MD-02140205-Mainstem        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> DCTWB00R_02                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> DCANA00E_02                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> DCTHR01R_00                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> DCTWB00R_01                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> DCTPB01R_00                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> DCTDU01R_00                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> DCANA00E_01                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> DCAKL00L_00                 </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $ir_summary</span></span>
+<span><span class="co">#&gt; $summaryByIRCategory</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
-<span><span class="co">#&gt;   EPA_IR_category_name catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 4A                                   12.7                   27.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 5                                    25.8                   56.0</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt;   epaIRCategoryName catchmentSizeSqMi catchmentSizePercent assessmentUnitCount</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 4A                             13.2                 28.7                  11</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 5                              23.0                 49.9                   7</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $status_summary</span></span>
+<span><span class="co">#&gt; $summaryByOverallStatus</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;   overall_status catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Not Supporting                 35.2                   76.4</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt;   overallStatus  catchmentSizeSqMi catchmentSizePercent assessmentUnitCount</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Not Supporting              35.2                 76.4                  18</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $use_group_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
-<span><span class="co">#&gt;   use_group_name      use_attainment catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ECOLOGICAL_USE      Not Supporting               10.9                    23.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> FISHCONSUMPTION_USE Insufficient …               15.9                    34.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> FISHCONSUMPTION_USE Not Supporting               15.9                    34.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> OTHER_USE           Fully Support…                0.683                   1.48</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> RECREATION_USE      Not Supporting               15.2                    32.9 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; $summaryByUseGroup</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 2</span></span></span>
+<span><span class="co">#&gt;   useGroupName        useAttainmentSummary</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ECOLOGICAL_USE      <span style="color: #949494;">&lt;df [2 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> FISHCONSUMPTION_USE <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> OTHER_USE           <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> RECREATION_USE      <span style="color: #949494;">&lt;df [2 × 4]&gt;</span>        </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $use_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   use_name                    use_group_name use_attainment catchment_size_sq_mi</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Navigation                  OTHER_USE      Fully Support…               10.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Primary Contact Recreation  RECREATION_USE Not Supporting               15.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Protection and Propagation… ECOLOGICAL_USE Not Supporting               15.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Protection of Human Health… FISHCONSUMPTI… Insufficient …                0.683</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Protection of Human Health… FISHCONSUMPTI… Not Supporting               15.2  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Secondary Contact Recreati… RECREATION_USE Not Supporting               15.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: catchment_size_percent &lt;dbl&gt;, assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; $summaryByUse</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 3</span></span></span>
+<span><span class="co">#&gt;    useName                                     useGroupName useAttainmentSummary</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Aquatic Life and Wildlife                   ECOLOGICAL_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Fishing                                     FISHCONSUMP… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Navigation                                  OTHER_USE    <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Open-Water Fish and Shellfish Subcategory   ECOLOGICAL_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Primary Contact Recreation                  RECREATION_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Protection and Propagation of Fish, Shellf… ECOLOGICAL_… <span style="color: #949494;">&lt;df [2 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Protection of Human Health related to Cons… FISHCONSUMP… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Seasonal Migratory Fish Spawning and Nurse… ECOLOGICAL_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Seasonal Shallow-Water Submerged Aquatic V… ECOLOGICAL_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Secondary Contact Recreation and Aesthetic… RECREATION_… <span style="color: #949494;">&lt;df [2 × 4]&gt;</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Water Contact Sports                        RECREATION_… <span style="color: #949494;">&lt;df [1 × 4]&gt;</span>        </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $param_summary</span></span>
+<span><span class="co">#&gt; $summaryByParameterImpairments</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 4</span></span></span>
-<span><span class="co">#&gt;    parameter_group_name              catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ALGAL GROWTH                                      9.21                  20.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> CHLORINE                                          1.73                   3.75</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> HABITAT ALTERATIONS                               2.80                   6.07</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> HYDROLOGIC ALTERATION                             5.98                  13.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> METALS (OTHER THAN MERCURY)                      11.8                   25.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> NUTRIENTS                                         9.21                  20.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> OIL AND GREASE                                   10.9                   23.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ORGANIC ENRICHMENT/OXYGEN DEPLET…                12.7                   27.5 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> PATHOGENS                                        15.9                   34.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> PESTICIDES                                       15.2                   32.9 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> PH/ACIDITY/CAUSTIC CONDITIONS                     1.95                   4.22</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> POLYCHLORINATED BIPHENYLS (PCBS)                 15.2                   32.9 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> SEDIMENT                                          1.90                   4.11</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> TOXIC ORGANICS                                   13.3                   28.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TRASH                                             9.21                  20.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TURBIDITY                                        15.9                   34.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt;    parameterGroupName catchmentSizeSqMi catchmentSizePercent assessmentUnitCount</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ALGAL GROWTH                    9.22                20.0                    2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> CHLORINE                        1.73                 3.75                   1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> HABITAT ALTERATIO…             18.8                 40.7                    1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> HYDROLOGIC ALTERA…             18.8                 40.7                    1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> METALS (OTHER THA…             15.5                 33.6                   12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> NUTRIENTS                      30.3                 65.7                    5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> OIL AND GREASE                 11.0                 23.7                    2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ORGANIC ENRICHMEN…             30.3                 65.7                    5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> PATHOGENS                      35.2                 76.4                   15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> PER- AND POLYFLUO…              1.00                 2.18                   2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> PESTICIDES                     16.2                 35.1                   11</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> POLYCHLORINATED B…             16.9                 36.6                   13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> SALINITY/TOTAL DI…             18.8                 40.7                    1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> TOXIC ORGANICS                 13.3                 28.7                    8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> TRASH                          28.6                 61.9                    4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> TURBIDITY                      34.9                 75.6                   13</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $res_plan_summary</span></span>
+<span><span class="co">#&gt; $summaryRestorationPlans</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TMDL                              15.9                   34.4</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span>
+<span><span class="co">#&gt;   summaryTypeName catchmentSizeSqMi catchmentSizePercent assessmentUnitCount</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TMDL                         15.9                 34.4                  13</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $vision_plan_summary</span></span>
+<span><span class="co">#&gt; $summaryVisionRestorationPlans</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 4</span></span></span>
-<span><span class="co">#&gt;   summary_type_name catchment_size_sq_mi catchment_size_percent</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TMDL                              15.9                   34.4</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: assessment_unit_count &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   summaryTypeName catchmentSizeSqMi catchmentSizePercent assessmentUnitCount</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> TMDL                         15.9                 34.4                  13</span></span></code></pre></div>
 <p><code><a href="../reference/huc12_summary.html">huc12_summary()</a></code> returns a list of tibbles with different
 summaries of information. Using the above example: -
 <code>x$huc_summary</code> provides a summary of HUC area, and the area
@@ -274,20 +282,20 @@ identifiers to query by:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"OrgStateCode"</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 146 × 5</span></span></span>
-<span><span class="co">#&gt;    domain       name  code  context         context_2</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> OrgStateCode AK    AK    EPA             <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> OrgStateCode FL    FL    21FL303D        <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> OrgStateCode PA    PA    EPA             <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> OrgStateCode CC    CC    TEST_ORG_C      <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> OrgStateCode AZ    AZ    TEST_TRIBE_B    <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> OrgStateCode MS    MS    21MSWQ          <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> OrgStateCode CT    CT    CT_DEP01        <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> OrgStateCode ND    ND    21NDHDWQ        <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> OrgStateCode MN    MN    REDLAKE         <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> OrgStateCode NM    NM    PUEBLO_POJOAQUE <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 136 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 157 × 6</span></span></span>
+<span><span class="co">#&gt;    domain       name  code  context      context2 dateModified</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> OrgStateCode AK    AK    EPA          EPA      2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> OrgStateCode FL    FL    21FL303D     State    2025-01-29  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> OrgStateCode PA    PA    EPA          EPA      2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> OrgStateCode MT    MT    BLCKFEET     Tribe    2024-04-09  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> OrgStateCode CC    CC    TEST_ORG_C   Test     2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> OrgStateCode AZ    AZ    TEST_TRIBE_B Tribe    2017-10-18  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> OrgStateCode OK    OK    ESTO         Tribe    2024-04-09  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> OrgStateCode MS    MS    21MSWQ       State    2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> OrgStateCode CT    CT    CT_DEP01     State    2020-02-25  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> OrgStateCode ND    ND    21NDHDWQ     State    2024-06-19  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 147 more rows</span></span></span></code></pre></div>
 <p>The function returns a variable with the state codes and the possible
 parameter values as the context variable. Similarly if I want to look up
 possible Use Names that are utilized by the Texas Commission on
@@ -295,26 +303,20 @@ Environmental Quality:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/domain_values.html">domain_values</a></span><span class="op">(</span>domain_name <span class="op">=</span> <span class="st">"UseName"</span>, context <span class="op">=</span> <span class="st">"TCEQMAIN"</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 17 × 5</span></span></span>
-<span><span class="co">#&gt;    domain  name                                        code    context context_2</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> UseName Recreation Use                              Recrea… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> UseName Fish Consumption Use                        Fish C… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> UseName INTERMEDIATE AQUATIC LIFE                   INTERM… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> UseName OVERALL USE SUPPORT                         OVERAL… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> UseName Aquatic Life Use                            Aquati… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> UseName Oyster Waters Use                           Oyster… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> UseName FISH CONSUMPTION                            FISH C… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> UseName OYSTER AQUATIC LIFE                         OYSTER… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> UseName NON-CONTACT RECREATION                      NON-CO… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> UseName CONTACT RECREATION USE                      CONTAC… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> UseName DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY DOMEST… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> UseName Public Water Supply Use                     Public… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> UseName General Use                                 Genera… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> UseName PRIMARY RECREATION/SWIMMING                 PRIMAR… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> UseName CONTACT RECREATION                          CONTAC… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> UseName NONCONTACT RECREATION USE                   NONCON… TCEQMA… <span style="color: #BB0000;">NA</span>       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> UseName Recreational Beaches                        Recrea… TCEQMA… <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,357 × 6</span></span></span>
+<span><span class="co">#&gt;    domain  name                              code  context context2 dateModified</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> UseName Primary Contact Recreation        Prim… 21DELA… RECREAT… 2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> UseName SECONDARY CONTACT (RECR)          SECO… CT_DEP… RECREAT… 2018-08-10  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> UseName Domestic Water Supply Waters      Dome… TEST_O… <span style="color: #BB0000;">NA</span>       2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> UseName Aquatic Life                      Aqua… HVTEPA  ECOLOGI… 2017-12-08  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> UseName Hydroelectric Power Generation    Hydr… MEDEP   OTHER_U… 2017-08-28  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> UseName Aquatic Life: Lake Sturgeon Wate… Aqua… LRBOI   ECOLOGI… 2021-01-06  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> UseName Outstanding Tribal Resource Wate… Outs… TAOSPB… OTHER_U… 2021-01-06  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> UseName Wildlife                          Wild… WIDNR   ECOLOGI… 2022-05-23  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> UseName Aquatic Life                      Aqua… POLSWA… ECOLOGI… 2021-01-06  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> UseName Drinking Water                    Drin… PUEBLO… DRINKIN… 2022-09-15  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,347 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="other-services">Other Services<a class="anchor" aria-label="anchor" href="#other-services"></a>
@@ -369,7 +371,7 @@ the U.S. EPA. Please do not abuse the webservice using this package.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
