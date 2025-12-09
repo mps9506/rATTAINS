@@ -32,8 +32,7 @@ rATTAINS is on CRAN:
 
 Or install the development version from r-universe:
 
-    install.packages('rATTAINS',
-                     repos = 'https://mps9506.r-universe.dev')
+    install.packages('rATTAINS', repos = 'https://mps9506.r-universe.dev')
 
 ## Functions and webservices
 
@@ -79,128 +78,120 @@ Get a summary about assessed uses from the Texas Commission on
 Environmental Quality:
 
     library(rATTAINS)
-    state_summary(organization_id = "TCEQMAIN", 
-                  reporting_cycle = "2020",
-                  .unnest = FALSE) |>
-      tidyr::unnest(reporting_cycles) |> 
-      tidyr::unnest(water_types) |> 
-      tidyr::unnest(use_attainments)
-    #> # A tibble: 31 × 16
-    #>    organization_identifer organization_name organization_type_text
-    #>    <chr>                  <chr>             <chr>                 
-    #>  1 TCEQMAIN               Texas             State                 
-    #>  2 TCEQMAIN               Texas             State                 
-    #>  3 TCEQMAIN               Texas             State                 
-    #>  4 TCEQMAIN               Texas             State                 
-    #>  5 TCEQMAIN               Texas             State                 
-    #>  6 TCEQMAIN               Texas             State                 
-    #>  7 TCEQMAIN               Texas             State                 
-    #>  8 TCEQMAIN               Texas             State                 
-    #>  9 TCEQMAIN               Texas             State                 
-    #> 10 TCEQMAIN               Texas             State                 
+    state_summary(
+      organization_id = "TCEQMAIN",
+      reporting_cycle = "2020",
+      .unnest = FALSE
+    )
+    #> $items
+    #> # A tibble: 31 × 18
+    #>    organizationIdentifier organizationName organizationTypeText reportingCycle
+    #>    <chr>                  <chr>            <chr>                <chr>         
+    #>  1 TCEQMAIN               Texas            State                2020          
+    #>  2 TCEQMAIN               Texas            State                2020          
+    #>  3 TCEQMAIN               Texas            State                2020          
+    #>  4 TCEQMAIN               Texas            State                2020          
+    #>  5 TCEQMAIN               Texas            State                2020          
+    #>  6 TCEQMAIN               Texas            State                2020          
+    #>  7 TCEQMAIN               Texas            State                2020          
+    #>  8 TCEQMAIN               Texas            State                2020          
+    #>  9 TCEQMAIN               Texas            State                2020          
+    #> 10 TCEQMAIN               Texas            State                2020          
     #> # ℹ 21 more rows
-    #> # ℹ 13 more variables: reporting_cycle <chr>, water_type_code <chr>,
-    #> #   units_code <chr>, use_name <chr>, fully_supporting <dbl>,
-    #> #   fully_supporting_count <int>, use_insufficient_information <dbl>,
-    #> #   use_insufficient_information_count <int>, not_assessed <dbl>,
-    #> #   not_assessed_count <int>, not_supporting <dbl>, not_supporting_count <int>,
-    #> #   parameters <list<tibble[,9]>>
+    #> # ℹ 14 more variables: cycleStatus <chr>, combinedCycles <list>,
+    #> #   waterTypeCode <chr>, unitsCode <chr>, useName <chr>,
+    #> #   `Fully Supporting` <dbl>, `Fully Supporting-count` <int>,
+    #> #   `Insufficient Information` <dbl>, `Insufficient Information-count` <int>,
+    #> #   `Not Assessed` <dbl>, `Not Assessed-count` <int>, `Not Supporting` <dbl>,
+    #> #   `Not Supporting-count` <int>, parameters <list>
 
 Get a summary about assessed uses, parameters and plans in a HUC12:
 
-    df <- huc12_summary(huc = "020700100204",
-                  .unnest = FALSE)
+    df <- huc12_summary(huc = "020700100204", .unnest = FALSE)
 
-    tidyr::unnest(df, summary_by_use)
-    #> # A tibble: 11 × 24
-    #>    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
-    #>    <chr>                       <int>                  <dbl>                <dbl>
-    #>  1 0207001002…                    18                   46.1                 46.2
-    #>  2 0207001002…                    18                   46.1                 46.2
-    #>  3 0207001002…                    18                   46.1                 46.2
-    #>  4 0207001002…                    18                   46.1                 46.2
-    #>  5 0207001002…                    18                   46.1                 46.2
-    #>  6 0207001002…                    18                   46.1                 46.2
-    #>  7 0207001002…                    18                   46.1                 46.2
-    #>  8 0207001002…                    18                   46.1                 46.2
-    #>  9 0207001002…                    18                   46.1                 46.2
-    #> 10 0207001002…                    18                   46.1                 46.2
-    #> 11 0207001002…                    18                   46.1                 46.2
-    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
-    #> # ℹ 20 more variables: assessed_catchment_area_sq_mi <dbl>,
-    #> #   assessed_cathcment_area_percent <dbl>,
-    #> #   assessed_good_catchment_area_sq_mi <dbl>,
-    #> #   assessed_good_catchment_area_percent <dbl>,
-    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
-    #> #   assessed_unknown_catchment_area_percent <dbl>, …
+    tidyr::unnest(df, items) |>
+      tidyr::unnest(summaryByUseGroup)
+    #> # A tibble: 4 × 24
+    #>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
+    #>   <chr>                      <int>                  <dbl>            <dbl>
+    #> 1 020700100204                  18                   46.1             46.2
+    #> 2 020700100204                  18                   46.1             46.2
+    #> 3 020700100204                  18                   46.1             46.2
+    #> 4 020700100204                  18                   46.1             46.2
+    #> # ℹ 20 more variables: assessedCatchmentAreaSqMi <dbl>,
+    #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
+    #> #   assessedGoodCatchmentAreaPercent <int>,
+    #> #   assessedUnknownCatchmentAreaSqMi <int>,
+    #> #   assessedUnknownCatchmentAreaPercent <int>,
+    #> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
+    #> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
 
-    tidyr::unnest(df, summary_by_parameter_impairments, names_repair = "minimal")
-    #> # A tibble: 16 × 25
-    #>    huc12       assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
-    #>    <chr>                       <int>                  <dbl>                <dbl>
-    #>  1 0207001002…                    18                   46.1                 46.2
-    #>  2 0207001002…                    18                   46.1                 46.2
-    #>  3 0207001002…                    18                   46.1                 46.2
-    #>  4 0207001002…                    18                   46.1                 46.2
-    #>  5 0207001002…                    18                   46.1                 46.2
-    #>  6 0207001002…                    18                   46.1                 46.2
-    #>  7 0207001002…                    18                   46.1                 46.2
-    #>  8 0207001002…                    18                   46.1                 46.2
-    #>  9 0207001002…                    18                   46.1                 46.2
-    #> 10 0207001002…                    18                   46.1                 46.2
-    #> 11 0207001002…                    18                   46.1                 46.2
-    #> 12 0207001002…                    18                   46.1                 46.2
-    #> 13 0207001002…                    18                   46.1                 46.2
-    #> 14 0207001002…                    18                   46.1                 46.2
-    #> 15 0207001002…                    18                   46.1                 46.2
-    #> 16 0207001002…                    18                   46.1                 46.2
-    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
-    #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
-    #> #   assessed_cathcment_area_percent <dbl>,
-    #> #   assessed_good_catchment_area_sq_mi <dbl>,
-    #> #   assessed_good_catchment_area_percent <dbl>,
-    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
-    #> #   assessed_unknown_catchment_area_percent <dbl>, …
+    tidyr::unnest(df, items) |>
+      tidyr::unnest(summaryByParameterImpairments, names_repair = "minimal")
+    #> # A tibble: 16 × 26
+    #>    huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
+    #>    <chr>                      <int>                  <dbl>            <dbl>
+    #>  1 020700100204                  18                   46.1             46.2
+    #>  2 020700100204                  18                   46.1             46.2
+    #>  3 020700100204                  18                   46.1             46.2
+    #>  4 020700100204                  18                   46.1             46.2
+    #>  5 020700100204                  18                   46.1             46.2
+    #>  6 020700100204                  18                   46.1             46.2
+    #>  7 020700100204                  18                   46.1             46.2
+    #>  8 020700100204                  18                   46.1             46.2
+    #>  9 020700100204                  18                   46.1             46.2
+    #> 10 020700100204                  18                   46.1             46.2
+    #> 11 020700100204                  18                   46.1             46.2
+    #> 12 020700100204                  18                   46.1             46.2
+    #> 13 020700100204                  18                   46.1             46.2
+    #> 14 020700100204                  18                   46.1             46.2
+    #> 15 020700100204                  18                   46.1             46.2
+    #> 16 020700100204                  18                   46.1             46.2
+    #> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
+    #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
+    #> #   assessedGoodCatchmentAreaPercent <int>,
+    #> #   assessedUnknownCatchmentAreaSqMi <int>,
+    #> #   assessedUnknownCatchmentAreaPercent <int>,
+    #> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
+    #> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
 
-    tidyr::unnest(df, summary_restoration_plans, names_repair = "minimal")
-    #> # A tibble: 1 × 25
-    #>   huc12        assessment_unit_count total_catchment_area…¹ total_huc_area_sq_mi
-    #>   <chr>                        <int>                  <dbl>                <dbl>
-    #> 1 020700100204                    18                   46.1                 46.2
-    #> # ℹ abbreviated name: ¹​total_catchment_area_sq_mi
-    #> # ℹ 21 more variables: assessed_catchment_area_sq_mi <dbl>,
-    #> #   assessed_cathcment_area_percent <dbl>,
-    #> #   assessed_good_catchment_area_sq_mi <dbl>,
-    #> #   assessed_good_catchment_area_percent <dbl>,
-    #> #   assessed_unknown_catchment_area_sq_mi <dbl>,
-    #> #   assessed_unknown_catchment_area_percent <dbl>, …
+    tidyr::unnest(df, items) |>
+      tidyr::unnest(summaryRestorationPlans, names_repair = "minimal")
+    #> # A tibble: 1 × 26
+    #>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
+    #>   <chr>                      <int>                  <dbl>            <dbl>
+    #> 1 020700100204                  18                   46.1             46.2
+    #> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
+    #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
+    #> #   assessedGoodCatchmentAreaPercent <int>,
+    #> #   assessedUnknownCatchmentAreaSqMi <int>,
+    #> #   assessedUnknownCatchmentAreaPercent <int>,
+    #> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
+    #> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
 
 Find statistical surveys completed by an organization:
 
-    surveys(organization_id="SDDENR",
-            .unnest = FALSE) |> 
-      tidyr::unnest(survey_water_groups) |> 
-      tidyr::unnest(survey_water_group_use_parameters)
-    #> # A tibble: 104 × 21
-    #>    organization_identifier organization_name organization_type_text
-    #>    <chr>                   <chr>             <chr>                 
-    #>  1 SDDENR                  South Dakota      State                 
-    #>  2 SDDENR                  South Dakota      State                 
-    #>  3 SDDENR                  South Dakota      State                 
-    #>  4 SDDENR                  South Dakota      State                 
-    #>  5 SDDENR                  South Dakota      State                 
-    #>  6 SDDENR                  South Dakota      State                 
-    #>  7 SDDENR                  South Dakota      State                 
-    #>  8 SDDENR                  South Dakota      State                 
-    #>  9 SDDENR                  South Dakota      State                 
-    #> 10 SDDENR                  South Dakota      State                 
-    #> # ℹ 94 more rows
-    #> # ℹ 18 more variables: survey_status_code <chr>, year <int>,
-    #> #   survey_comment_text <chr>, documents <list<tibble[,8]>>,
-    #> #   water_type_group_code <chr>, sub_population_code <chr>, unit_code <chr>,
-    #> #   size <int>, site_number <int>, surey_water_group_comment_text <chr>,
-    #> #   stressor <chr>, survey_use_code <chr>, survey_category_code <chr>,
-    #> #   statistic <chr>, metric_value <dbl>, margin_of_error <dbl>, …
+    surveys(organization_id = "SDDENR", .unnest = TRUE)
+    #> Unable to further unnest data, check for nested dataframes.
+    #> $count
+    #> # A tibble: 1 × 1
+    #>   count
+    #>   <int>
+    #> 1     5
+    #> 
+    #> $items
+    #> # A tibble: 5 × 14
+    #>   organizationIdentifier organizationName organizationTypeText surveyStatusCode
+    #>   <chr>                  <chr>            <chr>                <chr>           
+    #> 1 SDDENR                 South Dakota     State                Final           
+    #> 2 SDDENR                 South Dakota     State                Final           
+    #> 3 SDDENR                 South Dakota     State                Final           
+    #> 4 SDDENR                 South Dakota     State                Final           
+    #> 5 SDDENR                 South Dakota     State                Final           
+    #> # ℹ 10 more variables: year <int>, surveyCommentText <lgl>, documents <list>,
+    #> #   waterTypeGroupCode <chr>, subPopulationCode <chr>, unitCode <chr>,
+    #> #   size <int>, siteNumber <int>, surveyWaterGroupCommentText <chr>,
+    #> #   surveyWaterGroupUseParameters <list>
 
 ## Citation
 
