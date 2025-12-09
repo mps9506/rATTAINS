@@ -81,7 +81,7 @@ Default behavior:
 
 ```{r}
 state_summary(organization_id = "TDECWR", 
-              reporting_cycle = "2016")
+              reporting_cycle = "2022")
 ```
 
 
@@ -89,12 +89,11 @@ Using `.unnest=FALSE` returns nested columns. The tidyr family of `unnest()` fun
 
 ```{r}
 df <- state_summary(organization_id = "TDECWR", 
-                    reporting_cycle = "2016",
+                    reporting_cycle = "2022",
                     .unnest = FALSE)
 
-df  |>  
-  tidyr::unnest(items)  |>  
-  tidyr::unnest(assessmentUnits)
+df |>
+  tidyr::unnest(items)
 
 
 ```
@@ -112,8 +111,9 @@ list_data <- jsonlite::fromJSON(raw_data,
                                 flatten = FALSE)
 
 df <- tibble::as_tibble(list_data$data)
-tidyr::unnest(df, reportingCycles) |> 
-  tidyr::unnest(waterTypes) |> 
-  tidyr::unnest(useAttainments)
+ df$items  |>  select(parameters)  |> 
+  tidyr::unnest_wider(parameters)  |> 
+  tidyr::unnest(c(parameterGroup, Cause, "Cause-count", "Meeting Criteria", 
+  "Meeting Criteria-count", "Insufficient Information", "Insufficient Information-count"))
 ```
 
