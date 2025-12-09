@@ -107,17 +107,20 @@ to a particular water qualiyt parameter.
 ```{r fig.height=12, out.width="100%"}
 
 df |> 
-  group_by(water_type_code) |> 
-  filter(use_name %in% c("Recreation Use", "General Use", "Aquatic Life Use",
+  tidyr::unnest(items) |>
+  tidyr::unnest_longer(parameters) |> 
+  tidyr::unnest(parameters, names_sep = "_") |> 
+  group_by(waterTypeCode) |> 
+  filter(useName %in% c("Recreation Use", "General Use", "Aquatic Life Use",
                          "Fish Consumption Use")) |>
-  filter(water_type_code != "WETLANDS, FRESHWATER") |> 
-  mutate(parameter_group = gsub("/", "<br>", parameter_group)) |> 
-  mutate(assessed = fully_supporting + not_supporting,
-         percent_impaired = not_supporting/assessed * 100) |> 
+  filter(waterTypeCode != "WETLANDS, FRESHWATER") |> 
+  mutate(parameters_parameterGroup = gsub("/", "<br>", parameters_parameterGroup)) |> 
+  mutate(assessed = `Fully Supporting` + `Not Supporting`,
+         percent_impaired = `Not Supporting` / `assessed` * 100) |> 
   ggplot() +
-  geom_col(aes(reporting_cycle, percent_impaired)) +
-  facet_grid(rows = vars(parameter_group),
-             cols = vars(water_type_code)) +
+  geom_col(aes(reportingCycle, percent_impaired)) +
+  facet_grid(rows = vars(parameters_parameterGroup),
+             cols = vars(waterTypeCode)) +
   labs(x = "", y = "Percent of assessed water bodies impaired",
        caption = 
        "Estuary, Ocean, Reservoir =  % of acres assessed\n
