@@ -1,3 +1,18 @@
+# rATTAINS 1.1.0
+
+## Major change
+ 
+This release removes the tibblify dependency. Some endpoints may return 
+slightly different lists or incompletely unnested dataframes. We suggest 
+using the `.unnest = FALSE` argument and to tidy the dataframes using 
+your prefered data rectangling packages (tidyr, data.table, etc.) for the
+best consistency across version types.
+
+## Internal changes
+
+* remove tibblify dependency (fixes [#39](https://github.com/mps9506/rATTAINS/issues/39))
+
+
 # rATTAINS 1.0.1
 
 ## Minor changes

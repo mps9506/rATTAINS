@@ -16,10 +16,11 @@ knitr::opts_chunk$set(
 )
 ## setup vcr not sure I am doing this right.
 library(vcr)
-invisible(vcr::vcr_configure(
-  dir = "../tests/fixtures",
-  write_disk_path = NULL
-))
+#invisible(vcr::vcr_configure(
+#  dir = "../tests/fixtures",
+#  write_disk_path = NULL
+#))
+vcr::setup_knitr(dir = "_vcr", record = "once")
 
 ```
 
@@ -34,35 +35,26 @@ The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation Syst
 ## Summary Services
 
 The EPA provides two summary service endpoint that provide summaries of assessed uses by the organization identifier or by hydrologic unit code (HUC). For example, to return a summary of assessed uses by the state of Tennessee the following function is used:
-```{r include=FALSE}
-vcr::insert_cassette("state_summary")
-```
 
-```{r state_summary, message=FALSE}
+
+```{r label=state_summary, message=FALSE, use_cassette=TRUE}
 library(rATTAINS)
 x <- state_summary(organization_id = "TDECWR",
-                   reporting_cycle = "2016")
+                   reporting_cycle = "2024")
 x
 ```
 
-```{r include=FALSE}
-vcr::eject_cassette()
-```
+
 
 The HUC12 service operates similarly but provides data summarized by area, specifically HUC12 units. For example:
 
-```{r include=FALSE}
-vcr::insert_cassette("huc12_works")
-```
 
-```{r huc12, message=FALSE}
+
+```{r huc12, message=FALSE, use_cassette=TRUE}
 x <- huc12_summary("020700100204")
 x
 ```
 
-```{r include=FALSE}
-vcr::eject_cassette()
-```
 
 `huc12_summary()` returns a list of tibbles with different summaries of information. Using the above example: 
 - `x$huc_summary` provides a summary of HUC area, and the area and percentage of catchment assessed as good, unknown, or impaired. 
@@ -80,34 +72,23 @@ Each function has a number of allowable arguments and associated values. In orde
 
 For example if I want to find out the possible organization identifiers to query by:
 
-```{r include=FALSE}
-vcr::insert_cassette("single_domain")
-```
 
-```{r domain_values}
+```{r domain_values, use_cassette=TRUE}
 x <- domain_values(domain_name = "OrgStateCode")
 x
 ```
 
-```{r include=FALSE}
-vcr::eject_cassette()
-```
+
 
 The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:
 
-```{r include=FALSE}
-vcr::insert_cassette("domains_works")
-```
-
-```{r domain_context}
+```{r domain_context, use_cassette=TRUE}
 x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
 x
 
 ```
 
-```{r include=FALSE}
-vcr::eject_cassette()
-```
+
 
 ## Other Services
 

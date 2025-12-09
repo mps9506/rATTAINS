@@ -15,11 +15,6 @@
 #' @note  Data downloaded from the EPA webservice is automatically cached to
 #'   reduce uneccessary calls to the server.
 #' @export
-#' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom fs path
-#' @importFrom rlang .data
-#' @importFrom rlist list.filter
 #' @examples
 #'
 #'
@@ -85,27 +80,13 @@ domain_values <- function(domain_name = NULL,
   if(!isTRUE(tidy)) {
     return(content)
     } else {
-
-      ## parse json
-      json_list <- jsonlite::fromJSON(content,
-                                      simplifyVector = FALSE,
-                                      simplifyDataFrame = FALSE,
-                                      flatten = FALSE)
-
-      ## create tibblify specification
-      spec <- tspec_df(
-        "domain" = tib_chr("domain"),
-        "name" = tib_chr("name"),
-        "code" = tib_chr("code"),
-        "context" = tib_chr("context", required = FALSE),
-        "context_2" = tib_chr("context2", required = FALSE),
-      )
-
-      ## nested list -> rectangle
-      content <- tibblify(json_list, spec = spec, unspecified = "drop")
-
-      return(content)
-      }
+    content <- jsonlite::fromJSON(content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE)
+    content <- as_tibble(content)
+    return(content)
+  }
 }
 
 

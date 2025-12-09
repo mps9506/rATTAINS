@@ -9,4 +9,4 @@ invisible(vcr::vcr_configure(
   ## probably want a relative path
   ## write_disk_path = "../files"
 ))
-vcr::check_cassette_names()
+#vcr::check_cassette_names()
