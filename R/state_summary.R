@@ -22,7 +22,6 @@
 #' @return If \code{tidy = FALSE} the raw JSON string is
 #'   returned, else the JSON data is parsed and returned as a list of tibbles.
 #' @note See [domain_values] to search values that can be queried.
-#' @import tibblify
 #' @export
 #' @examples
 #'
@@ -34,96 +33,99 @@
 #' state_summary(organization_id = "TDECWR", reporting_cycle = "2016", tidy = FALSE)
 #' }
 #'
-state_summary <- function(organization_id = NULL,
-                          reporting_cycle = NULL,
-                          tidy = TRUE,
-                          .unnest = TRUE,
-                          ...) {
-
+state_summary <- function(
+  organization_id = NULL,
+  reporting_cycle = NULL,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+) {
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(organization_id, reporting_cycle),
-         .var.name = c("organization_id", "reporting_cycle"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(organization_id, reporting_cycle),
+    .var.name = c("organization_id", "reporting_cycle"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(tidy, .unnest),
-         .var.name = c("tidy", ".unnest"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(tidy, .unnest),
+    .var.name = c("tidy", ".unnest"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
-
   ## check that required args are present
-  args <- list(organizationId = organization_id,
-               reportingCycle = reporting_cycle)
+  args <- list(
+    organizationId = organization_id,
+    reportingCycle = reporting_cycle
+  )
   args <- list.filter(args, !is.null(.data))
   required_args <- c("organizationId")
   args_present <- intersect(names(args), required_args)
-  if(is_empty(args_present)) {
+  if (is_empty(args_present)) {
     stop("One of the following arguments must be provided: organization_id")
   }
   path <- "attains-public/api/usesStateSummary"
 
   ## download data
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-
-  if(is.null(content)) return(content)
-
-  if(!isTRUE(tidy)) { ## return raw data
+  if (is.null(content)) {
     return(content)
-  } else {## return parsed data
+  }
+
+  if (!isTRUE(tidy)) {
+    ## return raw data
+    return(content)
+  } else {
+    ## return parsed data
 
     ## parse json
-    json_list <- jsonlite::fromJSON(content,
-                                    simplifyVector = TRUE,
-                                    simplifyDataFrame = TRUE,
-                                    flatten = FALSE)
+    json_list <- jsonlite::fromJSON(
+      content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE
+    )
 
     df <- as_tibble(json_list$data)
-    df <- unnest_wider(df, "reportingCycles") 
+    df <- unnest_wider(df, "reportingCycles")
     df <- unnest(df, c("combinedCycles", "waterTypes"))
     df <- unnest(df, c("waterTypes"))
     df <- unnest(df, c("useAttainments"))
 
-
-
     ## if unnest == FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       content <- list(
         items = df
       )
       return(content)
     } else {
-       df <- tryCatch(
+      df <- tryCatch(
         unnest(df, cols = everything(), keep_empty = TRUE),
-        error = function(e) {df},
-        finally = message("Unable to further unnest data, check for nested dataframes.")
-       )
+        error = function(e) {
+          df
+        },
+        finally = message(
+          "Unable to further unnest data, check for nested dataframes."
+        )
+      )
       content <- list(
         items = df
       )
-      return(content) 
+      return(content)
     }
-
-
   }
-
 }
-
-
