@@ -31,41 +31,43 @@ domain_values(domain_name = "OrgStateCode") |>
   filter(code == "TX")
 ```
 
-It appears we can use `TCEQMAIN` as a identifier code if we are interested in assessment summaries in the state of Texas. I'm interested in the three most recent assessment cycles. Unfortunately, we can use multiple values in the `reporting_cycle` argument so we need to either loop through the calls or do some row binding. Since it is just a few years, I will just bind the rows.
+It appears we can use `TCEQMAIN` as a identifier code if we are interested in assessment summaries in the state of Texas. I'm interested in the three most recent assessment cycles. Unfortunately, we can't use multiple values in the `reporting_cycle` argument so we need to either loop through the calls or do some row binding. Since it is just a few years, I will just bind the rows.
 
 ```{r}
 df <- state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2022") |>
   bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2020")) |> 
   bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2018")) |> 
-  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2016")) |> 
-  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2014")) 
+  bind_rows(state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2016"))
 ```
 
 Next summarize the counts of "causes" by reporting cycle and designated use:
 
 ```{r}
 df_uses <- df |> 
-  filter(use_name != "DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY") |> 
-  mutate(reporting_cycle = as.numeric(reporting_cycle),
-         cause_count = as.numeric(cause_count)) |> 
-  group_by(reporting_cycle, use_name) |> 
-  summarise(count = sum(cause_count, na.rm = TRUE))
+  tidyr::unnest(items) |> 
+  tidyr::unnest(parameters, names_repair = "unique") |> 
+  filter(useName != "DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY") |> 
+  mutate(reportingCycle = as.numeric(reportingCycle),
+         causeCount = as.numeric(`Cause-count`)) |> 
+  group_by(reportingCycle, useName) |> 
+  summarise(count = sum(causeCount, na.rm = TRUE)) |> 
+  ungroup()
 ```
 Finally, plot with some ggplot and ggrepel magic:
 
 ```{r recuseplot, fig.height=6}
-ggplot(df_uses, aes(x = reporting_cycle, y = count, group = use_name)) +
-  geom_line(aes(color = use_name)) +
-  geom_text_repel(data = df_uses |>  filter(reporting_cycle==2022),
-                  aes(label = use_name),
+ggplot(df_uses, aes(x = reportingCycle, y = count, group = useName)) +
+  geom_line(aes(color = useName)) +
+  geom_text_repel(data = df_uses |>  filter(reportingCycle==2022),
+                  aes(label = useName),
                   size = 2.5,
                   hjust = "left",
                   fontface="bold",
                   direction= "y",
                   nudge_x = 5,
                   color = alpha("white", .75)) +
-  geom_text_repel(data = df_uses |>  filter(reporting_cycle==2014),
-                  aes(label = use_name),
+  geom_text_repel(data = df_uses |>  filter(reportingCycle==2016),
+                  aes(label = useName),
                   size = 2.5,
                   hjust = "right",
                   fontface="bold",
@@ -79,7 +81,7 @@ ggplot(df_uses, aes(x = reporting_cycle, y = count, group = use_name)) +
              fill = "#17262b",
              color = alpha("white", .75)) +
   scale_x_continuous(position = "top",
-                     breaks = c(2014,2016,2018,2020, 2022),
+                     breaks = c(2016,2018,2020, 2022),
                      expand = expansion(mult = 0.25)) +
   scale_color_brewer(palette = "Accent") +
   theme_mps_noto_dark() +
