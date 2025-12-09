@@ -111,9 +111,9 @@ list_data <- jsonlite::fromJSON(raw_data,
                                 flatten = FALSE)
 
 df <- tibble::as_tibble(list_data$data)
- df$items  |>  select(parameters)  |> 
-  tidyr::unnest_wider(parameters)  |> 
-  tidyr::unnest(c(parameterGroup, Cause, "Cause-count", "Meeting Criteria", 
-  "Meeting Criteria-count", "Insufficient Information", "Insufficient Information-count"))
+df  |>  
+  tidyr::unnest(reportingCycles) |> 
+  tidyr::unnest(waterTypes)  |> 
+  tidyr::unnest(useAttainments)
 ```
 
