@@ -44,15 +44,6 @@
 #'   returned. When \code{tidy=FALSE} a raw JSON string is returned.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom fs path
-#' @importFrom jsonlite fromJSON
-#' @importFrom lifecycle deprecate_warn
-#' @importFrom rlist list.filter
-#' @importFrom rlang is_empty .data
-#' @importFrom tidyr unnest unpack
-#' @importFrom tidyselect everything
 #' @examples
 #'
 #' \dontrun{
@@ -153,83 +144,33 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   if (!isTRUE(tidy)) {
     return(content)
   } else {
-
-    ## Parse JSON
-    json_list <- jsonlite::fromJSON(content,
-                                    simplifyVector = FALSE,
-                                    simplifyDataFrame = FALSE,
-                                    flatten = FALSE)
-
-    ## Create tibblify specification
-    spec <- spec_assessment_units()
-
-    ## Created nested lists according to spec
-    content <- tibblify(json_list,
-                        spec = spec,
-                        unspecified = "drop")
-
-    ## if unnest == FALSE return nested data
+   json_list <- jsonlite::fromJSON(content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE)
+    
+    content <- as_tibble(json_list)
+ 
+    ## if unnest = FALSE do not unnest lists
     if(!isTRUE(.unnest)) {
-      return(content$items)
+      return(content)
     }
-
-    ## list -> rectangle
-    content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
-    content <- unnest(content, cols = "water_types", keep_empty = TRUE)
-    content <- unpack(content, cols = everything())
-    return(content)
+    
+    items <- unnest(content, "items")  
+    
+    ## create first tibble
+    content_item_summary <- select(items, !where(is.list))
+    content_names <- select(items, where(is.list))
+    content_names <- as.list(names(content_names))
+    list_content <- list(itemSummary = content_item_summary)
+    
+    output_list <- map(content_names,
+      function(x) {
+        y <- unnest(content, "items")
+        y <- select(y, all_of(x))
+        y <- unnest(y, cols = everything())
+      })
+    names(output_list) <- unlist(content_names)
+    return(append(list_content, output_list))
     }
-}
-
-#' Create tibblify specification for assessment_units
-#'
-#' @return tibblify specification
-#' @keywords internal
-#' @noRd
-#' @import tibblify
-spec_assessment_units <- function() {
-  spec <- tspec_object(
-    "items" = tib_df(
-      "items",
-      "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
-      "organization_name" = tib_chr("organizationName", required = FALSE),
-      "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
-      "assessment_units" = tib_df(
-        "assessmentUnits",
-        "assessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
-        "assessment_unit_name" = tib_chr("assessmentUnitName", required = FALSE),
-        "location_description_text" = tib_chr("locationDescriptionText", required = FALSE),
-        "agency_code" = tib_chr("agencyCode", required = FALSE),
-        "state_code" = tib_chr("stateCode", required = FALSE),
-        "status_indicator" = tib_chr("statusIndicator", required = FALSE),
-        "water_types" = tib_df(
-          "waterTypes",
-          "water_type_code" = tib_chr("waterTypeCode", required = FALSE),
-          "water_size_number" = tib_dbl("waterSizeNumber", required = FALSE),
-          "units_code" = tib_chr("unitsCode", required = FALSE),
-          "size_estimation_method_code" = tib_chr("sizeEstimationMethodCode", required = FALSE),
-          "size_source_text" = tib_chr("sizeSourceText", required = FALSE),
-          "size_source_scale_text" = tib_chr("sizeSourceScaleText", required = FALSE),
-        ),
-        "locations" = tib_df(
-          "locations",
-          "location_type_code" = tib_chr("locationTypeCode", required = FALSE),
-          "location_text" = tib_chr("locationText", required = FALSE),
-        ),
-        "monitoring_stations" = tib_df(
-          "monitoringStations",
-          "monitoring_organization_identifier" = tib_chr("monitoringOrganizationIdentifier", required = FALSE),
-          "monitoring_location_identifier" = tib_chr("monitoringLocationIdentifier", required = FALSE),
-          "monitoring_data_link_text" = tib_chr("monitoringDataLinkText", required = FALSE),
-        ),
-        "use_class" = tib_row(
-          "useClass",
-          "use_class_code" = tib_chr("useClassCode", required = FALSE),
-          "use_class_name" = tib_chr("useClassName", required = FALSE),
-        ),
-        "documents" = tib_df("documents"),
-      ),
-    ),
-    "count" = tib_int("count", required = FALSE),
-  )
 }

@@ -3,7 +3,8 @@ test_that("assessment_units works", {
   vcr::use_cassette("assessment_units_works", {
     x_1 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200")
   })
-  testthat::expect_s3_class(x_1, "tbl_df")
+  testthat::expect_type(x_1, "list")
+  purrr::map(x_1, \(x) {testthat::expect_s3_class(x, "tbl_df")})
 
   vcr::use_cassette("assessment_units_unnest_works", {
     x_1 <- assessment_units(assessment_unit_identifer = "AL03150201-0107-200", .unnest = FALSE)

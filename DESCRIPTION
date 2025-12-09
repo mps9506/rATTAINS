@@ -29,7 +29,6 @@ Imports:
     rlang,
     rlist,
     tibble,
-    tibblify,
     tidyr,
     tidyselect
 Suggests: 

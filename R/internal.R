@@ -28,7 +28,7 @@ xGET <- function(path, args = list(), file = NULL, ...) {
                    times = 3,
                    terminate_on = c(404),
                    ...)
-
+  
   errs(res)
 
   if (!is.null(res)) {
@@ -55,8 +55,15 @@ xGET <- function(path, args = list(), file = NULL, ...) {
 errs <- function(x) {
   if (x$status_code > 201) {
 
-    fun <- fauxpas::find_error_class(x$status_code)$new()
-    fun$do(x)
+    tryCatch(
+      {
+        fun <- fauxpas::find_error_class(x$status_code)$new()
+        fun$do(x)
+      },
+      error = function(e) {NULL},
+      finally = message(fun$mssg)
+
+    )
   }
 }
 

@@ -15,7 +15,6 @@
 #' @note  Data downloaded from the EPA webservice is automatically cached to
 #'   reduce uneccessary calls to the server.
 #' @export
-
 #' @examples
 #'
 #'

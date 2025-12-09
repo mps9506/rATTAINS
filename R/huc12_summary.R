@@ -18,14 +18,6 @@
 #'   data is parsed and returned as a list of tibbles that include a list of
 #'   seven tibbles.
 #' @note See [domain_values] to search values that can be queried.
-#' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
-#' @importFrom dplyr select
-#' @importFrom fs path
-#' @importFrom jsonlite fromJSON
-#' @importFrom tidyr unnest
-#' @importFrom tidyselect everything
 #' @export
 #' @examples
 #'

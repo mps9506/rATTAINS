@@ -68,12 +68,6 @@
 #'   JSON data is parsed and returned as tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
-#' @importFrom fs path
-#' @importFrom lifecycle deprecate_warn
-#' @importFrom rlist list.filter
-#' @importFrom rlang .data is_empty
 #' @examples
 #' \dontrun{
 #'
@@ -204,238 +198,36 @@ actions <- function(action_id = NULL,
 
   if(is.null(content)) return(content)
   ## return raw JSON
-  if(!isTRUE(tidy)) return(content)
-
-  ## parse and tidy JSON
-  else {
-    content <- actions_to_tibble(content,
-                                 count = FALSE, ## depreciated to FALSE
-                                 summarize = summarize,
-                                 .unnest = .unnest)
-
+   if (!isTRUE(tidy)) {
     return(content)
+  } else { 
+    json_list <- jsonlite::fromJSON(content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE)
+    
+    content <- as_tibble(json_list)
+ 
+    ## if unnest = FALSE do not unnest lists
+    if(!isTRUE(.unnest)) {
+      return(content)
+    }
+    
+    items <- unnest(content, "items")  
+    
+    ## create first tibble
+    content_item_summary <- select(items, !where(is.list))
+    content_names <- select(items, where(is.list))
+    content_names <- as.list(names(content_names))
+    list_content <- list(itemSummary = content_item_summary)
+    
+    output_list <- map(content_names,
+      function(x) {
+        y <- unnest(content, "items")
+        y <- select(y, all_of(x))
+        y <- unnest(y, cols = everything())
+      })
+    names(output_list) <- unlist(content_names)
+    return(append(list_content, output_list))
   }
-}
-
-
-#' Convert Action JSON to Tibble
-#'
-#' @param content json
-#' @param count logical
-#' @param summarize character
-#' @param .unnest logical
-#' @keywords internal
-#' @noRd
-#' @import tibblify
-#' @importFrom dplyr select
-#' @importFrom jsonlite fromJSON
-#' @importFrom tidyr unpack unnest unnest_longer
-#' @importFrom tidyselect everything
-actions_to_tibble <- function(content,
-                  count = FALSE,
-                  summarize = "N",
-                  .unnest) {
-
-  ## parse JSON
-  json_list <- jsonlite::fromJSON(content,
-                                  simplifyVector = FALSE,
-                                  simplifyDataFrame = FALSE,
-                                  flatten = FALSE)
-
-  ## Create tibblify specification
-  spec <- spec_actions(summarize = summarize)
-
-  ## Create nested lists according to spec
-  content <- tibblify(json_list,
-                      spec = spec,
-                      unspecified = "drop")
-
-  ## lists -> rectangle
-  content <- unnest(content$items, cols = everything(), keep_empty = TRUE)
-  content <- unpack(content, cols = everything())
-
-  ## if unnest == FALSE do not unnest data
-  if(!isTRUE(.unnest)) {
-    return(content)
-  }
-
-  ## data structure if request was made with summarize = TRUE
-  if(summarize == "Y") {
-    content <- unnest_longer(content, col = "documents")
-    content <- unpack(content, cols = everything(), names_repair = "universal")
-    content <- unnest_longer(content, col = "associated_pollutants")
-    content <- unnest(content, cols = "document_types", keep_empty = TRUE)
-    content <- select(content, -c("parameters"))
-
-    return(content)
-  }
-  ## data structure if request was made with summarize = FALSE
-  if(summarize == "N") {
-    ## returns a list of two tibbles: documents and actions
-    documents <- select(content, -c("specific_waters"))
-    documents <- unnest(documents, cols = everything(), names_repair = "universal", keep_empty = TRUE)
-    documents <- unnest(documents, cols = everything(), names_repair = "universal", keep_empty = TRUE)
-
-    actions <- select(content, -c("documents"))
-    actions <- unnest_longer(actions, col = "specific_waters")
-    actions <- unpack(actions, cols = everything())
-    actions <- unnest(actions, cols = "associated_pollutants", keep_empty = TRUE)
-    actions <- unnest(actions, cols = -c("permits", "parameters"), keep_empty = TRUE)
-
-    return(list(documents = documents,
-                actions = actions))
-  }
-}
-
-#' Create tibblify specification for actions
-#' @param summarize character, one of 'Y' or 'N'.
-#' @return tibblify specification
-#' @keywords internal
-#' @noRd
-#' @import tibblify
-spec_actions <- function(summarize) {
-
-  if(summarize == "N") {
-
-    spec <- tspec_object(
-      "items" = tib_df(
-        "items",
-        "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
-        "organization_name" = tib_chr("organizationName", required = FALSE),
-        "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
-        "actions" = tib_df(
-          "actions",
-          "action_identifier" = tib_chr("actionIdentifier", required = FALSE),
-          "action_name" = tib_chr("actionName", required = FALSE),
-          "actionAgencyCode" =  tib_chr("agencyCode", required = FALSE),
-          "action_type_code" = tib_chr("actionTypeCode", required = FALSE),
-          "action_status_code" = tib_chr("actionStatusCode", required = FALSE),
-          "completion_date" = tib_chr("completionDate", required = FALSE),
-          "organization_id" = tib_chr("organizationId", required = FALSE),
-          "documents" = tib_df(
-            "documents",
-            "documentAgencyCode" = tib_chr("agencyCode", required = FALSE),
-            "document_types" = tib_df(
-              "documentTypes",
-              "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
-            ),
-            "document_file_type" = tib_chr("documentFileType", required = FALSE),
-            "document_file_name" = tib_chr("documentFileName", required = FALSE),
-            "document_name" = tib_chr("documentName", required = FALSE),
-            "document_description" = tib_unspecified("documentDescription", required = FALSE),
-            "document_comments" = tib_chr("documentComments", required = FALSE),
-            "document_url" = tib_chr("documentURL", required = FALSE),
-          ),
-          "associated_waters" = tib_row(
-            "associatedWaters",
-            "specific_waters" = tib_df(
-              "specificWaters",
-              "asessment_unit_identifier" = tib_chr("assessmentUnitIdentifier", required = FALSE),
-              "associated_pollutants" = tib_df(
-                "associatedPollutants",
-                "pollutant_name" = tib_chr("pollutantName", required = FALSE),
-                "pollutant_source_type_code" = tib_chr("pollutantSourceTypeCode", required = FALSE),
-                "explicit_margin_of_safety_text" = tib_chr("explicitMarginofSafetyText", required = FALSE),
-                "implicit_margin_of_safety_text" = tib_chr("implicitMarginofSafetyText", required = FALSE),
-                "load_allocation_details" = tib_df(
-                  "loadAllocationDetails",
-                  "load_allocation_numeric" = tib_dbl("loadAllocationNumeric", required = FALSE),
-                  "load_allocation_units_text" = tib_chr("loadAllocationUnitsText", required = FALSE),
-                  "season_start_text" = tib_unspecified("seasonStartText", required = FALSE),
-                  "seasons_end_text" = tib_unspecified("seasonEndText", required = FALSE),
-                ),
-                "permits" = tib_df(
-                  "permits",
-                  "NPDES_identifier" = tib_chr("NPDESIdentifier", required = FALSE),
-                  "other_identifier" = tib_chr("otherIdentifier", required = FALSE),
-                  "details" = tib_df(
-                    "details",
-                    "waste_load_allocation_numeric" = tib_dbl("wasteLoadAllocationNumeric", required = FALSE),
-                    "waste_load_allocation_units_text" = tib_chr("wasteLoadAllocationUnitsText", required = FALSE),
-                    "season_start_text" = tib_unspecified("seasonStartText", required = FALSE),
-                    "season_end_text" = tib_unspecified("seasonEndText", required = FALSE),
-                  ),
-                ),
-                "TMDL_end_point_text" = tib_chr("TMDLEndPointText", required = FALSE),
-              ),
-              "parameters" = tib_df(
-                "parameters",
-                "parameters_name" = tib_chr("parameterName", required = FALSE),
-                "associated_pollutants" = tib_df(
-                  "associatedPollutants",
-                  "pollutant_name" = tib_chr("pollutantName", required = FALSE),
-                ),
-              ),
-              "sources" = tib_unspecified("sources", required = FALSE),
-            ),
-          ),
-          "TMDL_report_details" = tib_row(
-            "TMDLReportDetails",
-            "TMDL_other_identifier" = tib_unspecified("TMDLOtherIdentifier", required = FALSE),
-            "TMDL_date" = tib_chr("TMDLDate", required = FALSE),
-            "indian_country_indicator" = tib_chr("indianCountryIndicator", required = FALSE),
-          ),
-          "pollutants" = tib_unspecified("pollutants", required = FALSE),
-          "associated_actions" = tib_unspecified("associatedActions", required = FALSE),
-          "histories" = tib_unspecified("histories", required = FALSE),
-        ),
-      ),
-      "count" = tib_int("count", required = FALSE),
-    )
-  }
-  if(summarize == "Y") {
-
-    spec <- tspec_object(
-      "items" = tib_df(
-        "items",
-        "organization_identifier" = tib_chr("organizationIdentifier", required = FALSE),
-        "organization_name" = tib_chr("organizationName", required = FALSE),
-        "organization_type_text" = tib_chr("organizationTypeText", required = FALSE),
-        "actions" = tib_df(
-          "actions",
-          "action_identifier" = tib_chr("actionIdentifier", required = FALSE),
-          "action_name" = tib_chr("actionName", required = FALSE),
-          "agency_code" = tib_chr("agencyCode", required = FALSE),
-          "action_type_code" = tib_chr("actionTypeCode", required = FALSE),
-          "action_status_code" = tib_chr("actionStatusCode", required = FALSE),
-          "completion_date" = tib_chr("completionDate", required = FALSE),
-          "organization_id" = tib_chr("organizationId", required = FALSE),
-          "documents" = tib_df(
-            "documents",
-            "agency_code" = tib_chr("agencyCode", required = FALSE),
-            "document_types" = tib_df(
-              "documentTypes",
-              "document_type_code" = tib_chr("documentTypeCode", required = FALSE),
-            ),
-            "document_file_type" = tib_chr("documentFileType", required = FALSE),
-            "document_file_name" = tib_chr("documentFileName", required = FALSE),
-            "document_name" = tib_chr("documentName", required = FALSE),
-            "document_description" = tib_unspecified("documentDescription", required = FALSE),
-            "document_comments" = tib_chr("documentComments", required = FALSE),
-            "document_url" = tib_chr("documentURL", required = FALSE),
-          ),
-          "TMDL_report_details" = tib_row(
-            "TMDLReportDetails",
-            "TMDL_other_identifier" = tib_unspecified("TMDLOtherIdentifier", required = FALSE),
-            "TMDL_date" = tib_chr("TMDLDate", required = FALSE),
-            "indian_country_indicator" = tib_chr("indianCountryIndicator", required = FALSE),
-          ),
-          "associated_pollutants" = tib_df(
-            "associatedPollutants",
-            "pollutant_name" = tib_chr("pollutantName", required = FALSE),
-            "au_count" = tib_chr("auCount", required = FALSE),
-          ),
-          "parameters" = tib_df(
-            "parameters",
-            "parameter_name" = tib_chr("parameterName", required = FALSE),
-            "au_count" = tib_chr("auCount", required = FALSE),
-          ),
-          "associated_actions" = tib_unspecified("associatedActions", required = FALSE),
-        ),
-      ),
-      "count" = tib_int("count", required = FALSE),
-    )
-  }
-
-  return(spec)
 }
