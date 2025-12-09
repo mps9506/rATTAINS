@@ -38,8 +38,7 @@ state_summary(organization_id = "TCEQMAIN", reporting_cycle = "2022")
 ```
 
 ```{r echo=FALSE, include=FALSE}
-warning("No connection to <https://attains.epa.gov> available!",
-        call. = FALSE)
+warning("No connection to <https://attains.epa.gov> available!", call. = FALSE)
 ```
 
 Potential issues/fixes:
@@ -54,8 +53,10 @@ Potential issues/fixes:
 The server might also return http code messages. The most common will be 404 or 429. rATTAINS will generally provide a simple message and error when this is encountered:
 
 ```{r echo=FALSE, include=FALSE}
-webmockr::stub_request("get",
-                       "https://attains.epa.gov/attains-public/api/actions?actionIdentifier=R8-ND-2018-03&summarize=N&returnCountOnly=N") |> 
+webmockr::stub_request(
+  "get",
+  "https://attains.epa.gov/attains-public/api/actions?actionIdentifier=R8-ND-2018-03&summarize=N&returnCountOnly=N"
+) |>
   to_return(status = 429)
 ```
 
@@ -80,20 +81,31 @@ The default behavior in rATTAINS is to parse JSON data downloaded from the API t
 Default behavior:
 
 ```{r}
-state_summary(organization_id = "TDECWR", 
-              reporting_cycle = "2022")
+state_summary(organization_id = "TDECWR", reporting_cycle = "2022")
 ```
 
 
 Using `.unnest=FALSE` returns nested columns. The tidyr family of `unnest()` functions is an easy way to flatten this data:
 
 ```{r}
-df <- state_summary(organization_id = "TDECWR", 
-                    reporting_cycle = "2022",
-                    .unnest = FALSE)
+df <- state_summary(
+  organization_id = "TDECWR",
+  reporting_cycle = "2022",
+  .unnest = FALSE
+)
 
-df |>
-  tidyr::unnest(items)
+df$items |>
+  dplyr::select(parameters) |>
+  tidyr::unnest_wider(parameters) |>
+  tidyr::unnest(c(
+    parameterGroup,
+    Cause,
+    "Cause-count",
+    "Meeting Criteria",
+    "Meeting Criteria-count",
+    "Insufficient Information",
+    "Insufficient Information-count"
+  ))
 
 
 ```
@@ -101,19 +113,23 @@ df |>
 If the above option doesn't work, rATTAINS can also provide the raw JSON data from the API. The [jsonlite](https://cran.r-project.org/package=jsonlite) 📦 provides tools to convert JSON to nested lists and tibbles pretty easily. First, use the `tidy=FALSE` argument to return the unparsed JSON string, then uses jsonlite to convert that data to a nested list, then use tidyr to access the nested dataframes!
 
 ```{r}
-raw_data <- state_summary(organization_id = "TDECWR", 
-                          reporting_cycle = "2022",
-                          tidy = FALSE)
+raw_data <- state_summary(
+  organization_id = "TDECWR",
+  reporting_cycle = "2022",
+  tidy = FALSE
+)
 
-list_data <- jsonlite::fromJSON(raw_data,
-                                simplifyVector = TRUE,
-                                simplifyDataFrame = TRUE,
-                                flatten = FALSE)
+list_data <- jsonlite::fromJSON(
+  raw_data,
+  simplifyVector = TRUE,
+  simplifyDataFrame = TRUE,
+  flatten = FALSE
+)
 
 df <- tibble::as_tibble(list_data$data)
-df  |>  
-  tidyr::unnest(reportingCycles) |> 
-  tidyr::unnest(waterTypes)  |> 
+df |>
+  tidyr::unnest(reportingCycles) |>
+  tidyr::unnest(waterTypes) |>
   tidyr::unnest(useAttainments)
 ```
 
