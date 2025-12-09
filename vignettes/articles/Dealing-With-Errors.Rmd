@@ -17,7 +17,6 @@ webmockr::enable()
 ```{r setup}
 library(rATTAINS)
 library(jsonlite)
-library(tibblify)
 library(tidyr)
 
 ```
@@ -92,28 +91,29 @@ Using `.unnest=FALSE` returns nested columns. The tidyr family of `unnest()` fun
 df <- state_summary(organization_id = "TDECWR", 
                     reporting_cycle = "2016",
                     .unnest = FALSE)
-df
 
-df |>
-  tidyr::unnest(reporting_cycles) |> 
-  tidyr::unnest(water_types) |> 
-  tidyr::unnest(use_attainments)
+df  |>  
+  tidyr::unnest(items)  |>  
+  tidyr::unnest(assessmentUnits)
+
+
 ```
 
-If the above option doesn't work, rATTAINS can also provide the raw JSON data from the API. The [tibblify](https://cran.r-project.org/package=tibblify) 📦️ and [jsonlite](https://cran.r-project.org/package=jsonlite) 📦 provide tools to convert JSON to nested lists then tibbles pretty easily. First, use the `tidy=FALSE` argument to return the unparsed JSON string, then uses jsonlite to convert that data to a nested list, then tibblify to convert to a nested dataframe!
+If the above option doesn't work, rATTAINS can also provide the raw JSON data from the API. The [jsonlite](https://cran.r-project.org/package=jsonlite) 📦 provides tools to convert JSON to nested lists and tibbles pretty easily. First, use the `tidy=FALSE` argument to return the unparsed JSON string, then uses jsonlite to convert that data to a nested list, then use tidyr to access the nested dataframes!
 
 ```{r}
 raw_data <- state_summary(organization_id = "TDECWR", 
-                    reporting_cycle = "2016",
-                    tidy = FALSE)
+                          reporting_cycle = "2022",
+                          tidy = FALSE)
 
 list_data <- jsonlite::fromJSON(raw_data,
-                                simplifyVector = FALSE,
-                                simplifyDataFrame = FALSE,
+                                simplifyVector = TRUE,
+                                simplifyDataFrame = TRUE,
                                 flatten = FALSE)
 
-df <- tibblify::tibblify(list_data$data,
-                         unspecified = "drop")
-df$reportingCycles
+df <- tibble::as_tibble(list_data$data)
+tidyr::unnest(df, reportingCycles) |> 
+  tidyr::unnest(waterTypes) |> 
+  tidyr::unnest(useAttainments)
 ```
 
