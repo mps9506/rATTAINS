@@ -12,7 +12,7 @@
 #' @keywords internal
 #' @noRd
 xGET <- function(path, args = list(), file = NULL, ...) {
-  url <- "https://attains.epa.gov"
+  url <- "https://api.epa.gov/attains"
   cli <- crul::HttpClient$new(url,
                               opts = list(...))
 
