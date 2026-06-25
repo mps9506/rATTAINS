@@ -79,3 +79,32 @@ check_connectivity <- function() {
   )
 }
 
+
+#' Check API key
+#'
+#' Checks for API Key in current environment or provided by user.
+#' Should be included near the top of each function before the arg list
+#' is built.
+#' @return TRUE or error
+#' @keywords internal
+#' @noRd
+#'
+check_api_key <- function() {
+  tryCatch(expr = {
+    ## RATTAINS_TOKEN
+    ifelse(
+      length(Sys.getenv("RATTAINS_TOKEN") > 0),
+      TRUE,
+      FALSE
+    )
+    return(TRUE)
+
+  },
+  error = function(e){
+    message("API Token from Data.gov using: https://api.data.gov/signup/")
+  }
+
+  )
+
+
+}

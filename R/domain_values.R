@@ -45,6 +45,9 @@ domain_values <- function(domain_name = NULL,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- makeAssertCollection()
   mapply(FUN = assert_character,
@@ -70,7 +73,8 @@ domain_values <- function(domain_name = NULL,
   }
 
   args <- list(domainName = domain_name,
-               context = context)
+               context = context,
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
   args <- list.filter(args, !is.null(.data))
   path = "attains-public/api/domains"
 

@@ -47,6 +47,9 @@ huc12_summary <- function(huc,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -65,7 +68,8 @@ huc12_summary <- function(huc,
                          add = coll))
   checkmate::reportAssertions(coll)
 
-  args <- list(huc = huc)
+  args <- list(huc = huc,
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
   path = "attains-public/api/huc12summary"
 
   ## download data

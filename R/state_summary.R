@@ -53,6 +53,9 @@ state_summary <- function(organization_id = NULL,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -74,7 +77,8 @@ state_summary <- function(organization_id = NULL,
 
   ## check that required args are present
   args <- list(organizationId = organization_id,
-               reportingCycle = reporting_cycle)
+               reportingCycle = reporting_cycle,
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
   args <- list.filter(args, !is.null(.data))
   required_args <- c("organizationId")
   args_present <- intersect(names(args), required_args)

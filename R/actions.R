@@ -121,6 +121,9 @@ actions <- function(action_id = NULL,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -183,7 +186,8 @@ actions <- function(action_id = NULL,
                ### DEPRECIATED ###
                #returnCountOnly = returnCountOnly)#
                ###################
-               returnCountOnly = "N"
+               returnCountOnly = "N",
+               api_key = Sys.getenv("RATTAINS_TOKEN")
   )
   args <- list.filter(args, !is.null(.data))
   required_args <- c("actionIdentifier",

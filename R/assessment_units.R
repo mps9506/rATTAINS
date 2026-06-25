@@ -95,6 +95,9 @@ assessment_units <- function(assessment_unit_identifer = NULL,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -121,16 +124,17 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   ## check that required args are present
   args <- list(assessmentUnitIdentifier = assessment_unit_identifer,
-                  stateCode = state_code,
-                  organizationId = organization_id,
-                  epaRegion = epa_region,
-                  HUC = huc,
-                  county = county,
-                  assessmentUnitName = assessment_unit_name,
-                  lastChangeLaterThanDate = last_change_later_than_date,
-                  lastChangeEarlierThanDate = last_change_earlier_than_date,
-                  statusIndicator = status_indicator,
-                  returnCountOnly = NULL) ## depreciated and defaults NULL
+               stateCode = state_code,
+               organizationId = organization_id,
+               epaRegion = epa_region,
+               HUC = huc,
+               county = county,
+               assessmentUnitName = assessment_unit_name,
+               lastChangeLaterThanDate = last_change_later_than_date,
+               lastChangeEarlierThanDate = last_change_earlier_than_date,
+               statusIndicator = status_indicator,
+               returnCountOnly = NULL,## depreciated and defaults NULL
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
                      "stateCode",

@@ -57,6 +57,9 @@ plans <- function(huc,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -81,7 +84,8 @@ plans <- function(huc,
 
   args <- list(huc = huc,
                oganizationId = organization_id,
-               summarize = summarize)
+               summarize = summarize,
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
   args <- list.filter(args, !is.null(.data))
   required_args <- c("huc")
   args_present <- intersect(names(args), required_args)

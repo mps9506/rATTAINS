@@ -122,6 +122,9 @@ assessments <- function(assessment_unit_id = NULL,
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(FUN = checkmate::assert_character,
@@ -177,7 +180,8 @@ assessments <- function(assessment_unit_id = NULL,
                #returnCountOnly = returnCountOnly)#
                ###################
                returnCountOnly = "N",
-               excludeAssessments = exclude_assessments)
+               excludeAssessments = exclude_assessments,
+               api_key = Sys.getenv("RATTAINS_TOKEN"))
 
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
