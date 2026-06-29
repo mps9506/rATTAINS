@@ -75,11 +75,18 @@ Potential issues/fixes:
 
 ## Parsing Errors
 
+```{r include=FALSE}
+## setup vcr
+library(vcr)
+vcr::setup_knitr(dir = "_vcr")
+```
+
 The default behavior in rATTAINS is to parse JSON data downloaded from the API to one or more dataframes. These are returned as a single dataframe or list of dataframes depending on the function. rATTAINS also tries to flatten the data as much as possible. This design choice **might** have been a mistake because it can become a source of errors if the data returned by the API changes or is inconsistent. As of version 1.0.0 of the package the `.unnest` argument was added to most functions. By setting `.unnest=FALSE` many of these problems should be avoided.
 
 Default behavior:
 
 ```{r}
+#| cassette: error_state_summary
 state_summary(organization_id = "SDDENR", reporting_cycle = "2024")
 ```
 
@@ -87,6 +94,7 @@ state_summary(organization_id = "SDDENR", reporting_cycle = "2024")
 Using `.unnest=FALSE` returns nested columns. The tidyr family of `unnest()` functions is an easy way to flatten this data:
 
 ```{r}
+#| cassette: error_state_summary
 df <- state_summary(
   organization_id = "SDDENR",
   reporting_cycle = "2024",
@@ -110,6 +118,7 @@ df$items |>
 If the above option doesn't work, rATTAINS can also provide the raw JSON data from the API. The [jsonlite](https://cran.r-project.org/package=jsonlite) 📦 provides tools to convert JSON to nested lists and tibbles pretty easily. First, use the `tidy=FALSE` argument to return the unparsed JSON string, then uses jsonlite to convert that data to a nested list, then use tidyr to access the nested dataframes!
 
 ```{r}
+#| cassette: error_state_summary
 raw_data <- state_summary(
   organization_id = "SDDENR",
   reporting_cycle = "2024",

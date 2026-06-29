@@ -1,0 +1,926 @@
+http_interactions:
+- request:
+    method: GET
+    uri: https://api.epa.gov/attains/usesStateSummary?organizationId=TCEQMAIN&reportingCycle=2022
+  response:
+    status: 200
+    headers:
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 22:03:12 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      age: '1'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2lk6gsbulftclioge0
+      x-cache: MISS
+      x-content-type-options: nosniff
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '983'
+      x-vcap-request-id: f2d37d35-87bc-40d4-695a-cab81eea4a38
+      x-frame-options: DENY
+    body:
+      string: '{"data":{"organizationIdentifier":"TCEQMAIN","organizationName":"Texas","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2022","cycleStatus":"EPA
+        Final Action","combinedCycles":[],"waterTypes":[{"waterTypeCode":"RESERVOIR","unitsCode":"Acres","useAttainments":[{"useName":"Recreation
+        Use","Fully Supporting":884110.38,"Fully Supporting-count":252,"Insufficient
+        Information":162050.26,"Insufficient Information-count":55,"Not Assessed":15742.14,"Not
+        Assessed-count":8,"Not Supporting":5959.57,"Not Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":5959.57,"Cause-count":2,"Insufficient
+        Information":27029.94,"Insufficient Information-count":9,"Meeting Criteria":884110.38,"Meeting
+        Criteria-count":252,"Removed":120.03,"Removed-count":1}]},{"useName":"DOMESTIC
+        WATER SUPPLY - PUBLIC WATER SUPPLY","Fully Supporting":1326643.36,"Fully Supporting-count":334,"Insufficient
+        Information":25705.15,"Insufficient Information-count":5,"parameters":[{"parameterGroup":"RADIATION","Meeting
+        Criteria":57914.53,"Meeting Criteria-count":18},{"parameterGroup":"MERCURY","Insufficient
+        Information":9839.36,"Insufficient Information-count":5,"Meeting Criteria":22334.94,"Meeting
+        Criteria-count":14},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":11182.89,"Insufficient Information-count":7,"Meeting Criteria":358363.54,"Meeting
+        Criteria-count":72},{"parameterGroup":"PESTICIDES","Insufficient Information":361.08,"Insufficient
+        Information-count":2},{"parameterGroup":"TOXIC INORGANICS","Meeting Criteria":592277.13,"Meeting
+        Criteria-count":147},{"parameterGroup":"NUTRIENTS","Insufficient Information":18237.95,"Insufficient
+        Information-count":1,"Meeting Criteria":1292965.72,"Meeting Criteria-count":322}]},{"useName":"General
+        Use","Fully Supporting":1094030.53,"Fully Supporting-count":288,"Insufficient
+        Information":39771.84,"Insufficient Information-count":45,"Not Assessed":35066.96,"Not
+        Assessed-count":20,"Not Supporting":352391.92,"Not Supporting-count":82,"parameters":[{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":21583.04,"Insufficient Information-count":2,"Meeting Criteria":1037998.65,"Meeting
+        Criteria-count":276},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":102029,"Cause-count":13,"Meeting
+        Criteria":1377495.76,"Meeting Criteria-count":354},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":391382.14,"Insufficient Information-count":115,"Meeting Criteria":361067.11,"Meeting
+        Criteria-count":81},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":83787.38,"Cause-count":28,"Insufficient
+        Information":21583.04,"Insufficient Information-count":2,"Meeting Criteria":1037998.65,"Meeting
+        Criteria-count":276},{"parameterGroup":"ALGAL GROWTH","Cause":176451.05,"Cause-count":45,"Insufficient
+        Information":454600.62,"Insufficient Information-count":163,"Meeting Criteria":141030.41,"Meeting
+        Criteria-count":50}]},{"useName":"Fish Consumption Use","Fully Supporting":202072.96,"Fully
+        Supporting-count":68,"Insufficient Information":42379.65,"Insufficient Information-count":19,"Not
+        Assessed":33319.82,"Not Assessed-count":9,"Not Supporting":398959.64,"Not
+        Supporting-count":59,"parameters":[{"parameterGroup":"PESTICIDES","Cause":28.13,"Cause-count":2,"Insufficient
+        Information":21770.54,"Insufficient Information-count":6},{"parameterGroup":"MERCURY","Cause":307538.59,"Cause-count":40,"Insufficient
+        Information":31859.15,"Insufficient Information-count":12,"Meeting Criteria":22532.76,"Meeting
+        Criteria-count":15},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":31661.33,"Insufficient Information-count":11,"Meeting Criteria":433052.48,"Meeting
+        Criteria-count":89},{"parameterGroup":"DIOXINS","Cause":210517,"Cause-count":29},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":91421.05,"Cause-count":19,"Insufficient Information":3018.82,"Insufficient
+        Information-count":3}]},{"useName":"Aquatic Life Use","Fully Supporting":1069928.99,"Fully
+        Supporting-count":312,"Insufficient Information":65302.62,"Insufficient Information-count":20,"Not
+        Assessed":21994.09,"Not Assessed-count":11,"Not Supporting":10855.98,"Not
+        Supporting-count":10,"parameters":[{"parameterGroup":"TOXIC ORGANICS","Insufficient
+        Information":31674.51,"Insufficient Information-count":6},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":30097.45,"Insufficient Information-count":4},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":36698.77,"Insufficient Information-count":9,"Meeting
+        Criteria":100797.22,"Meeting Criteria-count":35},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":9441.56,"Cause-count":7,"Insufficient
+        Information":41332.37,"Insufficient Information-count":6,"Meeting Criteria":1067392.65,"Meeting
+        Criteria-count":312,"Removed":120.03,"Removed-count":1},{"parameterGroup":"TOTAL
+        TOXICS","Cause":1414.42,"Cause-count":3},{"parameterGroup":"MERCURY","Insufficient
+        Information":52772.52,"Insufficient Information-count":8,"Meeting Criteria":7158.43,"Meeting
+        Criteria-count":4},{"parameterGroup":"PESTICIDES","Insufficient Information":32989.89,"Insufficient
+        Information-count":7}]},{"useName":"Public Water Supply Use","Not Assessed":7304.46,"Not
+        Assessed-count":1,"parameters":[]}]},{"waterTypeCode":"STREAM, TIDAL","unitsCode":"Miles","useAttainments":[{"useName":"General
+        Use","Fully Supporting":669.03,"Fully Supporting-count":69,"Insufficient Information":268.25,"Insufficient
+        Information-count":41,"Not Assessed":12.48,"Not Assessed-count":1,"Not Supporting":7.63,"Not
+        Supporting-count":3,"parameters":[{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":23.22,"Insufficient Information-count":1},{"parameterGroup":"ALGAL
+        GROWTH","Insufficient Information":1.19,"Insufficient Information-count":1},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":4.72,"Cause-count":1,"Meeting Criteria":671.94,"Meeting
+        Criteria-count":71},{"parameterGroup":"PATHOGENS","Cause":2.91,"Cause-count":2,"Meeting
+        Criteria":52.88,"Meeting Criteria-count":11},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":671.94,"Meeting Criteria-count":71}]},{"useName":"Recreation Use","Fully
+        Supporting":198.09,"Fully Supporting-count":21,"Insufficient Information":78.84,"Insufficient
+        Information-count":5,"Not Supporting":580.68,"Not Supporting-count":78,"parameters":[{"parameterGroup":"PATHOGENS","Cause":580.68,"Cause-count":78,"Meeting
+        Criteria":198.09,"Meeting Criteria-count":21}]},{"useName":"DOMESTIC WATER
+        SUPPLY - PUBLIC WATER SUPPLY","Fully Supporting":61.98,"Fully Supporting-count":6,"parameters":[{"parameterGroup":"TOXIC
+        INORGANICS","Meeting Criteria":61.98,"Meeting Criteria-count":6},{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":61.98,"Meeting Criteria-count":6}]},{"useName":"Fish Consumption
+        Use","Insufficient Information":27.72,"Insufficient Information-count":8,"Not
+        Assessed":4.779,"Not Assessed-count":1,"Not Supporting":351.06,"Not Supporting-count":57,"parameters":[{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":351.06,"Cause-count":57},{"parameterGroup":"DIOXINS","Cause":293.56,"Cause-count":49},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":64.2,"Meeting Criteria-count":15},{"parameterGroup":"MERCURY","Cause":3.75,"Cause-count":1,"Meeting
+        Criteria":64.2,"Meeting Criteria-count":15}]},{"useName":"Aquatic Life Use","Fully
+        Supporting":811.23,"Fully Supporting-count":86,"Insufficient Information":26.08,"Insufficient
+        Information-count":3,"Not Assessed":12.48,"Not Assessed-count":1,"Not Supporting":157.41,"Not
+        Supporting-count":38,"parameters":[{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Cause":153.67,"Cause-count":36,"Insufficient Information":1.57,"Insufficient
+        Information-count":1,"Meeting Criteria":804.93,"Meeting Criteria-count":86},{"parameterGroup":"TOTAL
+        TOXICS","Cause":12.2,"Cause-count":5},{"parameterGroup":"POLYCHLORINATED BIPHENYLS
+        (PCBS)","Insufficient Information":2.31,"Insufficient Information-count":1},{"parameterGroup":"MERCURY","Insufficient
+        Information":41.93,"Insufficient Information-count":5,"Meeting Criteria":3.73,"Meeting
+        Criteria-count":1},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":30.25,"Insufficient
+        Information-count":7},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":73.41,"Insufficient Information-count":8,"Meeting Criteria":3.73,"Meeting
+        Criteria-count":1},{"parameterGroup":"PESTICIDES","Insufficient Information":30.25,"Insufficient
+        Information-count":7}]}]},{"waterTypeCode":"BEACH","unitsCode":"Miles","useAttainments":[{"useName":"Recreational
+        Beaches","Fully Supporting":124.98,"Fully Supporting-count":51,"Insufficient
+        Information":5.89,"Insufficient Information-count":4,"Not Assessed":2.02,"Not
+        Assessed-count":6,"Not Supporting":8.56,"Not Supporting-count":6,"parameters":[{"parameterGroup":"PATHOGENS","Cause":8.56,"Cause-count":6,"Meeting
+        Criteria":124.98,"Meeting Criteria-count":51}]}]},{"waterTypeCode":"OCEAN","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"Aquatic Life Use","Fully Supporting":347.11,"Fully
+        Supporting-count":4,"parameters":[{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Meeting Criteria":347.11,"Meeting Criteria-count":4}]},{"useName":"General
+        Use","Fully Supporting":347.11,"Fully Supporting-count":4,"parameters":[{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":347.11,"Meeting Criteria-count":4},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":347.11,"Meeting Criteria-count":4}]},{"useName":"Fish
+        Consumption Use","Not Supporting":1339.75,"Not Supporting-count":10,"parameters":[{"parameterGroup":"MERCURY","Cause":1339.75,"Cause-count":10}]},{"useName":"Recreation
+        Use","Fully Supporting":139.68,"Fully Supporting-count":1,"Not Supporting":160.01,"Not
+        Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":160.01,"Cause-count":2,"Meeting
+        Criteria":139.68,"Meeting Criteria-count":1}]}]},{"waterTypeCode":"STREAM","unitsCode":"Miles","useAttainments":[{"useName":"General
+        Use","Fully Supporting":12198.19,"Fully Supporting-count":561,"Insufficient
+        Information":7909.45,"Insufficient Information-count":530,"Not Assessed":2415.3458,"Not
+        Assessed-count":160,"Not Supporting":1521,"Not Supporting-count":45,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1375.35,"Cause-count":36,"Insufficient
+        Information":31.47,"Insufficient Information-count":2,"Meeting Criteria":13472.83,"Meeting
+        Criteria-count":595},{"parameterGroup":"TEMPERATURE","Cause":18.8,"Cause-count":1,"Insufficient
+        Information":429.3,"Insufficient Information-count":8,"Meeting Criteria":10438.03,"Meeting
+        Criteria-count":455},{"parameterGroup":"ALGAL GROWTH","Cause":90.92,"Cause-count":5,"Insufficient
+        Information":213.85,"Insufficient Information-count":17},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":42.87,"Cause-count":4,"Insufficient Information":429.3,"Insufficient
+        Information-count":8,"Meeting Criteria":10511.03,"Meeting Criteria-count":457},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":569.23,"Insufficient Information-count":43,"Meeting Criteria":100.49,"Meeting
+        Criteria-count":4}]},{"useName":"DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY","Fully
+        Supporting":11170.88,"Fully Supporting-count":408,"parameters":[{"parameterGroup":"RADIATION","Meeting
+        Criteria":46.54,"Meeting Criteria-count":6},{"parameterGroup":"MERCURY","Insufficient
+        Information":336.45,"Insufficient Information-count":15,"Meeting Criteria":732.25,"Meeting
+        Criteria-count":23},{"parameterGroup":"NUTRIENTS","Meeting Criteria":11154.34,"Meeting
+        Criteria-count":406},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":506,"Insufficient
+        Information-count":26,"Meeting Criteria":4991.26,"Meeting Criteria-count":208},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":132.74,"Insufficient Information-count":7,"Meeting
+        Criteria":574.22,"Meeting Criteria-count":34}]},{"useName":"Fish Consumption
+        Use","Fully Supporting":1818.59,"Fully Supporting-count":79,"Insufficient
+        Information":1491.32,"Insufficient Information-count":64,"Not Assessed":388.584,"Not
+        Assessed-count":22,"Not Supporting":868.11,"Not Supporting-count":54,"parameters":[{"parameterGroup":"DIOXINS","Cause":647.48,"Cause-count":33},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":530.25,"Cause-count":38},{"parameterGroup":"PESTICIDES","Meeting
+        Criteria":19.41,"Meeting Criteria-count":2},{"parameterGroup":"MERCURY","Cause":404.35,"Cause-count":20,"Insufficient
+        Information":741.05,"Insufficient Information-count":31,"Meeting Criteria":1164.52,"Meeting
+        Criteria-count":37},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":19.41,"Insufficient
+        Information-count":2,"Meeting Criteria":19.41,"Meeting Criteria-count":2},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":1.36,"Cause-count":1,"Insufficient Information":513.14,"Insufficient
+        Information-count":28,"Meeting Criteria":1588.6,"Meeting Criteria-count":88}]},{"useName":"Public
+        Water Supply Use","Not Assessed":69.0927,"Not Assessed-count":7,"parameters":[]},{"useName":"Aquatic
+        Life Use","Fully Supporting":16197.41,"Fully Supporting-count":845,"Insufficient
+        Information":1949.83,"Insufficient Information-count":113,"Not Assessed":2582.3437,"Not
+        Assessed-count":182,"Not Supporting":2005.12,"Not Supporting-count":122,"parameters":[{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Cause":220.14,"Cause-count":15,"Insufficient Information":155.96,"Insufficient
+        Information-count":7,"Meeting Criteria":762.53,"Meeting Criteria-count":44,"Removed":11.39,"Removed-count":1},{"parameterGroup":"MERCURY","Insufficient
+        Information":236.89,"Insufficient Information-count":11,"Meeting Criteria":370.65,"Meeting
+        Criteria-count":14},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Insufficient
+        Information":43.42,"Insufficient Information-count":2},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":1775.56,"Cause-count":104,"Insufficient
+        Information":905.78,"Insufficient Information-count":42,"Meeting Criteria":16345.89,"Meeting
+        Criteria-count":853,"Removed":15.21,"Removed-count":2},{"parameterGroup":"TOTAL
+        TOXICS","Cause":4.93,"Cause-count":2},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":183.21,"Insufficient Information-count":5},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":89.11,"Insufficient Information-count":4},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":47.31,"Cause-count":5,"Insufficient Information":344,"Insufficient
+        Information-count":24,"Meeting Criteria":730.62,"Meeting Criteria-count":56}]},{"useName":"Recreation
+        Use","Fully Supporting":8054.73,"Fully Supporting-count":358,"Insufficient
+        Information":3997.98,"Insufficient Information-count":209,"Not Assessed":1930.5159,"Not
+        Assessed-count":146,"Not Supporting":7140.73,"Not Supporting-count":460,"parameters":[{"parameterGroup":"PATHOGENS","Cause":7140.73,"Cause-count":460,"Insufficient
+        Information":593.72,"Insufficient Information-count":33,"Meeting Criteria":7198.69,"Meeting
+        Criteria-count":322}]}]},{"waterTypeCode":"ESTUARY","unitsCode":"Square Miles","useAttainments":[{"useName":"Recreation
+        Use","Fully Supporting":1690.04,"Fully Supporting-count":58,"Insufficient
+        Information":731.21,"Insufficient Information-count":4,"Not Assessed":45.58,"Not
+        Assessed-count":5,"Not Supporting":101.8,"Not Supporting-count":6,"parameters":[{"parameterGroup":"PATHOGENS","Cause":101.8,"Cause-count":6,"Meeting
+        Criteria":1690.04,"Meeting Criteria-count":58}]},{"useName":"Oyster Waters
+        Use","Fully Supporting":1498.17,"Fully Supporting-count":25,"Insufficient
+        Information":768.96,"Insufficient Information-count":15,"Not Supporting":320.43,"Not
+        Supporting-count":22,"parameters":[{"parameterGroup":"FISH CONSUMPTION ADVISORY","Insufficient
+        Information":799.46,"Insufficient Information-count":16,"Meeting Criteria":1498.17,"Meeting
+        Criteria-count":25},{"parameterGroup":"PATHOGENS","Cause":289.93,"Cause-count":21},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":30.5,"Cause-count":1}]},{"useName":"Fish Consumption
+        Use","Fully Supporting":270.42,"Fully Supporting-count":11,"Not Supporting":587.42,"Not
+        Supporting-count":37,"parameters":[{"parameterGroup":"DIOXINS","Cause":544.24,"Cause-count":34},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":585.78,"Cause-count":36},{"parameterGroup":"MERCURY","Cause":1.64,"Cause-count":1,"Insufficient
+        Information":0.71,"Insufficient Information-count":1,"Meeting Criteria":272.06,"Meeting
+        Criteria-count":12},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":0.71,"Insufficient Information-count":1,"Meeting Criteria":272.06,"Meeting
+        Criteria-count":12}]},{"useName":"General Use","Fully Supporting":2516.02,"Fully
+        Supporting-count":55,"Insufficient Information":8.03,"Insufficient Information-count":15,"Not
+        Assessed":45.58,"Not Assessed-count":5,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":2516.02,"Meeting Criteria-count":55},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":2516.02,"Meeting Criteria-count":55}]},{"useName":"Aquatic Life
+        Use","Fully Supporting":1864.42,"Fully Supporting-count":57,"Insufficient
+        Information":24.26,"Insufficient Information-count":3,"Not Assessed":46.28,"Not
+        Assessed-count":6,"Not Supporting":656.51,"Not Supporting-count":10,"parameters":[{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":364.65,"Insufficient Information-count":15},{"parameterGroup":"MERCURY","Insufficient
+        Information":253.2,"Insufficient Information-count":5,"Meeting Criteria":93.9,"Meeting
+        Criteria-count":6},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN DEPLETION","Cause":615.96,"Cause-count":5,"Meeting
+        Criteria":1904.97,"Meeting Criteria-count":62},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":3.21,"Insufficient Information-count":3},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":2.13,"Insufficient Information-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":42.19,"Cause-count":6,"Insufficient Information":347.85,"Insufficient
+        Information-count":8,"Meeting Criteria":96.67,"Meeting Criteria-count":7}]}]}]}]},"messages":[]}'
+  recorded_at: 2026-06-29 22:03:12
+- request:
+    method: GET
+    uri: https://api.epa.gov/attains/usesStateSummary?organizationId=TCEQMAIN&reportingCycle=2020
+  response:
+    status: 200
+    headers:
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 22:03:13 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      age: '2'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2lk6o7juahrtqpfba0
+      x-cache: MISS
+      x-content-type-options: nosniff
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '983'
+      x-vcap-request-id: b403fb18-690c-43ae-6ac8-8bb9fdfa8753
+      x-frame-options: DENY
+    body:
+      string: '{"data":{"organizationIdentifier":"TCEQMAIN","organizationName":"Texas","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2020","cycleStatus":"EPA
+        Final Action","combinedCycles":[],"waterTypes":[{"waterTypeCode":"ESTUARY","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"Aquatic Life Use","Fully Supporting":1861.32,"Fully
+        Supporting-count":57,"Insufficient Information":24.23,"Insufficient Information-count":3,"Not
+        Assessed":46.19,"Not Assessed-count":6,"Not Supporting":657.35,"Not Supporting-count":10,"parameters":[{"parameterGroup":"TOXIC
+        INORGANICS","Insufficient Information":2.76,"Insufficient Information-count":1},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":616.85,"Cause-count":5,"Meeting Criteria":1901.82,"Meeting
+        Criteria-count":62},{"parameterGroup":"PESTICIDES","Insufficient Information":3.2,"Insufficient
+        Information-count":3},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":1.07,"Insufficient
+        Information-count":2},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Cause":42.13,"Cause-count":6,"Insufficient
+        Information":344.3,"Insufficient Information-count":6,"Meeting Criteria":96.9,"Meeting
+        Criteria-count":8},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Insufficient
+        Information":277.83,"Insufficient Information-count":7},{"parameterGroup":"MERCURY","Insufficient
+        Information":252.55,"Insufficient Information-count":5,"Meeting Criteria":96.9,"Meeting
+        Criteria-count":8}]},{"useName":"Recreation Use","Fully Supporting":2255.08,"Fully
+        Supporting-count":61,"Insufficient Information":162.45,"Insufficient Information-count":2,"Not
+        Assessed":45.49,"Not Assessed-count":5,"Not Supporting":104.57,"Not Supporting-count":5,"parameters":[{"parameterGroup":"PATHOGENS","Cause":104.57,"Cause-count":5,"Meeting
+        Criteria":2255.08,"Meeting Criteria-count":61}]},{"useName":"Oyster Waters
+        Use","Fully Supporting":1520.86,"Fully Supporting-count":21,"Insufficient
+        Information":737.77,"Insufficient Information-count":17,"Not Supporting":322.06,"Not
+        Supporting-count":22,"parameters":[{"parameterGroup":"PATHOGENS","Cause":291.59,"Cause-count":21},{"parameterGroup":"FISH
+        CONSUMPTION ADVISORY","Insufficient Information":737.77,"Insufficient Information-count":17,"Meeting
+        Criteria":1520.86,"Meeting Criteria-count":21},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Cause":30.47,"Cause-count":1}]},{"useName":"General Use","Fully
+        Supporting":2513.77,"Fully Supporting-count":55,"Insufficient Information":9.33,"Insufficient
+        Information-count":15,"Not Assessed":45.49,"Not Assessed-count":5,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":2513.77,"Meeting Criteria-count":55},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":2513.77,"Meeting Criteria-count":55}]},{"useName":"Fish Consumption
+        Use","Fully Supporting":270.12,"Fully Supporting-count":11,"Not Supporting":584.62,"Not
+        Supporting-count":33,"parameters":[{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":0.7,"Insufficient Information-count":1,"Meeting Criteria":274.88,"Meeting
+        Criteria-count":14},{"parameterGroup":"MERCURY","Cause":1.63,"Cause-count":1,"Insufficient
+        Information":0.7,"Insufficient Information-count":1,"Meeting Criteria":274.88,"Meeting
+        Criteria-count":14},{"parameterGroup":"DIOXINS","Cause":541.6,"Cause-count":30},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":582.99,"Cause-count":32}]}]},{"waterTypeCode":"RESERVOIR","unitsCode":"Acres","useAttainments":[{"useName":"DOMESTIC
+        WATER SUPPLY - PUBLIC WATER SUPPLY","Fully Supporting":1307186.2,"Fully Supporting-count":330,"Insufficient
+        Information":25161.92,"Insufficient Information-count":4,"parameters":[{"parameterGroup":"MERCURY","Insufficient
+        Information":76179.94,"Insufficient Information-count":10,"Meeting Criteria":50078.63,"Meeting
+        Criteria-count":23},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":6208.03,"Insufficient
+        Information-count":1},{"parameterGroup":"RADIATION","Insufficient Information":194217.73,"Insufficient
+        Information-count":16,"Meeting Criteria":84575.5,"Meeting Criteria-count":25},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":98782.49,"Insufficient Information-count":17,"Meeting
+        Criteria":361496.77,"Meeting Criteria-count":77},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":6208.03,"Insufficient Information-count":1},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":20352.48,"Insufficient Information-count":2,"Meeting Criteria":1301039.32,"Meeting
+        Criteria-count":325},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":22432.2,"Insufficient
+        Information-count":11,"Meeting Criteria":591137.21,"Meeting Criteria-count":145}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":1081213.21,"Fully Supporting-count":309,"Insufficient
+        Information":63130.61,"Insufficient Information-count":33,"Not Assessed":38592.64,"Not
+        Assessed-count":11,"Not Supporting":14354.55,"Not Supporting-count":10,"parameters":[{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":46764.41,"Insufficient Information-count":8},{"parameterGroup":"TOTAL
+        TOXICS","Cause":1409.68,"Cause-count":3},{"parameterGroup":"MERCURY","Insufficient
+        Information":98215.61,"Insufficient Information-count":10,"Meeting Criteria":25338.08,"Meeting
+        Criteria-count":13},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Insufficient
+        Information":38025.16,"Insufficient Information-count":4},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":46764.41,"Insufficient Information-count":8},{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Meeting Criteria":3731.74,"Meeting Criteria-count":1},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":12944.87,"Cause-count":7,"Insufficient
+        Information":35595.19,"Insufficient Information-count":8,"Meeting Criteria":1082584.74,"Meeting
+        Criteria-count":310},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":106793.61,"Insufficient Information-count":15,"Meeting Criteria":146228,"Meeting
+        Criteria-count":49}]},{"useName":"Fish Consumption Use","Fully Supporting":159491.35,"Fully
+        Supporting-count":62,"Insufficient Information":124124.38,"Insufficient Information-count":23,"Not
+        Assessed":51780.99,"Not Assessed-count":13,"Not Supporting":401136.99,"Not
+        Supporting-count":60,"parameters":[{"parameterGroup":"MERCURY","Cause":310089.93,"Cause-count":41,"Insufficient
+        Information":77312.6,"Insufficient Information-count":11,"Meeting Criteria":50327.96,"Meeting
+        Criteria-count":24},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":83520.63,"Insufficient Information-count":12,"Meeting Criteria":405827.36,"Meeting
+        Criteria-count":86},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Cause":91047.06,"Cause-count":19},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":17097.44,"Insufficient Information-count":3},{"parameterGroup":"PESTICIDES","Cause":28.03,"Cause-count":2,"Insufficient
+        Information":35588.38,"Insufficient Information-count":5},{"parameterGroup":"DIOXINS","Cause":213363.78,"Cause-count":30}]},{"useName":"General
+        Use","Fully Supporting":1141349.97,"Fully Supporting-count":301,"Insufficient
+        Information":42954.38,"Insufficient Information-count":49,"Not Assessed":51653.17,"Not
+        Assessed-count":20,"Not Supporting":284706.95,"Not Supporting-count":64,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":103304.23,"Cause-count":30,"Insufficient Information":25955.37,"Insufficient
+        Information-count":5,"Meeting Criteria":1059144.09,"Meeting Criteria-count":276},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":133596.23,"Cause-count":22,"Insufficient
+        Information":2190.91,"Insufficient Information-count":1,"Meeting Criteria":1357297.92,"Meeting
+        Criteria-count":349},{"parameterGroup":"ALGAL GROWTH","Cause":51036.37,"Cause-count":15,"Insufficient
+        Information":535791.07,"Insufficient Information-count":187,"Meeting Criteria":229395.36,"Meeting
+        Criteria-count":56},{"parameterGroup":"NUTRIENTS","Insufficient Information":394341.83,"Insufficient
+        Information-count":112,"Meeting Criteria":359676.9,"Meeting Criteria-count":75},{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":25955.37,"Insufficient Information-count":5,"Meeting Criteria":1059144.09,"Meeting
+        Criteria-count":276}]},{"useName":"Recreation Use","Fully Supporting":842009.42,"Fully
+        Supporting-count":242,"Insufficient Information":204899.04,"Insufficient Information-count":61,"Not
+        Assessed":32340.86,"Not Assessed-count":8,"Not Supporting":1008.68,"Not Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":1008.68,"Cause-count":2,"Insufficient
+        Information":34628.62,"Insufficient Information-count":12,"Meeting Criteria":842009.42,"Meeting
+        Criteria-count":242}]},{"useName":"Public Water Supply Use","Not Assessed":25778.59,"Not
+        Assessed-count":5,"parameters":[]}]},{"waterTypeCode":"STREAM","unitsCode":"Miles","useAttainments":[{"useName":"Recreation
+        Use","Fully Supporting":8219.09,"Fully Supporting-count":378,"Insufficient
+        Information":4602.15,"Insufficient Information-count":224,"Not Assessed":1939.5759,"Not
+        Assessed-count":151,"Not Supporting":6496.51,"Not Supporting-count":425,"parameters":[{"parameterGroup":"PATHOGENS","Cause":6496.51,"Cause-count":425,"Insufficient
+        Information":1068.49,"Insufficient Information-count":44,"Meeting Criteria":7351.99,"Meeting
+        Criteria-count":339,"Removed":18.99,"Removed-count":1}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":15875.13,"Fully Supporting-count":836,"Insufficient
+        Information":2460.67,"Insufficient Information-count":127,"Not Assessed":2441.8737,"Not
+        Assessed-count":177,"Not Supporting":2036.94,"Not Supporting-count":122,"parameters":[{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Cause":274.94,"Cause-count":17,"Insufficient Information":142.22,"Insufficient
+        Information-count":5,"Meeting Criteria":690.89,"Meeting Criteria-count":41,"Removed":35.9,"Removed-count":2},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":301.53,"Insufficient Information-count":17},{"parameterGroup":"TOTAL
+        TOXICS","Cause":4.93,"Cause-count":2},{"parameterGroup":"MERCURY","Insufficient
+        Information":319.94,"Insufficient Information-count":19,"Meeting Criteria":483.87,"Meeting
+        Criteria-count":14},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN DEPLETION","Cause":1796.83,"Cause-count":104,"Insufficient
+        Information":971.05,"Insufficient Information-count":46,"Meeting Criteria":16039.88,"Meeting
+        Criteria-count":847,"Removed":85.56,"Removed-count":6},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":47.24,"Cause-count":5,"Insufficient Information":675.51,"Insufficient
+        Information-count":36,"Meeting Criteria":1058.81,"Meeting Criteria-count":69},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":395.42,"Insufficient Information-count":18},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":89.05,"Insufficient Information-count":6}]},{"useName":"Public
+        Water Supply Use","Not Assessed":69.0927,"Not Assessed-count":7,"parameters":[]},{"useName":"DOMESTIC
+        WATER SUPPLY - PUBLIC WATER SUPPLY","Fully Supporting":9163.95,"Fully Supporting-count":395,"Insufficient
+        Information":71.41,"Insufficient Information-count":3,"parameters":[{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":25.79,"Insufficient Information-count":1},{"parameterGroup":"MERCURY","Insufficient
+        Information":255.94,"Insufficient Information-count":13,"Meeting Criteria":430.64,"Meeting
+        Criteria-count":16},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":526.96,"Insufficient
+        Information-count":21,"Meeting Criteria":5475.52,"Meeting Criteria-count":216,"Removed":2.39,"Removed-count":1},{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":9147.33,"Meeting Criteria-count":393,"Removed":2.39,"Removed-count":1},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":267.26,"Insufficient Information-count":13},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":267.26,"Insufficient Information-count":13},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":273.32,"Insufficient Information-count":15,"Meeting
+        Criteria":624.61,"Meeting Criteria-count":39},{"parameterGroup":"RADIATION","Insufficient
+        Information":694.61,"Insufficient Information-count":32,"Meeting Criteria":97.96,"Meeting
+        Criteria-count":11}]},{"useName":"Fish Consumption Use","Fully Supporting":1664.63,"Fully
+        Supporting-count":79,"Insufficient Information":2271.2,"Insufficient Information-count":101,"Not
+        Assessed":389.894,"Not Assessed-count":23,"Not Supporting":853.2,"Not Supporting-count":53,"parameters":[{"parameterGroup":"MERCURY","Cause":390.3,"Cause-count":19,"Insufficient
+        Information":683.1,"Insufficient Information-count":29,"Meeting Criteria":967,"Meeting
+        Criteria-count":33,"Removed":32.2,"Removed-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":8.28,"Cause-count":2,"Insufficient Information":845.17,"Insufficient
+        Information-count":43,"Meeting Criteria":1776.9,"Meeting Criteria-count":98,"Removed":34.56,"Removed-count":2},{"parameterGroup":"DIOXINS","Cause":632.44,"Cause-count":31},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":420.07,"Insufficient Information-count":23,"Meeting Criteria":19.42,"Meeting
+        Criteria-count":2},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":400.65,"Insufficient
+        Information-count":21,"Meeting Criteria":19.42,"Meeting Criteria-count":2},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":527.07,"Cause-count":38,"Insufficient Information":40.95,"Insufficient
+        Information-count":4}]},{"useName":"General Use","Fully Supporting":11814.26,"Fully
+        Supporting-count":547,"Insufficient Information":8198.49,"Insufficient Information-count":533,"Not
+        Assessed":2365.9258,"Not Assessed-count":163,"Not Supporting":1737.42,"Not
+        Supporting-count":53,"parameters":[{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":1165.88,"Insufficient Information-count":55,"Meeting Criteria":190.19,"Meeting
+        Criteria-count":9},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1591.82,"Cause-count":44,"Meeting
+        Criteria":13427.39,"Meeting Criteria-count":592,"Removed":190.3,"Removed-count":8},{"parameterGroup":"ALGAL
+        GROWTH","Cause":90.74,"Cause-count":5,"Insufficient Information":846.96,"Insufficient
+        Information-count":38},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":42.94,"Cause-count":4,"Insufficient
+        Information":320.46,"Insufficient Information-count":14,"Meeting Criteria":10312.4,"Meeting
+        Criteria-count":453},{"parameterGroup":"TEMPERATURE","Cause":18.84,"Cause-count":1,"Insufficient
+        Information":320.46,"Insufficient Information-count":14,"Meeting Criteria":10300.99,"Meeting
+        Criteria-count":453}]}]},{"waterTypeCode":"WETLANDS, FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"General
+        Use","Insufficient Information":197.09,"Insufficient Information-count":1,"parameters":[]},{"useName":"Fish
+        Consumption Use","Fully Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"MERCURY","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1}]},{"useName":"Recreation Use","Fully
+        Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"PATHOGENS","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1}]},{"useName":"Aquatic Life Use","Not
+        Supporting":197.09,"Not Supporting-count":1,"parameters":[{"parameterGroup":"MERCURY","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Cause":197.09,"Cause-count":1},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Meeting Criteria":197.09,"Meeting Criteria-count":1}]}]},{"waterTypeCode":"STREAM,
+        TIDAL","unitsCode":"Miles","useAttainments":[{"useName":"DOMESTIC WATER SUPPLY
+        - PUBLIC WATER SUPPLY","Fully Supporting":47.6,"Fully Supporting-count":2,"parameters":[{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":47.6,"Meeting Criteria-count":2},{"parameterGroup":"TOXIC INORGANICS","Meeting
+        Criteria":47.6,"Meeting Criteria-count":2}]},{"useName":"Aquatic Life Use","Fully
+        Supporting":792.11,"Fully Supporting-count":87,"Insufficient Information":55.98,"Insufficient
+        Information-count":5,"Not Assessed":20.33,"Not Assessed-count":2,"Not Supporting":162.73,"Not
+        Supporting-count":37,"parameters":[{"parameterGroup":"TOXIC ORGANICS","Insufficient
+        Information":27.46,"Insufficient Information-count":6},{"parameterGroup":"MERCURY","Insufficient
+        Information":82.71,"Insufficient Information-count":7,"Meeting Criteria":63.87,"Meeting
+        Criteria-count":15},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN DEPLETION","Cause":158.99,"Cause-count":35,"Insufficient
+        Information":54.69,"Insufficient Information-count":4,"Meeting Criteria":795.85,"Meeting
+        Criteria-count":89},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":72.02,"Insufficient Information-count":8,"Meeting Criteria":75.58,"Meeting
+        Criteria-count":16},{"parameterGroup":"PESTICIDES","Insufficient Information":27.46,"Insufficient
+        Information-count":6},{"parameterGroup":"TOTAL TOXICS","Cause":12.19,"Cause-count":5},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":78.4,"Insufficient Information-count":9}]},{"useName":"General
+        Use","Fully Supporting":636.97,"Fully Supporting-count":67,"Insufficient Information":319.72,"Insufficient
+        Information-count":46,"Not Assessed":20.33,"Not Assessed-count":2,"Not Supporting":7.62,"Not
+        Supporting-count":3,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":4.71,"Cause-count":1,"Insufficient
+        Information":47.32,"Insufficient Information-count":3,"Meeting Criteria":639.88,"Meeting
+        Criteria-count":69},{"parameterGroup":"TEMPERATURE","Insufficient Information":47.32,"Insufficient
+        Information-count":3,"Meeting Criteria":639.88,"Meeting Criteria-count":69},{"parameterGroup":"ALGAL
+        GROWTH","Insufficient Information":7.69,"Insufficient Information-count":2},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":7.69,"Insufficient Information-count":2},{"parameterGroup":"PATHOGENS","Cause":2.91,"Cause-count":2,"Meeting
+        Criteria":60.96,"Meeting Criteria-count":13}]},{"useName":"Recreation Use","Fully
+        Supporting":182.44,"Fully Supporting-count":19,"Insufficient Information":92.64,"Insufficient
+        Information-count":8,"Not Assessed":7.86,"Not Assessed-count":1,"Not Supporting":607.88,"Not
+        Supporting-count":80,"parameters":[{"parameterGroup":"PATHOGENS","Cause":607.88,"Cause-count":80,"Insufficient
+        Information":6.75,"Insufficient Information-count":1,"Meeting Criteria":182.44,"Meeting
+        Criteria-count":19}]},{"useName":"Fish Consumption Use","Insufficient Information":27.66,"Insufficient
+        Information-count":8,"Not Assessed":4.779,"Not Assessed-count":1,"Not Supporting":337.2,"Not
+        Supporting-count":56,"parameters":[{"parameterGroup":"MERCURY","Cause":3.76,"Cause-count":1,"Insufficient
+        Information":10.81,"Insufficient Information-count":1,"Meeting Criteria":63.87,"Meeting
+        Criteria-count":15},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":10.81,"Insufficient Information-count":1,"Meeting Criteria":27.01,"Meeting
+        Criteria-count":7},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Cause":337.2,"Cause-count":56,"Insufficient
+        Information":61.47,"Insufficient Information-count":12},{"parameterGroup":"DIOXINS","Cause":285.45,"Cause-count":48}]}]},{"waterTypeCode":"OCEAN","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"Fish Consumption Use","Not Supporting":1338.21,"Not
+        Supporting-count":10,"parameters":[{"parameterGroup":"MERCURY","Cause":1338.21,"Cause-count":10}]},{"useName":"Recreation
+        Use","Fully Supporting":139.56,"Fully Supporting-count":1,"Not Supporting":159.45,"Not
+        Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":159.45,"Cause-count":2,"Meeting
+        Criteria":139.56,"Meeting Criteria-count":1}]},{"useName":"General Use","Fully
+        Supporting":346.61,"Fully Supporting-count":4,"parameters":[{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":346.61,"Meeting Criteria-count":4},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":346.61,"Meeting Criteria-count":4}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":346.61,"Fully Supporting-count":4,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Meeting Criteria":346.61,"Meeting Criteria-count":4}]}]},{"waterTypeCode":"BEACH","unitsCode":"Miles","useAttainments":[{"useName":"Recreational
+        Beaches","Fully Supporting":137.3,"Fully Supporting-count":57,"Insufficient
+        Information":0.97,"Insufficient Information-count":1,"Not Assessed":2.02,"Not
+        Assessed-count":6,"Not Supporting":2.03,"Not Supporting-count":4,"parameters":[{"parameterGroup":"PATHOGENS","Cause":2.03,"Cause-count":4,"Meeting
+        Criteria":137.3,"Meeting Criteria-count":57,"Removed":0.97,"Removed-count":1}]}]}]}]},"messages":[]}'
+  recorded_at: 2026-06-29 22:03:13
+- request:
+    method: GET
+    uri: https://api.epa.gov/attains/usesStateSummary?organizationId=TCEQMAIN&reportingCycle=2018
+  response:
+    status: 200
+    headers:
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 22:03:13 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      age: '0'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2lk6s21e8vhdqee7f0
+      x-cache: MISS
+      x-content-type-options: nosniff
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '982'
+      x-vcap-request-id: b36c5464-ddc9-4780-48cf-3da1c19e18f7
+      x-frame-options: DENY
+    body:
+      string: '{"data":{"organizationIdentifier":"TCEQMAIN","organizationName":"Texas","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2018","cycleStatus":"EPA
+        Final Action","combinedCycles":[],"waterTypes":[{"waterTypeCode":"WETLANDS,
+        FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"General Use","Insufficient
+        Information":197.09,"Insufficient Information-count":1,"parameters":[]},{"useName":"Recreation
+        Use","Fully Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"PATHOGENS","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1}]},{"useName":"Aquatic Life Use","Fully
+        Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"MERCURY","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Meeting Criteria":197.09,"Meeting Criteria-count":1}]},{"useName":"Fish
+        Consumption Use","Fully Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"MERCURY","Meeting
+        Criteria":197.09,"Meeting Criteria-count":1}]}]},{"waterTypeCode":"RESERVOIR","unitsCode":"Acres","useAttainments":[{"useName":"Aquatic
+        Life Use","Fully Supporting":1065215.48,"Fully Supporting-count":309,"Insufficient
+        Information":67034.22,"Insufficient Information-count":26,"Not Assessed":40783.55,"Not
+        Assessed-count":12,"Not Supporting":14354.55,"Not Supporting-count":10,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":12944.87,"Cause-count":7,"Insufficient
+        Information":32653.61,"Insufficient Information-count":13,"Meeting Criteria":1062252.37,"Meeting
+        Criteria-count":309},{"parameterGroup":"TOTAL TOXICS","Cause":1409.68,"Cause-count":3},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":30795.41,"Insufficient Information-count":8},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":88084.6,"Insufficient Information-count":33,"Meeting
+        Criteria":138706.3,"Meeting Criteria-count":43},{"parameterGroup":"MERCURY","Insufficient
+        Information":73846.12,"Insufficient Information-count":23,"Meeting Criteria":48132.4,"Meeting
+        Criteria-count":13},{"parameterGroup":"PESTICIDES","Insufficient Information":58742.32,"Insufficient
+        Information-count":17},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":46029.72,"Insufficient
+        Information-count":14},{"parameterGroup":"CAUSE UNKNOWN - IMPAIRED BIOTA","Meeting
+        Criteria":3731.74,"Meeting Criteria-count":1}]},{"useName":"Fish Consumption
+        Use","Fully Supporting":148078.8,"Fully Supporting-count":48,"Insufficient
+        Information":181636.37,"Insufficient Information-count":65,"Not Assessed":51780.99,"Not
+        Assessed-count":13,"Not Supporting":401136.99,"Not Supporting-count":60,"parameters":[{"parameterGroup":"PESTICIDES","Cause":28.03,"Cause-count":2,"Insufficient
+        Information":101716.81,"Insufficient Information-count":27,"Meeting Criteria":10889.41,"Meeting
+        Criteria-count":2},{"parameterGroup":"DIOXINS","Cause":213363.78,"Cause-count":30},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":141404.85,"Insufficient Information-count":43,"Meeting
+        Criteria":444217.51,"Meeting Criteria-count":74},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":51508.14,"Insufficient Information-count":28,"Meeting
+        Criteria":10889.41,"Meeting Criteria-count":2},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":91047.06,"Cause-count":19,"Insufficient Information":20.78,"Insufficient
+        Information-count":1,"Meeting Criteria":10889.41,"Meeting Criteria-count":2},{"parameterGroup":"MERCURY","Cause":310089.93,"Cause-count":41,"Insufficient
+        Information":87486.27,"Insufficient Information-count":16,"Meeting Criteria":143158.19,"Meeting
+        Criteria-count":24}]},{"useName":"DOMESTIC WATER SUPPLY - PUBLIC WATER SUPPLY","Fully
+        Supporting":1289190.55,"Fully Supporting-count":326,"Insufficient Information":1156.6,"Insufficient
+        Information-count":2,"parameters":[{"parameterGroup":"MERCURY","Insufficient
+        Information":87486.27,"Insufficient Information-count":16,"Meeting Criteria":142908.86,"Meeting
+        Criteria-count":23},{"parameterGroup":"RADIATION","Insufficient Information":24322.97,"Insufficient
+        Information-count":17,"Meeting Criteria":272585.2,"Meeting Criteria-count":40},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":28864.66,"Insufficient Information-count":20},{"parameterGroup":"TOXIC
+        INORGANICS","Insufficient Information":20163.44,"Insufficient Information-count":6,"Meeting
+        Criteria":603483.76,"Meeting Criteria-count":150},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":157778.59,"Insufficient Information-count":48,"Meeting
+        Criteria":450051.48,"Meeting Criteria-count":71},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":51487.36,"Insufficient Information-count":27},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":474.8,"Insufficient Information-count":1,"Meeting Criteria":1283043.67,"Meeting
+        Criteria-count":321}]},{"useName":"Public Water Supply Use","Not Assessed":27969.5,"Not
+        Assessed-count":6,"parameters":[]},{"useName":"Recreation Use","Fully Supporting":833279.24,"Fully
+        Supporting-count":241,"Insufficient Information":155352.63,"Insufficient Information-count":52,"Not
+        Assessed":32340.86,"Not Assessed-count":8,"Not Supporting":1008.68,"Not Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":1008.68,"Cause-count":2,"Insufficient
+        Information":16515.46,"Insufficient Information-count":5,"Meeting Criteria":833279.24,"Meeting
+        Criteria-count":241}]},{"useName":"General Use","Fully Supporting":1125054.98,"Fully
+        Supporting-count":294,"Insufficient Information":39677.74,"Insufficient Information-count":45,"Not
+        Assessed":74452.93,"Not Assessed-count":25,"Not Supporting":279576.4,"Not
+        Supporting-count":66,"parameters":[{"parameterGroup":"SALINITY/TOTAL DISSOLVED
+        SOLIDS/CHLORIDES/SULFATES","Cause":156756.71,"Cause-count":30,"Meeting Criteria":1329999.33,"Meeting
+        Criteria-count":345},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":124049.49,"Cause-count":37,"Insufficient
+        Information":30906.55,"Insufficient Information-count":10,"Meeting Criteria":1041571.96,"Meeting
+        Criteria-count":274},{"parameterGroup":"TEMPERATURE","Insufficient Information":30906.55,"Insufficient
+        Information-count":10,"Meeting Criteria":1041571.96,"Meeting Criteria-count":274},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":381452.05,"Insufficient Information-count":111,"Meeting Criteria":350101.22,"Meeting
+        Criteria-count":78},{"parameterGroup":"ALGAL GROWTH","Cause":3229.88,"Cause-count":3,"Insufficient
+        Information":534061.61,"Insufficient Information-count":160,"Meeting Criteria":253464.67,"Meeting
+        Criteria-count":77}]}]},{"waterTypeCode":"ESTUARY","unitsCode":"Square Miles","useAttainments":[{"useName":"Aquatic
+        Life Use","Fully Supporting":1861.32,"Fully Supporting-count":56,"Insufficient
+        Information":25.3,"Insufficient Information-count":5,"Not Assessed":45.49,"Not
+        Assessed-count":5,"Not Supporting":657.35,"Not Supporting-count":10,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":616.85,"Cause-count":5,"Meeting Criteria":1899.14,"Meeting
+        Criteria-count":60},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":0.7,"Insufficient
+        Information-count":1},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Insufficient
+        Information":461.96,"Insufficient Information-count":15},{"parameterGroup":"TOXIC
+        INORGANICS","Insufficient Information":2.76,"Insufficient Information-count":1},{"parameterGroup":"MERCURY","Insufficient
+        Information":21,"Insufficient Information-count":5,"Meeting Criteria":94.14,"Meeting
+        Criteria-count":7},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Cause":42.13,"Cause-count":6,"Insufficient
+        Information":776.92,"Insufficient Information-count":11,"Meeting Criteria":94.14,"Meeting
+        Criteria-count":7},{"parameterGroup":"PESTICIDES","Insufficient Information":3.2,"Insufficient
+        Information-count":3}]},{"useName":"General Use","Fully Supporting":2513.77,"Fully
+        Supporting-count":54,"Insufficient Information":9.33,"Insufficient Information-count":15,"Not
+        Assessed":45.49,"Not Assessed-count":5,"parameters":[{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":2513.77,"Meeting Criteria-count":54},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":2513.77,"Meeting Criteria-count":54}]},{"useName":"Oyster
+        Waters Use","Fully Supporting":1520.86,"Fully Supporting-count":21,"Insufficient
+        Information":737.77,"Insufficient Information-count":17,"Not Supporting":327.48,"Not
+        Supporting-count":22,"parameters":[{"parameterGroup":"PATHOGENS","Cause":297.01,"Cause-count":21},{"parameterGroup":"FISH
+        CONSUMPTION ADVISORY","Insufficient Information":737.77,"Insufficient Information-count":17,"Meeting
+        Criteria":1520.86,"Meeting Criteria-count":21},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Cause":30.47,"Cause-count":1}]},{"useName":"Fish Consumption
+        Use","Fully Supporting":270.12,"Fully Supporting-count":11,"Insufficient Information":101.75,"Insufficient
+        Information-count":2,"Not Supporting":584.62,"Not Supporting-count":33,"parameters":[{"parameterGroup":"DIOXINS","Cause":541.6,"Cause-count":30},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":0.1,"Insufficient Information-count":1,"Meeting
+        Criteria":272.12,"Meeting Criteria-count":13},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":582.99,"Cause-count":32},{"parameterGroup":"MERCURY","Cause":1.63,"Cause-count":1,"Meeting
+        Criteria":271.75,"Meeting Criteria-count":12}]},{"useName":"Recreation Use","Fully
+        Supporting":2213.23,"Fully Supporting-count":58,"Insufficient Information":140.49,"Insufficient
+        Information-count":1,"Not Assessed":45.49,"Not Assessed-count":5,"Not Supporting":146.42,"Not
+        Supporting-count":7,"parameters":[{"parameterGroup":"PATHOGENS","Cause":146.42,"Cause-count":7,"Meeting
+        Criteria":2212.35,"Meeting Criteria-count":57}]}]},{"waterTypeCode":"OCEAN","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"Recreation Use","Insufficient Information":89317.04,"Insufficient
+        Information-count":1,"Not Supporting":102049.4,"Not Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":102049.4,"Cause-count":2}]},{"useName":"General
+        Use","Fully Supporting":221827.48,"Fully Supporting-count":4,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":221827.48,"Meeting Criteria-count":4},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":221827.48,"Meeting Criteria-count":4}]},{"useName":"Aquatic Life
+        Use","Fully Supporting":221827.48,"Fully Supporting-count":4,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Meeting Criteria":221827.48,"Meeting Criteria-count":4}]},{"useName":"Fish
+        Consumption Use","Not Supporting":856451,"Not Supporting-count":10,"parameters":[{"parameterGroup":"MERCURY","Cause":856451,"Cause-count":10}]}]},{"waterTypeCode":"BEACH","unitsCode":"Miles","useAttainments":[{"useName":"Recreational
+        Beaches","Fully Supporting":141.87,"Fully Supporting-count":57,"Not Assessed":2.02,"Not
+        Assessed-count":6,"Not Supporting":2,"Not Supporting-count":4,"parameters":[{"parameterGroup":"PATHOGENS","Cause":2,"Cause-count":4,"Meeting
+        Criteria":141.87,"Meeting Criteria-count":57}]}]},{"waterTypeCode":"STREAM,
+        TIDAL","unitsCode":"Miles","useAttainments":[{"useName":"DOMESTIC WATER SUPPLY
+        - PUBLIC WATER SUPPLY","Fully Supporting":24.15,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":24.15,"Meeting Criteria-count":1},{"parameterGroup":"TOXIC INORGANICS","Meeting
+        Criteria":24.15,"Meeting Criteria-count":1}]},{"useName":"Fish Consumption
+        Use","Insufficient Information":51.11,"Insufficient Information-count":9,"Not
+        Assessed":4.779,"Not Assessed-count":1,"Not Supporting":337.2,"Not Supporting-count":56,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":14.32,"Insufficient Information-count":3,"Meeting
+        Criteria":3.51,"Meeting Criteria-count":1},{"parameterGroup":"MERCURY","Cause":6.29,"Cause-count":2,"Insufficient
+        Information":14.32,"Insufficient Information-count":3},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":337.2,"Cause-count":56,"Insufficient Information":37.43,"Insufficient
+        Information-count":6},{"parameterGroup":"DIOXINS","Cause":285.45,"Cause-count":48}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":769.85,"Fully Supporting-count":85,"Insufficient
+        Information":51.2,"Insufficient Information-count":5,"Not Assessed":20.33,"Not
+        Assessed-count":2,"Not Supporting":157.03,"Not Supporting-count":35,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":63.44,"Insufficient Information-count":10,"Meeting
+        Criteria":15.22,"Meeting Criteria-count":2},{"parameterGroup":"TOXIC ORGANICS","Insufficient
+        Information":14.93,"Insufficient Information-count":5},{"parameterGroup":"TOTAL
+        TOXICS","Cause":12.19,"Cause-count":5},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":55.76,"Insufficient Information-count":9},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":14.93,"Insufficient Information-count":5},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":153.29,"Cause-count":33,"Insufficient
+        Information":24.09,"Insufficient Information-count":1,"Meeting Criteria":768.97,"Meeting
+        Criteria-count":86},{"parameterGroup":"MERCURY","Insufficient Information":45.5,"Insufficient
+        Information-count":7}]},{"useName":"General Use","Fully Supporting":626.33,"Fully
+        Supporting-count":65,"Insufficient Information":304.97,"Insufficient Information-count":44,"Not
+        Assessed":20.33,"Not Assessed-count":2,"Not Supporting":13.05,"Not Supporting-count":4,"parameters":[{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":24.09,"Insufficient Information-count":1,"Meeting Criteria":634.67,"Meeting
+        Criteria-count":68},{"parameterGroup":"ALGAL GROWTH","Insufficient Information":18.49,"Insufficient
+        Information-count":2},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":10.14,"Cause-count":2,"Insufficient
+        Information":24.09,"Insufficient Information-count":1,"Meeting Criteria":634.67,"Meeting
+        Criteria-count":68},{"parameterGroup":"NUTRIENTS","Insufficient Information":4.93,"Insufficient
+        Information-count":1},{"parameterGroup":"PATHOGENS","Cause":2.91,"Cause-count":2,"Meeting
+        Criteria":60.96,"Meeting Criteria-count":13}]},{"useName":"Recreation Use","Fully
+        Supporting":186.83,"Fully Supporting-count":19,"Insufficient Information":95.09,"Insufficient
+        Information-count":8,"Not Assessed":7.86,"Not Assessed-count":1,"Not Supporting":577.43,"Not
+        Supporting-count":78,"parameters":[{"parameterGroup":"PATHOGENS","Cause":577.43,"Cause-count":78,"Meeting
+        Criteria":186.83,"Meeting Criteria-count":19}]}]},{"waterTypeCode":"STREAM","unitsCode":"Miles","useAttainments":[{"useName":"Public
+        Water Supply Use","Not Assessed":69.0927,"Not Assessed-count":7,"parameters":[]},{"useName":"Recreation
+        Use","Fully Supporting":8697.95,"Fully Supporting-count":405,"Insufficient
+        Information":4291.7,"Insufficient Information-count":215,"Not Assessed":1845.6559,"Not
+        Assessed-count":142,"Not Supporting":5883.61,"Not Supporting-count":394,"parameters":[{"parameterGroup":"PATHOGENS","Cause":5883.61,"Cause-count":394,"Insufficient
+        Information":834.66,"Insufficient Information-count":25,"Meeting Criteria":7950.73,"Meeting
+        Criteria-count":369}]},{"useName":"General Use","Fully Supporting":11824.7,"Fully
+        Supporting-count":545,"Insufficient Information":7976.23,"Insufficient Information-count":527,"Not
+        Assessed":2274.5658,"Not Assessed-count":153,"Not Supporting":1663.91,"Not
+        Supporting-count":52,"parameters":[{"parameterGroup":"SALINITY/TOTAL DISSOLVED
+        SOLIDS/CHLORIDES/SULFATES","Cause":1392.64,"Cause-count":43,"Insufficient
+        Information":70.07,"Insufficient Information-count":2,"Meeting Criteria":13357.89,"Meeting
+        Criteria-count":590},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":168.61,"Cause-count":4,"Insufficient
+        Information":551.67,"Insufficient Information-count":17,"Meeting Criteria":10064.64,"Meeting
+        Criteria-count":450},{"parameterGroup":"TEMPERATURE","Cause":18.84,"Cause-count":1,"Insufficient
+        Information":544.24,"Insufficient Information-count":16,"Meeting Criteria":10053.23,"Meeting
+        Criteria-count":450},{"parameterGroup":"ALGAL GROWTH","Cause":90.74,"Cause-count":5,"Insufficient
+        Information":1093.84,"Insufficient Information-count":51},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":863.15,"Insufficient Information-count":44,"Meeting Criteria":183.74,"Meeting
+        Criteria-count":6}]},{"useName":"Fish Consumption Use","Fully Supporting":2333.49,"Fully
+        Supporting-count":104,"Insufficient Information":3042.05,"Insufficient Information-count":154,"Not
+        Assessed":407.114,"Not Assessed-count":21,"Not Supporting":863.05,"Not Supporting-count":54,"parameters":[{"parameterGroup":"PESTICIDES","Insufficient
+        Information":628.34,"Insufficient Information-count":26,"Meeting Criteria":7.55,"Meeting
+        Criteria-count":1},{"parameterGroup":"MERCURY","Cause":400.15,"Cause-count":20,"Insufficient
+        Information":839.05,"Insufficient Information-count":36,"Meeting Criteria":1453.54,"Meeting
+        Criteria-count":44},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":1157.94,"Insufficient
+        Information-count":42,"Meeting Criteria":7.55,"Meeting Criteria-count":1},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":527.07,"Cause-count":38,"Insufficient Information":279.72,"Insufficient
+        Information-count":5},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Cause":6.92,"Cause-count":1,"Insufficient
+        Information":943,"Insufficient Information-count":47,"Meeting Criteria":1889.75,"Meeting
+        Criteria-count":98},{"parameterGroup":"DIOXINS","Cause":632.44,"Cause-count":31}]},{"useName":"DOMESTIC
+        WATER SUPPLY - PUBLIC WATER SUPPLY","Fully Supporting":8893.24,"Fully Supporting-count":379,"Insufficient
+        Information":138.23,"Insufficient Information-count":5,"parameters":[{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":8859.7,"Meeting Criteria-count":374},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":279.72,"Insufficient Information-count":5},{"parameterGroup":"MERCURY","Insufficient
+        Information":570.86,"Insufficient Information-count":24,"Meeting Criteria":789.38,"Meeting
+        Criteria-count":26},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":115.34,"Insufficient
+        Information-count":6,"Meeting Criteria":5669.51,"Meeting Criteria-count":230},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":548.94,"Insufficient Information-count":22,"Meeting
+        Criteria":655.52,"Meeting Criteria-count":38},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":576.57,"Insufficient Information-count":24},{"parameterGroup":"RADIATION","Insufficient
+        Information":140.93,"Insufficient Information-count":5,"Meeting Criteria":264.24,"Meeting
+        Criteria-count":16},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":972.78,"Insufficient
+        Information-count":32}]},{"useName":"Aquatic Life Use","Fully Supporting":15568.14,"Fully
+        Supporting-count":836,"Insufficient Information":2821.6,"Insufficient Information-count":139,"Not
+        Assessed":2322.8537,"Not Assessed-count":167,"Not Supporting":1915.46,"Not
+        Supporting-count":114,"parameters":[{"parameterGroup":"TOTAL TOXICS","Cause":4.93,"Cause-count":2},{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Cause":247.68,"Cause-count":14,"Insufficient Information":205.58,"Insufficient
+        Information-count":9,"Meeting Criteria":940.63,"Meeting Criteria-count":55},{"parameterGroup":"TOXIC
+        INORGANICS","Insufficient Information":119.06,"Insufficient Information-count":7},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":47.24,"Cause-count":5,"Insufficient Information":1096.46,"Insufficient
+        Information-count":58,"Meeting Criteria":1171.04,"Meeting Criteria-count":75},{"parameterGroup":"MERCURY","Insufficient
+        Information":369.67,"Insufficient Information-count":23,"Meeting Criteria":570.35,"Meeting
+        Criteria-count":18},{"parameterGroup":"POLYCHLORINATED BIPHENYLS (PCBS)","Insufficient
+        Information":971.98,"Insufficient Information-count":30},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":1107.11,"Insufficient Information-count":38},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":1697.08,"Cause-count":99,"Insufficient
+        Information":1043.92,"Insufficient Information-count":46,"Meeting Criteria":15541.29,"Meeting
+        Criteria-count":835},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":418.72,"Insufficient
+        Information-count":19}]}]}]}]},"messages":[]}'
+  recorded_at: 2026-06-29 22:03:13
+- request:
+    method: GET
+    uri: https://api.epa.gov/attains/usesStateSummary?organizationId=TCEQMAIN&reportingCycle=2016
+  response:
+    status: 200
+    headers:
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 22:03:14 GMT
+      content-type: application/json;charset=UTF-8
+      access-control-allow-headers: Content-Type
+      access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
+      access-control-request-headers: Content-Type
+      access-control-request-methods: GET, POST, OPTIONS
+      age: '2'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2lk6vu91mo469rf0p0
+      x-cache: MISS
+      x-content-type-options: nosniff
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '981'
+      x-vcap-request-id: 300d266c-4eab-43ea-66e4-20bc80b5dee4
+      x-frame-options: DENY
+    body:
+      string: '{"data":{"organizationIdentifier":"TCEQMAIN","organizationName":"Texas","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2016","cycleStatus":"EPA
+        Final Action","combinedCycles":[],"waterTypes":[{"waterTypeCode":"WETLANDS,
+        FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"Aquatic Life
+        Use","Fully Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Insufficient Information":197.09,"Insufficient
+        Information-count":1}]},{"useName":"Recreation Use","Fully Supporting":197.09,"Fully
+        Supporting-count":1,"parameters":[{"parameterGroup":"PATHOGENS","Meeting Criteria":197.09,"Meeting
+        Criteria-count":1}]},{"useName":"General Use","Insufficient Information":197.09,"Insufficient
+        Information-count":1,"parameters":[{"parameterGroup":"ALGAL GROWTH","Insufficient
+        Information":197.09,"Insufficient Information-count":1},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":197.09,"Insufficient Information-count":1}]},{"useName":"Fish
+        Consumption Use","Fully Supporting":197.09,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":197.09,"Insufficient Information-count":1},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":197.09,"Insufficient Information-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":197.09,"Insufficient Information-count":1,"Meeting
+        Criteria":197.09,"Meeting Criteria-count":1},{"parameterGroup":"MERCURY","Insufficient
+        Information":197.09,"Insufficient Information-count":1},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":197.09,"Insufficient Information-count":1}]}]},{"waterTypeCode":"ESTUARY","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"General Use","Fully Supporting":2513.77,"Fully
+        Supporting-count":54,"Insufficient Information":9.33,"Insufficient Information-count":15,"Not
+        Assessed":70.82,"Not Assessed-count":11,"parameters":[{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":2513.77,"Meeting Criteria-count":54},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":2513.77,"Meeting Criteria-count":54}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":1861.69,"Fully Supporting-count":57,"Insufficient
+        Information":24.93,"Insufficient Information-count":4,"Not Assessed":50.3,"Not
+        Assessed-count":9,"Not Supporting":656.98,"Not Supporting-count":9,"parameters":[{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":0.7,"Insufficient Information-count":1},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":272.82,"Insufficient Information-count":14},{"parameterGroup":"MERCURY","Insufficient
+        Information":21,"Insufficient Information-count":5},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":14.32,"Insufficient Information-count":3},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":41.76,"Cause-count":5,"Insufficient Information":21,"Insufficient
+        Information-count":5,"Meeting Criteria":96.9,"Meeting Criteria-count":8},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":616.85,"Cause-count":5,"Insufficient
+        Information":0.11,"Insufficient Information-count":1,"Meeting Criteria":1901.71,"Meeting
+        Criteria-count":60}]},{"useName":"Recreation Use","Fully Supporting":2190.35,"Fully
+        Supporting-count":54,"Insufficient Information":185.33,"Insufficient Information-count":6,"Not
+        Assessed":71.8,"Not Assessed-count":12,"Not Supporting":146.42,"Not Supporting-count":7,"parameters":[{"parameterGroup":"PATHOGENS","Cause":146.42,"Cause-count":7,"Insufficient
+        Information":21.96,"Insufficient Information-count":1,"Meeting Criteria":2190.35,"Meeting
+        Criteria-count":54}]},{"useName":"Fish Consumption Use","Fully Supporting":270.12,"Fully
+        Supporting-count":11,"Insufficient Information":101.75,"Insufficient Information-count":2,"Not
+        Supporting":584.62,"Not Supporting-count":33,"parameters":[{"parameterGroup":"PESTICIDES","Insufficient
+        Information":2.13,"Insufficient Information-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":274.88,"Meeting Criteria-count":14},{"parameterGroup":"DIOXINS","Cause":541.6,"Cause-count":30},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":582.99,"Cause-count":32},{"parameterGroup":"MERCURY","Cause":1.63,"Cause-count":1},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":2.13,"Insufficient Information-count":1}]},{"useName":"Oyster
+        Waters Use","Fully Supporting":1299.98,"Fully Supporting-count":24,"Insufficient
+        Information":958.65,"Insufficient Information-count":14,"Not Supporting":327.48,"Not
+        Supporting-count":22,"parameters":[{"parameterGroup":"METALS (OTHER THAN MERCURY)","Cause":30.47,"Cause-count":1},{"parameterGroup":"PATHOGENS","Cause":297.01,"Cause-count":21},{"parameterGroup":"FISH
+        CONSUMPTION ADVISORY","Insufficient Information":958.65,"Insufficient Information-count":14,"Meeting
+        Criteria":1299.98,"Meeting Criteria-count":24}]}]},{"waterTypeCode":"STREAM,
+        TIDAL","unitsCode":"Miles","useAttainments":[{"useName":"Public Water Supply
+        Use","Fully Supporting":24.15,"Fully Supporting-count":1,"parameters":[{"parameterGroup":"TOXIC
+        INORGANICS","Meeting Criteria":24.15,"Meeting Criteria-count":1},{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":24.15,"Meeting Criteria-count":1}]},{"useName":"Recreation Use","Fully
+        Supporting":164.88,"Fully Supporting-count":18,"Insufficient Information":102.95,"Insufficient
+        Information-count":11,"Not Assessed":19.04,"Not Assessed-count":3,"Not Supporting":588.37,"Not
+        Supporting-count":75,"parameters":[{"parameterGroup":"PATHOGENS","Cause":588.37,"Cause-count":75,"Meeting
+        Criteria":164.88,"Meeting Criteria-count":18}]},{"useName":"Aquatic Life Use","Fully
+        Supporting":799.03,"Fully Supporting-count":88,"Insufficient Information":36.97,"Insufficient
+        Information-count":6,"Not Assessed":29.76,"Not Assessed-count":6,"Not Supporting":144.43,"Not
+        Supporting-count":31,"parameters":[{"parameterGroup":"POLYCHLORINATED BIPHENYLS
+        (PCBS)","Insufficient Information":12.62,"Insufficient Information-count":4},{"parameterGroup":"TOTAL
+        TOXICS","Cause":12.19,"Cause-count":5},{"parameterGroup":"METALS (OTHER THAN
+        MERCURY)","Insufficient Information":57.73,"Insufficient Information-count":6,"Meeting
+        Criteria":33.73,"Meeting Criteria-count":7},{"parameterGroup":"MERCURY","Insufficient
+        Information":74.02,"Insufficient Information-count":6},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":140.69,"Cause-count":29,"Insufficient
+        Information":129.51,"Insufficient Information-count":8,"Meeting Criteria":670.53,"Meeting
+        Criteria-count":82},{"parameterGroup":"PESTICIDES","Insufficient Information":27.68,"Insufficient
+        Information-count":6},{"parameterGroup":"TOXIC ORGANICS","Insufficient Information":12.62,"Insufficient
+        Information-count":4}]},{"useName":"General Use","Fully Supporting":675.79,"Fully
+        Supporting-count":68,"Insufficient Information":261.2,"Insufficient Information-count":43,"Not
+        Assessed":38.1,"Not Assessed-count":9,"Not Supporting":7.62,"Not Supporting-count":3,"parameters":[{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":34.34,"Insufficient Information-count":4},{"parameterGroup":"ALGAL
+        GROWTH","Insufficient Information":7.26,"Insufficient Information-count":3},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":678.7,"Meeting Criteria-count":70},{"parameterGroup":"PATHOGENS","Cause":2.91,"Cause-count":2,"Meeting
+        Criteria":59.71,"Meeting Criteria-count":12},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":4.71,"Cause-count":1,"Meeting Criteria":678.7,"Meeting
+        Criteria-count":70}]},{"useName":"Fish Consumption Use","Insufficient Information":12.889,"Insufficient
+        Information-count":3,"Not Assessed":84.93,"Not Assessed-count":12,"Not Supporting":337.2,"Not
+        Supporting-count":56,"parameters":[{"parameterGroup":"MERCURY","Cause":6.29,"Cause-count":2},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":337.2,"Cause-count":56,"Removed":4.779,"Removed-count":1},{"parameterGroup":"DIOXINS","Cause":285.45,"Cause-count":48,"Removed":4.779,"Removed-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Meeting Criteria":80.02,"Meeting Criteria-count":17}]}]},{"waterTypeCode":"RESERVOIR","unitsCode":"Acres","useAttainments":[{"useName":"General
+        Use","Fully Supporting":1132058.27,"Fully Supporting-count":296,"Insufficient
+        Information":65227.29,"Insufficient Information-count":55,"Not Assessed":43016.03,"Not
+        Assessed-count":14,"Not Supporting":283580.32,"Not Supporting-count":67,"parameters":[{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":399539.73,"Insufficient Information-count":115,"Meeting Criteria":348911.18,"Meeting
+        Criteria-count":75},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":167887.07,"Cause-count":32,"Insufficient
+        Information":9434.98,"Insufficient Information-count":5,"Meeting Criteria":1331326.59,"Meeting
+        Criteria-count":344},{"parameterGroup":"ALGAL GROWTH","Cause":4557.15,"Cause-count":4,"Insufficient
+        Information":695728.38,"Insufficient Information-count":212,"Meeting Criteria":224508.59,"Meeting
+        Criteria-count":64},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":115981.9,"Cause-count":36,"Insufficient
+        Information":2190.91,"Insufficient Information-count":1,"Meeting Criteria":1033093.35,"Meeting
+        Criteria-count":280},{"parameterGroup":"TEMPERATURE","Insufficient Information":2190.91,"Insufficient
+        Information-count":1,"Meeting Criteria":1023205.67,"Meeting Criteria-count":278,"Removed":1191.98,"Removed-count":1}]},{"useName":"Recreation
+        Use","Fully Supporting":635737.47,"Fully Supporting-count":195,"Insufficient
+        Information":349968.62,"Insufficient Information-count":97,"Not Assessed":441033.23,"Not
+        Assessed-count":108,"Not Supporting":916.26,"Not Supporting-count":1,"parameters":[{"parameterGroup":"PATHOGENS","Cause":916.26,"Cause-count":1,"Insufficient
+        Information":13044.41,"Insufficient Information-count":3,"Meeting Criteria":628433.01,"Meeting
+        Criteria-count":194}]},{"useName":"Public Water Supply Use","Fully Supporting":1224348.07,"Fully
+        Supporting-count":294,"Insufficient Information":20059.86,"Insufficient Information-count":6,"Not
+        Assessed":169036.37,"Not Assessed-count":70,"parameters":[{"parameterGroup":"RADIATION","Insufficient
+        Information":57443.68,"Insufficient Information-count":18,"Meeting Criteria":271859.66,"Meeting
+        Criteria-count":38},{"parameterGroup":"PESTICIDES","Insufficient Information":10460.93,"Insufficient
+        Information-count":5,"Meeting Criteria":1090.73,"Meeting Criteria-count":2},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":8586.42,"Insufficient Information-count":3,"Meeting Criteria":1210964.66,"Meeting
+        Criteria-count":289},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":8377.63,"Insufficient
+        Information-count":5,"Meeting Criteria":569685.09,"Meeting Criteria-count":135},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":13355.49,"Insufficient Information-count":6},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":89747.24,"Insufficient Information-count":19,"Meeting
+        Criteria":434660.52,"Meeting Criteria-count":65}]},{"useName":"Aquatic Life
+        Use","Fully Supporting":1044602.1,"Fully Supporting-count":308,"Insufficient
+        Information":133325.8,"Insufficient Information-count":35,"Not Assessed":298592.31,"Not
+        Assessed-count":73,"Not Supporting":14065.9,"Not Supporting-count":9,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":12656.22,"Cause-count":6,"Insufficient
+        Information":71668.01,"Insufficient Information-count":15,"Meeting Criteria":1002158.7,"Meeting
+        Criteria-count":299,"Removed":6208.36,"Removed-count":2},{"parameterGroup":"MERCURY","Insufficient
+        Information":46784,"Insufficient Information-count":6},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":66759.67,"Insufficient Information-count":7},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":67082.01,"Insufficient Information-count":6},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":32591.14,"Insufficient Information-count":6},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":98138.63,"Insufficient Information-count":25,"Meeting
+        Criteria":140072.63,"Meeting Criteria-count":38},{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Meeting Criteria":3731.74,"Meeting Criteria-count":1},{"parameterGroup":"TOTAL
+        TOXICS","Cause":1409.68,"Cause-count":3}]},{"useName":"Fish Consumption Use","Fully
+        Supporting":205631.96,"Fully Supporting-count":73,"Insufficient Information":211421.9,"Insufficient
+        Information-count":66,"Not Assessed":18661.79,"Not Assessed-count":5,"Not
+        Supporting":401136.99,"Not Supporting-count":60,"parameters":[{"parameterGroup":"MERCURY","Cause":310089.93,"Cause-count":41,"Insufficient
+        Information":63302.49,"Insufficient Information-count":5,"Removed":16750,"Removed-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Insufficient Information":114147.25,"Insufficient Information-count":37,"Meeting
+        Criteria":557091.97,"Meeting Criteria-count":107},{"parameterGroup":"PESTICIDES","Cause":28.03,"Cause-count":2,"Insufficient
+        Information":67225.92,"Insufficient Information-count":9,"Meeting Criteria":10889.41,"Meeting
+        Criteria-count":2},{"parameterGroup":"DIOXINS","Cause":209749.05,"Cause-count":29},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":91047.06,"Cause-count":19,"Insufficient Information":20.78,"Insufficient
+        Information-count":1,"Meeting Criteria":10889.41,"Meeting Criteria-count":2},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":10731.49,"Insufficient Information-count":5,"Meeting
+        Criteria":10889.41,"Meeting Criteria-count":2}]}]},{"waterTypeCode":"STREAM","unitsCode":"Miles","useAttainments":[{"useName":"Public
+        Water Supply Use","Fully Supporting":8250.4727,"Fully Supporting-count":353,"Insufficient
+        Information":117.13,"Insufficient Information-count":5,"Not Assessed":720.77,"Not
+        Assessed-count":52,"parameters":[{"parameterGroup":"TOXIC ORGANICS","Insufficient
+        Information":729.34,"Insufficient Information-count":18},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":305.51,"Insufficient Information-count":6},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":393.5,"Insufficient Information-count":16,"Meeting Criteria":92.52,"Meeting
+        Criteria-count":5},{"parameterGroup":"TOXIC INORGANICS","Insufficient Information":155.21,"Insufficient
+        Information-count":6,"Meeting Criteria":5026.83,"Meeting Criteria-count":209},{"parameterGroup":"RADIATION","Insufficient
+        Information":409.58,"Insufficient Information-count":16,"Meeting Criteria":264.24,"Meeting
+        Criteria-count":16},{"parameterGroup":"NUTRIENTS","Meeting Criteria":8149.1,"Meeting
+        Criteria-count":346},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":923.66,"Insufficient Information-count":30,"Meeting Criteria":1091.49,"Meeting
+        Criteria-count":59}]},{"useName":"Fish Consumption Use","Fully Supporting":2770.4627,"Fully
+        Supporting-count":145,"Insufficient Information":2803.0713,"Insufficient Information-count":127,"Not
+        Assessed":1281.76,"Not Assessed-count":53,"Not Supporting":863.05,"Not Supporting-count":54,"parameters":[{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":337.63,"Insufficient Information-count":14,"Meeting
+        Criteria":7.55,"Meeting Criteria-count":1},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Cause":527.07,"Cause-count":38,"Insufficient Information":305.51,"Insufficient
+        Information-count":6},{"parameterGroup":"PESTICIDES","Insufficient Information":733.57,"Insufficient
+        Information-count":27,"Meeting Criteria":100.07,"Meeting Criteria-count":6},{"parameterGroup":"DIOXINS","Cause":632.44,"Cause-count":31},{"parameterGroup":"MERCURY","Cause":400.15,"Cause-count":20,"Insufficient
+        Information":304.42,"Insufficient Information-count":10,"Removed":1.3613,"Removed-count":1},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":6.92,"Cause-count":1,"Insufficient Information":1684.84,"Insufficient
+        Information-count":71,"Meeting Criteria":3018.27,"Meeting Criteria-count":163}]},{"useName":"Recreation
+        Use","Fully Supporting":8193.4227,"Fully Supporting-count":386,"Insufficient
+        Information":5154.7801,"Insufficient Information-count":250,"Not Assessed":4709.0431,"Not
+        Assessed-count":268,"Not Supporting":5426.7,"Not Supporting-count":384,"parameters":[{"parameterGroup":"PATHOGENS","Cause":5426.7,"Cause-count":384,"Insufficient
+        Information":1071.28,"Insufficient Information-count":38,"Meeting Criteria":7774.19,"Meeting
+        Criteria-count":365}]},{"useName":"General Use","Fully Supporting":11699.6027,"Fully
+        Supporting-count":538,"Insufficient Information":7866.93,"Insufficient Information-count":528,"Not
+        Assessed":2543.8331,"Not Assessed-count":160,"Not Supporting":1870.91,"Not
+        Supporting-count":62,"parameters":[{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":233.5,"Insufficient Information-count":9,"Meeting Criteria":10198.06,"Meeting
+        Criteria-count":454},{"parameterGroup":"ALGAL GROWTH","Cause":90.74,"Cause-count":5,"Insufficient
+        Information":1217.5,"Insufficient Information-count":57},{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":1094.2,"Insufficient Information-count":63,"Meeting Criteria":34.15,"Meeting
+        Criteria-count":2},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1629.82,"Cause-count":55,"Insufficient
+        Information":148.47,"Insufficient Information-count":4,"Meeting Criteria":13352.3,"Meeting
+        Criteria-count":588},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":157.27,"Cause-count":3,"Insufficient
+        Information":240.93,"Insufficient Information-count":10,"Meeting Criteria":10249.63,"Meeting
+        Criteria-count":457}]},{"useName":"Aquatic Life Use","Fully Supporting":15596.2927,"Fully
+        Supporting-count":835,"Insufficient Information":2941.563,"Insufficient Information-count":163,"Not
+        Assessed":4465.728,"Not Assessed-count":252,"Not Supporting":1968.97,"Not
+        Supporting-count":116,"parameters":[{"parameterGroup":"MERCURY","Insufficient
+        Information":224.57,"Insufficient Information-count":17},{"parameterGroup":"TOXIC
+        INORGANICS","Insufficient Information":30.39,"Insufficient Information-count":1},{"parameterGroup":"TOTAL
+        TOXICS","Cause":4.93,"Cause-count":2,"Insufficient Information":3.7,"Insufficient
+        Information-count":1,"Removed":5.47,"Removed-count":1},{"parameterGroup":"TOXIC
+        ORGANICS","Insufficient Information":206.47,"Insufficient Information-count":15},{"parameterGroup":"PESTICIDES","Insufficient
+        Information":358.29,"Insufficient Information-count":20},{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":65.57,"Cause-count":6,"Insufficient Information":1456.47,"Insufficient
+        Information-count":85,"Meeting Criteria":1707.29,"Meeting Criteria-count":97,"Removed":17.0865,"Removed-count":2},{"parameterGroup":"CAUSE
+        UNKNOWN - IMPAIRED BIOTA","Cause":256.15,"Cause-count":13,"Insufficient Information":414.85,"Insufficient
+        Information-count":20,"Meeting Criteria":1376.29,"Meeting Criteria-count":73},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":1723.79,"Cause-count":101,"Insufficient
+        Information":2631.52,"Insufficient Information-count":132,"Meeting Criteria":13574.17,"Meeting
+        Criteria-count":734,"Removed":93.893,"Removed-count":7},{"parameterGroup":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","Insufficient Information":1090.87,"Insufficient Information-count":46}]}]},{"waterTypeCode":"OCEAN","unitsCode":"Square
+        Miles","useAttainments":[{"useName":"Fish Consumption Use","Not Supporting":856451,"Not
+        Supporting-count":10,"parameters":[{"parameterGroup":"MERCURY","Cause":856451,"Cause-count":10}]},{"useName":"Aquatic
+        Life Use","Fully Supporting":221827.48,"Fully Supporting-count":4,"Not Assessed":634623.52,"Not
+        Assessed-count":6,"parameters":[{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Meeting Criteria":221827.48,"Meeting Criteria-count":4}]},{"useName":"General
+        Use","Fully Supporting":221827.48,"Fully Supporting-count":4,"Not Assessed":634623.52,"Not
+        Assessed-count":6,"parameters":[{"parameterGroup":"TEMPERATURE","Meeting Criteria":221827.48,"Meeting
+        Criteria-count":4},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Meeting
+        Criteria":221827.48,"Meeting Criteria-count":4}]},{"useName":"Recreation Use","Insufficient
+        Information":119778.08,"Insufficient Information-count":2,"Not Assessed":634623.52,"Not
+        Assessed-count":6,"Not Supporting":102049.4,"Not Supporting-count":2,"parameters":[{"parameterGroup":"PATHOGENS","Cause":102049.4,"Cause-count":2,"Insufficient
+        Information":30461.04,"Insufficient Information-count":1}]}]},{"waterTypeCode":"BEACH","unitsCode":"Miles","useAttainments":[{"useName":"Recreational
+        Beaches","Fully Supporting":143.89,"Fully Supporting-count":63,"Not Supporting":2,"Not
+        Supporting-count":4,"parameters":[{"parameterGroup":"PATHOGENS","Cause":2,"Cause-count":4,"Meeting
+        Criteria":143.77,"Meeting Criteria-count":62}]}]}]}]},"messages":[]}'
+  recorded_at: 2026-06-29 22:03:14
+recorded_with: VCR-vcr/2.1.0
