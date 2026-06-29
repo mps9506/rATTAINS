@@ -68,8 +68,7 @@
 #'   JSON data is parsed and returned as tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @export
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
 #' @importFrom lifecycle deprecate_warn
 #' @importFrom rlist list.filter
@@ -122,7 +121,7 @@ actions <- function(action_id = NULL,
   }
 
   ## check for API key
-  check_api_key()
+  #check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -186,8 +185,7 @@ actions <- function(action_id = NULL,
                ### DEPRECIATED ###
                #returnCountOnly = returnCountOnly)#
                ###################
-               returnCountOnly = "N",
-               api_key = Sys.getenv("RATTAINS_TOKEN")
+               returnCountOnly = "N"
   )
   args <- list.filter(args, !is.null(.data))
   required_args <- c("actionIdentifier",
@@ -198,7 +196,7 @@ actions <- function(action_id = NULL,
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: action_id, assessment_unit_id, state_code, or organization_id")
   }
-  path <- "attains-public/api/actions"
+  path <- "attains/actions"
 
   ## download data without caching
   content <- xGET(path,

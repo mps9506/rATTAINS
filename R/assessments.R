@@ -67,8 +67,7 @@
 #'   `delisted_waters`). Prior versions returned `documents`, `use_assessment`,
 #'   and `parameter_assessment`.
 #' @export
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
 #' @importFrom rlist list.filter
 #' @importFrom rlang is_empty .data
@@ -122,8 +121,8 @@ assessments <- function(assessment_unit_id = NULL,
     return(invisible(NULL))
   }
 
-  ## check for API key
-  check_api_key()
+  # ## check for API key
+  # check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -180,8 +179,7 @@ assessments <- function(assessment_unit_id = NULL,
                #returnCountOnly = returnCountOnly)#
                ###################
                returnCountOnly = "N",
-               excludeAssessments = exclude_assessments,
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
+               excludeAssessments = exclude_assessments)
 
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
@@ -192,7 +190,7 @@ assessments <- function(assessment_unit_id = NULL,
     stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
   }
 
-  path = "attains-public/api/assessments"
+  path = "attains/assessments"
 
   ## download without caching
   content <- xGET(path,

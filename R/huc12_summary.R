@@ -19,8 +19,7 @@
 #'   seven tibbles.
 #' @note See [domain_values] to search values that can be queried.
 #' @import tibblify
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom dplyr select
 #' @importFrom fs path
 #' @importFrom jsonlite fromJSON
@@ -47,8 +46,8 @@ huc12_summary <- function(huc,
     return(invisible(NULL))
   }
 
-  ## check for API key
-  check_api_key()
+  # ## check for API key
+  # check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -68,9 +67,8 @@ huc12_summary <- function(huc,
                          add = coll))
   checkmate::reportAssertions(coll)
 
-  args <- list(huc = huc,
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
-  path = "attains-public/api/huc12summary"
+  args <- list(huc = huc)
+  path = "attains/huc12summary"
 
   ## download data
   content <- xGET(path,

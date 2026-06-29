@@ -44,9 +44,9 @@ domain_values <- function(domain_name = NULL,
   if(!isTRUE(con_check)){
     return(invisible(NULL))
   }
-
-  ## check for API key
-  check_api_key()
+#
+#   ## check for API key
+#   check_api_key()
 
   ## check that arguments are character
   coll <- makeAssertCollection()
@@ -73,10 +73,9 @@ domain_values <- function(domain_name = NULL,
   }
 
   args <- list(domainName = domain_name,
-               context = context,
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
+               context = context)
   args <- list.filter(args, !is.null(.data))
-  path = "attains-public/api/domains"
+  path = "attains/domains"
 
   ## download without caching
   content <- xGET(path,

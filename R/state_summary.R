@@ -53,8 +53,8 @@ state_summary <- function(organization_id = NULL,
     return(invisible(NULL))
   }
 
-  ## check for API key
-  check_api_key()
+  # ## check for API key
+  # check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -77,15 +77,14 @@ state_summary <- function(organization_id = NULL,
 
   ## check that required args are present
   args <- list(organizationId = organization_id,
-               reportingCycle = reporting_cycle,
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
+               reportingCycle = reporting_cycle)
   args <- list.filter(args, !is.null(.data))
   required_args <- c("organizationId")
   args_present <- intersect(names(args), required_args)
   if(is_empty(args_present)) {
     stop("One of the following arguments must be provided: organization_id")
   }
-  path <- "attains-public/api/usesStateSummary"
+  path <- "attains/usesStateSummary"
 
   ## download data
   content <- xGET(path,

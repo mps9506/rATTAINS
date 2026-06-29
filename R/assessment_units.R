@@ -96,7 +96,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
   }
 
   ## check for API key
-  check_api_key()
+  #check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -133,8 +133,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
                lastChangeLaterThanDate = last_change_later_than_date,
                lastChangeEarlierThanDate = last_change_earlier_than_date,
                statusIndicator = status_indicator,
-               returnCountOnly = NULL,## depreciated and defaults NULL
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
+               returnCountOnly = NULL) ## depreciated and defaults NULL
   args <- list.filter(args, !is.null(.data))
   required_args <- c("assessmentUnitIdentifier",
                      "stateCode",
@@ -144,7 +143,7 @@ assessment_units <- function(assessment_unit_identifer = NULL,
     stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
   }
 
-  path <- "attains-public/api/assessmentUnits"
+  path <- "attains/assessmentUnits"
 
   ## download data
   content <- xGET(path,

@@ -14,7 +14,8 @@
 xGET <- function(path, args = list(), file = NULL, ...) {
   url <- "https://api.epa.gov/attains"
   cli <- crul::HttpClient$new(url,
-                              opts = list(...))
+                              opts = list(...),
+                              headers = list("X-API-Key" = Sys.getenv("RATTAINS_TOKEN")))
 
   full_url <- cli$url_fetch(path = path,
                             query = args)
@@ -80,31 +81,31 @@ check_connectivity <- function() {
 }
 
 
-#' Check API key
+#' #' Check API key
+#' #'
+#' #' Checks for API Key in current environment or provided by user.
+#' #' Should be included near the top of each function before the arg list
+#' #' is built.
+#' #' @return TRUE or error
+#' #' @keywords internal
+#' #' @noRd
+#' #'
+#' check_api_key <- function() {
+#'   tryCatch(expr = {
+#'     ## RATTAINS_TOKEN
+#'     ifelse(
+#'       nchar(Sys.getenv("RATTAINS_TOKEN")) > 0,
+#'       TRUE,
+#'       FALSE
+#'     )
+#'     return(TRUE)
 #'
-#' Checks for API Key in current environment or provided by user.
-#' Should be included near the top of each function before the arg list
-#' is built.
-#' @return TRUE or error
-#' @keywords internal
-#' @noRd
+#'   },
+#'   error = function(e){
+#'     message("API Token from Data.gov using: https://api.data.gov/signup/")
+#'   }
 #'
-check_api_key <- function() {
-  tryCatch(expr = {
-    ## RATTAINS_TOKEN
-    ifelse(
-      length(Sys.getenv("RATTAINS_TOKEN") > 0),
-      TRUE,
-      FALSE
-    )
-    return(TRUE)
-
-  },
-  error = function(e){
-    message("API Token from Data.gov using: https://api.data.gov/signup/")
-  }
-
-  )
-
-
-}
+#'   )
+#'
+#'
+#' }

@@ -28,8 +28,7 @@
 #' @note See [domain_values] to search values that can be queried. As of v1.0
 #'   this function no longer returns the `documents`, `associated_permits`, or
 #'   `plans` tibbles.
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection
-#'   reportAssertions
+#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
 #' @importFrom fs path
 #' @importFrom rlang .data is_empty
 #' @importFrom rlist list.filter
@@ -58,7 +57,7 @@ plans <- function(huc,
   }
 
   ## check for API key
-  check_api_key()
+  #check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
@@ -84,8 +83,7 @@ plans <- function(huc,
 
   args <- list(huc = huc,
                oganizationId = organization_id,
-               summarize = summarize,
-               api_key = Sys.getenv("RATTAINS_TOKEN"))
+               summarize = summarize)
   args <- list.filter(args, !is.null(.data))
   required_args <- c("huc")
   args_present <- intersect(names(args), required_args)
@@ -93,7 +91,7 @@ plans <- function(huc,
     stop("One of the following arguments must be provided: huc")
   }
 
-  path = "attains-public/api/plans"
+  path = "attains/plans"
 
   ## download data
   content <- xGET(path,

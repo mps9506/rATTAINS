@@ -20,5 +20,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Michael Schramm \email{mpschramm@gmail.com} (\href{https://orcid.org/0000-0003-1876-6592}{ORCID}) [copyright holder]
 
+Authors:
+\itemize{
+  \item Michael Schramm \email{mpschramm@gmail.com} (\href{https://orcid.org/0000-0003-1876-6592}{ORCID}) [copyright holder]
+}
+
 }
 \keyword{internal}
