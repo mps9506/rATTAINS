@@ -3,8 +3,8 @@ test_that("actions webservice works", {
   vcr::use_cassette("actions_works", {
     x_1 <- actions(action_id = "R8-ND-2018-03")
   })
-  testthat::expect_s3_class(x_1$documents, "tbl_df")
-  testthat::expect_s3_class(x_1$actions, "tbl_df")
+  testthat::expect_type(x_1, "list")
+  purrr::map(x_1, \(x) {testthat::expect_s3_class(x, "tbl_df")})
 
   vcr::use_cassette("actions_unnest_works", {
     x_1 <- actions(action_id = "R8-ND-2018-03", .unnest = FALSE)

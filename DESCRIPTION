@@ -24,9 +24,10 @@ Imports:
     fs,
     jsonlite,
     lifecycle,
+    purrr,
     rlang,
     rlist,
-    tibblify,
+    tibble,
     tidyr,
     tidyselect
 Suggests: 

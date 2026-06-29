@@ -1,12 +1,10 @@
 ## Test environments
 
-* GitHub Actions (macos-latest), release 
+* GitHub Actions (macos-15.7.2), release 
 * GitHub Actions (windows-latest), release 
-* GitHub Actions (ubuntu-22.04.2), release, devel 
-* R-hub (macos-m1), devel 
-* R-hub (windows-latest), devel
-* R-hub (ubuntu-latest), devel, patched
-* winbuilder (windows), release, devel 
+* GitHub Actions (ubuntu-24.04.3), old-release, release, devel 
+* winbuilder (windows), release
+* local (ubuntu-24.04) release
 
 ## R CMD check results
 
@@ -14,8 +12,7 @@
 
 ## Comments
 
-* This submission includes minor fixes to build errors introduced by the 
-upstream dependency vcr v2.
+* This submission removes the dependency on the tibblify package that is scheduled to be archived.
 
 ## Reverse dependencies
 

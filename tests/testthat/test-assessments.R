@@ -3,9 +3,8 @@ test_that("assessments works", {
   vcr::use_cassette("assessments_works", {
     x_1 <- assessments(organization_id = "SDDENR", probable_source = "GRAZING IN RIPARIAN OR SHORELINE ZONES")
   })
-  testthat::expect_s3_class(x_1$documents, "tbl_df")
-  testthat::expect_s3_class(x_1$use_assessment, "tbl_df")
-  testthat::expect_s3_class(x_1$delisted_waters, "tbl_df")
+  testthat::expect_type(x_1, "list")
+  purrr::map(x_1, \(x) {testthat::expect_s3_class(x, "tbl_df")})
 
   vcr::use_cassette("assessments_unnest_works", {
     x_1 <- assessments(organization_id = "SDDENR",

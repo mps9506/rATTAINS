@@ -40,6 +40,6 @@ See \link{domain_values} to search values that can be queried.
 x <- huc12_summary(huc = "020700100204")
 
 ## Return as a JSON string
-x <- huc12_summary(huc = "020700100204", tidy = TRUE)
+x <- huc12_summary(huc = "020700100204", tidy = FALSE)
 }
 }

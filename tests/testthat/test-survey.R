@@ -2,12 +2,14 @@ test_that("survey returns expected types and classes", {
 
   vcr::use_cassette("survey_works",
                     {x <- surveys(organization_id="SDDENR")})
-  testthat::expect_s3_class(x, "tbl_df")
+  testthat::expect_type(x, "list")
+  testthat::expect_s3_class(x$items, "tbl_df")
 
   vcr::use_cassette("survey_unnest_works",
                     {x <- surveys(organization_id="SDDENR",
                                   .unnest = FALSE)})
-  testthat::expect_s3_class(x, "tbl_df")
+  testthat::expect_type(x, "list")
+  testthat::expect_s3_class(x$items, "tbl_df")
 
   vcr::use_cassette("survey_chr_works",
                     {x <- surveys(organization_id="SDDENR",
