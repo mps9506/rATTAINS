@@ -29,95 +29,109 @@
 #' surveys(organization_id="SDDENR", tidy = FALSE)
 #' }
 
-surveys <- function(organization_id = NULL,
-                    survey_year = NULL,
-                    tidy = TRUE,
-                    .unnest = TRUE,
-                    ...) {
-
+surveys <- function(
+  organization_id = NULL,
+  survey_year = NULL,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+) {
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
-  # ## check for API key
-  # check_api_key()
+  ## check for API key
+  check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(organization_id, survey_year),
-         .var.name = c("organization_id", "survey_year"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(organization_id, survey_year),
+    .var.name = c("organization_id", "survey_year"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(tidy, .unnest),
-         .var.name = c("tidy", ".unnest"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(tidy, .unnest),
+    .var.name = c("tidy", ".unnest"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check that required args are present
-  args <- list(organizationId = organization_id,
-               surveyYear = survey_year)
+  args <- list(organizationId = organization_id, surveyYear = survey_year)
   args <- list.filter(args, !is.null(.data))
   required_args <- c("organizationId")
   args_present <- intersect(names(args), required_args)
-  if(is_empty(args_present)) {
+  if (is_empty(args_present)) {
     stop("One of the following arguments must be provided: organization_id")
   }
 
-  path = "attains/surveys"
+  path <- "attains/surveys"
 
   ## download data without caching
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
+  if (is.null(content)) {
+    return(content)
+  }
 
   ## return raw JSON
-  if(!isTRUE(tidy)) return(content)
-  ## parse and tidy JSON
-  else {
-
+  if (!isTRUE(tidy)) {
+    return(content)
+  } else {
+    ## parse and tidy JSON
     ## parse JSON
-    json_list <- fromJSON(content,
-                          simplifyVector = TRUE,
-                          simplifyDataFrame = TRUE,
-                          flatten = FALSE)
-    
+    json_list <- fromJSON(
+      content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE
+    )
+
     df <- as_tibble(json_list$items)
-    df <- unnest_wider(df, "surveys") 
-    df <- unnest(df, c("surveyStatusCode", "year", "surveyCommentText", "documents", "surveyWaterGroups"))
+    df <- unnest_wider(df, "surveys")
+    df <- unnest(
+      df,
+      c(
+        "surveyStatusCode",
+        "year",
+        "surveyCommentText",
+        "documents",
+        "surveyWaterGroups"
+      )
+    )
 
     ## if unnest == FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       content <- list(
         count = tibble(count = json_list$count),
         items = df
       )
       return(content)
     }
-    
+
     df <- tryCatch(
-        unnest(df, cols = everything(), keep_empty = TRUE),
-        error = function(e) {df},
-        finally = message("Unable to further unnest data, check for nested dataframes.")
-       )
-    
-    content <- list(
-        count = tibble(count = json_list$count),
-        items = df
+      unnest(df, cols = everything(), keep_empty = TRUE),
+      error = function(e) {
+        df
+      },
+      finally = message(
+        "Unable to further unnest data, check for nested dataframes."
       )
+    )
+
+    content <- list(
+      count = tibble(count = json_list$count),
+      items = df
+    )
     return(content)
   }
 }
-
-

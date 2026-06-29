@@ -46,8 +46,8 @@ state_summary <- function(
     return(invisible(NULL))
   }
 
-  # ## check for API key
-  # check_api_key()
+  ## check for API key
+  check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()

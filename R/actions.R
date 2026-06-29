@@ -82,28 +82,29 @@
 #' ## Get the JSON instead
 #' actions(action_id = "R8-ND-2018-03", tidy = FALSE)
 #' }
-actions <- function(action_id = NULL,
-                    assessment_unit_id = NULL,
-                    state_code = NULL,
-                    organization_id = NULL,
-                    summarize = FALSE,
-                    parameter_name = NULL,
-                    pollutant_name = NULL,
-                    action_type_code = NULL,
-                    agency_code = NULL,
-                    pollutant_source_code = NULL,
-                    action_status_code = NULL,
-                    completion_date_later_than = NULL,
-                    completion_date_earlier_than = NULL,
-                    tmdl_date_later_than = NULL,
-                    tmdl_date_earlier_then = NULL,
-                    last_change_later_than_date = NULL,
-                    last_change_earlier_than_date = NULL,
-                    return_count_only = FALSE,
-                    tidy = TRUE,
-                    .unnest = TRUE,
-                    ...) {
-
+actions <- function(
+  action_id = NULL,
+  assessment_unit_id = NULL,
+  state_code = NULL,
+  organization_id = NULL,
+  summarize = FALSE,
+  parameter_name = NULL,
+  pollutant_name = NULL,
+  action_type_code = NULL,
+  agency_code = NULL,
+  pollutant_source_code = NULL,
+  action_status_code = NULL,
+  completion_date_later_than = NULL,
+  completion_date_earlier_than = NULL,
+  tmdl_date_later_than = NULL,
+  tmdl_date_earlier_then = NULL,
+  last_change_later_than_date = NULL,
+  last_change_earlier_than_date = NULL,
+  return_count_only = FALSE,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+) {
   ## depreciate return_count_only
   if (isTRUE(return_count_only)) {
     lifecycle::deprecate_warn(
@@ -116,43 +117,66 @@ actions <- function(action_id = NULL,
   }
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
   ## check for API key
-  #check_api_key()
+  check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(action_id, assessment_unit_id, state_code,
-                  organization_id, parameter_name, pollutant_name,
-                  action_type_code, agency_code, pollutant_source_code,
-                  action_status_code, completion_date_later_than,
-                  completion_date_earlier_than, tmdl_date_later_than,
-                  tmdl_date_earlier_then, last_change_earlier_than_date,
-                  last_change_later_than_date),
-         .var.name = c("action_id","assessment_unit_id", "state_code",
-                       "organization_id", "parameter_name", "pollutant_name",
-                       "action_type_code", "agency_code", "pollutant_source_code",
-                       "action_status_code", "completion_date_later_than",
-                       "completion_date_earlier_than", "tmdl_date_later_than",
-                       "tmdl_date_earlier_then", "last_change_earlier_than_date",
-                       "last_change_later_than_date"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(
+      action_id,
+      assessment_unit_id,
+      state_code,
+      organization_id,
+      parameter_name,
+      pollutant_name,
+      action_type_code,
+      agency_code,
+      pollutant_source_code,
+      action_status_code,
+      completion_date_later_than,
+      completion_date_earlier_than,
+      tmdl_date_later_than,
+      tmdl_date_earlier_then,
+      last_change_earlier_than_date,
+      last_change_later_than_date
+    ),
+    .var.name = c(
+      "action_id",
+      "assessment_unit_id",
+      "state_code",
+      "organization_id",
+      "parameter_name",
+      "pollutant_name",
+      "action_type_code",
+      "agency_code",
+      "pollutant_source_code",
+      "action_status_code",
+      "completion_date_later_than",
+      "completion_date_earlier_than",
+      "tmdl_date_later_than",
+      "tmdl_date_earlier_then",
+      "last_change_earlier_than_date",
+      "last_change_later_than_date"
+    ),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(summarize, tidy, .unnest),
-         .var.name = c("summarize", "tidy", ".unnest"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(summarize, tidy, .unnest),
+    .var.name = c("summarize", "tidy", ".unnest"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
-
 
   ## change logical aguments to "Y" or "N" for webservice
   #### DEPRECIATED ####
@@ -160,81 +184,88 @@ actions <- function(action_id = NULL,
   #   "Y"
   # } else {"N"}
   #####################
-  summarize <- if(isTRUE(summarize)) {
+  summarize <- if (isTRUE(summarize)) {
     "Y"
-  } else {"N"}
+  } else {
+    "N"
+  }
 
   ## check required args are present
-  args <- list(actionIdentifier = action_id,
-               assessmentUnitIdentifier = assessment_unit_id,
-               stateCode = state_code,
-               organizationIdentifier = organization_id,
-               summarize = summarize,
-               parameterName = parameter_name,
-               pollutantName = pollutant_name,
-               actionTypeCode = action_type_code,
-               agencyCode = agency_code,
-               pollutantSourceCode = pollutant_source_code,
-               actionStatusCode = action_status_code,
-               completionDateLaterThan = completion_date_later_than,
-               completionDateEarlierThan = completion_date_earlier_than,
-               tmdlDateLaterThan = tmdl_date_later_than,
-               tmdlDateEarlierThan = tmdl_date_earlier_then,
-               lastChangeLaterThanDate = last_change_later_than_date,
-               lastChangeEarlierThanDate = last_change_earlier_than_date,
-               ### DEPRECIATED ###
-               #returnCountOnly = returnCountOnly)#
-               ###################
-               returnCountOnly = "N"
+  args <- list(
+    actionIdentifier = action_id,
+    assessmentUnitIdentifier = assessment_unit_id,
+    stateCode = state_code,
+    organizationIdentifier = organization_id,
+    summarize = summarize,
+    parameterName = parameter_name,
+    pollutantName = pollutant_name,
+    actionTypeCode = action_type_code,
+    agencyCode = agency_code,
+    pollutantSourceCode = pollutant_source_code,
+    actionStatusCode = action_status_code,
+    completionDateLaterThan = completion_date_later_than,
+    completionDateEarlierThan = completion_date_earlier_than,
+    tmdlDateLaterThan = tmdl_date_later_than,
+    tmdlDateEarlierThan = tmdl_date_earlier_then,
+    lastChangeLaterThanDate = last_change_later_than_date,
+    lastChangeEarlierThanDate = last_change_earlier_than_date,
+    ### DEPRECIATED ###
+    #returnCountOnly = returnCountOnly)#
+    ###################
+    returnCountOnly = "N"
   )
   args <- list.filter(args, !is.null(.data))
-  required_args <- c("actionIdentifier",
-                     "assessmentUnitIdentifier",
-                     "stateCode",
-                     "organizationIdentifier")
+  required_args <- c(
+    "actionIdentifier",
+    "assessmentUnitIdentifier",
+    "stateCode",
+    "organizationIdentifier"
+  )
   args_present <- intersect(names(args), required_args)
-  if(is_empty(args_present)) {
-    stop("One of the following arguments must be provided: action_id, assessment_unit_id, state_code, or organization_id")
+  if (is_empty(args_present)) {
+    stop(
+      "One of the following arguments must be provided: action_id, assessment_unit_id, state_code, or organization_id"
+    )
   }
   path <- "attains/actions"
 
   ## download data without caching
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
-  ## return raw JSON
-   if (!isTRUE(tidy)) {
+  if (is.null(content)) {
     return(content)
-  } else { 
-    json_list <- jsonlite::fromJSON(content,
+  }
+  ## return raw JSON
+  if (!isTRUE(tidy)) {
+    return(content)
+  } else {
+    json_list <- jsonlite::fromJSON(
+      content,
       simplifyVector = TRUE,
       simplifyDataFrame = TRUE,
-      flatten = FALSE)
-    
+      flatten = FALSE
+    )
+
     content <- as_tibble(json_list)
- 
+
     ## if unnest = FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       return(content)
     }
-    
-    items <- unnest(content, "items")  
-    
+
+    items <- unnest(content, "items")
+
     ## create first tibble
     content_item_summary <- select(items, !where(is.list))
     content_names <- select(items, where(is.list))
     content_names <- as.list(names(content_names))
     list_content <- list(itemSummary = content_item_summary)
-    
-    output_list <- map(content_names,
-      function(x) {
-        y <- unnest(content, "items")
-        y <- select(y, all_of(x))
-        y <- unnest(y, cols = everything())
-      })
+
+    output_list <- map(content_names, function(x) {
+      y <- unnest(content, "items")
+      y <- select(y, all_of(x))
+      y <- unnest(y, cols = everything())
+    })
     names(output_list) <- unlist(content_names)
     return(append(list_content, output_list))
   }

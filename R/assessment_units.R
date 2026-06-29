@@ -54,21 +54,22 @@
 #' ## Retrieve data as a JSON instead
 #' assessment_units(assessment_unit_identifer = "AL03150201-0107-200", tidy = FALSE)
 #' }
-assessment_units <- function(assessment_unit_identifer = NULL,
-                             state_code = NULL,
-                             organization_id = NULL,
-                             epa_region = NULL,
-                             huc = NULL,
-                             county = NULL,
-                             assessment_unit_name = NULL,
-                             last_change_later_than_date = NULL,
-                             last_change_earlier_than_date = NULL,
-                             status_indicator = NULL,
-                             return_count_only = NULL,
-                             tidy = TRUE,
-                             .unnest = TRUE,
-                             ...) {
-
+assessment_units <- function(
+  assessment_unit_identifer = NULL,
+  state_code = NULL,
+  organization_id = NULL,
+  epa_region = NULL,
+  huc = NULL,
+  county = NULL,
+  assessment_unit_name = NULL,
+  last_change_later_than_date = NULL,
+  last_change_earlier_than_date = NULL,
+  status_indicator = NULL,
+  return_count_only = NULL,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+) {
   ## depreciate return_count_only
   if (!is.null(return_count_only)) {
     lifecycle::deprecate_warn(
@@ -82,98 +83,120 @@ assessment_units <- function(assessment_unit_identifer = NULL,
 
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
   ## check for API key
-  #check_api_key()
+  check_api_key()
 
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(assessment_unit_identifer, state_code, organization_id,
-                  epa_region, huc, county, assessment_unit_name,
-                  last_change_later_than_date, last_change_earlier_than_date,
-                  status_indicator, return_count_only),
-         .var.name = c("assessment_unit_identifer", "state_code", "organization_id",
-                       "epa_region", "huc", "county", "assessment_unit_name",
-                       "last_change_later_than_date", "last_change_earlier_than_date",
-                       "status_indicator", "return_count_only"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(
+      assessment_unit_identifer,
+      state_code,
+      organization_id,
+      epa_region,
+      huc,
+      county,
+      assessment_unit_name,
+      last_change_later_than_date,
+      last_change_earlier_than_date,
+      status_indicator,
+      return_count_only
+    ),
+    .var.name = c(
+      "assessment_unit_identifer",
+      "state_code",
+      "organization_id",
+      "epa_region",
+      "huc",
+      "county",
+      "assessment_unit_name",
+      "last_change_later_than_date",
+      "last_change_earlier_than_date",
+      "status_indicator",
+      "return_count_only"
+    ),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(tidy, .unnest),
-         .var.name = c("tidy", ".unnest"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(tidy, .unnest),
+    .var.name = c("tidy", ".unnest"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check that required args are present
-  args <- list(assessmentUnitIdentifier = assessment_unit_identifer,
-               stateCode = state_code,
-               organizationId = organization_id,
-               epaRegion = epa_region,
-               HUC = huc,
-               county = county,
-               assessmentUnitName = assessment_unit_name,
-               lastChangeLaterThanDate = last_change_later_than_date,
-               lastChangeEarlierThanDate = last_change_earlier_than_date,
-               statusIndicator = status_indicator,
-               returnCountOnly = NULL) ## depreciated and defaults NULL
+  args <- list(
+    assessmentUnitIdentifier = assessment_unit_identifer,
+    stateCode = state_code,
+    organizationId = organization_id,
+    epaRegion = epa_region,
+    HUC = huc,
+    county = county,
+    assessmentUnitName = assessment_unit_name,
+    lastChangeLaterThanDate = last_change_later_than_date,
+    lastChangeEarlierThanDate = last_change_earlier_than_date,
+    statusIndicator = status_indicator,
+    returnCountOnly = NULL
+  ) ## depreciated and defaults NULL
   args <- list.filter(args, !is.null(.data))
-  required_args <- c("assessmentUnitIdentifier",
-                     "stateCode",
-                     "organizationId")
+  required_args <- c("assessmentUnitIdentifier", "stateCode", "organizationId")
   args_present <- intersect(names(args), required_args)
-  if(is_empty(args_present)) {
-    stop("One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id")
+  if (is_empty(args_present)) {
+    stop(
+      "One of the following arguments must be provided: assessment_unit_identifer, state_code, or organization_id"
+    )
   }
 
   path <- "attains/assessmentUnits"
 
   ## download data
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
+  if (is.null(content)) {
+    return(content)
+  }
 
   if (!isTRUE(tidy)) {
     return(content)
   } else {
-   json_list <- jsonlite::fromJSON(content,
+    json_list <- jsonlite::fromJSON(
+      content,
       simplifyVector = TRUE,
       simplifyDataFrame = TRUE,
-      flatten = FALSE)
-    
+      flatten = FALSE
+    )
+
     content <- as_tibble(json_list)
- 
+
     ## if unnest = FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       return(content)
     }
-    
-    items <- unnest(content, "items")  
-    
+
+    items <- unnest(content, "items")
+
     ## create first tibble
     content_item_summary <- select(items, !where(is.list))
     content_names <- select(items, where(is.list))
     content_names <- as.list(names(content_names))
     list_content <- list(itemSummary = content_item_summary)
-    
-    output_list <- map(content_names,
-      function(x) {
-        y <- unnest(content, "items")
-        y <- select(y, all_of(x))
-        y <- unnest(y, cols = everything())
-      })
+
+    output_list <- map(content_names, function(x) {
+      y <- unnest(content, "items")
+      y <- select(y, all_of(x))
+      y <- unnest(y, cols = everything())
+    })
     names(output_list) <- unlist(content_names)
     return(append(list_content, output_list))
-    }
+  }
 }
