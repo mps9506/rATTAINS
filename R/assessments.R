@@ -67,10 +67,6 @@
 #'   `delisted_waters`). Prior versions returned `documents`, `use_assessment`,
 #'   and `parameter_assessment`.
 #' @export
-#' @importFrom checkmate assert_character assert_logical makeAssertCollection reportAssertions
-#' @importFrom fs path
-#' @importFrom rlist list.filter
-#' @importFrom rlang is_empty .data
 #' @examples
 #'
 #' \dontrun{
