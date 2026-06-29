@@ -1,42 +1,37 @@
 http_interactions:
 - request:
-    method: get
-    uri: https://attains.epa.gov/attains-public/api/assessmentUnits?assessmentUnitIdentifier=AL03150201-0107-200
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
+    method: GET
+    uri: https://api.epa.gov/attains/assessmentUnits?assessmentUnitIdentifier=AL03150201-0107-200
   response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+    status: 200
     headers:
-      status: HTTP/1.1 200 200
-      date: Tue, 26 Oct 2021 13:55:01 GMT
-      server: Apache
-      strict-transport-security: max-age=31536000; includeSubDomains
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 19:38:45 GMT
+      content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      x-frame-options: DENY
+      age: '0'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2ji2opdgj9iubts9mg
+      x-cache: MISS
       x-content-type-options: nosniff
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
-      transfer-encoding: chunked
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '995'
+      x-vcap-request-id: d3375b6a-973b-488d-73b7-06206a4bedf5
+      x-frame-options: DENY
     body:
-      encoding: UTF-8
-      file: no
       string: '{"items":[{"organizationIdentifier":"21AWIC","organizationName":"Alabama
         Department of Environmental Management","organizationTypeText":"State","assessmentUnits":[{"assessmentUnitIdentifier":"AL03150201-0107-200","assessmentUnitName":"Pine
         Creek","locationDescriptionText":"from Alabama River (Woodruff Lake) to its
         source","agencyCode":"S","stateCode":"AL","statusIndicator":"A","waterTypes":[{"waterTypeCode":"STREAM","waterSizeNumber":9.58,"unitsCode":"Miles","sizeEstimationMethodCode":"GIS
-        Calculation","sizeSourceText":"NHD","sizeSourceScaleText":"1:24,000"}],"locations":[{"locationTypeCode":"River
+        Calculation","sizeSourceText":"NHD","sizeSourceScaleText":"1:24,000","waterTypeGroupId":"9"}],"locations":[{"locationTypeCode":"River
         Basin","locationText":"Alabama"},{"locationTypeCode":"HUC-8","locationText":"03150201"},{"locationTypeCode":"County","locationText":"Elmore
         County"},{"locationTypeCode":"County","locationText":"Autauga County"}],"monitoringStations":[{"monitoringOrganizationIdentifier":"21AWIC","monitoringLocationIdentifier":"PNCE-1","monitoringDataLinkText":null},{"monitoringOrganizationIdentifier":"21AWIC","monitoringLocationIdentifier":"PINA-2","monitoringDataLinkText":null}],"useClass":{"useClassCode":"156","useClassName":"F&W"},"documents":[]}]}],"count":1}'
-  recorded_at: 2021-10-26 13:55:02 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+  recorded_at: 2026-06-29 19:38:46
+recorded_with: VCR-vcr/2.1.0

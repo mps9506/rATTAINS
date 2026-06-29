@@ -1,74 +1,70 @@
 http_interactions:
 - request:
-    method: get
-    uri: https://attains.epa.gov/attains-public/api/huc12summary?huc=020700100204
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
+    method: GET
+    uri: https://api.epa.gov/attains/huc12summary?huc=020700100204
   response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+    status: 200
     headers:
-      status: HTTP/1.1 200 200
-      date: Tue, 26 Oct 2021 13:56:25 GMT
-      server: Apache
-      strict-transport-security: max-age=31536000; includeSubDomains
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 19:38:55 GMT
+      content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      x-frame-options: DENY
+      age: '3'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2ji4onouiktod0jjpg
+      x-cache: MISS
       x-content-type-options: nosniff
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
-      transfer-encoding: chunked
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '986'
+      x-vcap-request-id: 7a4ab561-565d-406a-489d-ff2925ee05fe
+      x-frame-options: DENY
     body:
-      encoding: UTF-8
-      file: no
-      string: '{"items":[{"huc12":"020700100204","assessmentUnitCount":20,"totalCatchmentAreaSqMi":46.245,"totalHucAreaSqMi":46.179,"assessedCatchmentAreaSqMi":44.13,"assessedCatchmentAreaPercent":95.427,"assessedGoodCatchmentAreaSqMi":1.773,"assessedGoodCatchmentAreaPercent":3.834,"assessedUnknownCatchmentAreaSqMi":0,"assessedUnknownCatchmentAreaPercent":0,"containImpairedWatersCatchmentAreaSqMi":44.13,"containImpairedWatersCatchmentAreaPercent":95.427,"containRestorationCatchmentAreaSqMi":44.13,"containRestorationCatchmentAreaPercent":95.427,"assessmentUnits":[{"assessmentUnitId":"MD-ANATF-02140205"},{"assessmentUnitId":"MD-02140205-Northwest_Branch"},{"assessmentUnitId":"MD-02140205"},{"assessmentUnitId":"DCTFD01R_00"},{"assessmentUnitId":"MD-ANATF"},{"assessmentUnitId":"DCTFS01R_00"},{"assessmentUnitId":"DCTNA01R_00"},{"assessmentUnitId":"DCTTX27R_00"},{"assessmentUnitId":"DCTFC01R_00"},{"assessmentUnitId":"MD-02140205-Mainstem"},{"assessmentUnitId":"MD-02140205-Mainstem2"},{"assessmentUnitId":"MD-02140205-Northeast_Northwest_Branches"},{"assessmentUnitId":"DCTWB00R_02"},{"assessmentUnitId":"DCTWB00R_01"},{"assessmentUnitId":"DCANA00E_02"},{"assessmentUnitId":"DCTHR01R_00"},{"assessmentUnitId":"DCTPB01R_00"},{"assessmentUnitId":"DCTDU01R_00"},{"assessmentUnitId":"DCANA00E_01"},{"assessmentUnitId":"DCAKL00L_00"}],"summaryByIRCategory":[{"epaIRCategoryName":"1","catchmentSizeSqMi":1.773,"catchmentSizePercent":3.834,"assessmentUnitCount":2},{"epaIRCategoryName":"4A","catchmentSizeSqMi":25.348,"catchmentSizePercent":54.812,"assessmentUnitCount":11},{"epaIRCategoryName":"5","catchmentSizeSqMi":37.891,"catchmentSizePercent":81.934,"assessmentUnitCount":7}],"summaryByUseGroup":[{"useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":19.487,"catchmentSizePercent":42.139,"assessmentUnitCount":15}]},{"useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Fully
-        Supporting","catchmentSizeSqMi":1.773,"catchmentSizePercent":3.834,"assessmentUnitCount":2},{"useAttainment":"Insufficient
-        Information","catchmentSizeSqMi":1.914,"catchmentSizePercent":4.138,"assessmentUnitCount":1},{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":16}]},{"useGroupName":"OTHER_USE","useAttainmentSummary":[{"useAttainment":"Fully
-        Supporting","catchmentSizeSqMi":1.91,"catchmentSizePercent":4.131,"assessmentUnitCount":3}]},{"useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":24.503,"catchmentSizePercent":52.985,"assessmentUnitCount":15}]}],"summaryByUse":[{"useName":"Aquatic
+      string: '{"items":[{"huc12":"020700100204","assessmentUnitCount":18,"totalCatchmentAreaSqMi":46.137,"totalHucAreaSqMi":null,"assessedCatchmentAreaSqMi":35.226,"assessedCatchmentAreaPercent":76.351,"assessedGoodCatchmentAreaSqMi":0,"assessedGoodCatchmentAreaPercent":0,"assessedUnknownCatchmentAreaSqMi":0,"assessedUnknownCatchmentAreaPercent":0,"containImpairedWatersCatchmentAreaSqMi":35.226,"containImpairedWatersCatchmentAreaPercent":76.351,"containRestorationCatchmentAreaSqMi":35.226,"containRestorationCatchmentAreaPercent":76.351,"assessmentUnits":[{"assessmentUnitId":"MD-02140205-Northwest_Branch"},{"assessmentUnitId":"MD-02140205"},{"assessmentUnitId":"DCTFD01R_00"},{"assessmentUnitId":"DCTNA01R_00"},{"assessmentUnitId":"DCTFS01R_00"},{"assessmentUnitId":"MD-ANATF"},{"assessmentUnitId":"MD-02140205-Mainstem"},{"assessmentUnitId":"DCTTX27R_00"},{"assessmentUnitId":"MD-ANATF-SWSAV"},{"assessmentUnitId":"DCTFC01R_00"},{"assessmentUnitId":"DCTWB00R_02"},{"assessmentUnitId":"DCANA00E_02"},{"assessmentUnitId":"DCTHR01R_00"},{"assessmentUnitId":"DCTWB00R_01"},{"assessmentUnitId":"DCTPB01R_00"},{"assessmentUnitId":"DCTDU01R_00"},{"assessmentUnitId":"DCANA00E_01"},{"assessmentUnitId":"DCAKL00L_00"}],"summaryByIRCategory":[{"epaIRCategoryName":"4A","catchmentSizeSqMi":13.223,"catchmentSizePercent":28.662,"assessmentUnitCount":11},{"epaIRCategoryName":"5","catchmentSizeSqMi":23.033,"catchmentSizePercent":49.923,"assessmentUnitCount":7}],"summaryByOverallStatus":[{"overallStatus":"Not
+        Supporting","catchmentSizeSqMi":35.226,"catchmentSizePercent":76.351,"assessmentUnitCount":18}],"summaryByUseGroup":[{"useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Insufficient
+        Information","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1},{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":1.005,"catchmentSizePercent":2.179,"assessmentUnitCount":15}]},{"useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":10.951,"catchmentSizePercent":23.737,"assessmentUnitCount":16}]},{"useGroupName":"OTHER_USE","useAttainmentSummary":[{"useAttainment":"Fully
+        Supporting","catchmentSizeSqMi":1.004,"catchmentSizePercent":2.176,"assessmentUnitCount":3}]},{"useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Fully
+        Supporting","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":2},{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":0.012,"catchmentSizePercent":0.027,"assessmentUnitCount":15}]}],"summaryByUse":[{"useName":"Aquatic
         Life and Wildlife","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":19.487,"catchmentSizePercent":42.139,"assessmentUnitCount":1}]},{"useName":"Fishing","useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Fully
-        Supporting","catchmentSizeSqMi":1.773,"catchmentSizePercent":3.834,"assessmentUnitCount":2},{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":1.914,"catchmentSizePercent":4.138,"assessmentUnitCount":4}]},{"useName":"Navigation","useGroupName":"OTHER_USE","useAttainmentSummary":[{"useAttainment":"Fully
-        Supporting","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":3}]},{"useName":"Open-Water
+        Supporting","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1}]},{"useName":"Fishing","useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":1.005,"catchmentSizePercent":2.179,"assessmentUnitCount":3}]},{"useName":"Navigation","useGroupName":"OTHER_USE","useAttainmentSummary":[{"useAttainment":"Fully
+        Supporting","catchmentSizeSqMi":10.951,"catchmentSizePercent":23.737,"assessmentUnitCount":3}]},{"useName":"Open-Water
         Fish and Shellfish Subcategory","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":1.91,"catchmentSizePercent":4.131,"assessmentUnitCount":1}]},{"useName":"Primary
+        Supporting","catchmentSizeSqMi":1.004,"catchmentSizePercent":2.176,"assessmentUnitCount":1}]},{"useName":"Primary
         Contact Recreation","useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":24.503,"catchmentSizePercent":52.985,"assessmentUnitCount":13}]},{"useName":"Protection
-        and Propagation of Fish, Shellfish and Wildlife","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":24.503,"catchmentSizePercent":52.985,"assessmentUnitCount":13}]},{"useName":"Protection
-        of Human Health related to Consumption of Fish and Shellfish","useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Insufficient
-        Information","catchmentSizeSqMi":1.921,"catchmentSizePercent":4.153,"assessmentUnitCount":1},{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":24.503,"catchmentSizePercent":52.985,"assessmentUnitCount":12}]},{"useName":"Seasonal
+        Supporting","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}]},{"useName":"Protection
+        and Propagation of Fish, Shellfish and Wildlife","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Insufficient
+        Information","catchmentSizeSqMi":0.012,"catchmentSizePercent":0.027,"assessmentUnitCount":1},{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":12}]},{"useName":"Protection
+        of Human Health related to Consumption of Fish and Shellfish","useGroupName":"FISHCONSUMPTION_USE","useAttainmentSummary":[{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}]},{"useName":"Seasonal
         Migratory Fish Spawning and Nursery Subcategory","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":1.91,"catchmentSizePercent":4.131,"assessmentUnitCount":1}]},{"useName":"Seasonal
+        Supporting","catchmentSizeSqMi":1.004,"catchmentSizePercent":2.176,"assessmentUnitCount":1}]},{"useName":"Seasonal
         Shallow-Water Submerged Aquatic Vegetation Subcategory","useGroupName":"ECOLOGICAL_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":1.91,"catchmentSizePercent":4.131,"assessmentUnitCount":1}]},{"useName":"Secondary
-        Contact Recreation and Aesthetic Enjoyment","useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":24.503,"catchmentSizePercent":52.985,"assessmentUnitCount":13}]},{"useName":"Water
+        Supporting","catchmentSizeSqMi":1.004,"catchmentSizePercent":2.176,"assessmentUnitCount":1}]},{"useName":"Secondary
+        Contact Recreation and Aesthetic Enjoyment","useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Fully
+        Supporting","catchmentSizeSqMi":0.378,"catchmentSizePercent":0.819,"assessmentUnitCount":2},{"useAttainment":"Not
+        Supporting","catchmentSizeSqMi":15.516,"catchmentSizePercent":33.631,"assessmentUnitCount":11}]},{"useName":"Water
         Contact Sports","useGroupName":"RECREATION_USE","useAttainmentSummary":[{"useAttainment":"Not
-        Supporting","catchmentSizeSqMi":19.627,"catchmentSizePercent":42.442,"assessmentUnitCount":2}]}],"summaryByParameterImpairments":[{"parameterGroupName":"ALGAL
-        GROWTH","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":2},{"parameterGroupName":"CHLORINE","catchmentSizeSqMi":10.745,"catchmentSizePercent":23.235,"assessmentUnitCount":1},{"parameterGroupName":"HABITAT
-        ALTERATIONS","catchmentSizeSqMi":25.288,"catchmentSizePercent":54.683,"assessmentUnitCount":3},{"parameterGroupName":"HYDROLOGIC
-        ALTERATION","catchmentSizeSqMi":36.513,"catchmentSizePercent":78.956,"assessmentUnitCount":6},{"parameterGroupName":"METALS
-        (OTHER THAN MERCURY)","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":9},{"parameterGroupName":"NUTRIENTS","catchmentSizeSqMi":42.406,"catchmentSizePercent":91.698,"assessmentUnitCount":4},{"parameterGroupName":"OIL
-        AND GREASE","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":3},{"parameterGroupName":"ORGANIC
-        ENRICHMENT/OXYGEN DEPLETION","catchmentSizeSqMi":42.406,"catchmentSizePercent":91.698,"assessmentUnitCount":8},{"parameterGroupName":"PATHOGENS","catchmentSizeSqMi":44.13,"catchmentSizePercent":95.427,"assessmentUnitCount":15},{"parameterGroupName":"PESTICIDES","catchmentSizeSqMi":26.417,"catchmentSizePercent":57.123,"assessmentUnitCount":11},{"parameterGroupName":"PH/ACIDITY/CAUSTIC
-        CONDITIONS","catchmentSizeSqMi":1.717,"catchmentSizePercent":3.712,"assessmentUnitCount":1},{"parameterGroupName":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","catchmentSizeSqMi":26.417,"catchmentSizePercent":57.123,"assessmentUnitCount":12},{"parameterGroupName":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","catchmentSizeSqMi":19.487,"catchmentSizePercent":42.139,"assessmentUnitCount":1},{"parameterGroupName":"SEDIMENT","catchmentSizeSqMi":3.881,"catchmentSizePercent":8.392,"assessmentUnitCount":1},{"parameterGroupName":"TOXIC
-        ORGANICS","catchmentSizeSqMi":22.778,"catchmentSizePercent":49.256,"assessmentUnitCount":8},{"parameterGroupName":"TRASH","catchmentSizeSqMi":42.406,"catchmentSizePercent":91.698,"assessmentUnitCount":4},{"parameterGroupName":"TURBIDITY","catchmentSizeSqMi":44.13,"catchmentSizePercent":95.427,"assessmentUnitCount":15}],"summaryRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":26.417,"catchmentSizePercent":57.123,"assessmentUnitCount":15}],"summaryVisionRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":26.417,"catchmentSizePercent":57.123,"assessmentUnitCount":15}]}],"count":1}'
-  recorded_at: 2021-10-26 13:56:26 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+        Supporting","catchmentSizeSqMi":19.344,"catchmentSizePercent":41.928,"assessmentUnitCount":2}]}],"summaryByParameterImpairments":[{"parameterGroupName":"ALGAL
+        GROWTH","catchmentSizeSqMi":9.22,"catchmentSizePercent":19.985,"assessmentUnitCount":2},{"parameterGroupName":"CHLORINE","catchmentSizeSqMi":1.729,"catchmentSizePercent":3.748,"assessmentUnitCount":1},{"parameterGroupName":"HABITAT
+        ALTERATIONS","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1},{"parameterGroupName":"HYDROLOGIC
+        ALTERATION","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1},{"parameterGroupName":"METALS
+        (OTHER THAN MERCURY)","catchmentSizeSqMi":15.516,"catchmentSizePercent":33.631,"assessmentUnitCount":12},{"parameterGroupName":"NUTRIENTS","catchmentSizeSqMi":30.295,"catchmentSizePercent":65.664,"assessmentUnitCount":5},{"parameterGroupName":"OIL
+        AND GREASE","catchmentSizeSqMi":10.951,"catchmentSizePercent":23.737,"assessmentUnitCount":2},{"parameterGroupName":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","catchmentSizeSqMi":30.295,"catchmentSizePercent":65.664,"assessmentUnitCount":5},{"parameterGroupName":"PATHOGENS","catchmentSizeSqMi":35.226,"catchmentSizePercent":76.351,"assessmentUnitCount":15},{"parameterGroupName":"PER-
+        AND POLYFLUOROALKYL SUBSTANCES (PFAS)","catchmentSizeSqMi":1.005,"catchmentSizePercent":2.179,"assessmentUnitCount":2},{"parameterGroupName":"PESTICIDES","catchmentSizeSqMi":16.204,"catchmentSizePercent":35.121,"assessmentUnitCount":11},{"parameterGroupName":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","catchmentSizeSqMi":16.887,"catchmentSizePercent":36.602,"assessmentUnitCount":13},{"parameterGroupName":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1},{"parameterGroupName":"TOXIC
+        ORGANICS","catchmentSizeSqMi":13.251,"catchmentSizePercent":28.721,"assessmentUnitCount":8},{"parameterGroupName":"TRASH","catchmentSizeSqMi":28.564,"catchmentSizePercent":61.912,"assessmentUnitCount":4},{"parameterGroupName":"TURBIDITY","catchmentSizeSqMi":34.86,"catchmentSizePercent":75.558,"assessmentUnitCount":13}],"summaryRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}],"summaryVisionRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}]}],"count":1}'
+  recorded_at: 2026-06-29 19:38:55
+recorded_with: VCR-vcr/2.1.0
