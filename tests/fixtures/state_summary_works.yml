@@ -1,104 +1,249 @@
 http_interactions:
 - request:
-    method: get
-    uri: https://attains.epa.gov/attains-public/api/usesStateSummary?organizationId=TDECWR&reportingCycle=2016
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
+    method: GET
+    uri: https://api.epa.gov/attains/usesStateSummary?organizationId=SDDENR&reportingCycle=2024
   response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+    status: 200
     headers:
-      status: HTTP/1.1 200 200
-      date: Tue, 26 Oct 2021 13:57:34 GMT
-      server: Apache
-      strict-transport-security: max-age=31536000; includeSubDomains
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 20:07:33 GMT
+      content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      x-frame-options: DENY
+      age: '1'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2jv8dmcrthjtk13jpg
+      x-cache: MISS
       x-content-type-options: nosniff
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
-      transfer-encoding: chunked
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '967'
+      x-vcap-request-id: 11f5f029-c7dd-493e-4b04-dd696eeb3bf5
+      x-frame-options: DENY
     body:
-      encoding: UTF-8
-      file: no
-      string: '{"data":{"organizationIdentifier":"TDECWR","organizationName":"Tennessee","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2016","combinedCycles":[],"waterTypes":[{"waterTypeCode":"LAKE/RESERVOIR/POND","unitsCode":"Acres","useAttainments":[{"useName":"Fish
-        and Aquatic Life","Fully Supporting":531027.34,"Fully Supporting-count":55,"Not
-        Assessed":11738.4,"Not Assessed-count":40,"Not Supporting":28508.11,"Not Supporting-count":13,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":1289.22,"Cause-count":5},{"parameterGroup":"METALS
-        (OTHER THAN MERCURY)","Cause":2254,"Cause-count":4},{"parameterGroup":"FLOW
-        ALTERATION(S)","Cause":494,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":20459,"Cause-count":1},{"parameterGroup":"AMMONIA","Cause":56.1,"Cause-count":1},{"parameterGroup":"PH/ACIDITY/CAUSTIC
-        CONDITIONS","Cause":56.1,"Cause-count":1},{"parameterGroup":"SEDIMENT","Cause":3772.12,"Cause-count":7},{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":56.1,"Cause-count":1},{"parameterGroup":"ORGANIC
-        ENRICHMENT/OXYGEN DEPLETION","Cause":5269.01,"Cause-count":5}]},{"useName":"Recreation","Fully
-        Supporting":376477.96,"Fully Supporting-count":36,"Not Assessed":7135.2,"Not
-        Assessed-count":40,"Not Supporting":187660.69,"Not Supporting-count":32,"parameters":[{"parameterGroup":"PESTICIDES","Cause":13872.98,"Cause-count":7},{"parameterGroup":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","Cause":95450.88,"Cause-count":15},{"parameterGroup":"TASTE,
-        COLOR, AND ODOR","Cause":45,"Cause-count":2},{"parameterGroup":"PATHOGENS","Cause":2044,"Cause-count":2},{"parameterGroup":"NUTRIENTS","Cause":5800,"Cause-count":1},{"parameterGroup":"MERCURY","Cause":69382.69,"Cause-count":18},{"parameterGroup":"DIOXINS","Cause":10370,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":20459,"Cause-count":1}]},{"useName":"Industrial
-        Water Supply","Fully Supporting":447537.22,"Fully Supporting-count":38,"Not
-        Assessed":1172.22,"Not Assessed-count":3,"parameters":[]},{"useName":"Navigation","Fully
-        Supporting":1971,"Fully Supporting-count":1,"parameters":[]},{"useName":"Domestic
-        Water Supply","Fully Supporting":521638.94,"Fully Supporting-count":51,"Not
-        Assessed":3815.1,"Not Assessed-count":9,"Not Supporting":5800,"Not Supporting-count":1,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":5800,"Cause-count":1}]},{"useName":"Irrigation","Fully
-        Supporting":563584.65,"Fully Supporting-count":69,"Not Assessed":7689.2,"Not
-        Assessed-count":39,"parameters":[]},{"useName":"Livestock Watering and Wildlife","Fully
-        Supporting":563584.65,"Fully Supporting-count":69,"Not Assessed":7689.2,"Not
-        Assessed-count":39,"parameters":[]}]},{"waterTypeCode":"WETLANDS, FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"Fish
-        and Aquatic Life","Not Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Livestock
-        Watering and Wildlife","Not Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Irrigation","Not
-        Assessed":1837,"Not Assessed-count":1,"parameters":[]},{"useName":"Recreation","Not
-        Assessed":1837,"Not Assessed-count":1,"parameters":[]}]},{"waterTypeCode":"LAKE,
-        FRESHWATER","unitsCode":"Acres","useAttainments":[{"useName":"Fish and Aquatic
-        Life","Not Supporting":15500,"Not Supporting-count":3,"parameters":[{"parameterGroup":"ORGANIC
-        ENRICHMENT/OXYGEN DEPLETION","Cause":15500,"Cause-count":3},{"parameterGroup":"SEDIMENT","Cause":15500,"Cause-count":3},{"parameterGroup":"NUTRIENTS","Cause":15500,"Cause-count":3},{"parameterGroup":"FLOW
-        ALTERATION(S)","Cause":10950,"Cause-count":1}]},{"useName":"Livestock Watering
-        and Wildlife","Fully Supporting":15500,"Fully Supporting-count":3,"parameters":[]},{"useName":"Irrigation","Fully
-        Supporting":15500,"Fully Supporting-count":3,"parameters":[]},{"useName":"Recreation","Fully
-        Supporting":10950,"Fully Supporting-count":1,"Not Supporting":4550,"Not Supporting-count":2,"parameters":[{"parameterGroup":"NUISANCE
-        NATIVE SPECIES","Cause":4550,"Cause-count":2}]}]},{"waterTypeCode":"RIVER","unitsCode":"Miles","useAttainments":[{"useName":"Recreation","Fully
-        Supporting":7698.4,"Fully Supporting-count":658,"Not Assessed":44625.73,"Not
-        Assessed-count":4168,"Not Supporting":8112.99,"Not Supporting-count":826,"parameters":[{"parameterGroup":"PESTICIDES","Cause":259.3,"Cause-count":13},{"parameterGroup":"MERCURY","Cause":333.21,"Cause-count":28},{"parameterGroup":"TASTE,
-        COLOR, AND ODOR","Cause":5.03,"Cause-count":1},{"parameterGroup":"PATHOGENS","Cause":7665.91,"Cause-count":793},{"parameterGroup":"RADIATION","Cause":5.3,"Cause-count":1},{"parameterGroup":"DIOXINS","Cause":259.1,"Cause-count":13},{"parameterGroup":"OIL
-        AND GREASE","Cause":1.41,"Cause-count":1},{"parameterGroup":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","Cause":333.98,"Cause-count":25},{"parameterGroup":"TOXIC
-        ORGANICS","Cause":0.54,"Cause-count":1},{"parameterGroup":"METALS (OTHER THAN
-        MERCURY)","Cause":51.3,"Cause-count":5}]},{"useName":"Industrial Water Supply","Fully
-        Supporting":3047.37,"Fully Supporting-count":254,"Not Assessed":353.73,"Not
-        Assessed-count":39,"Not Supporting":2.5,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":2.5,"Cause-count":1}]},{"useName":"Fish
-        and Aquatic Life","Fully Supporting":14750.35,"Fully Supporting-count":1380,"Insufficient
-        Information":150.5,"Insufficient Information-count":23,"Not Assessed":34801.89,"Not
-        Assessed-count":3039,"Not Supporting":10734.38,"Not Supporting-count":1210,"parameters":[{"parameterGroup":"OTHER
-        CAUSE","Cause":1.13,"Cause-count":1},{"parameterGroup":"TEMPERATURE","Cause":155.32,"Cause-count":23},{"parameterGroup":"PH/ACIDITY/CAUSTIC
-        CONDITIONS","Cause":354.64,"Cause-count":50},{"parameterGroup":"TASTE, COLOR,
-        AND ODOR","Cause":6.7,"Cause-count":1},{"parameterGroup":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","Cause":13.6,"Cause-count":2},{"parameterGroup":"NUISANCE
-        NATIVE SPECIES","Cause":29.76,"Cause-count":2},{"parameterGroup":"FLOW ALTERATION(S)","Cause":530.57,"Cause-count":104},{"parameterGroup":"AMMONIA","Cause":82.34,"Cause-count":14},{"parameterGroup":"TOXIC
-        ORGANICS","Cause":74.02,"Cause-count":8},{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":48.41,"Cause-count":12},{"parameterGroup":"CHLORINE","Cause":4.43,"Cause-count":2},{"parameterGroup":"SEDIMENT","Cause":6214.98,"Cause-count":657},{"parameterGroup":"METALS
-        (OTHER THAN MERCURY)","Cause":298.86,"Cause-count":50},{"parameterGroup":"ORGANIC
-        ENRICHMENT/OXYGEN DEPLETION","Cause":1839.46,"Cause-count":163},{"parameterGroup":"OIL
-        AND GREASE","Cause":7.8,"Cause-count":4},{"parameterGroup":"NUTRIENTS","Cause":3707.92,"Cause-count":366},{"parameterGroup":"TOXIC
-        INORGANICS","Cause":10.4,"Cause-count":2},{"parameterGroup":"TOTAL TOXICS","Cause":4.3,"Cause-count":1},{"parameterGroup":"HABITAT
-        ALTERATIONS","Cause":7208.14,"Cause-count":744},{"parameterGroup":"CAUSE UNKNOWN","Cause":97.2,"Cause-count":14},{"parameterGroup":"PESTICIDES","Cause":13.25,"Cause-count":2}]},{"useName":"Irrigation","Fully
-        Supporting":26556.67,"Fully Supporting-count":2699,"Not Assessed":33879.45,"Not
-        Assessed-count":2952,"Not Supporting":1,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1,"Cause-count":1}]},{"useName":"Naturally
-        Reproducing Trout Stream","Fully Supporting":139.9,"Fully Supporting-count":28,"Not
-        Assessed":50.23,"Not Assessed-count":7,"parameters":[]},{"useName":"Domestic
-        Water Supply","Fully Supporting":3276.96,"Fully Supporting-count":235,"Not
-        Assessed":655.1,"Not Assessed-count":61,"Not Supporting":66.2,"Not Supporting-count":6,"parameters":[{"parameterGroup":"NUTRIENTS","Cause":48.2,"Cause-count":4},{"parameterGroup":"PATHOGENS","Cause":15.5,"Cause-count":1},{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":2.5,"Cause-count":1}]},{"useName":"Livestock
-        Watering and Wildlife","Fully Supporting":26544.25,"Fully Supporting-count":2697,"Not
-        Assessed":33891.87,"Not Assessed-count":2954,"Not Supporting":1,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
-        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1,"Cause-count":1}]}]}]}]},"messages":[]}'
-  recorded_at: 2021-10-26 13:57:35 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"data":{"organizationIdentifier":"SDDENR","organizationName":"South
+        Dakota","organizationTypeText":"State","reportingCycles":[{"reportingCycle":"2024","cycleStatus":"EPA
+        Final Action","combinedCycles":[],"waterTypes":[{"waterTypeCode":"LAKE/RESERVOIR/POND","unitsCode":"Acres","useAttainments":[{"useName":"Warmwater
+        Semipermanent Fish Life Propagation Waters","Fully Supporting":7386.56,"Fully
+        Supporting-count":15,"Insufficient Information":157.43,"Insufficient Information-count":1,"Not
+        Supporting":31710.79,"Not Supporting-count":32,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":2305.25,"Cause-count":10,"Insufficient Information":437.64,"Insufficient
+        Information-count":2,"Meeting Criteria":34072.66,"Meeting Criteria-count":21},{"parameterGroup":"TURBIDITY","Insufficient
+        Information":608.01,"Insufficient Information-count":3,"Meeting Criteria":36043.56,"Meeting
+        Criteria-count":28},{"parameterGroup":"TEMPERATURE","Insufficient Information":280.21,"Insufficient
+        Information-count":1,"Meeting Criteria":36540.08,"Meeting Criteria-count":30},{"parameterGroup":"ALGAL
+        GROWTH","Cause":26078.76,"Cause-count":17,"Insufficient Information":5263.2,"Insufficient
+        Information-count":10,"Meeting Criteria":5865.4,"Meeting Criteria-count":7},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":968.05,"Cause-count":9,"Insufficient
+        Information":458.05,"Insufficient Information-count":3,"Meeting Criteria":35445.29,"Meeting
+        Criteria-count":21},{"parameterGroup":"AMMONIA","Insufficient Information":608.01,"Insufficient
+        Information-count":3,"Meeting Criteria":35078.46,"Meeting Criteria-count":26},{"parameterGroup":"MERCURY","Cause":24954.41,"Cause-count":16,"Meeting
+        Criteria":5559.54,"Meeting Criteria-count":15}]},{"useName":"Coldwater Marginal
+        Fish Life Propagation Waters","Not Supporting":188.73,"Not Supporting-count":6,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":9.81,"Cause-count":2,"Meeting Criteria":178.92,"Meeting
+        Criteria-count":4},{"parameterGroup":"MERCURY","Cause":125.35,"Cause-count":1},{"parameterGroup":"ALGAL
+        GROWTH","Cause":155.88,"Cause-count":3,"Meeting Criteria":30.73,"Meeting Criteria-count":2},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Meeting Criteria":188.73,"Meeting Criteria-count":6},{"parameterGroup":"AMMONIA","Meeting
+        Criteria":166.33,"Meeting Criteria-count":5},{"parameterGroup":"TURBIDITY","Insufficient
+        Information":22.4,"Insufficient Information-count":1,"Meeting Criteria":166.33,"Meeting
+        Criteria-count":5},{"parameterGroup":"TEMPERATURE","Cause":23.04,"Cause-count":1,"Meeting
+        Criteria":165.69,"Meeting Criteria-count":5}]},{"useName":"Immersion Recreation
+        Waters","Fully Supporting":72353.05,"Fully Supporting-count":67,"Insufficient
+        Information":4482.12,"Insufficient Information-count":19,"Not Assessed":12607.47,"Not
+        Assessed-count":23,"Not Supporting":71296.58,"Not Supporting-count":63,"parameters":[{"parameterGroup":"ALGAL
+        GROWTH","Cause":62361.73,"Cause-count":49,"Insufficient Information":18186.38,"Insufficient
+        Information-count":22,"Meeting Criteria":60433.41,"Meeting Criteria-count":50},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":8699.32,"Cause-count":22,"Insufficient
+        Information":792.75,"Insufficient Information-count":7,"Meeting Criteria":134446.29,"Meeting
+        Criteria-count":101},{"parameterGroup":"PATHOGENS","Cause":2440.92,"Cause-count":6,"Insufficient
+        Information":12396.26,"Insufficient Information-count":31,"Meeting Criteria":128824.83,"Meeting
+        Criteria-count":89}]},{"useName":"Irrigation Waters","Fully Supporting":24380.21,"Fully
+        Supporting-count":6,"Not Supporting":5160.07,"Not Supporting-count":1,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":5160.07,"Cause-count":1,"Meeting
+        Criteria":29540.28,"Meeting Criteria-count":7},{"parameterGroup":"ALGAL GROWTH","Meeting
+        Criteria":5160.07,"Meeting Criteria-count":1}]},{"useName":"Warmwater Permanent
+        Fish Life Propagation Waters","Fully Supporting":22737.74,"Fully Supporting-count":16,"Not
+        Supporting":54738.39,"Not Supporting-count":44,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":50,"Cause-count":1},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":1673.52,"Cause-count":10,"Insufficient
+        Information":91.89,"Insufficient Information-count":2,"Meeting Criteria":75053.24,"Meeting
+        Criteria-count":41},{"parameterGroup":"TEMPERATURE","Cause":895.23,"Cause-count":7,"Insufficient
+        Information":99.89,"Insufficient Information-count":3,"Meeting Criteria":71426.79,"Meeting
+        Criteria-count":39},{"parameterGroup":"AMMONIA","Insufficient Information":458.6,"Insufficient
+        Information-count":3,"Meeting Criteria":64306.48,"Meeting Criteria-count":40},{"parameterGroup":"TURBIDITY","Insufficient
+        Information":408.6,"Insufficient Information-count":2,"Meeting Criteria":73810.67,"Meeting
+        Criteria-count":46},{"parameterGroup":"MERCURY","Cause":48522.47,"Cause-count":26,"Insufficient
+        Information":86.37,"Insufficient Information-count":1,"Meeting Criteria":14773.77,"Meeting
+        Criteria-count":18},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":326.96,"Cause-count":4,"Insufficient
+        Information":99.89,"Insufficient Information-count":3,"Meeting Criteria":75209.34,"Meeting
+        Criteria-count":44},{"parameterGroup":"ALGAL GROWTH","Cause":27957.95,"Cause-count":16,"Insufficient
+        Information":3060.66,"Insufficient Information-count":8,"Meeting Criteria":43556.58,"Meeting
+        Criteria-count":23}]},{"useName":"Coldwater Permanent Fish Life Propagation
+        Waters","Fully Supporting":43.53,"Fully Supporting-count":2,"Not Supporting":1681.12,"Not
+        Supporting-count":11,"parameters":[{"parameterGroup":"MERCURY","Cause":382.87,"Cause-count":1,"Meeting
+        Criteria":1168.51,"Meeting Criteria-count":2},{"parameterGroup":"AMMONIA","Insufficient
+        Information":6.75,"Insufficient Information-count":1,"Meeting Criteria":1679.46,"Meeting
+        Criteria-count":11},{"parameterGroup":"ALGAL GROWTH","Cause":41.21,"Cause-count":2,"Insufficient
+        Information":6.75,"Insufficient Information-count":1,"Meeting Criteria":1676.69,"Meeting
+        Criteria-count":10},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Insufficient
+        Information":864.66,"Insufficient Information-count":2,"Meeting Criteria":18.11,"Meeting
+        Criteria-count":1},{"parameterGroup":"TEMPERATURE","Cause":1681.12,"Cause-count":11,"Meeting
+        Criteria":43.53,"Meeting Criteria-count":2},{"parameterGroup":"TURBIDITY","Insufficient
+        Information":6.75,"Insufficient Information-count":1,"Meeting Criteria":1679.46,"Meeting
+        Criteria-count":11},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":41.21,"Cause-count":2,"Meeting
+        Criteria":1291.18,"Meeting Criteria-count":8},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Meeting Criteria":1724.65,"Meeting Criteria-count":13}]},{"useName":"Fish
+        and Wildlife Propagation, Recreation, and Stock Watering Waters","Fully Supporting":66188.72,"Fully
+        Supporting-count":99,"Insufficient Information":8591.93,"Insufficient Information-count":17,"Not
+        Supporting":104149.31,"Not Supporting-count":74,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":14806.18,"Cause-count":20,"Insufficient Information":9431.86,"Insufficient
+        Information-count":20,"Meeting Criteria":142577.71,"Meeting Criteria-count":119},{"parameterGroup":"MERCURY","Cause":103654.83,"Cause-count":71,"Insufficient
+        Information":86.37,"Insufficient Information-count":1,"Meeting Criteria":33722.57,"Meeting
+        Criteria-count":48},{"parameterGroup":"NUTRIENTS","Cause":50,"Cause-count":1,"Insufficient
+        Information":2361.11,"Insufficient Information-count":11,"Meeting Criteria":126109.64,"Meeting
+        Criteria-count":102},{"parameterGroup":"SALINITY/TOTAL DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":50,"Cause-count":1,"Insufficient
+        Information":3358.26,"Insufficient Information-count":13,"Meeting Criteria":141040.77,"Meeting
+        Criteria-count":119}]},{"useName":"Limited Contact Recreation Waters","Fully
+        Supporting":73522.76,"Fully Supporting-count":69,"Insufficient Information":4482.12,"Insufficient
+        Information-count":19,"Not Assessed":12607.47,"Not Assessed-count":23,"Not
+        Supporting":70126.87,"Not Supporting-count":61,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":8699.32,"Cause-count":22,"Insufficient
+        Information":792.75,"Insufficient Information-count":7,"Meeting Criteria":134446.29,"Meeting
+        Criteria-count":101},{"parameterGroup":"PATHOGENS","Cause":2440.92,"Cause-count":6,"Insufficient
+        Information":12396.26,"Insufficient Information-count":31,"Meeting Criteria":128824.83,"Meeting
+        Criteria-count":89},{"parameterGroup":"ALGAL GROWTH","Cause":62361.73,"Cause-count":49,"Insufficient
+        Information":18368.15,"Insufficient Information-count":23,"Meeting Criteria":60433.41,"Meeting
+        Criteria-count":50}]},{"useName":"Warmwater Marginal Fish Life Propagation
+        Waters","Fully Supporting":7648.45,"Fully Supporting-count":11,"Insufficient
+        Information":4561.6,"Insufficient Information-count":7,"Not Assessed":3101.08,"Not
+        Assessed-count":2,"Not Supporting":26783.8,"Not Supporting-count":25,"parameters":[{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":242.81,"Insufficient Information-count":2,"Meeting Criteria":22075.99,"Meeting
+        Criteria-count":22},{"parameterGroup":"TURBIDITY","Insufficient Information":2296.03,"Insufficient
+        Information-count":5,"Meeting Criteria":25003.87,"Meeting Criteria-count":20},{"parameterGroup":"AMMONIA","Insufficient
+        Information":781.19,"Insufficient Information-count":4,"Meeting Criteria":24643.12,"Meeting
+        Criteria-count":18},{"parameterGroup":"ALGAL GROWTH","Cause":8127.93,"Cause-count":11,"Insufficient
+        Information":10037.54,"Insufficient Information-count":4,"Meeting Criteria":9304.01,"Meeting
+        Criteria-count":8},{"parameterGroup":"MERCURY","Cause":12717.99,"Cause-count":11,"Meeting
+        Criteria":9993.89,"Meeting Criteria-count":9},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":12591.52,"Cause-count":6,"Insufficient Information":242.81,"Insufficient
+        Information-count":2,"Meeting Criteria":13681.62,"Meeting Criteria-count":17},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":6088.44,"Cause-count":4,"Insufficient
+        Information":242.81,"Insufficient Information-count":2,"Meeting Criteria":22038.68,"Meeting
+        Criteria-count":21}]},{"useName":"Domestic Water Supply Waters","Fully Supporting":7136.09,"Fully
+        Supporting-count":5,"Insufficient Information":107.87,"Insufficient Information-count":1,"Not
+        Supporting":847.24,"Not Supporting-count":3,"parameters":[{"parameterGroup":"NUTRIENTS","Insufficient
+        Information":107.87,"Insufficient Information-count":1,"Meeting Criteria":1509.89,"Meeting
+        Criteria-count":2},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":96.45,"Cause-count":1,"Meeting
+        Criteria":1629.88,"Meeting Criteria-count":4},{"parameterGroup":"ALGAL GROWTH","Cause":750.79,"Cause-count":2},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Insufficient Information":840.65,"Insufficient
+        Information-count":1,"Meeting Criteria":1606.34,"Meeting Criteria-count":3}]}]},{"waterTypeCode":"STREAM/CREEK/RIVER","unitsCode":"Miles","useAttainments":[{"useName":"Commerce
+        and Industry Waters","Fully Supporting":608.79,"Fully Supporting-count":6,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":608.79,"Meeting Criteria-count":6},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Meeting Criteria":608.79,"Meeting Criteria-count":6}]},{"useName":"Fish
+        and Wildlife Propagation, Recreation, and Stock Watering Waters","Fully Supporting":5160.05,"Fully
+        Supporting-count":163,"Insufficient Information":214.73,"Insufficient Information-count":7,"Not
+        Assessed":59.29,"Not Assessed-count":2,"Not Supporting":899.57,"Not Supporting-count":12,"parameters":[{"parameterGroup":"METALS
+        (OTHER THAN MERCURY)","Cause":0.74,"Cause-count":1,"Insufficient Information":669.61,"Insufficient
+        Information-count":11,"Meeting Criteria":2244.21,"Meeting Criteria-count":81},{"parameterGroup":"TOXIC
+        INORGANICS","Meeting Criteria":16.51,"Meeting Criteria-count":4},{"parameterGroup":"MERCURY","Cause":554.75,"Cause-count":6,"Meeting
+        Criteria":822.23,"Meeting Criteria-count":27},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":604.62,"Cause-count":13,"Insufficient
+        Information":262.39,"Insufficient Information-count":6,"Meeting Criteria":5546.53,"Meeting
+        Criteria-count":167},{"parameterGroup":"RADIATION","Meeting Criteria":290.08,"Meeting
+        Criteria-count":8},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":18.26,"Cause-count":2,"Insufficient
+        Information":4.09,"Insufficient Information-count":1,"Meeting Criteria":5881.79,"Meeting
+        Criteria-count":170},{"parameterGroup":"NUTRIENTS","Insufficient Information":8.34,"Insufficient
+        Information-count":1,"Meeting Criteria":5668.96,"Meeting Criteria-count":164}]},{"useName":"Irrigation
+        Waters","Fully Supporting":4532.54,"Fully Supporting-count":154,"Insufficient
+        Information":367,"Insufficient Information-count":8,"Not Assessed":76.03,"Not
+        Assessed-count":4,"Not Supporting":1358.07,"Not Supporting-count":18,"parameters":[{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":1180.09,"Cause-count":17,"Insufficient
+        Information":225.42,"Insufficient Information-count":5,"Meeting Criteria":5689.39,"Meeting
+        Criteria-count":169},{"parameterGroup":"OTHER CAUSE","Cause":177.98,"Cause-count":1,"Meeting
+        Criteria":283.03,"Meeting Criteria-count":13}]},{"useName":"Warmwater Semipermanent
+        Fish Life Propagation Waters","Fully Supporting":982.48,"Fully Supporting-count":18,"Not
+        Supporting":1719.95,"Not Supporting-count":44,"parameters":[{"parameterGroup":"TURBIDITY","Cause":1277.48,"Cause-count":34,"Meeting
+        Criteria":1272.68,"Meeting Criteria-count":27},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":317.76,"Cause-count":8,"Meeting Criteria":2157.54,"Meeting
+        Criteria-count":51},{"parameterGroup":"MERCURY","Cause":316.96,"Cause-count":5,"Meeting
+        Criteria":304.32,"Meeting Criteria-count":5},{"parameterGroup":"AMMONIA","Meeting
+        Criteria":2502.45,"Meeting Criteria-count":58},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Insufficient Information":257.3,"Insufficient Information-count":5,"Meeting
+        Criteria":1025.31,"Meeting Criteria-count":27},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":2546.34,"Meeting Criteria-count":60},{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":152.27,"Insufficient Information-count":1,"Meeting Criteria":2508.75,"Meeting
+        Criteria-count":58}]},{"useName":"Limited Contact Recreation Waters","Fully
+        Supporting":2959.1,"Fully Supporting-count":92,"Insufficient Information":111.07,"Insufficient
+        Information-count":6,"Not Assessed":246.13,"Not Assessed-count":6,"Not Supporting":2925.11,"Not
+        Supporting-count":77,"parameters":[{"parameterGroup":"PATHOGENS","Cause":3046.38,"Cause-count":79,"Insufficient
+        Information":135.65,"Insufficient Information-count":6,"Meeting Criteria":2592.63,"Meeting
+        Criteria-count":80},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN DEPLETION","Cause":434.21,"Cause-count":12,"Insufficient
+        Information":22.67,"Insufficient Information-count":3,"Meeting Criteria":5317.26,"Meeting
+        Criteria-count":154}]},{"useName":"Immersion Recreation Waters","Fully Supporting":774.27,"Fully
+        Supporting-count":21,"Not Supporting":927.01,"Not Supporting-count":29,"parameters":[{"parameterGroup":"PATHOGENS","Cause":927.01,"Cause-count":29,"Meeting
+        Criteria":774.27,"Meeting Criteria-count":21},{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Meeting Criteria":1621.09,"Meeting Criteria-count":48}]},{"useName":"Warmwater
+        Marginal Fish Life Propagation Waters","Fully Supporting":1127.3,"Fully Supporting-count":31,"Insufficient
+        Information":128.12,"Insufficient Information-count":4,"Not Assessed":36.05,"Not
+        Assessed-count":1,"Not Supporting":307.29,"Not Supporting-count":10,"parameters":[{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Insufficient Information":4.09,"Insufficient Information-count":1,"Meeting
+        Criteria":1357.61,"Meeting Criteria-count":39},{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Cause":116.45,"Cause-count":4,"Insufficient
+        Information":4.09,"Insufficient Information-count":1,"Meeting Criteria":1318.14,"Meeting
+        Criteria-count":37},{"parameterGroup":"METALS (OTHER THAN MERCURY)","Insufficient
+        Information":234.33,"Insufficient Information-count":5,"Meeting Criteria":364.41,"Meeting
+        Criteria-count":10},{"parameterGroup":"TURBIDITY","Cause":251.28,"Cause-count":8,"Insufficient
+        Information":68.51,"Insufficient Information-count":1,"Meeting Criteria":1163.23,"Meeting
+        Criteria-count":32},{"parameterGroup":"AMMONIA","Insufficient Information":8.34,"Insufficient
+        Information-count":1,"Meeting Criteria":1399.68,"Meeting Criteria-count":38},{"parameterGroup":"TEMPERATURE","Insufficient
+        Information":67.95,"Insufficient Information-count":4,"Meeting Criteria":1406.17,"Meeting
+        Criteria-count":39}]},{"useName":"Coldwater Permanent Fish Life Propagation
+        Waters","Fully Supporting":397.28,"Fully Supporting-count":31,"Insufficient
+        Information":13.54,"Insufficient Information-count":1,"Not Supporting":247,"Not
+        Supporting-count":2,"parameters":[{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Insufficient Information":18.58,"Insufficient Information-count":2,"Meeting
+        Criteria":625.7,"Meeting Criteria-count":31},{"parameterGroup":"TOXIC INORGANICS","Meeting
+        Criteria":11.59,"Meeting Criteria-count":2},{"parameterGroup":"AMMONIA","Meeting
+        Criteria":625.7,"Meeting Criteria-count":31},{"parameterGroup":"TURBIDITY","Meeting
+        Criteria":618.54,"Meeting Criteria-count":32},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Meeting Criteria":247.66,"Meeting Criteria-count":18},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":644.28,"Meeting Criteria-count":33},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Meeting Criteria":56.48,"Meeting Criteria-count":3},{"parameterGroup":"MERCURY","Cause":237.79,"Cause-count":1,"Meeting
+        Criteria":35.17,"Meeting Criteria-count":7},{"parameterGroup":"TEMPERATURE","Cause":9.21,"Cause-count":1,"Insufficient
+        Information":13.54,"Insufficient Information-count":1,"Meeting Criteria":635.07,"Meeting
+        Criteria-count":32}]},{"useName":"Warmwater Permanent Fish Life Propagation
+        Waters","Fully Supporting":488.28,"Fully Supporting-count":10,"Not Supporting":619.6,"Not
+        Supporting-count":10,"parameters":[{"parameterGroup":"ORGANIC ENRICHMENT/OXYGEN
+        DEPLETION","Meeting Criteria":990.57,"Meeting Criteria-count":18},{"parameterGroup":"AMMONIA","Meeting
+        Criteria":1043.18,"Meeting Criteria-count":18},{"parameterGroup":"MERCURY","Meeting
+        Criteria":454.65,"Meeting Criteria-count":7},{"parameterGroup":"TURBIDITY","Cause":579.93,"Cause-count":8,"Meeting
+        Criteria":527.95,"Meeting Criteria-count":12},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Insufficient Information":177.98,"Insufficient Information-count":1,"Meeting
+        Criteria":451.3,"Meeting Criteria-count":10},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Cause":13.26,"Cause-count":1,"Meeting Criteria":1094.62,"Meeting
+        Criteria-count":19},{"parameterGroup":"TEMPERATURE","Cause":54.14,"Cause-count":2,"Meeting
+        Criteria":1053.74,"Meeting Criteria-count":18}]},{"useName":"Coldwater Marginal
+        Fish Life Propagation Waters","Fully Supporting":168.78,"Fully Supporting-count":17,"Not
+        Supporting":5.74,"Not Supporting-count":2,"parameters":[{"parameterGroup":"ORGANIC
+        ENRICHMENT/OXYGEN DEPLETION","Meeting Criteria":172.23,"Meeting Criteria-count":17},{"parameterGroup":"TOXIC
+        INORGANICS","Meeting Criteria":4.92,"Meeting Criteria-count":2},{"parameterGroup":"TURBIDITY","Meeting
+        Criteria":173.78,"Meeting Criteria-count":18},{"parameterGroup":"AMMONIA","Meeting
+        Criteria":173.78,"Meeting Criteria-count":18},{"parameterGroup":"TEMPERATURE","Meeting
+        Criteria":172.23,"Meeting Criteria-count":17},{"parameterGroup":"MERCURY","Meeting
+        Criteria":28.09,"Meeting Criteria-count":8},{"parameterGroup":"METALS (OTHER
+        THAN MERCURY)","Cause":0.74,"Cause-count":1,"Meeting Criteria":155.53,"Meeting
+        Criteria-count":16},{"parameterGroup":"PH/ACIDITY/CAUSTIC CONDITIONS","Cause":5,"Cause-count":1,"Meeting
+        Criteria":168.78,"Meeting Criteria-count":17}]},{"useName":"Domestic Water
+        Supply Waters","Fully Supporting":766.98,"Fully Supporting-count":13,"Not
+        Supporting":157.07,"Not Supporting-count":5,"parameters":[{"parameterGroup":"NUTRIENTS","Meeting
+        Criteria":889.34,"Meeting Criteria-count":16},{"parameterGroup":"PH/ACIDITY/CAUSTIC
+        CONDITIONS","Meeting Criteria":899.15,"Meeting Criteria-count":17},{"parameterGroup":"SALINITY/TOTAL
+        DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":157.07,"Cause-count":5,"Meeting
+        Criteria":766.98,"Meeting Criteria-count":13}]}]}]}]},"messages":[]}'
+  recorded_at: 2026-06-29 20:07:33
+recorded_with: VCR-vcr/2.1.0

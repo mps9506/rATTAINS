@@ -1,100 +1,104 @@
 http_interactions:
 - request:
-    method: get
-    uri: https://attains.epa.gov/attains-public/api/plans?huc=020700100103&summarize=Y
-    body:
-      encoding: ''
-      string: ''
-    headers:
-      User-Agent: libcurl/7.64.1 r-curl/4.3.2 crul/1.1.0
-      Accept-Encoding: gzip, deflate
-      Accept: application/json, text/xml, application/xml, */*
+    method: GET
+    uri: https://api.epa.gov/attains/plans?huc=020700100103&summarize=Y
   response:
-    status:
-      status_code: '200'
-      message: OK
-      explanation: Request fulfilled, document follows
+    status: 200
     headers:
-      status: HTTP/1.1 200 200
-      date: Tue, 26 Oct 2021 13:56:55 GMT
-      server: Apache
-      strict-transport-security: max-age=31536000; includeSubDomains
+      status: 'HTTP/2 200 '
+      date: Mon, 29 Jun 2026 19:39:10 GMT
+      content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
+      access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      x-frame-options: DENY
+      age: '1'
+      content-encoding: gzip
+      strict-transport-security: max-age=31536000; includeSubDomains; preload
+      vary: Accept-Encoding
+      via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
+      x-api-umbrella-request-id: cv2ji8lavtqbjhiud3l0
+      x-cache: MISS
       x-content-type-options: nosniff
-      content-type: application/json;charset=UTF-8
-      access-control-allow-origin: '*'
-      transfer-encoding: chunked
+      x-ratelimit-limit: '1000'
+      x-ratelimit-remaining: '983'
+      x-vcap-request-id: 43cc357f-d2c8-491e-73d4-cada1ce99ae4
+      x-frame-options: DENY
     body:
-      encoding: UTF-8
-      file: no
-      string: '{"items":[{"actionIdentifier":"64089","actionName":"Battery Kemble
-        Creek","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA Final
-        Action","completionDate":"2014-12-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-12-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
-        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"FECAL COLIFORM","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26261","actionName":"BATTERY
-        KEMBLE CREEK","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2005-05-30","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2005-05-30","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ZINC","auCount":"1"}],"parameters":[{"parameterName":"METALS
-        (OTHER THAN MERCURY)","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41180","actionName":"UPPER
-        POTOMAC RIVER","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2010-12-29","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PHOSPHORUS","auCount":"1"}],"parameters":[{"parameterName":"NUTRIENTS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"33897","actionName":"LOWER
-        POTOMAC RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2007-10-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2007-10-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","auCount":"1"}],"parameters":[{"parameterName":"ORGANICS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26260","actionName":"BATTERY
-        KEMBLE CREEK","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2005-05-30","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2005-05-30","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"LEAD","auCount":"1"}],"parameters":[{"parameterName":"METALS
-        (OTHER THAN MERCURY)","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"33896","actionName":"MIDDLE
-        POTOMAC RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2007-10-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2007-10-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","auCount":"1"}],"parameters":[{"parameterName":"ORGANICS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"33895","actionName":"UPPER
-        POTOMAC  RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2007-10-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2007-10-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"POLYCHLORINATED
-        BIPHENYLS (PCBS)","auCount":"1"}],"parameters":[{"parameterName":"ORGANICS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41343","actionName":"UPPER
-        POTOMAC RIVER ","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2010-12-29","organizationId":"MDE_EASP","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"TOTAL
-        SUSPENDED SOLIDS (TSS)","auCount":"1"}],"parameters":[{"parameterName":"UNLISTED
-        BUT IMPAIRED","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41976","actionName":"POTOMAC
-        RIVER MONTGOMERY COUNTY","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2012-06-19","organizationId":"MDE_EASP","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2012-06-19","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"SEDIMENT","auCount":"1"}],"parameters":[{"parameterName":"SUSPENDED
-        SEDIMENT","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41342","actionName":"UPPER
-        POTOMAC RIVER ","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2010-12-29","organizationId":"MDE_EASP","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PHOSPHORUS,
-        TOTAL","auCount":"1"}],"parameters":[{"parameterName":"PHOSPHORUS, TOTAL","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"59621","actionName":"CHESAPEAKE
-        AND OHIO CANAL","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2014-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-07-25","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
-        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"64092","actionName":"Lower
-        Potomac River","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2014-12-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-12-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
-        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26412","actionName":"CHESAPEAKE
-        AND OHIO CANAL","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2004-12-15","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-12-15","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PATHOGENS","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26259","actionName":"BATTERY
-        KEMBLE CREEK","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2005-05-30","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2005-05-30","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"COPPER","auCount":"1"}],"parameters":[{"parameterName":"METALS
-        (OTHER THAN MERCURY)","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26258","actionName":"BATTERY
-        KEMBLE CREEK","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2005-05-30","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2005-05-30","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ARSENIC","auCount":"1"}],"parameters":[{"parameterName":"METALS
-        (OTHER THAN MERCURY)","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41184","actionName":"UPPER
-        POTOMAC RIVER","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2010-12-29","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"NITROGEN","auCount":"1"}],"parameters":[{"parameterName":"NUTRIENTS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"64093","actionName":"Middle
-        Potomac River","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2014-12-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-12-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
-        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"41341","actionName":"UPPER
-        POTOMAC RIVER ","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2010-12-29","organizationId":"MDE_EASP","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"NITROGEN,
-        TOTAL","auCount":"1"}],"parameters":[{"parameterName":"NITROGEN, TOTAL","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"64090","actionName":"Upper
-        Potomac River","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2014-12-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-12-31","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
-        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26156","actionName":"MIDDLE
-        POTOMAC RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2004-10-06","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-10-06","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PATHOGENS","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26155","actionName":"LOWER
-        POTOMAC RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2004-10-06","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-10-06","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PATHOGENS","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26257","actionName":"BATTERY
-        KEMBLE CREEK","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2004-10-06","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-10-06","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"FECAL
-        COLIFORM","auCount":"1"}],"parameters":[{"parameterName":"FECAL COLIFORM","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"26157","actionName":"UPPER
-        POTOMAC RIVER","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
-        Final Action","completionDate":"2004-10-06","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-10-06","indianCountryIndicator":"N"},"associatedPollutants":[{"pollutantName":"PATHOGENS","auCount":"1"}],"parameters":[{"parameterName":"BACTERIA","auCount":"1"}],"associatedActions":[]}],"count":23}'
-  recorded_at: 2021-10-26 13:56:57 GMT
-  recorded_with: vcr/1.0.2, webmockr/0.8.0
+      string: '{"items":[{"actionIdentifier":"DC_2001_Anacostia_BOD","actionName":"Total
+        Maximum Daily Loads Upper Anacostia River, Lower Anacostia River, Biochemical
+        Oxygen Demand","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2001-12-14","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2001-12-14","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"NITROGEN","auCount":"2"}],"parameters":[{"parameterName":"NITROGEN","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2008_Anacostia_BOD","actionName":"Total
+        Maximum Daily Loads of Nutrients/Biochemical Oxygen Demand for the Anacostia
+        River Basin","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2008-06-05","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2008-06-05","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"BIOCHEMICAL
+        OXYGEN DEMAND (BOD)","auCount":"2"}],"parameters":[{"parameterName":"NITROGEN","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_WashShipChan_pH","actionName":"Total
+        Maximum Daily Load for pH in Washington Ship Channel","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2004-12-15","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-12-15","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"PHOSPHORUS","auCount":"1"}],"parameters":[{"parameterName":"PHOSPHORUS","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"DC_2005_Tribs_of_Potomac_Toxics","actionName":"Total
+        Maximum Daily Loads for Organics and Metals in Battery Kemble Creek, Foundry
+        Branch, and Dalecarlia Tributary","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2005-05-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2005-05-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"ZINC","auCount":"2"}],"parameters":[{"parameterName":"ARSENIC","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2007_2012_Anacostia_WattsBranch_TSS","actionName":"Total
+        Maximum Daily Loads of Sediment/Total Suspended Solids for the Anacostia River
+        Basin","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA Final
+        Action","completionDate":"2012-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2012-07-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"TOTAL
+        SUSPENDED SOLIDS (TSS)","auCount":"4"}],"parameters":[{"parameterName":"TOTAL
+        SUSPENDED SOLIDS (TSS)","auCount":"4"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_2016_RockCreek_Metals","actionName":"Total
+        Maximum Daily Loads for Metals in Rock Creek","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2016-11-03","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2016-11-03","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"COPPER","auCount":"2"}],"parameters":[{"parameterName":"MERCURY","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_WashShipChan_TidalBasin_Toxics","actionName":"Total
+        Maximum Daily Loads for Organics in Tidal Basin and Washington Ship Channel","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2004-12-15","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2004-12-15","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"DDE
+        (DICHLORODIPHENYLDICHLOROETHYLENE)","auCount":"2"}],"parameters":[{"parameterName":"CHLORDANE","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2002_Anacostia_TSS","actionName":"Total
+        Suspended Sediment Total Maximum Daily Loads Upper Anacostia River Lower Anacostia
+        River in the District of Columbia","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2002-03-01","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2002-03-01","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"TOTAL
+        SUSPENDED SOLIDS (TSS)","auCount":"2"}],"parameters":[{"parameterName":"TOTAL
+        SUSPENDED SOLIDS (TSS)","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2010_Anacostia_Trash","actionName":"Total
+        Maximum Daily Loads of Trash for the Anacostia River Watershed, Montgomery
+        and Prince Georges Counties, Maryland and the District of Columbia","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2010-09-21","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-09-21","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"TRASH","auCount":"2"}],"parameters":[{"parameterName":"TRASH","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_2014_RockCreek_Bacteria","actionName":"Total
+        Maximum Daily Load for Fecal Coliform Bacteria in Rock Creek","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2014-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-07-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"FECAL
+        COLIFORM","auCount":"2"}],"parameters":[{"parameterName":"ESCHERICHIA COLI
+        (E. COLI)","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2010_ChesapeakeBay_TN_TP_TSS","actionName":"Chesapeake
+        Bay Total Maximum Daily Load for Nitrogen, Phosphorus and Sediment","agencyCode":"E","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2010-12-29","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2010-12-29","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"PHOSPHORUS","auCount":"5"}],"parameters":[{"parameterName":"NITROGEN","auCount":"5"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_2014_WashShipChan_TidalBasin_Bacteria","actionName":"Total
+        Maximum Daily Load for Bacteria in Tidal Basin and Washington Ship Channel","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2014-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-07-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"2"}],"parameters":[{"parameterName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2003_Anacostia_and_Tribs_Toxics","actionName":"Total
+        Maximum Daily Loads for Organics and Metals in the Anacostia River, Fort Chaplin
+        Tributary, Fort Davis Tributary, Fort Dupont Creek, Fort Stanton Tributary,
+        Hickey Run, Nash Run, Popes Branch, Texas Avenue Tributary, and Watts Branch","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2003-09-29","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2003-09-29","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"DDE
+        (DICHLORODIPHENYLDICHLOROETHYLENE)","auCount":"9"}],"parameters":[{"parameterName":"ARSENIC","auCount":"9"}],"associatedActions":[]},{"actionIdentifier":"DC_2003_Anacostia_OilandGrease","actionName":"Total
+        Maximum Daily Load for Oil and Grease in Anacostia River","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2003-10-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2003-10-31","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"OIL
+        AND GREASE","auCount":"2"}],"parameters":[{"parameterName":"OIL AND GREASE","auCount":"2"}],"associatedActions":[]},{"actionIdentifier":"DC_2003_2014_Anacostia_and_Tribs_Bacteria","actionName":"Total
+        Maximum Daily Load for Fecal Coliform Bacteria in Upper Anacostia, Lower Anacostia,
+        Watts Branch, Fort Dupont Creek, Fort Chaplin Tributary, Fort Davis Tributary,
+        Fort Stanton Tributary, Hickey Run, Nash Run, Popes Branch, Texas Avenue Tributary","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2014-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-07-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"FECAL
+        COLIFORM","auCount":"12"}],"parameters":[{"parameterName":"ESCHERICHIA COLI
+        (E. COLI)","auCount":"12"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_2014_Potomac_and_Tribs_Bacteria","actionName":"Total
+        Maximum Daily Load for Fecal Coliform Bacteria in Upper Potomac River, Middle
+        Potomac River, Lower Potomac River, Battery Kemble Creek, Foundry Branch,
+        and Dalecarlia Tributary","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2014-12-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-12-31","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"6"}],"parameters":[{"parameterName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"6"}],"associatedActions":[]},{"actionIdentifier":"DC_2007_Potomac_Anacostia_PCBs","actionName":"Total
+        Maximum Daily Loads of Polychlorinated Biphenyls (PCBs) for Tidal Portions
+        of the Potomac and Anacostia Rivers in the District of Columbia, Maryland,
+        and Virginia","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2007-10-31","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2007-10-31","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","auCount":"5"}],"parameters":[{"parameterName":"POLYCHLORINATED
+        BIPHENYLS (PCBS)","auCount":"5"}],"associatedActions":[]},{"actionIdentifier":"DC_2004_2014_ChesapeakeandOhioCanal_Bacteria","actionName":"Total
+        Maximum Daily Load for Fecal Coliform Bacteria in Chesapeake and Ohio Canal","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2014-07-25","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2014-07-25","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"1"}],"parameters":[{"parameterName":"ESCHERICHIA
+        COLI (E. COLI)","auCount":"1"}],"associatedActions":[]},{"actionIdentifier":"DC_2024_Anacostia_and_Tribs_Toxics","actionName":"Total
+        Maximum Daily Loads for Organics and Metals in the Anacostia River Watershed","agencyCode":"S","actionTypeCode":"TMDL","actionStatusCode":"EPA
+        Final Action","completionDate":"2024-03-26","organizationId":"DOEE","TMDLReportDetails":{"TMDLOtherIdentifier":null,"TMDLDate":"2024-03-29","indianCountryIndicator":null},"associatedPollutants":[{"pollutantName":"PAH3
+        - 5 & 6 RING POLYCYCLIC AROMATIC HYDROCARBONS","auCount":"8"}],"parameters":[{"parameterName":"ARSENIC","auCount":"11"}],"associatedActions":[]}],"count":19}'
+  recorded_at: 2026-06-29 19:39:10
+recorded_with: VCR-vcr/2.1.0
