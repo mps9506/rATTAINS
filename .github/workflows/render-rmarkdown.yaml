@@ -20,7 +20,7 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RATTAINS_TOKEN: ${{ secerets.RATTAINS_TOKEN }}
+      RATTAINS_TOKEN: ${{ secrets.RATTAINS_TOKEN }}
     steps:
       - uses: actions/checkout@v3
 
