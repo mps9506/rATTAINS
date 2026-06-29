@@ -21,7 +21,6 @@ library(vcr)
 #  write_disk_path = NULL
 #))
 vcr::setup_knitr(dir = "_vcr", record = "once")
-
 ```
 
 
@@ -39,8 +38,7 @@ The EPA provides two summary service endpoint that provide summaries of assessed
 
 ```{r label=state_summary, message=FALSE, use_cassette=TRUE}
 library(rATTAINS)
-x <- state_summary(organization_id = "TDECWR",
-                   reporting_cycle = "2024")
+x <- state_summary(organization_id = "SDDENR", reporting_cycle = "2024")
 x
 ```
 
@@ -85,7 +83,6 @@ The function returns a variable with the state codes and the possible parameter 
 ```{r domain_context, use_cassette=TRUE}
 x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
 x
-
 ```
 
 
