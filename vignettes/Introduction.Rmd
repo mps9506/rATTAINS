@@ -16,11 +16,7 @@ knitr::opts_chunk$set(
 )
 ## setup vcr not sure I am doing this right.
 library(vcr)
-#invisible(vcr::vcr_configure(
-#  dir = "../tests/fixtures",
-#  write_disk_path = NULL
-#))
-vcr::setup_knitr(dir = "_vcr", record = "once")
+vcr::setup_knitr(dir = "_vcr")
 ```
 
 
@@ -36,7 +32,7 @@ The Assessment, Total Maximum Daily Load (TMDL) Tracking and Implementation Syst
 The EPA provides two summary service endpoint that provide summaries of assessed uses by the organization identifier or by hydrologic unit code (HUC). For example, to return a summary of assessed uses by the state of Tennessee the following function is used:
 
 
-```{r label=state_summary, message=FALSE, use_cassette=TRUE}
+```{r label=state_summary, message=FALSE, cassette=TRUE}
 library(rATTAINS)
 x <- state_summary(organization_id = "SDDENR", reporting_cycle = "2024")
 x
@@ -48,7 +44,7 @@ The HUC12 service operates similarly but provides data summarized by area, speci
 
 
 
-```{r huc12, message=FALSE, use_cassette=TRUE}
+```{r huc12, message=FALSE, cassette=TRUE}
 x <- huc12_summary("020700100204")
 x
 ```
@@ -71,7 +67,7 @@ Each function has a number of allowable arguments and associated values. In orde
 For example if I want to find out the possible organization identifiers to query by:
 
 
-```{r domain_values, use_cassette=TRUE}
+```{r domain_values, cassette=TRUE}
 x <- domain_values(domain_name = "OrgStateCode")
 x
 ```
@@ -80,7 +76,7 @@ x
 
 The function returns a variable with the state codes and the possible parameter values as the context variable. Similarly if I want to look up possible Use Names that are utilized by the Texas Commission on Environmental Quality:
 
-```{r domain_context, use_cassette=TRUE}
+```{r domain_context, cassette=TRUE}
 x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
 x
 ```
