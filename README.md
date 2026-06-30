@@ -48,29 +48,29 @@ query and the tidying process used in rATTAINS might make poor
 assumptions in the data flattening process. If the function returns
 unexpected results, try parsing the raw JSON string.
 
--   `state_summary()` provides summary information for assessed uses for
-    organizations and by integrated reporting cycle.
+- `state_summary()` provides summary information for assessed uses for
+  organizations and by integrated reporting cycle.
 
--   `huc_12_summary()` provides summary information about impairments,
-    actions, and documents for the specified 12-digit HUC (watershed).
+- `huc_12_summary()` provides summary information about impairments,
+  actions, and documents for the specified 12-digit HUC (watershed).
 
--   `actions()` provides a summary of information for particular
-    finalized actions (TMDLs and related).
+- `actions()` provides a summary of information for particular finalized
+  actions (TMDLs and related).
 
--   `assessments()` provides summary data about the specified assessment
-    decisions by waterbody.
+- `assessments()` provides summary data about the specified assessment
+  decisions by waterbody.
 
--   `plans()` returns a summary of the plans (TMDLs and related) within
-    a specified HUC.
+- `plans()` returns a summary of the plans (TMDLs and related) within a
+  specified HUC.
 
--   `domain_values()` returns allowed values in ATTAINS. By default (no
-    arguments) the function returns a list of allowed `domain_names`.
+- `domain_values()` returns allowed values in ATTAINS. By default (no
+  arguments) the function returns a list of allowed `domain_names`.
 
--   `assessment_units()` returns a summary of information about the
-    specified assessment units.
+- `assessment_units()` returns a summary of information about the
+  specified assessment units.
 
--   `surveys()` returns results from state statistical survey results in
-    ATTAINS.
+- `surveys()` returns results from state statistical survey results in
+  ATTAINS.
 
 # Examples:
 
@@ -113,11 +113,11 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
       tidyr::unnest(summaryByUseGroup)
     #> # A tibble: 4 × 24
     #>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-    #>   <chr>                      <int>                  <dbl>            <dbl>
-    #> 1 020700100204                  18                   46.1             46.2
-    #> 2 020700100204                  18                   46.1             46.2
-    #> 3 020700100204                  18                   46.1             46.2
-    #> 4 020700100204                  18                   46.1             46.2
+    #>   <chr>                      <int>                  <dbl> <lgl>           
+    #> 1 020700100204                  18                   46.1 NA              
+    #> 2 020700100204                  18                   46.1 NA              
+    #> 3 020700100204                  18                   46.1 NA              
+    #> 4 020700100204                  18                   46.1 NA              
     #> # ℹ 20 more variables: assessedCatchmentAreaSqMi <dbl>,
     #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
     #> #   assessedGoodCatchmentAreaPercent <int>,
@@ -130,23 +130,23 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
       tidyr::unnest(summaryByParameterImpairments, names_repair = "minimal")
     #> # A tibble: 16 × 26
     #>    huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-    #>    <chr>                      <int>                  <dbl>            <dbl>
-    #>  1 020700100204                  18                   46.1             46.2
-    #>  2 020700100204                  18                   46.1             46.2
-    #>  3 020700100204                  18                   46.1             46.2
-    #>  4 020700100204                  18                   46.1             46.2
-    #>  5 020700100204                  18                   46.1             46.2
-    #>  6 020700100204                  18                   46.1             46.2
-    #>  7 020700100204                  18                   46.1             46.2
-    #>  8 020700100204                  18                   46.1             46.2
-    #>  9 020700100204                  18                   46.1             46.2
-    #> 10 020700100204                  18                   46.1             46.2
-    #> 11 020700100204                  18                   46.1             46.2
-    #> 12 020700100204                  18                   46.1             46.2
-    #> 13 020700100204                  18                   46.1             46.2
-    #> 14 020700100204                  18                   46.1             46.2
-    #> 15 020700100204                  18                   46.1             46.2
-    #> 16 020700100204                  18                   46.1             46.2
+    #>    <chr>                      <int>                  <dbl> <lgl>           
+    #>  1 020700100204                  18                   46.1 NA              
+    #>  2 020700100204                  18                   46.1 NA              
+    #>  3 020700100204                  18                   46.1 NA              
+    #>  4 020700100204                  18                   46.1 NA              
+    #>  5 020700100204                  18                   46.1 NA              
+    #>  6 020700100204                  18                   46.1 NA              
+    #>  7 020700100204                  18                   46.1 NA              
+    #>  8 020700100204                  18                   46.1 NA              
+    #>  9 020700100204                  18                   46.1 NA              
+    #> 10 020700100204                  18                   46.1 NA              
+    #> 11 020700100204                  18                   46.1 NA              
+    #> 12 020700100204                  18                   46.1 NA              
+    #> 13 020700100204                  18                   46.1 NA              
+    #> 14 020700100204                  18                   46.1 NA              
+    #> 15 020700100204                  18                   46.1 NA              
+    #> 16 020700100204                  18                   46.1 NA              
     #> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
     #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
     #> #   assessedGoodCatchmentAreaPercent <int>,
@@ -159,8 +159,8 @@ Get a summary about assessed uses, parameters and plans in a HUC12:
       tidyr::unnest(summaryRestorationPlans, names_repair = "minimal")
     #> # A tibble: 1 × 26
     #>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-    #>   <chr>                      <int>                  <dbl>            <dbl>
-    #> 1 020700100204                  18                   46.1             46.2
+    #>   <chr>                      <int>                  <dbl> <lgl>           
+    #> 1 020700100204                  18                   46.1 NA              
     #> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
     #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
     #> #   assessedGoodCatchmentAreaPercent <int>,
@@ -180,18 +180,24 @@ Find statistical surveys completed by an organization:
     #> 1     5
     #> 
     #> $items
-    #> # A tibble: 5 × 14
-    #>   organizationIdentifier organizationName organizationTypeText surveyStatusCode
-    #>   <chr>                  <chr>            <chr>                <chr>           
-    #> 1 SDDENR                 South Dakota     State                Final           
-    #> 2 SDDENR                 South Dakota     State                Final           
-    #> 3 SDDENR                 South Dakota     State                Final           
-    #> 4 SDDENR                 South Dakota     State                Final           
-    #> 5 SDDENR                 South Dakota     State                Final           
-    #> # ℹ 10 more variables: year <int>, surveyCommentText <lgl>, documents <list>,
+    #> # A tibble: 25 × 15
+    #>    organizationIdentifier organizationName organizationTypeText surveyStatusCode
+    #>    <chr>                  <chr>            <chr>                <chr>           
+    #>  1 SDDENR                 South Dakota     State                Final           
+    #>  2 SDDENR                 South Dakota     State                Final           
+    #>  3 SDDENR                 South Dakota     State                Final           
+    #>  4 SDDENR                 South Dakota     State                Final           
+    #>  5 SDDENR                 South Dakota     State                Final           
+    #>  6 SDDENR                 South Dakota     State                Final           
+    #>  7 SDDENR                 South Dakota     State                Final           
+    #>  8 SDDENR                 South Dakota     State                Final           
+    #>  9 SDDENR                 South Dakota     State                Final           
+    #> 10 SDDENR                 South Dakota     State                Final           
+    #> # ℹ 15 more rows
+    #> # ℹ 11 more variables: year <int>, surveyCommentText <lgl>, documents <list>,
     #> #   waterTypeGroupCode <chr>, subPopulationCode <chr>, unitCode <chr>,
     #> #   size <int>, siteNumber <int>, surveyWaterGroupCommentText <chr>,
-    #> #   surveyWaterGroupUseParameters <list>
+    #> #   surveyWaterGroupUseParameters <list>, histories <list>
 
 ## Citation
 
