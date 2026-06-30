@@ -21,3 +21,8 @@ Useful links:
 
 **Maintainer**: Michael Schramm <mpschramm@gmail.com>
 ([ORCID](https://orcid.org/0000-0003-1876-6592)) \[copyright holder\]
+
+Authors:
+
+- Michael Schramm <mpschramm@gmail.com>
+  ([ORCID](https://orcid.org/0000-0003-1876-6592)) \[copyright holder\]

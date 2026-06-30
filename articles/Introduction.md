@@ -32,53 +32,45 @@ assessed uses by the organization identifier or by hydrologic unit code
 Tennessee the following function is used:
 
 ``` r
+
 library(rATTAINS)
-x <- state_summary(organization_id = "TDECWR",
-                   reporting_cycle = "2024")
+x <- state_summary(organization_id = "SDDENR", reporting_cycle = "2024")
 x
 #> $items
-#> # A tibble: 20 × 18
+#> # A tibble: 21 × 18
 #>    organizationIdentifier organizationName organizationTypeText reportingCycle
 #>    <chr>                  <chr>            <chr>                <chr>         
-#>  1 TDECWR                 Tennessee        State                2024          
-#>  2 TDECWR                 Tennessee        State                2024          
-#>  3 TDECWR                 Tennessee        State                2024          
-#>  4 TDECWR                 Tennessee        State                2024          
-#>  5 TDECWR                 Tennessee        State                2024          
-#>  6 TDECWR                 Tennessee        State                2024          
-#>  7 TDECWR                 Tennessee        State                2024          
-#>  8 TDECWR                 Tennessee        State                2024          
-#>  9 TDECWR                 Tennessee        State                2024          
-#> 10 TDECWR                 Tennessee        State                2024          
-#> 11 TDECWR                 Tennessee        State                2024          
-#> 12 TDECWR                 Tennessee        State                2024          
-#> 13 TDECWR                 Tennessee        State                2024          
-#> 14 TDECWR                 Tennessee        State                2024          
-#> 15 TDECWR                 Tennessee        State                2024          
-#> 16 TDECWR                 Tennessee        State                2024          
-#> 17 TDECWR                 Tennessee        State                2024          
-#> 18 TDECWR                 Tennessee        State                2024          
-#> 19 TDECWR                 Tennessee        State                2024          
-#> 20 TDECWR                 Tennessee        State                2024          
+#>  1 SDDENR                 South Dakota     State                2024          
+#>  2 SDDENR                 South Dakota     State                2024          
+#>  3 SDDENR                 South Dakota     State                2024          
+#>  4 SDDENR                 South Dakota     State                2024          
+#>  5 SDDENR                 South Dakota     State                2024          
+#>  6 SDDENR                 South Dakota     State                2024          
+#>  7 SDDENR                 South Dakota     State                2024          
+#>  8 SDDENR                 South Dakota     State                2024          
+#>  9 SDDENR                 South Dakota     State                2024          
+#> 10 SDDENR                 South Dakota     State                2024          
+#> # ℹ 11 more rows
 #> # ℹ 14 more variables: cycleStatus <chr>, combinedCycles <list>,
 #> #   waterTypeCode <chr>, unitsCode <chr>, useName <chr>,
 #> #   `Fully Supporting` <dbl>, `Fully Supporting-count` <int>,
 #> #   `Insufficient Information` <dbl>, `Insufficient Information-count` <int>,
-#> #   `Not Assessed` <dbl>, `Not Assessed-count` <int>, `Not Supporting` <dbl>,
-#> #   `Not Supporting-count` <int>, parameters <list>
+#> #   `Not Supporting` <dbl>, `Not Supporting-count` <int>, parameters <list>,
+#> #   `Not Assessed` <dbl>, `Not Assessed-count` <int>
 ```
 
 The HUC12 service operates similarly but provides data summarized by
 area, specifically HUC12 units. For example:
 
 ``` r
+
 x <- huc12_summary("020700100204")
 x
 #> $hucSummary
 #> # A tibble: 1 × 15
 #>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-#>   <chr>                      <int>                  <dbl>            <dbl>
-#> 1 020700100204                  18                   46.1             46.2
+#>   <chr>                      <int>                  <dbl> <lgl>           
+#> 1 020700100204                  18                   46.1 NA              
 #> # ℹ 11 more variables: assessedCatchmentAreaSqMi <dbl>,
 #> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
 #> #   assessedGoodCatchmentAreaPercent <int>,
@@ -97,10 +89,10 @@ x
 #>  4 DCTNA01R_00                 
 #>  5 DCTFS01R_00                 
 #>  6 MD-ANATF                    
-#>  7 DCTTX27R_00                 
-#>  8 DCTFC01R_00                 
+#>  7 MD-02140205-Mainstem        
+#>  8 DCTTX27R_00                 
 #>  9 MD-ANATF-SWSAV              
-#> 10 MD-02140205-Mainstem        
+#> 10 DCTFC01R_00                 
 #> 11 DCTWB00R_02                 
 #> 12 DCANA00E_02                 
 #> 13 DCTHR01R_00                 
@@ -217,6 +209,7 @@ For example if I want to find out the possible organization identifiers
 to query by:
 
 ``` r
+
 x <- domain_values(domain_name = "OrgStateCode")
 x
 #> # A tibble: 157 × 6
@@ -241,9 +234,10 @@ possible Use Names that are utilized by the Texas Commission on
 Environmental Quality:
 
 ``` r
+
 x <- domain_values(domain_name = "UseName", context = "TCEQMAIN")
 x
-#> # A tibble: 1,357 × 6
+#> # A tibble: 1,370 × 6
 #>    domain  name                              code  context context2 dateModified
 #>    <chr>   <chr>                             <chr> <chr>   <chr>    <chr>       
 #>  1 UseName Primary Contact Recreation        Prim… 21DELA… RECREAT… 2017-08-28  
@@ -256,7 +250,7 @@ x
 #>  8 UseName Wildlife                          Wild… WIDNR   ECOLOGI… 2022-05-23  
 #>  9 UseName Aquatic Life                      Aqua… POLSWA… ECOLOGI… 2021-01-06  
 #> 10 UseName Drinking Water                    Drin… PUEBLO… DRINKIN… 2022-09-15  
-#> # ℹ 1,347 more rows
+#> # ℹ 1,360 more rows
 ```
 
 ### Other Services

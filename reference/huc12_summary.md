@@ -49,6 +49,7 @@ to search values that can be queried.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 ## Return a list of tibbles with summary data about a single huc12
 x <- huc12_summary(huc = "020700100204")

@@ -46,6 +46,7 @@ reduce uneccessary calls to the server.
 
 ``` r
 
+
 if (FALSE) { # \dontrun{
 
 ## return a tibble with all domain names

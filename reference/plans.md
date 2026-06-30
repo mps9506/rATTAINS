@@ -79,6 +79,7 @@ returns the `documents`, `associated_permits`, or `plans` tibbles.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 
 ## Query plans by huc

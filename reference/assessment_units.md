@@ -122,6 +122,7 @@ to search values that can be queried.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 
 ## Retrieve data about a single assessment unit

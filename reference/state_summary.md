@@ -62,6 +62,7 @@ to search values that can be queried.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 ## Get a list of tibbles summarizing assessed uses
 state_summary(organization_id = "TDECWR", reporting_cycle = "2016")

@@ -61,6 +61,7 @@ to search values that can be queried.
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 
 ## return surveys by organization

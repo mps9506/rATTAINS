@@ -2,6 +2,8 @@
 
 ## rATTAINS 1.1.0
 
+CRAN release: 2025-12-09
+
 ### Major change
 
 This release removes the tibblify dependency. Some endpoints may return

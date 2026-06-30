@@ -167,6 +167,7 @@ versions returned `documents`, `use_assessment`, and
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 
 ## Return all assessment decisions with specified parameters
