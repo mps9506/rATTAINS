@@ -40,7 +40,7 @@ session. An easy way to edit this file is `usethis::edit_r_environ()`.
 
 There are eight user available functions that correspond with the first
 eight web services detailed by
-[EPA](https://www.epa.gov/sites/default/files/2020-10/documents/attains_how_to_access_web_services_2020-10-28.pdf).
+[EPA](https://www.epa.gov/waterdata/how-access-and-use-attains-web-services).
 All arguments are case sensitive. By default the functions attempt to
 provide flattened “tidy” data as a single or multiple dataframes. By
 using the `tidy = FALSE` argument in the function below, the raw JSON
