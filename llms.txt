@@ -11,15 +11,30 @@ made available through the EPA.
 
 rATTAINS is on CRAN:
 
-``` R
+``` r
+
 install.packages('rATTAINS')
 ```
 
 Or install the development version from r-universe:
 
-``` R
+``` r
+
 install.packages('rATTAINS', repos = 'https://mps9506.r-universe.dev')
 ```
+
+## API Key
+
+As of May 2026 ATTAINS utilizes free API keys issues from Data.gov. Keys
+can be obtained from: <https://api.data.gov/signup/>
+
+To utilize your API key with rATTAINS, add the following to your
+.Renviron file:
+
+`RATTAINS_TOKEN="DEMO_TOKEN"`
+
+replacing `DEMO_TOKEN` with your actual key, and restarting your R
+session. An easy way to edit this file is `usethis::edit_r_environ()`.
 
 ## Functions and webservices
 
@@ -69,7 +84,8 @@ unexpected results, try parsing the raw JSON string.
 Get a summary about assessed uses from the Texas Commission on
 Environmental Quality:
 
-``` R
+``` r
+
 library(rATTAINS)
 state_summary(
   organization_id = "TCEQMAIN",
@@ -78,96 +94,90 @@ state_summary(
 )
 #> $items
 #> # A tibble: 31 × 18
-#>    organizationIdentifier organizationName organizationTypeText reportingCycle
-#>    <chr>                  <chr>            <chr>                <chr>         
-#>  1 TCEQMAIN               Texas            State                2020          
-#>  2 TCEQMAIN               Texas            State                2020          
-#>  3 TCEQMAIN               Texas            State                2020          
-#>  4 TCEQMAIN               Texas            State                2020          
-#>  5 TCEQMAIN               Texas            State                2020          
-#>  6 TCEQMAIN               Texas            State                2020          
-#>  7 TCEQMAIN               Texas            State                2020          
-#>  8 TCEQMAIN               Texas            State                2020          
-#>  9 TCEQMAIN               Texas            State                2020          
-#> 10 TCEQMAIN               Texas            State                2020          
+#>    organizationIdentifier organizationName organizationTypeText reportingCycle cycleStatus      combinedCycles waterTypeCode unitsCode  useName `Fully Supporting`
+#>    <chr>                  <chr>            <chr>                <chr>          <chr>            <list>         <chr>         <chr>      <chr>                <dbl>
+#>  1 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     ESTUARY       Square Mi… Aquati…              1861.
+#>  2 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     ESTUARY       Square Mi… Recrea…              2255.
+#>  3 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     ESTUARY       Square Mi… Oyster…              1521.
+#>  4 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     ESTUARY       Square Mi… Genera…              2514.
+#>  5 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     ESTUARY       Square Mi… Fish C…               270.
+#>  6 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     RESERVOIR     Acres      DOMEST…           1307186.
+#>  7 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     RESERVOIR     Acres      Aquati…           1081213.
+#>  8 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     RESERVOIR     Acres      Fish C…            159491.
+#>  9 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     RESERVOIR     Acres      Genera…           1141350.
+#> 10 TCEQMAIN               Texas            State                2020           EPA Final Action <list [0]>     RESERVOIR     Acres      Recrea…            842009.
 #> # ℹ 21 more rows
-#> # ℹ 14 more variables: cycleStatus <chr>, combinedCycles <list>,
-#> #   waterTypeCode <chr>, unitsCode <chr>, useName <chr>,
-#> #   `Fully Supporting` <dbl>, `Fully Supporting-count` <int>,
-#> #   `Insufficient Information` <dbl>, `Insufficient Information-count` <int>,
-#> #   `Not Assessed` <dbl>, `Not Assessed-count` <int>, `Not Supporting` <dbl>,
-#> #   `Not Supporting-count` <int>, parameters <list>
+#> # ℹ 8 more variables: `Fully Supporting-count` <int>, `Insufficient Information` <dbl>, `Insufficient Information-count` <int>, `Not Assessed` <dbl>,
+#> #   `Not Assessed-count` <int>, `Not Supporting` <dbl>, `Not Supporting-count` <int>, parameters <list>
 ```
 
 Get a summary about assessed uses, parameters and plans in a HUC12:
 
-``` R
+``` r
+
 df <- huc12_summary(huc = "020700100204", .unnest = FALSE)
 
 tidyr::unnest(df, items) |>
   tidyr::unnest(summaryByUseGroup)
 #> # A tibble: 4 × 24
-#>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-#>   <chr>                      <int>                  <dbl>            <dbl>
-#> 1 020700100204                  18                   46.1             46.2
-#> 2 020700100204                  18                   46.1             46.2
-#> 3 020700100204                  18                   46.1             46.2
-#> 4 020700100204                  18                   46.1             46.2
-#> # ℹ 20 more variables: assessedCatchmentAreaSqMi <dbl>,
-#> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
-#> #   assessedGoodCatchmentAreaPercent <int>,
-#> #   assessedUnknownCatchmentAreaSqMi <int>,
-#> #   assessedUnknownCatchmentAreaPercent <int>,
-#> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
-#> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
+#>   huc12    assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi assessedCatchmentAre…¹ assessedCatchmentAre…² assessedGoodCatchmen…³ assessedGoodCatchmen…⁴
+#>   <chr>                  <int>                  <dbl> <lgl>                             <dbl>                  <dbl>                  <int>                  <int>
+#> 1 0207001…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 2 0207001…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 3 0207001…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 4 0207001…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> # ℹ abbreviated names: ¹​assessedCatchmentAreaSqMi, ²​assessedCatchmentAreaPercent, ³​assessedGoodCatchmentAreaSqMi, ⁴​assessedGoodCatchmentAreaPercent
+#> # ℹ 16 more variables: assessedUnknownCatchmentAreaSqMi <int>, assessedUnknownCatchmentAreaPercent <int>, containImpairedWatersCatchmentAreaSqMi <dbl>,
+#> #   containImpairedWatersCatchmentAreaPercent <dbl>, containRestorationCatchmentAreaSqMi <dbl>, containRestorationCatchmentAreaPercent <dbl>,
+#> #   assessmentUnits <list>, summaryByIRCategory <list>, summaryByOverallStatus <list>, useGroupName <chr>, useAttainmentSummary <list>, summaryByUse <list>,
+#> #   summaryByParameterImpairments <list>, summaryRestorationPlans <list>, summaryVisionRestorationPlans <list>, count <int>
 
 tidyr::unnest(df, items) |>
   tidyr::unnest(summaryByParameterImpairments, names_repair = "minimal")
 #> # A tibble: 16 × 26
-#>    huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-#>    <chr>                      <int>                  <dbl>            <dbl>
-#>  1 020700100204                  18                   46.1             46.2
-#>  2 020700100204                  18                   46.1             46.2
-#>  3 020700100204                  18                   46.1             46.2
-#>  4 020700100204                  18                   46.1             46.2
-#>  5 020700100204                  18                   46.1             46.2
-#>  6 020700100204                  18                   46.1             46.2
-#>  7 020700100204                  18                   46.1             46.2
-#>  8 020700100204                  18                   46.1             46.2
-#>  9 020700100204                  18                   46.1             46.2
-#> 10 020700100204                  18                   46.1             46.2
-#> 11 020700100204                  18                   46.1             46.2
-#> 12 020700100204                  18                   46.1             46.2
-#> 13 020700100204                  18                   46.1             46.2
-#> 14 020700100204                  18                   46.1             46.2
-#> 15 020700100204                  18                   46.1             46.2
-#> 16 020700100204                  18                   46.1             46.2
-#> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
-#> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
-#> #   assessedGoodCatchmentAreaPercent <int>,
-#> #   assessedUnknownCatchmentAreaSqMi <int>,
-#> #   assessedUnknownCatchmentAreaPercent <int>,
-#> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
-#> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
+#>    huc12   assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi assessedCatchmentAre…¹ assessedCatchmentAre…² assessedGoodCatchmen…³ assessedGoodCatchmen…⁴
+#>    <chr>                 <int>                  <dbl> <lgl>                             <dbl>                  <dbl>                  <int>                  <int>
+#>  1 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  2 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  3 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  4 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  5 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  6 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  7 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  8 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#>  9 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 10 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 11 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 12 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 13 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 14 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 15 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> 16 020700…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> # ℹ abbreviated names: ¹​assessedCatchmentAreaSqMi, ²​assessedCatchmentAreaPercent, ³​assessedGoodCatchmentAreaSqMi, ⁴​assessedGoodCatchmentAreaPercent
+#> # ℹ 18 more variables: assessedUnknownCatchmentAreaSqMi <int>, assessedUnknownCatchmentAreaPercent <int>, containImpairedWatersCatchmentAreaSqMi <dbl>,
+#> #   containImpairedWatersCatchmentAreaPercent <dbl>, containRestorationCatchmentAreaSqMi <dbl>, containRestorationCatchmentAreaPercent <dbl>,
+#> #   assessmentUnits <list>, summaryByIRCategory <list>, summaryByOverallStatus <list>, summaryByUseGroup <list>, summaryByUse <list>, parameterGroupName <chr>,
+#> #   catchmentSizeSqMi <dbl>, catchmentSizePercent <dbl>, assessmentUnitCount <int>, summaryRestorationPlans <list>, summaryVisionRestorationPlans <list>,
+#> #   count <int>
 
 tidyr::unnest(df, items) |>
   tidyr::unnest(summaryRestorationPlans, names_repair = "minimal")
 #> # A tibble: 1 × 26
-#>   huc12        assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi
-#>   <chr>                      <int>                  <dbl>            <dbl>
-#> 1 020700100204                  18                   46.1             46.2
-#> # ℹ 22 more variables: assessedCatchmentAreaSqMi <dbl>,
-#> #   assessedCatchmentAreaPercent <dbl>, assessedGoodCatchmentAreaSqMi <int>,
-#> #   assessedGoodCatchmentAreaPercent <int>,
-#> #   assessedUnknownCatchmentAreaSqMi <int>,
-#> #   assessedUnknownCatchmentAreaPercent <int>,
-#> #   containImpairedWatersCatchmentAreaSqMi <dbl>,
-#> #   containImpairedWatersCatchmentAreaPercent <dbl>, …
+#>   huc12    assessmentUnitCount totalCatchmentAreaSqMi totalHucAreaSqMi assessedCatchmentAre…¹ assessedCatchmentAre…² assessedGoodCatchmen…³ assessedGoodCatchmen…⁴
+#>   <chr>                  <int>                  <dbl> <lgl>                             <dbl>                  <dbl>                  <int>                  <int>
+#> 1 0207001…                  18                   46.1 NA                                 35.2                   76.4                      0                      0
+#> # ℹ abbreviated names: ¹​assessedCatchmentAreaSqMi, ²​assessedCatchmentAreaPercent, ³​assessedGoodCatchmentAreaSqMi, ⁴​assessedGoodCatchmentAreaPercent
+#> # ℹ 18 more variables: assessedUnknownCatchmentAreaSqMi <int>, assessedUnknownCatchmentAreaPercent <int>, containImpairedWatersCatchmentAreaSqMi <dbl>,
+#> #   containImpairedWatersCatchmentAreaPercent <dbl>, containRestorationCatchmentAreaSqMi <dbl>, containRestorationCatchmentAreaPercent <dbl>,
+#> #   assessmentUnits <list>, summaryByIRCategory <list>, summaryByOverallStatus <list>, summaryByUseGroup <list>, summaryByUse <list>,
+#> #   summaryByParameterImpairments <list>, summaryTypeName <chr>, catchmentSizeSqMi <dbl>, catchmentSizePercent <dbl>, assessmentUnitCount <int>,
+#> #   summaryVisionRestorationPlans <list>, count <int>
 ```
 
 Find statistical surveys completed by an organization:
 
-``` R
+``` r
+
 surveys(organization_id = "SDDENR", .unnest = TRUE)
 #> Unable to further unnest data, check for nested dataframes.
 #> $count
@@ -177,30 +187,33 @@ surveys(organization_id = "SDDENR", .unnest = TRUE)
 #> 1     5
 #> 
 #> $items
-#> # A tibble: 5 × 14
-#>   organizationIdentifier organizationName organizationTypeText surveyStatusCode
-#>   <chr>                  <chr>            <chr>                <chr>           
-#> 1 SDDENR                 South Dakota     State                Final           
-#> 2 SDDENR                 South Dakota     State                Final           
-#> 3 SDDENR                 South Dakota     State                Final           
-#> 4 SDDENR                 South Dakota     State                Final           
-#> 5 SDDENR                 South Dakota     State                Final           
-#> # ℹ 10 more variables: year <int>, surveyCommentText <lgl>, documents <list>,
-#> #   waterTypeGroupCode <chr>, subPopulationCode <chr>, unitCode <chr>,
-#> #   size <int>, siteNumber <int>, surveyWaterGroupCommentText <chr>,
-#> #   surveyWaterGroupUseParameters <list>
+#> # A tibble: 25 × 15
+#>    organizationIdentifier organizationName organizationTypeText surveyStatusCode  year surveyCommentText documents waterTypeGroupCode  subPopulationCode unitCode
+#>    <chr>                  <chr>            <chr>                <chr>            <int> <lgl>             <list>    <chr>               <chr>             <chr>   
+#>  1 SDDENR                 South Dakota     State                Final             2018 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  2 SDDENR                 South Dakota     State                Final             2018 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  3 SDDENR                 South Dakota     State                Final             2018 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  4 SDDENR                 South Dakota     State                Final             2018 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  5 SDDENR                 South Dakota     State                Final             2018 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  6 SDDENR                 South Dakota     State                Final             2016 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  7 SDDENR                 South Dakota     State                Final             2016 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  8 SDDENR                 South Dakota     State                Final             2016 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#>  9 SDDENR                 South Dakota     State                Final             2016 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#> 10 SDDENR                 South Dakota     State                Final             2016 NA                <NULL>    LAKE/RESERVOIR/POND Statewide         Acres   
+#> # ℹ 15 more rows
+#> # ℹ 5 more variables: size <int>, siteNumber <int>, surveyWaterGroupCommentText <chr>, surveyWaterGroupUseParameters <list>, histories <list>
 ```
 
 ## Citation
 
 If you use this package in a publication, please cite as:
 
-``` R
+``` r
+
 citation("rATTAINS")
 #> To cite rATTAINS in publications use:
 #> 
-#>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R
-#>   package version 1.0.1 doi:10.5281/zenodo.5469911
+#>   Schramm, Michael (2021).  rATTAINS: Access EPA 'ATTAINS' Data.  R package version 1.0.1 doi:10.5281/zenodo.5469911
 #>   https://CRAN.R-project.org/package=rATTAINS
 #> 
 #> A BibTeX entry for LaTeX users is

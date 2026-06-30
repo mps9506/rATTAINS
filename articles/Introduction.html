@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rATTAINS</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.9999</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,6 +89,18 @@ through the <a href="https://www.epa.gov/waterdata/attains-program-information" 
 For alternative methods of accessing the same data, see <a href="https://mywaterway.epa.gov/" class="external-link">“How’s My Waterway” webpage</a> for
 interactive data exploration or the <a href="https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer" class="external-link">ArcGIS
 MapService</a> for spatial data.</p>
+<div class="section level3">
+<h3 id="api-key">API Key<a class="anchor" aria-label="anchor" href="#api-key"></a>
+</h3>
+<p>As of May 2026 ATTAINS utilizes free API keys issues from Data.gov.
+Keys can be obtained from: <a href="https://api.data.gov/signup/" class="external-link uri">https://api.data.gov/signup/</a></p>
+<p>To utilize your API key with rATTAINS, add the following to your
+.Renviron file:</p>
+<p><code>RATTAINS_TOKEN="DEMO_TOKEN"</code></p>
+<p>replacing <code>DEMO_TOKEN</code> with your actual key, and
+restarting your R session. An easy way to edit this file is
+<code>usethis::edit_r_environ()</code>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a>

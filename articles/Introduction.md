@@ -22,6 +22,19 @@ or the [ArcGIS
 MapService](https://gispub.epa.gov/arcgis/rest/services/OW/ATTAINS_Assessment/MapServer)
 for spatial data.
 
+### API Key
+
+As of May 2026 ATTAINS utilizes free API keys issues from Data.gov. Keys
+can be obtained from: <https://api.data.gov/signup/>
+
+To utilize your API key with rATTAINS, add the following to your
+.Renviron file:
+
+`RATTAINS_TOKEN="DEMO_TOKEN"`
+
+replacing `DEMO_TOKEN` with your actual key, and restarting your R
+session. An easy way to edit this file is `usethis::edit_r_environ()`.
+
 ## Functions
 
 ### Summary Services
