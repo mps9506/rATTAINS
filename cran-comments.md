@@ -1,8 +1,8 @@
 ## Test environments
 
-* GitHub Actions (macos-15.7.2), release 
+* GitHub Actions (macos-15.7.7), release 
 * GitHub Actions (windows-latest), release 
-* GitHub Actions (ubuntu-24.04.3), old-release, release, devel 
+* GitHub Actions (ubuntu-24.04.4), old-rel-1, release, devel 
 * winbuilder (windows), release
 * local (ubuntu-24.04) release
 
@@ -12,7 +12,7 @@
 
 ## Comments
 
-* This submission removes the dependency on the tibblify package that is scheduled to be archived.
+* This submission fixes the error on current CRAN checks caused by the updated URLs and mandatory API keys.
 
 ## Reverse dependencies
 
@@ -21,4 +21,4 @@ There are currently no downstream dependencies for this package.
 ## Other comments:
 
 * Examples are wrapped in \donttest{} since they rely on an internet connection
-and API that will rate limit when automatically test or run.
+and API keys.

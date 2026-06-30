@@ -41,7 +41,16 @@ Or install the development version from r-universe:
 install.packages('rATTAINS', repos = 'https://mps9506.r-universe.dev')
 ```
 
+## API Key
 
+As of May 2026 ATTAINS utilizes free API keys issues from Data.gov. Keys can be obtained from: https://api.data.gov/signup/
+
+To utilize your API key with rATTAINS, add the following to your .Renviron file:
+
+`RATTAINS_TOKEN="DEMO_TOKEN"`
+
+replacing `DEMO_TOKEN` with your actual key, and restarting your R session.
+An easy way to edit this file is `usethis::edit_r_environ()`.
 
 ## Functions and webservices
 
