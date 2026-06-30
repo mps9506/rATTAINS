@@ -29,64 +29,71 @@
 #' ## return the query as a JSON string instead
 #' domain_values(domain_name="UseName",context="TCEQMAIN", tidy= FALSE)
 #' }
-domain_values <- function(domain_name = NULL,
-                          context = NULL,
-                          tidy = TRUE,
-                          ...) {
-
+domain_values <- function(
+  domain_name = NULL,
+  context = NULL,
+  tidy = TRUE,
+  ...
+) {
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
+  #
+  #   ## check for API key
+  check_api_key()
 
   ## check that arguments are character
   coll <- makeAssertCollection()
-  mapply(FUN = assert_character,
-         x = list(domain_name, context),
-         .var.name = c("domain_name", "context"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = assert_character,
+    x = list(domain_name, context),
+    .var.name = c("domain_name", "context"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   reportAssertions(coll)
 
   ## check logical
   coll <- makeAssertCollection()
-  mapply(FUN = assert_logical,
-         x = list(tidy),
-         .var.name = c("tidy"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = assert_logical,
+    x = list(tidy),
+    .var.name = c("tidy"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   reportAssertions(coll)
 
-
   # Check that domain_name is specified if context is used
-  if(is.null(domain_name)) {
-    if(!is.null(context)) stop("If the context argument is used, the domain_name argument must also be used")
+  if (is.null(domain_name)) {
+    if (!is.null(context)) {
+      stop(
+        "If the context argument is used, the domain_name argument must also be used"
+      )
+    }
   }
 
-  args <- list(domainName = domain_name,
-               context = context)
+  args <- list(domainName = domain_name, context = context)
   args <- list.filter(args, !is.null(.data))
-  path = "attains-public/api/domains"
+  path <- "attains/domains"
 
   ## download without caching
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
-
-  if(!isTRUE(tidy)) {
+  if (is.null(content)) {
     return(content)
-    } else {
-    content <- jsonlite::fromJSON(content,
+  }
+
+  if (!isTRUE(tidy)) {
+    return(content)
+  } else {
+    content <- jsonlite::fromJSON(
+      content,
       simplifyVector = TRUE,
       simplifyDataFrame = TRUE,
-      flatten = FALSE)
+      flatten = FALSE
+    )
     content <- as_tibble(content)
     return(content)
   }
 }
-
-

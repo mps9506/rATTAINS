@@ -1,6 +1,6 @@
 Package: rATTAINS
 Title: Access EPA 'ATTAINS' Data
-Version: 1.1.0
+Version: 1.1.9999
 Authors@R: 
     person(given = "Michael",
            family = "Schramm",
@@ -15,7 +15,6 @@ Description: An R interface to United States Environmental Protection Agency (EP
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     checkmate,
     crul,
@@ -47,3 +46,4 @@ Config/Needs/website:
   ggplot2,
   ggtext
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

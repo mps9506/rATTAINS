@@ -6,24 +6,24 @@ http_interactions:
     status: 200
     headers:
       status: 'HTTP/2 200 '
-      date: Mon, 29 Jun 2026 19:38:53 GMT
+      date: Mon, 29 Jun 2026 21:21:31 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
       access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      age: '2'
+      age: '3'
       content-encoding: gzip
       strict-transport-security: max-age=31536000; includeSubDomains; preload
       vary: Accept-Encoding
       via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
-      x-api-umbrella-request-id: cv2ji4c5vo7ambnmrb30
+      x-api-umbrella-request-id: cv2l13m2tda7mls74i7g
       x-cache: MISS
       x-content-type-options: nosniff
       x-ratelimit-limit: '1000'
-      x-ratelimit-remaining: '988'
-      x-vcap-request-id: 30b96361-8493-42d1-4dab-d315429c664f
+      x-ratelimit-remaining: '977'
+      x-vcap-request-id: 5ba5d7bc-8889-4507-5870-29cb539a124c
       x-frame-options: DENY
     body:
       string: '{"items":[{"huc12":"020700100204","assessmentUnitCount":18,"totalCatchmentAreaSqMi":46.137,"totalHucAreaSqMi":null,"assessedCatchmentAreaSqMi":35.226,"assessedCatchmentAreaPercent":76.351,"assessedGoodCatchmentAreaSqMi":0,"assessedGoodCatchmentAreaPercent":0,"assessedUnknownCatchmentAreaSqMi":0,"assessedUnknownCatchmentAreaPercent":0,"containImpairedWatersCatchmentAreaSqMi":35.226,"containImpairedWatersCatchmentAreaPercent":76.351,"containRestorationCatchmentAreaSqMi":35.226,"containRestorationCatchmentAreaPercent":76.351,"assessmentUnits":[{"assessmentUnitId":"MD-02140205-Northwest_Branch"},{"assessmentUnitId":"MD-02140205"},{"assessmentUnitId":"DCTFD01R_00"},{"assessmentUnitId":"DCTNA01R_00"},{"assessmentUnitId":"DCTFS01R_00"},{"assessmentUnitId":"MD-ANATF"},{"assessmentUnitId":"MD-02140205-Mainstem"},{"assessmentUnitId":"DCTTX27R_00"},{"assessmentUnitId":"MD-ANATF-SWSAV"},{"assessmentUnitId":"DCTFC01R_00"},{"assessmentUnitId":"DCTWB00R_02"},{"assessmentUnitId":"DCANA00E_02"},{"assessmentUnitId":"DCTHR01R_00"},{"assessmentUnitId":"DCTWB00R_01"},{"assessmentUnitId":"DCTPB01R_00"},{"assessmentUnitId":"DCTDU01R_00"},{"assessmentUnitId":"DCANA00E_01"},{"assessmentUnitId":"DCAKL00L_00"}],"summaryByIRCategory":[{"epaIRCategoryName":"4A","catchmentSizeSqMi":13.223,"catchmentSizePercent":28.662,"assessmentUnitCount":11},{"epaIRCategoryName":"5","catchmentSizeSqMi":23.033,"catchmentSizePercent":49.923,"assessmentUnitCount":7}],"summaryByOverallStatus":[{"overallStatus":"Not
@@ -66,5 +66,5 @@ http_interactions:
         BIPHENYLS (PCBS)","catchmentSizeSqMi":16.887,"catchmentSizePercent":36.602,"assessmentUnitCount":13},{"parameterGroupName":"SALINITY/TOTAL
         DISSOLVED SOLIDS/CHLORIDES/SULFATES","catchmentSizeSqMi":18.797,"catchmentSizePercent":40.743,"assessmentUnitCount":1},{"parameterGroupName":"TOXIC
         ORGANICS","catchmentSizeSqMi":13.251,"catchmentSizePercent":28.721,"assessmentUnitCount":8},{"parameterGroupName":"TRASH","catchmentSizeSqMi":28.564,"catchmentSizePercent":61.912,"assessmentUnitCount":4},{"parameterGroupName":"TURBIDITY","catchmentSizeSqMi":34.86,"catchmentSizePercent":75.558,"assessmentUnitCount":13}],"summaryRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}],"summaryVisionRestorationPlans":[{"summaryTypeName":"TMDL","catchmentSizeSqMi":15.882,"catchmentSizePercent":34.423,"assessmentUnitCount":13}]}],"count":1}'
-  recorded_at: 2026-06-29 19:38:53
+  recorded_at: 2026-06-29 21:21:31
 recorded_with: VCR-vcr/2.1.0

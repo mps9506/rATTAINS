@@ -39,91 +39,101 @@
 #' ## return a JSON string instead of list of tibbles
 #' plans(huc = "020700100103", tidy = FALSE)
 #' }
-plans <- function(huc,
-                  organization_id = NULL,
-                  summarize = FALSE,
-                  tidy = TRUE,
-                  .unnest = TRUE,
-                  ...) {
-
+plans <- function(
+  huc,
+  organization_id = NULL,
+  summarize = FALSE,
+  tidy = TRUE,
+  .unnest = TRUE,
+  ...
+) {
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(huc, organization_id),
-         .var.name = c("huc", "organization_id"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(huc, organization_id),
+    .var.name = c("huc", "organization_id"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(summarize, tidy, .unnest),
-         .var.name = c("summarize", "tidy", ".unnest"),
-         MoreArgs = list(null.ok = TRUE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(summarize, tidy, .unnest),
+    .var.name = c("summarize", "tidy", ".unnest"),
+    MoreArgs = list(null.ok = TRUE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
-  summarize <- if(isTRUE(summarize)) {
+  summarize <- if (isTRUE(summarize)) {
     "Y"
-  } else {"N"}
+  } else {
+    "N"
+  }
 
-  args <- list(huc = huc,
-               oganizationId = organization_id,
-               summarize = summarize)
+  args <- list(
+    huc = huc,
+    oganizationId = organization_id,
+    summarize = summarize
+  )
   args <- list.filter(args, !is.null(.data))
   required_args <- c("huc")
   args_present <- intersect(names(args), required_args)
-  if(is_empty(args_present)) {
+  if (is_empty(args_present)) {
     stop("One of the following arguments must be provided: huc")
   }
 
-  path = "attains-public/api/plans"
+  path <- "attains/plans"
 
   ## download data
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
-    
+  if (is.null(content)) {
+    return(content)
+  }
+
   if (!isTRUE(tidy)) {
     return(content)
-  } else { 
-    json_list <- jsonlite::fromJSON(content,
+  } else {
+    json_list <- jsonlite::fromJSON(
+      content,
       simplifyVector = TRUE,
       simplifyDataFrame = TRUE,
-      flatten = FALSE)
-    
+      flatten = FALSE
+    )
+
     content <- as_tibble(json_list)
- 
+
     ## if unnest = FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       return(content)
     }
-    
-    items <- unnest(content, "items")  
-    
+
+    items <- unnest(content, "items")
+
     ## create first tibble
     content_item_summary <- select(items, !where(is.list))
     content_names <- select(items, where(is.list))
     content_names <- as.list(names(content_names))
     list_content <- list(itemSummary = content_item_summary)
-    
-    output_list <- map(content_names,
-      function(x) {
-        y <- unnest(content, "items")
-        y <- select(y, all_of(x))
-        y <- unnest(y, cols = everything())
-      })
+
+    output_list <- map(content_names, function(x) {
+      y <- unnest(content, "items")
+      y <- select(y, all_of(x))
+      y <- unnest(y, cols = everything())
+    })
     names(output_list) <- unlist(content_names)
     return(append(list_content, output_list))
-  }  
+  }
 }

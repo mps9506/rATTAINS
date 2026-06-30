@@ -6,24 +6,24 @@ http_interactions:
     status: 200
     headers:
       status: 'HTTP/2 200 '
-      date: Mon, 29 Jun 2026 20:07:33 GMT
+      date: Mon, 29 Jun 2026 21:21:29 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
       access-control-allow-origin: '*'
       access-control-request-headers: Content-Type
       access-control-request-methods: GET, POST, OPTIONS
-      age: '1'
+      age: '0'
       content-encoding: gzip
       strict-transport-security: max-age=31536000; includeSubDomains; preload
       vary: Accept-Encoding
       via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
-      x-api-umbrella-request-id: cv2jv8dmcrthjtk13jpg
+      x-api-umbrella-request-id: cv2l13heoo29gdoao2a0
       x-cache: MISS
       x-content-type-options: nosniff
       x-ratelimit-limit: '1000'
-      x-ratelimit-remaining: '967'
-      x-vcap-request-id: 11f5f029-c7dd-493e-4b04-dd696eeb3bf5
+      x-ratelimit-remaining: '977'
+      x-vcap-request-id: 91b8a958-8bb4-4311-505a-603c84ba1f69
       x-frame-options: DENY
     body:
       string: '{"data":{"organizationIdentifier":"SDDENR","organizationName":"South
@@ -245,5 +245,5 @@ http_interactions:
         CONDITIONS","Meeting Criteria":899.15,"Meeting Criteria-count":17},{"parameterGroup":"SALINITY/TOTAL
         DISSOLVED SOLIDS/CHLORIDES/SULFATES","Cause":157.07,"Cause-count":5,"Meeting
         Criteria":766.98,"Meeting Criteria-count":13}]}]}]}]},"messages":[]}'
-  recorded_at: 2026-06-29 20:07:33
+  recorded_at: 2026-06-29 21:21:29
 recorded_with: VCR-vcr/2.1.0

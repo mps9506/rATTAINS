@@ -28,77 +28,77 @@
 #' ## Return as a JSON string
 #' x <- huc12_summary(huc = "020700100204", tidy = FALSE)
 #' }
-huc12_summary <- function(huc,
-                          tidy = TRUE,
-                          .unnest = TRUE,
-                          ...) {
-
+huc12_summary <- function(huc, tidy = TRUE, .unnest = TRUE, ...) {
   ## check connectivity
   con_check <- check_connectivity()
-  if(!isTRUE(con_check)){
+  if (!isTRUE(con_check)) {
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_character,
-         x = list(huc),
-         .var.name = c("huc"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_character,
+    x = list(huc),
+    .var.name = c("huc"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   ## check logical
   coll <- checkmate::makeAssertCollection()
-  mapply(FUN = checkmate::assert_logical,
-         x = list(tidy, .unnest),
-         .var.name = c("tidy", ".unnest"),
-         MoreArgs = list(null.ok = FALSE,
-                         add = coll))
+  mapply(
+    FUN = checkmate::assert_logical,
+    x = list(tidy, .unnest),
+    .var.name = c("tidy", ".unnest"),
+    MoreArgs = list(null.ok = FALSE, add = coll)
+  )
   checkmate::reportAssertions(coll)
 
   args <- list(huc = huc)
-  path = "attains-public/api/huc12summary"
+  path <- "attains/huc12summary"
 
   ## download data
-  content <- xGET(path,
-                  args,
-                  file = NULL,
-                  ...)
+  content <- xGET(path, args, file = NULL, ...)
 
-  if(is.null(content)) return(content)
+  if (is.null(content)) {
+    return(content)
+  }
 
-  if(!isTRUE(tidy)) {
+  if (!isTRUE(tidy)) {
     return(content)
   } else {
-
     ## parse JSON
-    json_list <- jsonlite::fromJSON(content,
-                                    simplifyVector = TRUE,
-                                    simplifyDataFrame = TRUE,
-                                    flatten = FALSE)
-    
+    json_list <- jsonlite::fromJSON(
+      content,
+      simplifyVector = TRUE,
+      simplifyDataFrame = TRUE,
+      flatten = FALSE
+    )
+
     content <- as_tibble(json_list)
-    
+
     ## if unnest = FALSE do not unnest lists
-    if(!isTRUE(.unnest)) {
+    if (!isTRUE(.unnest)) {
       return(content)
     }
-    
+
     ## create separate tibbles to return as list
-    items <- unnest(content, "items")  
+    items <- unnest(content, "items")
 
     ## create first tibble
     content_huc_summary <- select(items, !where(is.list))
-  
+
     ## create list of tibble names used to assign names in the future list
     content_names <- select(items, where(is.list))
     content_names <- as.list(names(content_names))
 
     list_content <- list(hucSummary = content_huc_summary)
 
-    output_list <- map(content_names,
-    function(x) {
+    output_list <- map(content_names, function(x) {
       y <- unnest(content, "items")
       y <- select(y, all_of(x))
       y <- unnest(y, cols = everything())

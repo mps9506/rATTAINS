@@ -46,6 +46,9 @@ state_summary <- function(
     return(invisible(NULL))
   }
 
+  ## check for API key
+  check_api_key()
+
   ## check that arguments are character
   coll <- checkmate::makeAssertCollection()
   mapply(
@@ -77,7 +80,7 @@ state_summary <- function(
   if (is_empty(args_present)) {
     stop("One of the following arguments must be provided: organization_id")
   }
-  path <- "attains-public/api/usesStateSummary"
+  path <- "attains/usesStateSummary"
 
   ## download data
   content <- xGET(path, args, file = NULL, ...)

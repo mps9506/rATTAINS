@@ -58,7 +58,7 @@ optional}
 \item{parameter_status_name}{(character) Filters the returned assessments to
 those with one or more associated parameters meeting the provided value.
 Valid values are \code{"Meeting Criteria"}, \code{"Cause"}, \code{"Observed
-  Effect"}. Multiple valuse can be provided. optional}
+Effect"}. Multiple valuse can be provided. optional}
 
 \item{probable_source}{(character) Filters the returned assessments to those
 having the specified probable source. Multiple values can be provided.

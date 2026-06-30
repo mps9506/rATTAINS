@@ -6,7 +6,7 @@ http_interactions:
     status: 200
     headers:
       status: 'HTTP/2 200 '
-      date: Mon, 29 Jun 2026 19:38:49 GMT
+      date: Mon, 29 Jun 2026 21:21:32 GMT
       content-type: application/json;charset=UTF-8
       access-control-allow-headers: Content-Type
       access-control-allow-methods: GET, POST, OPTIONS
@@ -18,12 +18,12 @@ http_interactions:
       strict-transport-security: max-age=31536000; includeSubDomains; preload
       vary: Accept-Encoding
       via: https/1.1 api-umbrella (ApacheTrafficServer [cMsSf ])
-      x-api-umbrella-request-id: cv2ji3l2u66vnc191m90
+      x-api-umbrella-request-id: cv2l1473321rsjkgu2d0
       x-cache: MISS
       x-content-type-options: nosniff
       x-ratelimit-limit: '1000'
-      x-ratelimit-remaining: '992'
-      x-vcap-request-id: 10d15a7f-a04e-4fc5-4c8a-3977da905c49
+      x-ratelimit-remaining: '974'
+      x-vcap-request-id: bdef06bd-adc2-458d-6978-ab99bf18dc1f
       x-frame-options: DENY
     body:
       string: '[{"domain":"UseName","name":"Primary Contact Recreation","code":"Primary
@@ -1333,5 +1333,5 @@ http_interactions:
         Resource Warmwater","context":"21IOWA","context2":"ECOLOGICAL_USE","dateModified":"2017-08-28"},{"domain":"UseName","name":"Public
         Water Supply","code":"Public Water Supply","context":"21MSWQ","context2":"DRINKINGWATER_USE","dateModified":"2017-08-28"},{"domain":"UseName","name":"SECONDARY
         CONTACT RECREATION","code":"SECONDARY CONTACT RECREATION","context":"CA_SWRCB","context2":"RECREATION_USE","dateModified":"2017-08-28"}]'
-  recorded_at: 2026-06-29 19:38:50
+  recorded_at: 2026-06-29 21:21:33
 recorded_with: VCR-vcr/2.1.0
