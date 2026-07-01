@@ -2,6 +2,8 @@
 
 ## rATTAINS 1.2.0
 
+CRAN release: 2026-06-30
+
 ### Major change
 
 This relaease adds the required API key for use with ATTAINS that is

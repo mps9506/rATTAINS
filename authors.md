@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/mps9506/rATTAINS/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/mps9506/rATTAINS/blob/v1.2.0/inst/CITATION)
 
 Schramm, Michael (2021). rATTAINS: Access EPA 'ATTAINS' Data. R package
 version 1.0.1 doi:10.5281/zenodo.5469911
